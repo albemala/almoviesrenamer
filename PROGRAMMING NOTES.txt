@@ -1,0 +1,18 @@
+
+License: GNU General Public License version 3 (GPLv3)
+
+Libraries:
+    Python 2.6
+    PyQt 4.7 (http://www.riverbankcomputing.co.uk/software/pyqt/download)
+    IMDbPY (http://imdbpy.sourceforge.net/)
+        python setup.py --without-cutils install
+	4.6 under Windows
+	4.5 under Linux
+    Hachoir 1.3 (core, metadata, parser) (http://bitbucket.org/haypo/hachoir/wiki/Home)
+
+IDE: NetBeans 6.9
+
+Packaging:
+    cx_Freeze 4.2
+    python-dev [under Linux]
+    libsssl-dev [under Linux]

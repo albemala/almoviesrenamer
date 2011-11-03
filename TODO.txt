@@ -1,0 +1,74 @@
+﻿
+
+
+problema con l'aka: nelle regole di rinomina, o scelgo l'aka o scelgo il titolo originale.
+devo fare qualcosa per scegliere in automatico uno dei due in base alla lingua scelta
+
+problema con la dimensione del pannello inferiore
+
+errore quando carico un film, lo rinomino con successo, poi cambio rule e lo rinomino: impossibile trovare il file specificato
+vedi errore 27/10
+
+anche il nome originale deve cambiare a seguito di rinomina con successo 
+
+scrivere changelog
+scrivere readme, unificandolo con programming notes 
+
+
+
+piu regole di rinomina alla volta possono esssre rimosse
+
+uso della durata del video per determinare il runtime migliore
+mediainfo
+
+doppio click sugli item delle tabelle per aprire la cartella che contiene i file corrispondenti
+
+controllare se la connessione ad internet è attiva, e in caso contrario notificare
+
+creare un'unica funzione "setMovieState" che aggiorna lo stato di un film e la gui
+in base allo stato, usando uno switch
+
+creare un autoupdate? o solo una notifica di nuovi aggiornamenti...
+
+mettere un pulsante per fermare la ricerca e tornare o alla vista delle info sul film o alla ricerca manuale
+
+guessing:
+
+	anno del film, da usare anche come criterio per affinare la ricerca ed eliminare i titoli che non corrispondono a quello cercato
+
+	quando la ricerca su IMDB ritorna, fare un matching col titolo del film cercato e scartare i titoli troppo diversi, e selezionare direttamente quello piu simile
+
+		usare anche gli aka come metodo di paragone (ma forse devo recuperare tutte le info sul film prima)
+
+	usare un dictionary per memorizzare le info predette?
+	
+	
+
+http://api.themoviedb.org/2.1/wrappers
+
+The policy we use with PyQt is as follows:
+• Use type str only when working with strictly 7-bit ASCII strings or with
+raw 8-bit data, that is, with raw bytes.
+• For strings that will be used only by PyQt functions, for example, strings
+that are returned by one PyQt function only to be passed at some point to
+another PyQt function—do not convert such strings. Simply keep them as
+QStrings.
+• In all other cases, use unicode strings, converting QStrings to unicode as
+soon as possible. In other words, as soon as a QString has been returned
+from a Qt function, always immediately convert it to type unicode.
+This policy means that we avoid making incorrect assumptions about 8-bit
+string encodings (because we use Unicode). It also ensures that the strings we
+pass to Python functions have the methods that Python expects: QStrings have
+different methods from str and unicode, so passing them to Python functions
+can lead to errors. PyQt uses QString rather than unicode because when PyQt
+was first created, Python’s Unicode support was nowhere near as good as it
+is today.
+
+le liste sono mutabili, quindi se ne faccio delle copie e cambio le copie,
+anche l'originale cambia. per caso modifico copie di liste da qualche parte?
+
+usare i set quando voglio liste con item non duplicati
+
+
+
+
