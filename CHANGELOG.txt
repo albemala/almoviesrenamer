@@ -75,3 +75,24 @@
 
 2.0
 
+	CHG: almost completely new GUI, with a totally new and faster renaming work flow. 
+		 now there is only one renaming rule, used for all the movies, which can be created 
+		 in a new, easier way.
+	CHG: now the program is smarter on recognizing movie titles, and it tries to reduce user
+		 intervention on defining the names
+	CHG: dropped most of the movie attributes
+	CHG: dropped use of hachoir parser
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

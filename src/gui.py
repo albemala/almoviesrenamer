@@ -96,8 +96,7 @@ class GUI(QMainWindow):
             self.last_visited_directory = os.path.normpath(os.path.split(filepaths[0])[0])
             # save it in settings
             self.settings.setValue("last_visited_directory", self.last_visited_directory)
-            # show loading panel
-            self.ui.panel_loading.setVisible(True)
+
             # start loading thread
             loader = threading.Thread(target=self.load_movies, args=(filepaths,))
             loader.start()
@@ -132,8 +131,6 @@ class GUI(QMainWindow):
                 if os.path.isfile(entry) and extension in self.VIDEO_EXTENSIONS:
                     # save entry with path
                     filepaths.append(entry)
-            # show loading panel
-            self.ui.panel_loading.setVisible(True)
             # start loading thread
             loader = threading.Thread(target=self.load_movies, args=(filepaths,))
             loader.start()
@@ -170,8 +167,6 @@ class GUI(QMainWindow):
                     if extension in self.VIDEO_EXTENSIONS:
                         # save entry with path
                         filepaths.append(entry)
-            # show loading panel
-            self.ui.panel_loading.setVisible(True)
             # start loading thread
             loader = threading.Thread(target=self.load_movies, args=(filepaths,))
             loader.start()
@@ -182,6 +177,9 @@ class GUI(QMainWindow):
         file, get info from it, and populate movies table
         """
 
+        # show loading panel
+        self.ui.panel_loading.setVisible(True)
+        self.ui.progress_loading.setMaximum(0)
         # loop on file paths
         for filepath in filepaths:
             # set loading label text, show current file name
@@ -205,7 +203,7 @@ class GUI(QMainWindow):
         self.ui.table_movies.resizeColumnToContents(0)
         # hide loading panel
         self.ui.panel_loading.setVisible(False)
-        self.adjustSize()
+        self.ui.progress_loading.setMaximum(1)
 
     def remove_selected_movies(self):
         """
@@ -443,6 +441,7 @@ class GUI(QMainWindow):
             return
         # show searching panel
         self.ui.stack_title_search.setCurrentIndex(1)
+        self.ui.progress_searching.setMaximum(0)
         # start searching thread
         loader = threading.Thread(target=self.search, args=(title,))
         loader.start()
@@ -465,6 +464,7 @@ class GUI(QMainWindow):
             self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
             # populate movie panel
             self.populate_movie_stack(self.current_movie)
+        self.ui.progress_searching.setMaximum(1)
 
     def search_again_for_title(self):
         """
