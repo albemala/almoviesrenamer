@@ -32,7 +32,7 @@ class GUI(QMainWindow):
         # stores movies objects
         self.movies = []
         # stores current (selected) movie
-        self.current_movie = None
+        self.selected_movie = None
 
         # load GUI
         self.ui = loadUi("main_window.ui", self)
@@ -261,6 +261,7 @@ class GUI(QMainWindow):
         """
         rename files with new name
         """
+        print(self.movies)
 
         # loop on movies
         for i in range(len(self.movies)):
@@ -274,19 +275,20 @@ class GUI(QMainWindow):
                     os.rename(movie.get_abs_original_name(), movie.get_abs_new_name())
                 except OSError as e:
                     # set state and renaming error
-                    movie.state = Movie.STATE_RENAMING_ERROR
-                    movie.renaming_error = e.strerror
+                    movie.set_state(Movie.STATE_RENAMING_ERROR, e.strerror)
                     # paint "new name" table item with red
                     self.ui.table_movies.item(i, 1).setForeground(QBrush(Qt.red))
                 else:
                     # correclty renamed
-                    movie.state = Movie.STATE_RENAMED
+                    movie.set_state(Movie.STATE_RENAMED)
                     # set "original name" table item with new movie name
                     self.ui.table_movies.item(i, 0).setText(movie.new_name)
                     # paint "new name" table item with green
                     self.ui.table_movies.item(i, 1).setForeground(QBrush(Qt.darkGreen))
         # if a table item is selected, update panel
         self.movies_selection_changed()
+
+        print(self.movies)
 
     # MENU ?
 
@@ -351,11 +353,13 @@ class GUI(QMainWindow):
             self.ui.stack_movie.setVisible(False)
         else:
             # store first selected movie
-            self.current_movie = self.movies[selected_items[0].row()]
+            self.selected_movie = selected_items[0]
+            movie = self.movies[self.selected_movie.row()]
+
             # set movie panel based on movie state (
-            self.ui.stack_movie.setCurrentIndex(self.current_movie.state)
+            self.ui.stack_movie.setCurrentIndex(movie.state)
             # populate movie panel
-            self.populate_movie_stack(self.current_movie)
+            self.populate_movie_stack(movie)
             # set panel visible
             self.ui.stack_movie.setVisible(True)
 
@@ -369,51 +373,59 @@ class GUI(QMainWindow):
         the proper one.
         """
 
+        row = self.selected_movie.row()
+        movie = self.movies[row]
         # set new index on movie
-        self.current_movie.info_index = index
+        movie.info_index = index
         # generate new movie name
-        self.current_movie.generate_new_name(self.renaming_rule)
+        movie.generate_new_name(self.renaming_rule)
         # update table with new name
-        self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
+        self.ui.table_movies.item(row, 1).setText(movie.new_name)
         # selected movie title changed, so movie panel needs to
         # be populated with current movie title information
-        self.populate_movie_info(self.current_movie)
+        self.populate_movie_info(movie)
 
     def aka_changed(self, index):
         """
         called when AKA, for current movie, changes
         """
 
+        row = self.selected_movie.row()
+        movie = self.movies[row]
         # set new index on movie
-        self.current_movie.info[self.current_movie.info_index][Movie.AKAS_INDEX] = index
+        movie.info[movie.info_index][Movie.AKAS_INDEX] = index
         # generate new movie name
-        self.current_movie.generate_new_name(self.renaming_rule)
+        movie.generate_new_name(self.renaming_rule)
         # update table with new name
-        self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
+        self.ui.table_movies.item(row, 1).setText(movie.new_name)
 
     def runtime_changed(self, index):
         """
         called when runtime, for selected movie, changes
         """
 
+        row = self.selected_movie.row()
+        movie = self.movies[row]
         # set new index on movie
-        self.current_movie.info[self.current_movie.info_index][Movie.RUNTIMES_INDEX] = index
+        movie.info[movie.info_index][Movie.RUNTIMES_INDEX] = index
         # generate new movie name
-        self.current_movie.generate_new_name(self.renaming_rule)
+        movie.generate_new_name(self.renaming_rule)
         # update table with new name
-        self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
+        self.ui.table_movies.item(row, 1).setText(movie.new_name)
 
     def language_changed(self, index):
         """
         called when language, for selected movie, changes
         """
 
+        row = self.selected_movie.row()
+        movie = self.movies[row]
         # set new index on movie
-        self.current_movie.language_index = index
+        movie.language_index = index
         # generate new movie name
-        self.current_movie.generate_new_name(self.renaming_rule)
+        movie.generate_new_name(self.renaming_rule)
         # update table with new name
-        self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
+        self.ui.table_movies.item(row, 1).setText(movie.new_name)
 
     def manual_title_search(self, checked):
         """
@@ -451,19 +463,21 @@ class GUI(QMainWindow):
         thread used for movie title searching
         """
 
+        row = self.selected_movie.row()
+        movie = self.movies[row]
         # search for movie title
-        self.current_movie.search_title(title)
+        movie.search_title(title)
         # no corresponding movie found
-        if len(self.current_movie.info) == 0:
+        if len(movie.info) == 0:
             # set failed search panel
             self.ui.stack_title_search.setCurrentIndex(2)
         else:
             # generate new movie name, based on new information
-            self.current_movie.generate_new_name(self.renaming_rule)
+            movie.generate_new_name(self.renaming_rule)
             # update table with new name
-            self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
+            self.ui.table_movies.item(row, 1).setText(movie.new_name)
             # populate movie panel
-            self.populate_movie_stack(self.current_movie)
+            self.populate_movie_stack(movie)
         self.ui.progress_searching.setMaximum(1)
 
     def search_again_for_title(self):

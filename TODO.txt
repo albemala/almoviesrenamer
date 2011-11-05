@@ -3,11 +3,6 @@
 problema con l'aka: nelle regole di rinomina, o scelgo l'aka o scelgo il titolo originale.
 devo fare qualcosa per scegliere in automatico uno dei due in base alla lingua scelta
 
-errore quando carico un film, lo rinomino con successo, poi cambio rule e lo rinomino: impossibile trovare il file specificato
-vedi errore 27/10
-
-anche il nome originale deve cambiare a seguito di rinomina con successo 
-
 scrivere changelog
 
 
