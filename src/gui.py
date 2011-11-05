@@ -371,99 +371,134 @@ class GUI(QMainWindow):
         the proper one.
         """
 
+        # set new index on movie
         self.current_movie.info_index = index
-
+        # generate new movie name
         self.current_movie.generate_new_name(self.renaming_rule)
+        # update table with new name
         self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
-
+        # selected movie title changed, so movie panel needs to
+        # be populated with current movie title information
         self.populate_movie_info(self.current_movie)
 
     def aka_changed(self, index):
         """
-        called when AKA in comboAKA, for selected movie, changes
+        called when AKA, for current movie, changes
         """
 
+        # set new index on movie
         self.current_movie.info[self.current_movie.info_index][Movie.AKAS_INDEX] = index
-
+        # generate new movie name
         self.current_movie.generate_new_name(self.renaming_rule)
+        # update table with new name
         self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
 
     def runtime_changed(self, index):
         """
-        called when AKA in comboAKA, for selected movie, changes
+        called when runtime, for selected movie, changes
         """
 
+        # set new index on movie
         self.current_movie.info[self.current_movie.info_index][Movie.RUNTIMES_INDEX] = index
-
+        # generate new movie name
         self.current_movie.generate_new_name(self.renaming_rule)
+        # update table with new name
         self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
 
     def language_changed(self, index):
         """
-        called when language in comboLanguage, for selected movie, changes
+        called when language, for selected movie, changes
         """
 
+        # set new index on movie
         self.current_movie.language_index = index
-
+        # generate new movie name
         self.current_movie.generate_new_name(self.renaming_rule)
+        # update table with new name
         self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
 
     def manual_title_search(self, checked):
+        """
+        show or hide manual title search panel
+        
+        button associated with that slot is a toggle button,
+        so checked represents its state
+        """
+
+        # title search panel visibility
         self.ui.stack_title_search.setVisible(checked)
+        # search panel visible
         if checked:
-            self.ui.stack_title_search.setCurrentIndex(0)
-            self.ui.text_title_search.selectAll()
-            self.ui.text_title_search.setFocus()
+            self.prepare_new_search()
 
     def search_for_title(self):
         """
+        search for a movie title
         """
 
+        # get title to look for
         title = unicode(self.ui.text_title_search.text())
-
         # do not start searching if textTitleSearch is empty
         if title.strip() == "":
             return
-
+        # show searching panel
         self.ui.stack_title_search.setCurrentIndex(1)
-
+        # start searching thread
         loader = threading.Thread(target=self.search, args=(title,))
         loader.start()
 
     def search(self, title):
         """
+        thread used for movie title searching
         """
 
+        # search for movie title
         self.current_movie.search_title(title)
-
+        # no corresponding movie found
         if len(self.current_movie.info) == 0:
+            # set failed search panel
             self.ui.stack_title_search.setCurrentIndex(2)
         else:
+            # generate new movie name, based on new information
             self.current_movie.generate_new_name(self.renaming_rule)
+            # update table with new name
             self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
+            # populate movie panel
             self.populate_movie_stack(self.current_movie)
 
     def search_again_for_title(self):
         """
+        called when user wants to search again for a title
         """
 
+        self.prepare_new_search()
+
+    def prepare_new_search(self):
+        """
+        prepare searching panel for a new title search
+        """
+
+        # set stack index on search panel
         self.ui.stack_title_search.setCurrentIndex(0)
+        # select all text in searching text field
         self.ui.text_title_search.selectAll()
+        # set focus on searching text field
         self.ui.text_title_search.setFocus()
 
     def populate_movie_stack(self, movie):
         """
-        used to update the combo with titles about selected movie
+        used to update movie panel with information about selected movie,
+        based on movie state
         """
 
         if movie.state == Movie.STATE_RENAMING_ERROR:
             self.ui.label_error.setText(movie.renaming_error)
-
         elif movie.state == Movie.STATE_BEFORE_RENAMING:
             # clear the titles combo...
             self.ui.combo_movie_titles.clear()
+            # if movie info not empty
             if len(movie.info) != 0:
-                # populate it with titles
+                # populate combo with titles
                 for movie_info in movie.info:
                     self.ui.combo_movie_titles.addItem(movie_info['title'])
                 # set the proper index
@@ -473,17 +508,19 @@ class GUI(QMainWindow):
 
     def populate_movie_info(self, movie):
         """
-        used to update the panel with information about selected movie
+        used to update movie panel with information about 
+        selected movie title
         """
 
         self.ui.combo_aka.clear()
         self.ui.combo_runtime.clear()
-
+        # reset search panel
         self.ui.button_manual_title_search.setChecked(False)
         self.ui.stack_title_search.setCurrentIndex(0)
         self.ui.text_title_search.setText("")
-
+        # if movie info not empty
         if len(movie.info) != 0:
+            # get movie index
             info = movie.info[movie.info_index]
             self.ui.label_canonical_title.setText(info[Movie.CANONICAL_TITLE])
             self.ui.combo_aka.addItems(info[Movie.AKAS])
@@ -496,7 +533,6 @@ class GUI(QMainWindow):
             self.ui.label_canonical_title.setText('')
             self.ui.label_year.setText('')
             self.ui.label_director.setText('')
-
         self.ui.combo_language.setCurrentIndex(movie.language_index)
 
 
