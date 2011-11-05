@@ -21,6 +21,8 @@ class GUI(QMainWindow):
 
     def __init__(self):
         QMainWindow.__init__(self)
+
+        #-------------------- variables
         # load settings
         self.settings = QSettings("settings.ini", QSettings.IniFormat)
         # get renaming rule from settings
@@ -29,6 +31,9 @@ class GUI(QMainWindow):
         self.last_visited_directory = self.settings.value("last_visited_directory").toString()
         # stores movies objects
         self.movies = []
+        # stores current (selected) movie
+        self.current_movie = None
+
         # load GUI
         self.ui = loadUi("main_window.ui", self)
         # create RenamingRuleDialog
@@ -37,8 +42,10 @@ class GUI(QMainWindow):
         self.ui.panel_loading.setVisible(False)
         self.ui.stack_movie.setVisible(False)
         self.ui.stack_title_search.setVisible(False)
+        self.ui.table_movies.resizeColumnToContents(0)
         # adjust wondow size to content
         self.adjustSize()
+
         ## connect signals
         # MENU Movies
         self.ui.action_add_movies.triggered.connect(self.add_movies)
@@ -63,7 +70,7 @@ class GUI(QMainWindow):
         self.ui.button_title_search.clicked.connect(self.search_for_title)
         self.ui.button_title_new_research.clicked.connect(self.search_again_for_title)
 
-    ################################# SLOTS ##############################    
+    #--------------------------------- SLOTS ----------------------------------
 
     # MENU Movies
 
@@ -92,7 +99,7 @@ class GUI(QMainWindow):
             # show loading panel
             self.ui.panel_loading.setVisible(True)
             # start loading thread
-            loader = threading.Thread(target = self.load_movies, args = (filepaths,))
+            loader = threading.Thread(target=self.load_movies, args=(filepaths,))
             loader.start()
 
     def add_movies_in_folder(self):
@@ -128,7 +135,7 @@ class GUI(QMainWindow):
             # show loading panel
             self.ui.panel_loading.setVisible(True)
             # start loading thread
-            loader = threading.Thread(target = self.load_movies, args = (filepaths,))
+            loader = threading.Thread(target=self.load_movies, args=(filepaths,))
             loader.start()
 
     def add_movies_in_folder_subfolders(self):
@@ -166,7 +173,7 @@ class GUI(QMainWindow):
             # show loading panel
             self.ui.panel_loading.setVisible(True)
             # start loading thread
-            loader = threading.Thread(target = self.load_movies, args = (filepaths,))
+            loader = threading.Thread(target=self.load_movies, args=(filepaths,))
             loader.start()
 
     def load_movies(self, filepaths):
@@ -198,6 +205,7 @@ class GUI(QMainWindow):
         self.ui.table_movies.resizeColumnToContents(0)
         # hide loading panel
         self.ui.panel_loading.setVisible(False)
+        self.adjustSize()
 
     def remove_selected_movies(self):
         """
@@ -334,83 +342,71 @@ class GUI(QMainWindow):
 
     def movies_selection_changed(self):
         """
-        called when selection in tableMoviesChoose changes, i.e. user selects
-        different movies from the previously selected ones.
+        called when selection in table_movies changes, i.e. user selects
+        different movies from previously selected ones.
         """
 
         selected_items = self.ui.table_movies.selectedItems()
-
         # no movies selected
         if len(selected_items) == 0:
             # hide movie panel
             self.ui.stack_movie.setVisible(False)
-
         else:
-            movie = self.movies[selected_items[0].row()]
-            self.ui.stack_movie.setCurrentIndex(movie.state)
-
-            self.populate_movie_stack(movie)
-
+            # store first selected movie
+            self.current_movie = self.movies[selected_items[0].row()]
+            # set movie panel based on movie state (
+            self.ui.stack_movie.setCurrentIndex(self.current_movie.state)
+            # populate movie panel
+            self.populate_movie_stack(self.current_movie)
+            # set panel visible
             self.ui.stack_movie.setVisible(True)
 
     # STACK movie
 
     def movie_title_changed(self, index):
         """
+        called when current movie title changes.
+        
+        each movie have at least one title associated, and user can change 
+        the proper one.
         """
 
-        selected_items = self.ui.table_movies.selectedItems()
-        row = selected_items[0].row()
-        movie = self.movies[row]
+        self.current_movie.info_index = index
 
-        movie.info_index = index
+        self.current_movie.generate_new_name(self.renaming_rule)
+        self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
 
-        movie.generate_new_name(self.renaming_rule)
-        self.ui.table_movies.item(row, 1).setText(movie.new_name)
-
-        self.populate_movie_info(movie)
+        self.populate_movie_info(self.current_movie)
 
     def aka_changed(self, index):
         """
         called when AKA in comboAKA, for selected movie, changes
         """
 
-        selected_items = self.ui.table_movies.selectedItems()
-        row = selected_items[0].row()
-        movie = self.movies[row]
+        self.current_movie.info[self.current_movie.info_index][Movie.AKAS_INDEX] = index
 
-        movie.info[movie.info_index][Movie.AKAS_INDEX] = index
-
-        movie.generate_new_name(self.renaming_rule)
-        self.ui.table_movies.item(row, 1).setText(movie.new_name)
+        self.current_movie.generate_new_name(self.renaming_rule)
+        self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
 
     def runtime_changed(self, index):
         """
         called when AKA in comboAKA, for selected movie, changes
         """
 
-        selected_items = self.ui.table_movies.selectedItems()
-        row = selected_items[0].row()
-        movie = self.movies[row]
+        self.current_movie.info[self.current_movie.info_index][Movie.RUNTIMES_INDEX] = index
 
-        movie.info[movie.info_index][Movie.RUNTIMES_INDEX] = index
-
-        movie.generate_new_name(self.renaming_rule)
-        self.ui.table_movies.item(row, 1).setText(movie.new_name)
+        self.current_movie.generate_new_name(self.renaming_rule)
+        self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
 
     def language_changed(self, index):
         """
         called when language in comboLanguage, for selected movie, changes
         """
 
-        selected_items = self.ui.table_movies.selectedItems()
-        row = selected_items[0].row()
-        movie = self.movies[row]
+        self.current_movie.language_index = index
 
-        movie.language_index = index
-
-        movie.generate_new_name(self.renaming_rule)
-        self.ui.table_movies.item(row, 1).setText(movie.new_name)
+        self.current_movie.generate_new_name(self.renaming_rule)
+        self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
 
     def manual_title_search(self, checked):
         self.ui.stack_title_search.setVisible(checked)
@@ -431,25 +427,21 @@ class GUI(QMainWindow):
 
         self.ui.stack_title_search.setCurrentIndex(1)
 
-        loader = threading.Thread(target = self.search, args = (title,))
+        loader = threading.Thread(target=self.search, args=(title,))
         loader.start()
 
     def search(self, title):
         """
         """
 
-        selected_items = self.ui.table_movies.selectedItems()
-        row = selected_items[0].row()
-        movie = self.movies[row]
+        self.current_movie.search_title(title)
 
-        movie.search_title(title)
-
-        if len(movie.info) == 0:
+        if len(self.current_movie.info) == 0:
             self.ui.stack_title_search.setCurrentIndex(2)
         else:
-            movie.generate_new_name(self.renaming_rule)
-            self.ui.table_movies.item(row, 1).setText(movie.new_name)
-            self.populate_movie_stack(movie)
+            self.current_movie.generate_new_name(self.renaming_rule)
+            self.ui.table_movies.item(row, 1).setText(self.current_movie.new_name)
+            self.populate_movie_stack(self.current_movie)
 
     def search_again_for_title(self):
         """

@@ -1,5 +1,5 @@
 ﻿
-
+la dialog renaming rule non ha bottoni di chiusura iin linux
 
 problema con l'aka: nelle regole di rinomina, o scelgo l'aka o scelgo il titolo originale.
 devo fare qualcosa per scegliere in automatico uno dei due in base alla lingua scelta
