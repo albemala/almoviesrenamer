@@ -38,7 +38,7 @@
        <item>
         <widget class="QProgressBar" name="progress_loading">
          <property name="maximum">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="textVisible">
           <bool>false</bool>
@@ -83,7 +83,7 @@
     <item>
      <widget class="QStackedWidget" name="stack_movie">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_2">
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -196,7 +196,7 @@
             <item>
              <widget class="QProgressBar" name="progress_searching">
               <property name="maximum">
-               <number>1</number>
+               <number>0</number>
               </property>
               <property name="textVisible">
                <bool>false</bool>
@@ -346,8 +346,12 @@ p, li { white-space: pre-wrap; }
           </property>
          </widget>
         </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_6">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <spacer name="verticalSpacer">
+         <spacer name="verticalSpacer_3">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -359,10 +363,6 @@ p, li { white-space: pre-wrap; }
           </property>
          </spacer>
         </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="page_6">
-       <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
@@ -412,7 +412,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>507</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

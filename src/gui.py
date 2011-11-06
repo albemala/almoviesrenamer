@@ -179,7 +179,7 @@ class GUI(QMainWindow):
 
         # show loading panel
         self.ui.panel_loading.setVisible(True)
-        self.ui.progress_loading.setMaximum(0)
+#        self.ui.progress_loading.setMaximum(0)
         # loop on file paths
         for filepath in filepaths:
             # set loading label text, show current file name
@@ -203,7 +203,7 @@ class GUI(QMainWindow):
         self.ui.table_movies.resizeColumnToContents(0)
         # hide loading panel
         self.ui.panel_loading.setVisible(False)
-        self.ui.progress_loading.setMaximum(1)
+#        self.ui.progress_loading.setMaximum(1)
 
     def remove_selected_movies(self):
         """
@@ -261,7 +261,6 @@ class GUI(QMainWindow):
         """
         rename files with new name
         """
-        print(self.movies)
 
         # loop on movies
         for i in range(len(self.movies)):
@@ -287,8 +286,6 @@ class GUI(QMainWindow):
                     self.ui.table_movies.item(i, 1).setForeground(QBrush(Qt.darkGreen))
         # if a table item is selected, update panel
         self.movies_selection_changed()
-
-        print(self.movies)
 
     # MENU ?
 
@@ -453,7 +450,7 @@ class GUI(QMainWindow):
             return
         # show searching panel
         self.ui.stack_title_search.setCurrentIndex(1)
-        self.ui.progress_searching.setMaximum(0)
+#        self.ui.progress_searching.setMaximum(0)
         # start searching thread
         loader = threading.Thread(target=self.search, args=(title,))
         loader.start()
@@ -478,7 +475,7 @@ class GUI(QMainWindow):
             self.ui.table_movies.item(row, 1).setText(movie.new_name)
             # populate movie panel
             self.populate_movie_stack(movie)
-        self.ui.progress_searching.setMaximum(1)
+#        self.ui.progress_searching.setMaximum(1)
 
     def search_again_for_title(self):
         """
