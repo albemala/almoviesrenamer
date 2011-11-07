@@ -155,7 +155,7 @@
         <item>
          <widget class="QStackedWidget" name="stack_title_search">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="page">
            <layout class="QHBoxLayout" name="horizontalLayout">
@@ -210,7 +210,7 @@
             <item>
              <widget class="QLabel" name="label_18">
               <property name="text">
-               <string>I cannot find the title of this movie.</string>
+               <string>I cannot find that movie.</string>
               </property>
              </widget>
             </item>
@@ -465,10 +465,10 @@ p, li { white-space: pre-wrap; }
      <normaloff>icons/information.png</normaloff>icons/information.png</iconset>
    </property>
    <property name="text">
-    <string>About...</string>
+    <string>About ALmoviesRenamer</string>
    </property>
    <property name="toolTip">
-    <string>About...</string>
+    <string>About ALmoviesRenamer</string>
    </property>
   </action>
   <action name="action_add_movies">
@@ -504,7 +504,10 @@ p, li { white-space: pre-wrap; }
      <normaloff>icons/movie_remove.png</normaloff>icons/movie_remove.png</iconset>
    </property>
    <property name="text">
-    <string>Remove selected movies</string>
+    <string>Remove selected movies from list</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove selected movies from list</string>
    </property>
   </action>
   <action name="action_remove_all_movies">
@@ -513,7 +516,10 @@ p, li { white-space: pre-wrap; }
      <normaloff>icons/movie_erase.png</normaloff>icons/movie_erase.png</iconset>
    </property>
    <property name="text">
-    <string>Remove all movies</string>
+    <string>Remove all movies from list</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove all movies from list</string>
    </property>
   </action>
   <action name="action_change_rename_pattern">
@@ -522,7 +528,10 @@ p, li { white-space: pre-wrap; }
      <normaloff>icons/tag.png</normaloff>icons/tag.png</iconset>
    </property>
    <property name="text">
-    <string>Change rename pattern</string>
+    <string>Change renaming rule</string>
+   </property>
+   <property name="toolTip">
+    <string>Change  renaming rule</string>
    </property>
   </action>
   <action name="action_rename_movies">

@@ -1,11 +1,12 @@
 ﻿
-
-problema con l'aka: nelle regole di rinomina, o scelgo l'aka o scelgo il titolo originale.
-devo fare qualcosa per scegliere in automatico uno dei due in base alla lingua scelta
-
-scrivere changelog
+testing
+packaging
 
 
+statistiche di utilizzo:
+- app web
+- dialog di notifica
+- settings
 
 piu regole di rinomina alla volta possono esssre rimosse
 
