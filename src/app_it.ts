@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="it_IT" sourcelanguage="it_IT">
+<!DOCTYPE TS><TS version="2.0" language="it_IT" sourcelanguage="it_IT">
 <context>
     <name>Dialog</name>
     <message>
@@ -140,7 +139,7 @@
                     &lt;li&gt;&lt;a href=&quot;http://www.riverbankcomputing.co.uk/software/pyqt/download&quot;&gt;PyQt&lt;/a&gt;&lt;/li&gt;
                     &lt;li&gt;&lt;a href=&quot;http://imdbpy.sourceforge.net/&quot;&gt;IMDbPY&lt;/a&gt;&lt;/li&gt;
                     
-                    &lt;li&gt;&lt;a href=&quot;http://file-folder-ren.sourceforge.net/&quot;&gt;Métamorphose&lt;/a&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://file-folder-ren.sourceforge.net/&quot;&gt;M&#xe9;tamorphose&lt;/a&gt;
                         for some stolen code&lt;/li&gt;
                     &lt;li&gt;&lt;a href=&quot;http://eric-ide.python-projects.org/&quot;&gt;Eric IDE&lt;/a&gt;
                         for code in &lt;i&gt;excepthook&lt;/i&gt; function (exceptionhandler.py file)&lt;/li&gt;
@@ -440,7 +439,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="main_window.ui" line="471"/>
         <source>About ALmoviesRenamer</source>
-        <translation type="unfinished">Riguardo ALmoviesRenamer</translation>
+        <translation>Riguardo ALmoviesRenamer</translation>
     </message>
 </context>
 </TS>
