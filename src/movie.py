@@ -287,6 +287,8 @@ class Movie:
             keys.append(self.AKAS)
             keys.append(self.AKAS_INDEX)
             akas = []
+            # first aka is the original title
+            akas.append(movie[self.TITLE])
             akas_index = 0
             try:
                 # example of AKAs for "Near Dark" movie:
@@ -303,10 +305,16 @@ class Movie:
                 # u'"Quando Chega a Escurid\xe3o" - Brazil'
 
                 # select AKAS index based on most probable language.
-                # for each AKAS in candidateMovie
-                for i in range(len(movie[self.AKAS])):
+                # loop on akas
+                akas_original = movie[self.AKAS]
+                for i in range(len(akas_original)):
                     # get AKAS
-                    aka = movie[self.AKAS][i]
+                    try:
+                        aka = unicode(akas_original[i])
+                        print(aka)
+                    except UnicodeEncodeError:
+                        pass
+
                     # if spanish language is the most probable one and if current AKAS
                     # is the spanish one...
                     if self.language_index == 1 and re.search(r'Spain', aka):
@@ -320,9 +328,9 @@ class Movie:
                     elif self.language_index == 4 and re.search(r'Italy', aka):
                         akas_index = i
 
-                for aka in movie[self.AKAS]:
+#                for aka in movie[self.AKAS]:
                     # sometimes the AKAs list ends with a u'\xbb', so I remove it
-                    if unicode(aka) != u'\xbb':
+                    if aka != u'\xbb':
                         # takes only the AKAS title
                         # under Linux
                         if aka.startswith('"'):
