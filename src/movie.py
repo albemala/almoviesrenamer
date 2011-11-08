@@ -311,7 +311,6 @@ class Movie:
                     # get AKAS
                     try:
                         aka = unicode(akas_original[i])
-                        print(aka)
                     except UnicodeEncodeError:
                         pass
 
@@ -328,7 +327,6 @@ class Movie:
                     elif self.language_index == 4 and re.search(r'Italy', aka):
                         akas_index = i
 
-#                for aka in movie[self.AKAS]:
                     # sometimes the AKAs list ends with a u'\xbb', so I remove it
                     if aka != u'\xbb':
                         # takes only the AKAS title
@@ -399,43 +397,43 @@ class Movie:
             # loop on rules
             for i in range(len(rules)):
                 rule = rules[i]
-#                try:
-                if rule in info_keys:
-                    # get corresponding info, based on info index also
-                    info = self.info[self.info_index][rule]
-                    # if rule is AKAS or RUNTIMES, get corresponding rule based 
-                    # on selected index
-                    if rule == self.AKAS:
-                        index = self.info[self.info_index][self.AKAS_INDEX]
-                        info = info[index]
-                    elif rule == self.RUNTIMES:
-                        index = self.info[self.info_index][self.RUNTIMES_INDEX]
-                        info = info[index]
-                    # append info to new name
-                    new_name.append(info)
-                    if i + 1 < len(rules):
-                        # if next rule is not an opened or closed bracket 
-                        if rules[i + 1] not in opened_brackets and \
-                        rules[i + 1] not in closed_brackets:
-                            # separate info with a comma
-                            new_name.append(', ')
-                elif rule in opened_brackets:
-                    new_name.append(' ' + rule)
-                elif rule in closed_brackets:
-                    new_name.append(rule + ' ')
-                elif rule == self.LANGUAGE:
-                    # append selected language to new name
-                    new_name.append(self.LANGUAGES_INDEXES_CODES[self.language_index])
-                    if i + 1 < len(rules):
-                        # if next rule is not an opened or closed bracket 
-                        if rules[i + 1] not in opened_brackets and \
-                        rules[i + 1] not in closed_brackets:
-                            # separate info with a comma
-                            new_name.append(', ')
-#                except KeyError:
-#                    pass
-#                except IndexError:
-#                    pass
+                try:
+                    if rule in info_keys:
+                        # get corresponding info, based on info index also
+                        info = self.info[self.info_index][rule]
+                        # if rule is AKAS or RUNTIMES, get corresponding rule based 
+                        # on selected index
+                        if rule == self.AKAS:
+                            index = self.info[self.info_index][self.AKAS_INDEX]
+                            info = info[index]
+                        elif rule == self.RUNTIMES:
+                            index = self.info[self.info_index][self.RUNTIMES_INDEX]
+                            info = info[index]
+                        # append info to new name
+                        new_name.append(info)
+                        if i + 1 < len(rules):
+                            # if next rule is not an opened or closed bracket 
+                            if rules[i + 1] not in opened_brackets and \
+                            rules[i + 1] not in closed_brackets:
+                                # separate info with a comma
+                                new_name.append(', ')
+                    elif rule in opened_brackets:
+                        new_name.append(' ' + rule)
+                    elif rule in closed_brackets:
+                        new_name.append(rule + ' ')
+                    elif rule == self.LANGUAGE:
+                        # append selected language to new name
+                        new_name.append(self.LANGUAGES_INDEXES_CODES[self.language_index])
+                        if i + 1 < len(rules):
+                            # if next rule is not an opened or closed bracket 
+                            if rules[i + 1] not in opened_brackets and \
+                            rules[i + 1] not in closed_brackets:
+                                # separate info with a comma
+                                new_name.append(', ')
+                except KeyError:
+                    pass
+                except IndexError:
+                    pass
             # if current movie is divided into parts 
             if self.part != '0':
                 # if next rule is not an opened or closed bracket 
