@@ -1,7 +1,7 @@
 # -*- coding: latin-1 -*-
 __author__ = "Alberto Malagoli"
 
-from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt
+from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal
 from PyQt4.QtGui import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, \
     QBrush
 from PyQt4.uic import loadUi
@@ -18,6 +18,8 @@ class GUI(QMainWindow):
     VIDEO_EXTENSIONS = [".3g2", ".3gp", ".asf", ".asx", ".avi", ".flv", \
                         ".m2ts", ".mkv", ".mov", ".mp4", ".mpg", ".mpeg", \
                         ".rm", ".swf", ".vob", ".wmv"]
+    
+    load_movies_ended = pyqtSignal()
 
     def __init__(self):
         QMainWindow.__init__(self)
@@ -55,6 +57,7 @@ class GUI(QMainWindow):
         self.ui.action_remove_all_movies.triggered.connect(self.remove_all_movies)
         self.ui.action_change_rename_pattern.triggered.connect(self.change_renaming_rule)
         self.ui.action_rename_movies.triggered.connect(self.rename_movies)
+        self.load_movies_ended.connect(self.load_movies_end)
         # MENU ?
         self.ui.action_about.triggered.connect(self.show_about)
         # TABLE movies
@@ -91,15 +94,8 @@ class GUI(QMainWindow):
         # select video files from file system
         filepaths = QFileDialog.getOpenFileNames(self, title, self.last_visited_directory, video_filter)
         # if at least one file has been selected
-        if len(filepaths) > 0:
-            # takes first selected file and get the file path, use it as the last visited directory
-            self.last_visited_directory = os.path.normpath(os.path.split(filepaths[0])[0])
-            # save it in settings
-            self.settings.setValue("last_visited_directory", self.last_visited_directory)
-
-            # start loading thread
-            loader = threading.Thread(target=self.load_movies, args=(filepaths,))
-            loader.start()
+        if len(filepaths) > 0:                      
+            self.load_movies(filepaths)
 
     def add_movies_in_folder(self):
         """
@@ -117,11 +113,6 @@ class GUI(QMainWindow):
         dirpath = QFileDialog.getExistingDirectory(self, title, self.last_visited_directory)
         # if a directory has been selected
         if dirpath != '':
-            # takes first selected file and get the file path, use it as the last visited directory
-            self.last_visited_directory = os.path.normpath(dirpath)
-            # save it in settings
-            self.settings.setValue("last_visited_directory", self.last_visited_directory)
-
             filepaths = []
             # for each entry (files + folders) in selected folder
             for entry in os.listdir(dirpath):
@@ -131,9 +122,8 @@ class GUI(QMainWindow):
                 if os.path.isfile(entry) and extension in self.VIDEO_EXTENSIONS:
                     # save entry with path
                     filepaths.append(entry)
-            # start loading thread
-            loader = threading.Thread(target=self.load_movies, args=(filepaths,))
-            loader.start()
+                    
+            self.load_movies(filepaths)
 
     def add_movies_in_folder_subfolders(self):
         """
@@ -151,11 +141,6 @@ class GUI(QMainWindow):
         dirpath = QFileDialog.getExistingDirectory(self, title, self.last_visited_directory)
         # if a directory has been selected
         if dirpath != '':
-            # takes first selected file and get the file path, use it as the last visited directory
-            self.last_visited_directory = os.path.normpath(dirpath)
-            # save it in settings
-            self.settings.setValue("last_visited_directory", self.last_visited_directory)
-
             filepaths = []
             # walk on chosen directory, and loop on files and directories
             for root, dirs, files in os.walk(dirpath):
@@ -167,19 +152,26 @@ class GUI(QMainWindow):
                     if extension in self.VIDEO_EXTENSIONS:
                         # save entry with path
                         filepaths.append(entry)
-            # start loading thread
-            loader = threading.Thread(target=self.load_movies, args=(filepaths,))
-            loader.start()
+                        
+            self.load_movies(filepaths)
 
     def load_movies(self, filepaths):
         """
         given a list of file paths, creates a movie object for each
         file, get info from it, and populate movies table
         """
-
+        
+        # takes first selected file and get the file path, use it as the last visited directory
+        self.last_visited_directory = os.path.normpath(os.path.split(filepaths[0])[0])
+        # save it in settings
+        self.settings.setValue("last_visited_directory", self.last_visited_directory)
         # show loading panel
         self.ui.panel_loading.setVisible(True)
-#        self.ui.progress_loading.setMaximum(0)
+        # start loading thread
+        loader = threading.Thread(target=self.load_movies_run, args=(filepaths,))
+        loader.start()        
+
+    def load_movies_run(self, filepaths):
         # loop on file paths
         for filepath in filepaths:
             # set loading label text, show current file name
@@ -199,11 +191,12 @@ class GUI(QMainWindow):
             # create a table item with new movie file name
             item_new_name = QTableWidgetItem(movie.new_name)
             self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
-
+        self.load_movies_ended.emit()
+    
+    def load_movies_end(self):
         self.ui.table_movies.resizeColumnToContents(0)
         # hide loading panel
         self.ui.panel_loading.setVisible(False)
-#        self.ui.progress_loading.setMaximum(1)
 
     def remove_selected_movies(self):
         """
