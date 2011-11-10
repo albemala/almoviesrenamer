@@ -18,8 +18,9 @@ class GUI(QMainWindow):
     VIDEO_EXTENSIONS = [".3g2", ".3gp", ".asf", ".asx", ".avi", ".flv", \
                         ".m2ts", ".mkv", ".mov", ".mp4", ".mpg", ".mpeg", \
                         ".rm", ".swf", ".vob", ".wmv"]
-    
-    load_movies_ended = pyqtSignal()
+
+    load_movies_finished = pyqtSignal()
+    search_title_finished = pyqtSignal()
 
     def __init__(self):
         QMainWindow.__init__(self)
@@ -57,7 +58,7 @@ class GUI(QMainWindow):
         self.ui.action_remove_all_movies.triggered.connect(self.remove_all_movies)
         self.ui.action_change_rename_pattern.triggered.connect(self.change_renaming_rule)
         self.ui.action_rename_movies.triggered.connect(self.rename_movies)
-        self.load_movies_ended.connect(self.load_movies_end)
+        self.load_movies_finished.connect(self.load_movies_end)
         # MENU ?
         self.ui.action_about.triggered.connect(self.show_about)
         # TABLE movies
@@ -69,9 +70,10 @@ class GUI(QMainWindow):
         self.ui.combo_language.activated.connect(self.language_changed)
         # searching panel
         self.ui.button_manual_title_search.toggled.connect(self.manual_title_search)
-        self.ui.text_title_search.returnPressed.connect(self.search_for_title)
-        self.ui.button_title_search.clicked.connect(self.search_for_title)
+        self.ui.text_title_search.returnPressed.connect(self.search_title)
+        self.ui.button_title_search.clicked.connect(self.search_title)
         self.ui.button_title_new_research.clicked.connect(self.search_again_for_title)
+        self.search_title_finished.connect(self.search_title_end)
 
     #--------------------------------- SLOTS ----------------------------------
 
@@ -94,7 +96,7 @@ class GUI(QMainWindow):
         # select video files from file system
         filepaths = QFileDialog.getOpenFileNames(self, title, self.last_visited_directory, video_filter)
         # if at least one file has been selected
-        if len(filepaths) > 0:                      
+        if len(filepaths) > 0:
             self.load_movies(filepaths)
 
     def add_movies_in_folder(self):
@@ -122,7 +124,7 @@ class GUI(QMainWindow):
                 if os.path.isfile(entry) and extension in self.VIDEO_EXTENSIONS:
                     # save entry with path
                     filepaths.append(entry)
-                    
+
             self.load_movies(filepaths)
 
     def add_movies_in_folder_subfolders(self):
@@ -152,7 +154,7 @@ class GUI(QMainWindow):
                     if extension in self.VIDEO_EXTENSIONS:
                         # save entry with path
                         filepaths.append(entry)
-                        
+
             self.load_movies(filepaths)
 
     def load_movies(self, filepaths):
@@ -160,7 +162,7 @@ class GUI(QMainWindow):
         given a list of file paths, creates a movie object for each
         file, get info from it, and populate movies table
         """
-        
+
         # takes first selected file and get the file path, use it as the last visited directory
         self.last_visited_directory = os.path.normpath(os.path.split(filepaths[0])[0])
         # save it in settings
@@ -168,8 +170,8 @@ class GUI(QMainWindow):
         # show loading panel
         self.ui.panel_loading.setVisible(True)
         # start loading thread
-        loader = threading.Thread(target=self.load_movies_run, args=(filepaths,))
-        loader.start()        
+        load_movies_thread = threading.Thread(target = self.load_movies_run, args = (filepaths,))
+        load_movies_thread.start()
 
     def load_movies_run(self, filepaths):
         # loop on file paths
@@ -191,8 +193,8 @@ class GUI(QMainWindow):
             # create a table item with new movie file name
             item_new_name = QTableWidgetItem(movie.new_name)
             self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
-        self.load_movies_ended.emit()
-    
+        self.load_movies_finished.emit()
+
     def load_movies_end(self):
         self.ui.table_movies.resizeColumnToContents(0)
         # hide loading panel
@@ -419,21 +421,21 @@ class GUI(QMainWindow):
 
     def manual_title_search(self, checked):
         """
-        show or hide manual title search panel
+        show or hide manual title search_title_run panel
         
         button associated with that slot is a toggle button,
         so checked represents its state
         """
 
-        # title search panel visibility
+        # title search_title_run panel visibility
         self.ui.stack_title_search.setVisible(checked)
-        # search panel visible
+        # search_title_run panel visible
         if checked:
             self.prepare_new_search()
 
-    def search_for_title(self):
+    def search_title(self):
         """
-        search for a movie title
+        search_title_run for a movie title
         """
 
         # get title to look for
@@ -443,23 +445,32 @@ class GUI(QMainWindow):
             return
         # show searching panel
         self.ui.stack_title_search.setCurrentIndex(1)
-#        self.ui.progress_searching.setMaximum(0)
         # start searching thread
-        loader = threading.Thread(target=self.search, args=(title,))
-        loader.start()
+        search_thread = threading.Thread(target = self.search_title_run, args = (title,))
+        search_thread.start()
 
-    def search(self, title):
+    def search_title_run(self, title):
         """
         thread used for movie title searching
         """
 
         row = self.selected_movie.row()
         movie = self.movies[row]
-        # search for movie title
+        # search_title_run for movie title
         movie.search_title(title)
+        # emit signal
+        self.search_title_finished.emit()
+
+    def search_title_end(self):
+        """
+        used when movie title searching finishes (thread returns)
+        """
+
+        row = self.selected_movie.row()
+        movie = self.movies[row]
         # no corresponding movie found
         if len(movie.info) == 0:
-            # set failed search panel
+            # set failed search_title_run panel
             self.ui.stack_title_search.setCurrentIndex(2)
         else:
             # generate new movie name, based on new information
@@ -468,21 +479,20 @@ class GUI(QMainWindow):
             self.ui.table_movies.item(row, 1).setText(movie.new_name)
             # populate movie panel
             self.populate_movie_stack(movie)
-#        self.ui.progress_searching.setMaximum(1)
 
     def search_again_for_title(self):
         """
-        called when user wants to search again for a title
+        called when user wants to search_title_run again for a title
         """
 
         self.prepare_new_search()
 
     def prepare_new_search(self):
         """
-        prepare searching panel for a new title search
+        prepare searching panel for a new title search_title_run
         """
 
-        # set stack index on search panel
+        # set stack index on search_title_run panel
         self.ui.stack_title_search.setCurrentIndex(0)
         # select all text in searching text field
         self.ui.text_title_search.selectAll()
@@ -518,7 +528,7 @@ class GUI(QMainWindow):
 
         self.ui.combo_aka.clear()
         self.ui.combo_runtime.clear()
-        # reset search panel
+        # reset search_title_run panel
         self.ui.button_manual_title_search.setChecked(False)
         self.ui.stack_title_search.setCurrentIndex(0)
         self.ui.text_title_search.setText("")
