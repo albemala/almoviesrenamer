@@ -53,7 +53,7 @@ class GUI(QMainWindow):
         # MENU Movies
         self.ui.action_add_movies.triggered.connect(self.add_movies)
         self.ui.action_add_all_movies_in_folder.triggered.connect(self.add_movies_in_folder)
-        self.ui.action_add_all_movies_in_folder_including_subfolders.triggered.connect(self.add_movies_in_folder_subfolders)
+        self.ui.action_add_all_movies_in_folder_subfolders.triggered.connect(self.add_movies_in_folder_subfolders)
         self.ui.action_remove_selected_movies.triggered.connect(self.remove_selected_movies)
         self.ui.action_remove_all_movies.triggered.connect(self.remove_all_movies)
         self.ui.action_change_rename_pattern.triggered.connect(self.change_renaming_rule)
@@ -167,6 +167,8 @@ class GUI(QMainWindow):
         self.last_visited_directory = os.path.normpath(os.path.split(filepaths[0])[0])
         # save it in settings
         self.settings.setValue("last_visited_directory", self.last_visited_directory)
+        # disable gui elements which cannot be used during loading
+        self.set_gui_enabled_load_movies(False)
         # show loading panel
         self.ui.panel_loading.setVisible(True)
         # start loading thread
@@ -196,9 +198,21 @@ class GUI(QMainWindow):
         self.load_movies_finished.emit()
 
     def load_movies_end(self):
+        self.set_gui_enabled_load_movies(True)
         self.ui.table_movies.resizeColumnToContents(0)
         # hide loading panel
         self.ui.panel_loading.setVisible(False)
+
+    def set_gui_enabled_load_movies(self, enabled):
+        self.ui.action_add_movies.setEnabled(enabled)
+        self.ui.action_add_all_movies_in_folder.setEnabled(enabled)
+        self.ui.action_add_all_movies_in_folder_subfolders.setEnabled(enabled)
+        self.ui.action_remove_selected_movies.setEnabled(enabled)
+        self.ui.action_remove_all_movies.setEnabled(enabled)
+        self.ui.action_change_rename_pattern.setEnabled(enabled)
+        self.ui.action_rename_movies.setEnabled(enabled)
+        self.ui.table_movies.selectionModel().clear()
+        self.ui.table_movies.setEnabled(enabled)
 
     def remove_selected_movies(self):
         """

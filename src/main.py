@@ -14,7 +14,7 @@ import exceptionhandler
 if __name__ == "__main__":
 
     # using my excepthook
-#    sys.excepthook = exceptionhandler.excepthook
+    sys.excepthook = exceptionhandler.excepthook
 
     # create the GUI and shows it
     app = QApplication(sys.argv)
