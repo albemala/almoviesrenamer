@@ -1,3 +1,0 @@
-
-errore con film "amer", faccio la ricerca manuale, e quando termina la ricerca il prog 
-crasha

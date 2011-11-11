@@ -1,6 +1,5 @@
 ﻿
 
-errore di traduzione in About...
 
 la scelta dell'aka dovrebbe usare anche il nome del file per scegliere quale usare,
 altrimenti sceglie sempre solo in base alla lingua, e non va sempre bene..

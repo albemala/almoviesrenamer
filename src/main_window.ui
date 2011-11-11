@@ -163,7 +163,7 @@
              <widget class="QLineEdit" name="text_title_search">
               <property name="font">
                <font>
-                <family>Monospac821 BT</family>
+                <family>DejaVu Sans Mono</family>
                </font>
               </property>
              </widget>
@@ -427,7 +427,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="action_add_movies"/>
     <addaction name="action_add_all_movies_in_folder"/>
-    <addaction name="action_add_all_movies_in_folder_including_subfolders"/>
+    <addaction name="action_add_all_movies_in_folder_subfolders"/>
     <addaction name="separator"/>
     <addaction name="action_remove_selected_movies"/>
     <addaction name="action_remove_all_movies"/>
@@ -489,7 +489,7 @@ p, li { white-space: pre-wrap; }
     <string>Add all movies in folder...</string>
    </property>
   </action>
-  <action name="action_add_all_movies_in_folder_including_subfolders">
+  <action name="action_add_all_movies_in_folder_subfolders">
    <property name="icon">
     <iconset>
      <normaloff>icons/movies_from_folder.png</normaloff>icons/movies_from_folder.png</iconset>

@@ -84,9 +84,9 @@
 	CHG: dropped use of hachoir parser
 	ADD: italian translation
 	
+2.1
 	
-	
-	
+	CHG: improvements on movies loading and on manual title searching
 	
 	
 	

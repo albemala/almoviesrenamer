@@ -198,12 +198,15 @@ class GUI(QMainWindow):
         self.load_movies_finished.emit()
 
     def load_movies_end(self):
+        # re-enable gui elements
         self.set_gui_enabled_load_movies(True)
+        # auto resize table columns
         self.ui.table_movies.resizeColumnToContents(0)
         # hide loading panel
         self.ui.panel_loading.setVisible(False)
 
     def set_gui_enabled_load_movies(self, enabled):
+        # set enabled property on actions
         self.ui.action_add_movies.setEnabled(enabled)
         self.ui.action_add_all_movies_in_folder.setEnabled(enabled)
         self.ui.action_add_all_movies_in_folder_subfolders.setEnabled(enabled)
@@ -211,7 +214,10 @@ class GUI(QMainWindow):
         self.ui.action_remove_all_movies.setEnabled(enabled)
         self.ui.action_change_rename_pattern.setEnabled(enabled)
         self.ui.action_rename_movies.setEnabled(enabled)
-        self.ui.table_movies.selectionModel().clear()
+        if enabled == False:
+            # clear table selection (and hide movie panel, if visible)
+            self.ui.table_movies.selectionModel().clear()
+        # set enabled property on table
         self.ui.table_movies.setEnabled(enabled)
 
     def remove_selected_movies(self):
@@ -457,6 +463,8 @@ class GUI(QMainWindow):
         # do not start searching if textTitleSearch is empty
         if title.strip() == "":
             return
+        # set gui elements disabled
+        self.set_gui_enabled_search_title(False)
         # show searching panel
         self.ui.stack_title_search.setCurrentIndex(1)
         # start searching thread
@@ -482,6 +490,8 @@ class GUI(QMainWindow):
 
         row = self.selected_movie.row()
         movie = self.movies[row]
+        # re-enable gui elements
+        self.set_gui_enabled_search_title(True)
         # no corresponding movie found
         if len(movie.info) == 0:
             # set failed search_title_run panel
@@ -493,6 +503,24 @@ class GUI(QMainWindow):
             self.ui.table_movies.item(row, 1).setText(movie.new_name)
             # populate movie panel
             self.populate_movie_stack(movie)
+
+    def set_gui_enabled_search_title(self, enabled):
+        # set enabled property on actions
+        self.ui.action_add_movies.setEnabled(enabled)
+        self.ui.action_add_all_movies_in_folder.setEnabled(enabled)
+        self.ui.action_add_all_movies_in_folder_subfolders.setEnabled(enabled)
+        self.ui.action_remove_selected_movies.setEnabled(enabled)
+        self.ui.action_remove_all_movies.setEnabled(enabled)
+        self.ui.action_change_rename_pattern.setEnabled(enabled)
+        self.ui.action_rename_movies.setEnabled(enabled)
+        # set enabled property on movie panel
+        self.ui.combo_movie_titles.setEnabled(enabled)
+        self.ui.button_manual_title_search.setEnabled(enabled)
+        self.ui.combo_aka.setEnabled(enabled)
+        self.ui.combo_language.setEnabled(enabled)
+        self.ui.combo_runtime.setEnabled(enabled)
+        # set enabled property on table
+        self.ui.table_movies.setEnabled(enabled)
 
     def search_again_for_title(self):
         """
