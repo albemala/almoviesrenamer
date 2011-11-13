@@ -3,16 +3,17 @@ __author__ = "Alberto Malagoli"
 
 from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal
 from PyQt4.QtGui import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, \
-    QBrush
+    QBrush, QPixmap
 from PyQt4.uic import loadUi
 from movie import Movie
 from renamingrule import RenamingRuleDialog
+from settings import SettingsDialog
 import imdb
 import os.path
 import sys
 import threading
-import utils
 import urllib
+import utils
 
 class GUI(QMainWindow):
 
@@ -42,6 +43,8 @@ class GUI(QMainWindow):
         self.ui = loadUi("main_window.ui", self)
         # create RenamingRuleDialog
         self.ui.renaming_rule_dialog = RenamingRuleDialog(self)
+        # create SettingsDialog
+        self.ui.settings_dialog = SettingsDialog(self)
         # set some GUI parameters
         self.ui.panel_loading.setVisible(False)
         self.ui.stack_movie.setVisible(False)
@@ -60,6 +63,8 @@ class GUI(QMainWindow):
         self.ui.action_change_rename_pattern.triggered.connect(self.change_renaming_rule)
         self.ui.action_rename_movies.triggered.connect(self.rename_movies)
         self.load_movies_finished.connect(self.load_movies_end)
+        # MENU Settings
+        self.ui.action_settings.triggered.connect(self.show_settings)
         # MENU ?
         self.ui.action_about.triggered.connect(self.show_about)
         # TABLE movies
@@ -91,8 +96,9 @@ class GUI(QMainWindow):
             f = urllib.urlopen("http://almoviesrenamer.appspot.com/rulestats")
         except Exception:
             # if an error occurs, notify the user with a message
-            title = self.tr("Internet connection down?")
-            msg = self.tr("""
+            msg_box = QMessageBox(self)
+            msg_box.setWindowTitle(self.tr("Internet connection down?"))
+            msg_box.setText(self.tr("""
             <p>
                 It seems your internet connection is down
                 (but maybe I'm wrong).
@@ -105,8 +111,11 @@ class GUI(QMainWindow):
             <p>
                 If I'm wrong, sorry for the interruption...
             </p>
-            """)
-            QMessageBox.warning(self, title, msg)
+            """))
+            icon = QPixmap()
+            icon.load('icons/exclamation.png')
+            msg_box.setIconPixmap(icon)
+            msg_box.exec_()
 
     #--------------------------------- SLOTS ----------------------------------
 
@@ -334,6 +343,12 @@ class GUI(QMainWindow):
                     self.ui.table_movies.item(i, 1).setForeground(QBrush(Qt.darkGreen))
         # if a table item is selected, update panel
         self.movies_selection_changed()
+
+    def show_settings(self):
+        #show renaming rule dialog
+        self.ui.settings_dialog.exec_()
+        # when dialog is closed, save new rule on settings
+#        self.renaming_rule = self.settings.value("renaming_rule").toString()
 
     # MENU ?
 

@@ -436,7 +436,14 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator"/>
     <addaction name="action_rename_movies"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="action_settings"/>
+   </widget>
    <addaction name="menuMovies"/>
+   <addaction name="menuSettings"/>
    <addaction name="menu"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
@@ -541,6 +548,18 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Rename movies</string>
+   </property>
+  </action>
+  <action name="action_settings">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/equalizer.png</normaloff>icons/equalizer.png</iconset>
+   </property>
+   <property name="text">
+    <string>Settings...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open settings</string>
    </property>
   </action>
  </widget>

@@ -16,11 +16,6 @@ mediainfo
 
 doppio click sugli item delle tabelle per aprire la cartella che contiene i file corrispondenti
 
-controllare se la connessione ad internet è attiva, e in caso contrario notificare
-
-creare un'unica funzione "setMovieState" che aggiorna lo stato di un film e la gui
-in base allo stato, usando uno switch
-
 creare un autoupdate? o solo una notifica di nuovi aggiornamenti...
 
 mettere un pulsante per fermare la ricerca e tornare o alla vista delle info sul film o alla ricerca manuale
