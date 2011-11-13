@@ -87,6 +87,7 @@
 2.1
 	
 	CHG: improvements on movies loading and on manual title searching
+	ADD: internet connection check during program loading
 	
 	
 	

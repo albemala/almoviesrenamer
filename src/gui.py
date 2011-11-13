@@ -12,6 +12,7 @@ import os.path
 import sys
 import threading
 import utils
+import urllib
 
 class GUI(QMainWindow):
 
@@ -74,6 +75,38 @@ class GUI(QMainWindow):
         self.ui.button_title_search.clicked.connect(self.search_title)
         self.ui.button_title_new_research.clicked.connect(self.search_again_for_title)
         self.search_title_finished.connect(self.search_title_end)
+
+        # check internet connection
+        self.check_connection()
+
+    def check_connection(self):
+        """
+        checks if internet connection is up.
+        
+        if internet connection is down, notifies the user with a message.
+        """
+
+        try:
+            # try to open a web URL
+            f = urllib.urlopen("http://almoviesrenamer.appspot.com/rulestats")
+        except Exception:
+            # if an error occurs, notify the user with a message
+            title = self.tr("Internet connection down?")
+            msg = self.tr("""
+            <p>
+                It seems your internet connection is down
+                (but maybe I'm wrong).
+            </p>
+            <p>
+                That program needs access to the internet, 
+                to get information about movies, 
+                so please check your connection.
+            </p>
+            <p>
+                If I'm wrong, sorry for the interruption...
+            </p>
+            """)
+            QMessageBox.warning(self, title, msg)
 
     #--------------------------------- SLOTS ----------------------------------
 
@@ -310,43 +343,43 @@ class GUI(QMainWindow):
         """
 
         # message shown on about dialog
-        msg = self.tr(u'''
-            <p>
-                <b>{0}</b>
-            </p>
-            <p>
-                Version: {1}<br />
-                License: GNU General Public License version 3 (GPLv3)
-            </p>
-            <p>
-                Programmed by: Alberto Malagoli<br />
-                Email: <a href="mailto:albemala@gmail.com">albemala@gmail.com</a>
-            </p>
-            <p>
-                Libraries:
-                <ul>
-                    <li>Python: {2}</li>
-                    <li>PyQt: {3}</li>
-                    <li>IMDbPY: {4}</li>
-                    <li>cx-Freeze: 4.2.3</li>
-                </ul>
-            </p>
-            <p>
-                Thanks to:
-                <ul>
-                    <li><a href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a></li>
-                    <li><a href="http://imdbpy.sourceforge.net/">IMDbPY</a></li>
-                    
-                    <li><a href="http://file-folder-ren.sourceforge.net/">M\xe9tamorphose</a>
-                        for some stolen code</li>
-                    <li><a href="http://eric-ide.python-projects.org/">Eric IDE</a>
-                        for code in <i>excepthook</i> function (exceptionhandler.py file)</li>
+        msg = self.tr("""
+        <p>
+            <b>{0}</b>
+        </p>
+        <p>
+            Version: {1}<br />
+            License: GNU General Public License version 3 (GPLv3)
+        </p>
+        <p>
+            Programmed by: Alberto Malagoli<br />
+            Email: <a href="mailto:albemala@gmail.com">albemala@gmail.com</a>
+        </p>
+        <p>
+            Libraries:
+            <ul>
+                <li>Python: {2}</li>
+                <li>PyQt: {3}</li>
+                <li>IMDbPY: {4}</li>
+                <li>cx-Freeze: 4.2.3</li>
+            </ul>
+        </p>
+        <p>
+            Thanks to:
+            <ul>
+                <li><a href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a></li>
+                <li><a href="http://imdbpy.sourceforge.net/">IMDbPY</a></li>
+                
+                <li><a href="http://file-folder-ren.sourceforge.net/">M\xe9tamorphose</a>
+                    for some stolen code</li>
+                <li><a href="http://eric-ide.python-projects.org/">Eric IDE</a>
+                    for code in <i>excepthook</i> function (exceptionhandler.py file)</li>
 
-                    <li><a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>
-                        for Fugue Icons</li>
-                </ul>
-            </p>
-            ''').format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, sys.version.split()[0], PYQT_VERSION_STR, imdb.VERSION)
+                <li><a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>
+                    for Fugue Icons</li>
+            </ul>
+        </p>
+        """).format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, sys.version.split()[0], PYQT_VERSION_STR, imdb.VERSION)
         # show the about dialog
         QMessageBox.about(self, self.tr("About {0}").format(utils.PROGRAM_NAME), msg)
 
