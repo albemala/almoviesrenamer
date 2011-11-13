@@ -91,22 +91,22 @@
 <context>
     <name>GUI</name>
     <message>
-        <location filename="gui.py" line="88"/>
+        <location filename="gui.py" line="126"/>
         <source>Video (*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="gui.py" line="90"/>
+        <location filename="gui.py" line="128"/>
         <source>Select movies you want to rename...</source>
         <translation>Seleziona i film che vuoi rinominare...</translation>
     </message>
     <message>
-        <location filename="gui.py" line="149"/>
+        <location filename="gui.py" line="174"/>
         <source>Select a folder containing movies...</source>
         <translation>Seleziona la cartella che contiene i film...</translation>
     </message>
     <message>
-        <location filename="gui.py" line="186"/>
+        <location filename="gui.py" line="215"/>
         <source>Getting information from </source>
         <translation>Sto cercando informazioni su </translation>
     </message>
@@ -149,7 +149,7 @@
                 &lt;/ul&gt;
             &lt;/p&gt;
             </source>
-        <translation>
+        <translation type="obsolete">
             &lt;p&gt;
                 &lt;b&gt;{0}&lt;/b&gt;
             &lt;/p&gt;
@@ -188,9 +188,122 @@
             </translation>
     </message>
     <message>
-        <location filename="gui.py" line="336"/>
+        <location filename="gui.py" line="384"/>
         <source>About {0}</source>
         <translation>Riguardo {0}</translation>
+    </message>
+    <message>
+        <location filename="gui.py" line="94"/>
+        <source>Internet connection down?</source>
+        <translation>Disconnesso da internet?</translation>
+    </message>
+    <message>
+        <location filename="gui.py" line="95"/>
+        <source>
+            &lt;p&gt;
+                It seems your internet connection is down
+                (but maybe I&apos;m wrong).
+            &lt;/p&gt;
+            &lt;p&gt;
+                That program needs access to the internet, 
+                to get information about movies, 
+                so please check your connection.
+            &lt;/p&gt;
+            &lt;p&gt;
+                If I&apos;m wrong, sorry for the interruption...
+            &lt;/p&gt;
+            </source>
+        <translation>
+            &lt;p&gt;
+                Sembra che la connessione ad internet non funzioni
+                (ma forse mi sbaglio).
+            &lt;/p&gt;
+            &lt;p&gt;
+                Questo programma necessita di un accesso ad internet, 
+                per recuperare informazioni sui film, 
+                quindi per favore si controlli la connessione.
+            &lt;/p&gt;
+            &lt;p&gt;
+                Nel caso mi sbagliassi, mi scuso per l&apos;interruzione...
+            &lt;/p&gt;
+            </translation>
+    </message>
+    <message>
+        <location filename="gui.py" line="346"/>
+        <source>
+        &lt;p&gt;
+            &lt;b&gt;{0}&lt;/b&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            Version: {1}&lt;br /&gt;
+            License: GNU General Public License version 3 (GPLv3)
+        &lt;/p&gt;
+        &lt;p&gt;
+            Programmed by: Alberto Malagoli&lt;br /&gt;
+            Email: &lt;a href=&quot;mailto:albemala@gmail.com&quot;&gt;albemala@gmail.com&lt;/a&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            Libraries:
+            &lt;ul&gt;
+                &lt;li&gt;Python: {2}&lt;/li&gt;
+                &lt;li&gt;PyQt: {3}&lt;/li&gt;
+                &lt;li&gt;IMDbPY: {4}&lt;/li&gt;
+                &lt;li&gt;cx-Freeze: 4.2.3&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            Thanks to:
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;http://www.riverbankcomputing.co.uk/software/pyqt/download&quot;&gt;PyQt&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://imdbpy.sourceforge.net/&quot;&gt;IMDbPY&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;http://file-folder-ren.sourceforge.net/&quot;&gt;M&#xe9;tamorphose&lt;/a&gt;
+                    for some stolen code&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://eric-ide.python-projects.org/&quot;&gt;Eric IDE&lt;/a&gt;
+                    for code in &lt;i&gt;excepthook&lt;/i&gt; function (exceptionhandler.py file)&lt;/li&gt;
+
+                &lt;li&gt;&lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;
+                    for Fugue Icons&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/p&gt;
+        </source>
+        <translation>
+            &lt;p&gt;
+                &lt;b&gt;{0}&lt;/b&gt;
+            &lt;/p&gt;
+            &lt;p&gt;
+                Versione: {1}&lt;br /&gt;
+                Licenza: GNU General Public License version 3 (GPLv3)
+            &lt;/p&gt;
+            &lt;p&gt;
+                Programmato da: Alberto Malagoli&lt;br /&gt;
+                Email: &lt;a href=&quot;mailto:albemala@gmail.com&quot;&gt;albemala@gmail.com&lt;/a&gt;
+            &lt;/p&gt;
+            &lt;p&gt;
+                Librerie:
+                &lt;ul&gt;
+                    &lt;li&gt;Python: {2}&lt;/li&gt;
+                    &lt;li&gt;PyQt: {3}&lt;/li&gt;
+                    &lt;li&gt;IMDbPY: {4}&lt;/li&gt;
+                    &lt;li&gt;cx-Freeze: 4.2.3&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/p&gt;
+            &lt;p&gt;
+                Si ringraziano:
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://www.riverbankcomputing.co.uk/software/pyqt/download&quot;&gt;PyQt&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://imdbpy.sourceforge.net/&quot;&gt;IMDbPY&lt;/a&gt;&lt;/li&gt;
+                    
+                    &lt;li&gt;&lt;a href=&quot;http://file-folder-ren.sourceforge.net/&quot;&gt;Métamorphose&lt;/a&gt;
+                        per un po&apos; di codice rubato&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;http://eric-ide.python-projects.org/&quot;&gt;Eric IDE&lt;/a&gt;
+                        per il codice nella funzione &lt;i&gt;excepthook&lt;/i&gt; (exceptionhandler.py file)&lt;/li&gt;
+
+                    &lt;li&gt;&lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;
+                        per le icone Fugue Icons&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/p&gt;
+            </translation>
     </message>
 </context>
 <context>

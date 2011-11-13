@@ -91,69 +91,92 @@
 <context>
     <name>GUI</name>
     <message>
-        <location filename="gui.py" line="88"/>
+        <location filename="gui.py" line="126"/>
         <source>Video (*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="90"/>
+        <location filename="gui.py" line="128"/>
         <source>Select movies you want to rename...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="149"/>
+        <location filename="gui.py" line="174"/>
         <source>Select a folder containing movies...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="186"/>
+        <location filename="gui.py" line="215"/>
         <source>Getting information from </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="298"/>
+        <location filename="gui.py" line="384"/>
+        <source>About {0}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="gui.py" line="94"/>
+        <source>Internet connection down?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="gui.py" line="95"/>
         <source>
             &lt;p&gt;
-                &lt;b&gt;{0}&lt;/b&gt;
+                It seems your internet connection is down
+                (but maybe I&apos;m wrong).
             &lt;/p&gt;
             &lt;p&gt;
-                Version: {1}&lt;br /&gt;
-                License: GNU General Public License version 3 (GPLv3)
+                That program needs access to the internet, 
+                to get information about movies, 
+                so please check your connection.
             &lt;/p&gt;
             &lt;p&gt;
-                Programmed by: Alberto Malagoli&lt;br /&gt;
-                Email: &lt;a href=&quot;mailto:albemala@gmail.com&quot;&gt;albemala@gmail.com&lt;/a&gt;
-            &lt;/p&gt;
-            &lt;p&gt;
-                Libraries:
-                &lt;ul&gt;
-                    &lt;li&gt;Python: {2}&lt;/li&gt;
-                    &lt;li&gt;PyQt: {3}&lt;/li&gt;
-                    &lt;li&gt;IMDbPY: {4}&lt;/li&gt;
-                    &lt;li&gt;cx-Freeze: 4.2.3&lt;/li&gt;
-                &lt;/ul&gt;
-            &lt;/p&gt;
-            &lt;p&gt;
-                Thanks to:
-                &lt;ul&gt;
-                    &lt;li&gt;&lt;a href=&quot;http://www.riverbankcomputing.co.uk/software/pyqt/download&quot;&gt;PyQt&lt;/a&gt;&lt;/li&gt;
-                    &lt;li&gt;&lt;a href=&quot;http://imdbpy.sourceforge.net/&quot;&gt;IMDbPY&lt;/a&gt;&lt;/li&gt;
-                    
-                    &lt;li&gt;&lt;a href=&quot;http://file-folder-ren.sourceforge.net/&quot;&gt;M&#xe9;tamorphose&lt;/a&gt;
-                        for some stolen code&lt;/li&gt;
-                    &lt;li&gt;&lt;a href=&quot;http://eric-ide.python-projects.org/&quot;&gt;Eric IDE&lt;/a&gt;
-                        for code in &lt;i&gt;excepthook&lt;/i&gt; function (exceptionhandler.py file)&lt;/li&gt;
-
-                    &lt;li&gt;&lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;
-                        for Fugue Icons&lt;/li&gt;
-                &lt;/ul&gt;
+                If I&apos;m wrong, sorry for the interruption...
             &lt;/p&gt;
             </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="336"/>
-        <source>About {0}</source>
+        <location filename="gui.py" line="346"/>
+        <source>
+        &lt;p&gt;
+            &lt;b&gt;{0}&lt;/b&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            Version: {1}&lt;br /&gt;
+            License: GNU General Public License version 3 (GPLv3)
+        &lt;/p&gt;
+        &lt;p&gt;
+            Programmed by: Alberto Malagoli&lt;br /&gt;
+            Email: &lt;a href=&quot;mailto:albemala@gmail.com&quot;&gt;albemala@gmail.com&lt;/a&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            Libraries:
+            &lt;ul&gt;
+                &lt;li&gt;Python: {2}&lt;/li&gt;
+                &lt;li&gt;PyQt: {3}&lt;/li&gt;
+                &lt;li&gt;IMDbPY: {4}&lt;/li&gt;
+                &lt;li&gt;cx-Freeze: 4.2.3&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            Thanks to:
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;http://www.riverbankcomputing.co.uk/software/pyqt/download&quot;&gt;PyQt&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://imdbpy.sourceforge.net/&quot;&gt;IMDbPY&lt;/a&gt;&lt;/li&gt;
+                
+                &lt;li&gt;&lt;a href=&quot;http://file-folder-ren.sourceforge.net/&quot;&gt;M&#xe9;tamorphose&lt;/a&gt;
+                    for some stolen code&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;http://eric-ide.python-projects.org/&quot;&gt;Eric IDE&lt;/a&gt;
+                    for code in &lt;i&gt;excepthook&lt;/i&gt; function (exceptionhandler.py file)&lt;/li&gt;
+
+                &lt;li&gt;&lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;
+                    for Fugue Icons&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/p&gt;
+        </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
