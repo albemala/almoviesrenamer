@@ -8,6 +8,7 @@ from PyQt4.uic import loadUi
 from movie import Movie
 from renamingrule import RenamingRuleDialog
 from settings import SettingsDialog
+from statsagreement import StatsAgreementDialog
 import imdb
 import os.path
 import sys
@@ -27,7 +28,10 @@ class GUI(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
 
-        #-------------------- variables
+        # check internet connection
+        self.check_connection()
+
+        ## variables
         # load settings
         self.settings = QSettings("settings.ini", QSettings.IniFormat)
         # get renaming rule from settings
@@ -38,6 +42,9 @@ class GUI(QMainWindow):
         self.movies = []
         # stores current (selected) movie
         self.selected_movie = None
+
+#        self.settings.setValue("first_time", True)
+        self.show_stats_agreement()
 
         # load GUI
         self.ui = loadUi("main_window.ui", self)
@@ -81,8 +88,6 @@ class GUI(QMainWindow):
         self.ui.button_title_new_research.clicked.connect(self.search_again_for_title)
         self.search_title_finished.connect(self.search_title_end)
 
-        # check internet connection
-        self.check_connection()
 
     def check_connection(self):
         """
@@ -116,6 +121,13 @@ class GUI(QMainWindow):
             icon.load('icons/exclamation.png')
             msg_box.setIconPixmap(icon)
             msg_box.exec_()
+
+    def show_stats_agreement(self):
+        first_time = self.settings.value("first_time").toBool()
+        if first_time:
+            stats_agreement_dialog = StatsAgreementDialog(self)
+            stats_agreement_dialog.exec_()
+            self.settings.setValue("first_time", False)
 
     #--------------------------------- SLOTS ----------------------------------
 

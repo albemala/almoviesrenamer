@@ -79,7 +79,7 @@ p, li { white-space: pre-wrap; }
       </spacer>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="radio_agree">
        <property name="text">
         <string>I agree, send anonymous usage statistics.</string>
        </property>
@@ -92,7 +92,7 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton_2">
+      <widget class="QRadioButton" name="radio_disagree">
        <property name="text">
         <string>I don't agree. Do not send usage statistics.</string>
        </property>

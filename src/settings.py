@@ -2,9 +2,8 @@
 __author__ = "Alberto Malagoli"
 
 from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QDialog, QListWidgetItem
+from PyQt4.QtGui import QDialog
 from PyQt4.uic import loadUi
-from movie import Movie
 
 class SettingsDialog(QDialog):
 
