@@ -43,9 +43,8 @@ class GUI(QMainWindow):
         # stores current (selected) movie
         self.selected_movie = None
 
+        # XXX: da togliere
         self.settings.setValue("first_time", True)
-        # XXX: c'è il problema che se la connessione non è 
-        # attiva le stats non vengono inviate, possibile errore
         self.show_stats_agreement()
 
         # load GUI
@@ -90,20 +89,19 @@ class GUI(QMainWindow):
         self.ui.button_title_new_research.clicked.connect(self.search_again_for_title)
         self.search_title_finished.connect(self.search_title_end)
 
-
     def check_connection(self):
         """
         checks if internet connection is up.
         
         if internet connection is down, notifies the user with a message.
         """
-        # XXX: da chiamare in un thread separato
+
         try:
             # try to open a web URL
             f = urllib.urlopen("http://almoviesrenamer.appspot.com/rulestats")
         except Exception:
             # if an error occurs, notify the user with a message
-            msg_box = QMessageBox(self)
+            msg_box = QMessageBox()
             msg_box.setWindowTitle(self.tr("Internet connection down?"))
             msg_box.setText(self.tr("""
             <p>

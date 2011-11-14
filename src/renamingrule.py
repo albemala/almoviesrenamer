@@ -177,11 +177,12 @@ class RenamingRuleDialog(QDialog):
         removes selected rule
         """
 
-        # get selected rule
-        current_item = self.ui.list_renaming_rule.currentItem()
-        # remove it from list
-        row = self.ui.list_renaming_rule.row(current_item)
-        self.ui.list_renaming_rule.takeItem(row)
+        # get selected items in rule
+        selected_items = self.ui.list_renaming_rule.selectedItems()
+        # remove its from list
+        for item in reversed(selected_items):
+            row = self.ui.list_renaming_rule.row(item)
+            self.ui.list_renaming_rule.takeItem(row)
 
     def clean_rule(self):
         """
