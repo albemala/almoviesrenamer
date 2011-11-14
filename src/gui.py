@@ -43,7 +43,9 @@ class GUI(QMainWindow):
         # stores current (selected) movie
         self.selected_movie = None
 
-#        self.settings.setValue("first_time", True)
+        self.settings.setValue("first_time", True)
+        # XXX: c'è il problema che se la connessione non è 
+        # attiva le stats non vengono inviate, possibile errore
         self.show_stats_agreement()
 
         # load GUI
@@ -95,7 +97,7 @@ class GUI(QMainWindow):
         
         if internet connection is down, notifies the user with a message.
         """
-
+        # XXX: da chiamare in un thread separato
         try:
             # try to open a web URL
             f = urllib.urlopen("http://almoviesrenamer.appspot.com/rulestats")
@@ -127,7 +129,20 @@ class GUI(QMainWindow):
         if first_time:
             stats_agreement_dialog = StatsAgreementDialog(self)
             stats_agreement_dialog.exec_()
+            self.send_usage_statistics()
             self.settings.setValue("first_time", False)
+
+    def send_usage_statistics(self):
+        send_usage_statistics = self.settings.value("stats_agreement").toInt()[0]
+        if send_usage_statistics == StatsAgreementDialog.STATS_AGREE:
+            # start loading thread
+            threading.Thread(target = self.send_usage_statistics_run).start()
+
+    def send_usage_statistics_run(self):
+        # 
+        renaming_rule = self.settings.value("renaming_rule").toString()
+        url = "http://almoviesrenamer.appspot.com/rulestats?addrule=" + renaming_rule
+        f = urllib.urlopen(url)
 
     #--------------------------------- SLOTS ----------------------------------
 
@@ -226,8 +241,7 @@ class GUI(QMainWindow):
         # show loading panel
         self.ui.panel_loading.setVisible(True)
         # start loading thread
-        load_movies_thread = threading.Thread(target = self.load_movies_run, args = (filepaths,))
-        load_movies_thread.start()
+        threading.Thread(target = self.load_movies_run, args = (filepaths,)).start()
 
     def load_movies_run(self, filepaths):
         # loop on file paths
@@ -313,6 +327,7 @@ class GUI(QMainWindow):
         self.ui.renaming_rule_dialog.exec_()
         # when dialog is closed, save new rule on settings
         self.renaming_rule = self.settings.value("renaming_rule").toString()
+        self.send_usage_statistics()
         # loop on movies
         for i in range(len(self.movies)):
             movie = self.movies[i]
@@ -359,8 +374,7 @@ class GUI(QMainWindow):
     def show_settings(self):
         #show renaming rule dialog
         self.ui.settings_dialog.exec_()
-        # when dialog is closed, save new rule on settings
-#        self.renaming_rule = self.settings.value("renaming_rule").toString()
+        self.send_usage_statistics()
 
     # MENU ?
 
@@ -528,8 +542,7 @@ class GUI(QMainWindow):
         # show searching panel
         self.ui.stack_title_search.setCurrentIndex(1)
         # start searching thread
-        search_thread = threading.Thread(target = self.search_title_run, args = (title,))
-        search_thread.start()
+        threading.Thread(target = self.search_title_run, args = (title,)).start()
 
     def search_title_run(self, title):
         """

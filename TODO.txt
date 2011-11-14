@@ -2,13 +2,10 @@
 commentare "settings"
 commentare "statsagreement"
 
+le regole di rinomina rimangono in inglese anche se la lingua è diversa
+
 la scelta dell'aka dovrebbe usare anche il nome del file per scegliere quale usare,
 altrimenti sceglie sempre solo in base alla lingua, e non va sempre bene..
-
-statistiche di utilizzo:
-- app web
-- dialog di notifica
-- settings
 
 piu regole di rinomina alla volta possono esssre rimosse
 
