@@ -87,7 +87,7 @@ p, li { white-space: pre-wrap; }
         <bool>true</bool>
        </property>
        <attribute name="buttonGroup">
-        <string>buttonGroup</string>
+        <string>button_group</string>
        </attribute>
       </widget>
      </item>
@@ -97,7 +97,7 @@ p, li { white-space: pre-wrap; }
         <string>I don't agree. Do not send usage statistics.</string>
        </property>
        <attribute name="buttonGroup">
-        <string>buttonGroup</string>
+        <string>button_group</string>
        </attribute>
       </widget>
      </item>
@@ -165,6 +165,6 @@ p, li { white-space: pre-wrap; }
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
+  <buttongroup name="button_group"/>
  </buttongroups>
 </ui>

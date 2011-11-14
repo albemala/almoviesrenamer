@@ -21,7 +21,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Usage statistics</string>
+      <string>Usage statistics agreement</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -58,20 +58,26 @@ p, li { white-space: pre-wrap; }
        </spacer>
       </item>
       <item>
-       <widget class="QRadioButton" name="radioButton">
+       <widget class="QRadioButton" name="radio_agree">
         <property name="text">
          <string>I agree, send anonymous usage statistics.</string>
         </property>
         <property name="checked">
          <bool>true</bool>
         </property>
+        <attribute name="buttonGroup">
+         <string>button_group_stats</string>
+        </attribute>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="radioButton_2">
+       <widget class="QRadioButton" name="radio_disagree">
         <property name="text">
          <string>I don't agree. Do not send usage statistics.</string>
         </property>
+        <attribute name="buttonGroup">
+         <string>button_group_stats</string>
+        </attribute>
        </widget>
       </item>
      </layout>
@@ -122,4 +128,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="button_group_stats"/>
+ </buttongroups>
 </ui>
