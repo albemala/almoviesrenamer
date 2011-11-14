@@ -35,6 +35,9 @@
        <property name="defaultDropAction">
         <enum>Qt::MoveAction</enum>
        </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::ExtendedSelection</enum>
+       </property>
        <property name="movement">
         <enum>QListView::Snap</enum>
        </property>
