@@ -382,15 +382,15 @@
    <sender>pushButton</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
-   <slot>close()</slot>
+   <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>419</x>
-     <y>371</y>
+     <x>423</x>
+     <y>334</y>
     </hint>
     <hint type="destinationlabel">
-     <x>336</x>
-     <y>364</y>
+     <x>332</x>
+     <y>334</y>
     </hint>
    </hints>
   </connection>
