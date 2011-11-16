@@ -30,6 +30,8 @@ class GUI(QMainWindow):
 
         # check internet connection
         self.check_connection()
+        # check for new program version
+        self.check_new_version()
 
         ## variables
         # load settings
@@ -121,6 +123,25 @@ class GUI(QMainWindow):
             icon.load('icons/exclamation.png')
             msg_box.setIconPixmap(icon)
             msg_box.exec_()
+
+    def check_new_version(self):
+        url = "http://almoviesrenamer.appspot.com/checknewversion?version=" + \
+              utils.PROGRAM_VERSION
+        f = urllib.urlopen(url)
+        answer = f.read()
+        if answer[:-1] == "new":
+            title = self.tr("New version available")
+            msg = self.tr("""
+            <p>
+                A new version of {0} is available! 
+            </p>
+            <p>
+                <a href="http://code.google.com/p/almoviesrenamer/downloads/list">
+                    Download it.
+                </a>
+            </p>
+            """).format(utils.PROGRAM_NAME)
+            QMessageBox.information(None, title, msg)
 
     def show_stats_agreement(self):
         first_time = self.settings.value("first_time").toBool()
