@@ -1,11 +1,19 @@
 ﻿
 commentare
+codificare
 traduzionare
+changeloggare
+buildare translations
+preparare per release
+buildare (win + linux)
 
 le regole di rinomina rimangono in inglese anche se la lingua è diversa
 
 la scelta dell'aka dovrebbe usare anche il nome del file per scegliere quale usare,
 altrimenti sceglie sempre solo in base alla lingua, e non va sempre bene..
+
+invece di sostituire i caratteri illegali dei sistemi operativi con underscore,
+usare caratteri piu utili, ad es. & -> and
 
 controllo aggiornamenti
 
@@ -27,6 +35,9 @@ guessing:
 		usare anche gli aka come metodo di paragone (ma forse devo recuperare tutte le info sul film prima)
 
 	usare un dictionary per memorizzare le info predette?
+	
+quando il guessing del film diventerà abbastanza figo, memorizzare un solo film
+per ogni file, invece dei 3 piu probabili
 	
 	
 
