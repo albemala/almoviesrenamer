@@ -37,6 +37,8 @@ guessing:
 
 	usare un dictionary per memorizzare le info predette?
 	
+	http://stackoverflow.com/questions/7573952/comparing-strings-in-python-to-find-errors
+	
 quando il guessing del film diventerà abbastanza figo, memorizzare un solo film
 per ogni file, invece dei 3 piu probabili
 	
