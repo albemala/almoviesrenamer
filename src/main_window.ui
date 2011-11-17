@@ -538,7 +538,7 @@ p, li { white-space: pre-wrap; }
     <string>Change renaming rule</string>
    </property>
    <property name="toolTip">
-    <string>Change  renaming rule</string>
+    <string>Change renaming rule</string>
    </property>
   </action>
   <action name="action_rename_movies">
@@ -559,7 +559,7 @@ p, li { white-space: pre-wrap; }
     <string>Settings...</string>
    </property>
    <property name="toolTip">
-    <string>Open settings</string>
+    <string>Change settings</string>
    </property>
   </action>
  </widget>

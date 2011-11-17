@@ -2,10 +2,12 @@
 nuovo numero versione
 commentare
 codificare
+tooltips
 traduzionare
 changeloggare
 buildare translations
 preparare per release
+cambiare setting : first_time=true
 buildare (win + linux)
 
 le regole di rinomina rimangono in inglese anche se la lingua è diversa
@@ -47,6 +49,8 @@ per ogni file, invece dei 3 piu probabili
 
 invio via web app dei log di errore
 notifica tramite email di nuovi errori su DB
+
+miglioare codice html nelle lable che ne fanno uso
 	
 	
 

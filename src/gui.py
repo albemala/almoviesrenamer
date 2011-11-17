@@ -167,8 +167,7 @@ class GUI(QMainWindow):
             # send usage statistics
             self.send_usage_statistics()
             # nex time user will open the program, don't show that dialog
-            # XXX: da scommentare
-#            self.settings.setValue("first_time", False)
+            self.settings.setValue("first_time", False)
 
     def send_usage_statistics(self):
         """

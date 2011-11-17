@@ -15,6 +15,8 @@ class SettingsDialog(QDialog):
 
         # load UI
         self.ui = loadUi("settings_dialog.ui", self)
+        # adjust wondow size to content
+        self.adjustSize()
         # load settings
         self.load_settings()
         ## slots connection

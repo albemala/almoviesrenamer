@@ -13,100 +13,181 @@
         <translation>Definisci la regola di rinomina usando gli attributi dei film:</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="103"/>
+        <location filename="renaming_rule_dialog.ui" line="106"/>
         <source>Title</source>
         <translation>Titolo</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="110"/>
+        <location filename="renaming_rule_dialog.ui" line="113"/>
         <source>Canonical title</source>
         <translation>Titolo canonico</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="117"/>
+        <location filename="renaming_rule_dialog.ui" line="120"/>
         <source>AKA</source>
         <translation>AKA</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="124"/>
+        <location filename="renaming_rule_dialog.ui" line="127"/>
         <source>Language</source>
         <translation>Lingua</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="131"/>
+        <location filename="renaming_rule_dialog.ui" line="134"/>
         <source>Director</source>
         <translation>Regista</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="138"/>
+        <location filename="renaming_rule_dialog.ui" line="141"/>
         <source>Run Time</source>
         <translation>Durata</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="243"/>
+        <location filename="renaming_rule_dialog.ui" line="246"/>
         <source>Year</source>
         <translation>Anno</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="250"/>
+        <location filename="renaming_rule_dialog.ui" line="253"/>
         <source>(...)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="299"/>
+        <location filename="renaming_rule_dialog.ui" line="302"/>
         <source>[...]</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="306"/>
+        <location filename="renaming_rule_dialog.ui" line="309"/>
         <source>{...}</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="315"/>
+        <location filename="renaming_rule_dialog.ui" line="318"/>
         <source>Example</source>
         <translation>Esempio</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="326"/>
+        <location filename="renaming_rule_dialog.ui" line="329"/>
         <source>A.Really.Cool.Movie.2008.ENG.XviD-Republic.CD1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="333"/>
+        <location filename="renaming_rule_dialog.ui" line="336"/>
         <source>will be renamed into:</source>
         <translation>sarà rinominato in:</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="346"/>
+        <location filename="renaming_rule_dialog.ui" line="349"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="371"/>
+        <location filename="settings_dialog.ui" line="104"/>
         <source>Close</source>
         <translation>Chiudi</translation>
+    </message>
+    <message>
+        <location filename="settings_dialog.ui" line="14"/>
+        <source>Settings</source>
+        <translation>Impostazioni</translation>
+    </message>
+    <message>
+        <location filename="stats_agreement_dialog.ui" line="14"/>
+        <source>Usage statistics agreement</source>
+        <translation>Accordo per le statistiche di utilizzo</translation>
+    </message>
+    <message>
+        <location filename="settings_dialog.ui" line="30"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot;font-style:normal;font-weight:400;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;In order to improve future releases of ALmoviesRenamer, we ask you to send &lt;/span&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;anonimous usage statistics&lt;/span&gt;&lt;span&gt; of the program.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;ALmoviesRenamer collects information about:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li  style=&quot; margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;chosen renaming rule&lt;/span&gt;.&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;These information are then sent to a server, in a complete anonymity, and nothing is used or memorized in order to know your identity.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot;font-style:normal;font-weight:400;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;Per poter migliorare le prossime versioni di ALmoviesRenamer, ti chiediamo di inviare &lt;/span&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;statistiche anonime di utilizzo&lt;/span&gt;&lt;span&gt; del programma.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;ALmoviesRenamer raccoglie informazioni riguardo a:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li  style=&quot; margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;regola di rinomina scelta&lt;/span&gt;.&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;Queste informazioni sono poi inviate ad un server, in completa anonimità, e non è usato o memorizzato niente che possa far risalire alla tua identità.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="stats_agreement_dialog.ui" line="84"/>
+        <source>I agree, send anonymous usage statistics.</source>
+        <translation>Sono d&apos;accordo. Invia statistiche di utilizzo anonime.</translation>
+    </message>
+    <message>
+        <location filename="settings_dialog.ui" line="79"/>
+        <source>button_group_stats</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="stats_agreement_dialog.ui" line="97"/>
+        <source>I don&apos;t agree. Do not send usage statistics.</source>
+        <translation>Non sono d&apos;accordo. Non inviare statistiche di utilizzo.</translation>
+    </message>
+    <message>
+        <location filename="stats_agreement_dialog.ui" line="48"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;In order to improve future releases of ALmoviesRenamer, we ask you to send &lt;/span&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;anonimous usage statistics&lt;/span&gt;&lt;span&gt; of the program.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;ALmoviesRenamer collects information about:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li  style=&quot; margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;chosen renaming rule&lt;/span&gt;.&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;These information are then sent to a server, in a complete anonymity, and nothing is used or memorized in order to know your identity.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;Per poter migliorare le prossime versioni di ALmoviesRenamer, ti chiediamo di inviare &lt;/span&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;statistiche anonime di utilizzo&lt;/span&gt;&lt;span&gt; del programma.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;ALmoviesRenamer raccoglie informazioni riguardo a:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li  style=&quot; margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;regola di rinomina scelta&lt;/span&gt;.&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;Queste informazioni sono poi inviate ad un server, in completa anonimità, e non è usato o memorizzato niente che possa far risalire alla tua identità.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="stats_agreement_dialog.ui" line="100"/>
+        <source>button_group</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="stats_agreement_dialog.ui" line="123"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot;font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;You can always change your choice later, under &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Settings&lt;/span&gt;&lt;span&gt; menu.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot;font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;Puoi sempre cambiare la tua scelta più tardi, nel menu &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Impostazioni&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
     <name>GUI</name>
     <message>
-        <location filename="gui.py" line="126"/>
+        <location filename="gui.py" line="212"/>
         <source>Video (*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="gui.py" line="128"/>
+        <location filename="gui.py" line="214"/>
         <source>Select movies you want to rename...</source>
         <translation>Seleziona i film che vuoi rinominare...</translation>
     </message>
     <message>
-        <location filename="gui.py" line="174"/>
+        <location filename="gui.py" line="260"/>
         <source>Select a folder containing movies...</source>
         <translation>Seleziona la cartella che contiene i film...</translation>
     </message>
     <message>
-        <location filename="gui.py" line="215"/>
+        <location filename="gui.py" line="300"/>
         <source>Getting information from </source>
         <translation>Sto cercando informazioni su </translation>
     </message>
@@ -188,17 +269,17 @@
             </translation>
     </message>
     <message>
-        <location filename="gui.py" line="384"/>
+        <location filename="gui.py" line="475"/>
         <source>About {0}</source>
         <translation>Riguardo {0}</translation>
     </message>
     <message>
-        <location filename="gui.py" line="94"/>
+        <location filename="gui.py" line="106"/>
         <source>Internet connection down?</source>
         <translation>Disconnesso da internet?</translation>
     </message>
     <message>
-        <location filename="gui.py" line="95"/>
+        <location filename="gui.py" line="107"/>
         <source>
             &lt;p&gt;
                 It seems your internet connection is down
@@ -229,7 +310,7 @@
             </translation>
     </message>
     <message>
-        <location filename="gui.py" line="346"/>
+        <location filename="gui.py" line="437"/>
         <source>
         &lt;p&gt;
             &lt;b&gt;{0}&lt;/b&gt;
@@ -302,6 +383,34 @@
                     &lt;li&gt;&lt;a href=&quot;http://p.yusukekamiyamane.com/&quot;&gt;Yusuke Kamiyamane&lt;/a&gt;
                         per le icone Fugue Icons&lt;/li&gt;
                 &lt;/ul&gt;
+            &lt;/p&gt;
+            </translation>
+    </message>
+    <message>
+        <location filename="gui.py" line="141"/>
+        <source>New version available</source>
+        <translation>Nuova versione disponibile</translation>
+    </message>
+    <message>
+        <location filename="gui.py" line="142"/>
+        <source>
+            &lt;p&gt;
+                A new version of {0} is available! 
+            &lt;/p&gt;
+            &lt;p&gt;
+                &lt;a href=&quot;http://code.google.com/p/almoviesrenamer/downloads/list&quot;&gt;
+                    Download it.
+                &lt;/a&gt;
+            &lt;/p&gt;
+            </source>
+        <translation>
+            &lt;p&gt;
+                È disponibile una nuova versione di {0}! 
+            &lt;/p&gt;
+            &lt;p&gt;
+                &lt;a href=&quot;http://code.google.com/p/almoviesrenamer/downloads/list&quot;&gt;
+                    Scaricala.
+                &lt;/a&gt;
             &lt;/p&gt;
             </translation>
     </message>
@@ -449,7 +558,7 @@
         <translation>Film</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="444"/>
+        <location filename="main_window.ui" line="451"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
@@ -459,17 +568,17 @@
         <translation type="obsolete">Riguardo...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="480"/>
+        <location filename="main_window.ui" line="487"/>
         <source>Add movies...</source>
         <translation>Aggiungi film...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="489"/>
+        <location filename="main_window.ui" line="496"/>
         <source>Add all movies in folder...</source>
         <translation>Aggiungi tutti i film nella cartella...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="498"/>
+        <location filename="main_window.ui" line="505"/>
         <source>Add all movies in folder (including subfolders)...</source>
         <translation>Aggiungi tutti i film nella cartella (incluse le sottocartelle)...</translation>
     </message>
@@ -489,7 +598,7 @@
         <translation type="obsolete">Cambia la regola di rinomina</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="543"/>
+        <location filename="main_window.ui" line="550"/>
         <source>Rename movies</source>
         <translation>Rinomina i film</translation>
     </message>
@@ -530,29 +639,49 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;TextLabel&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="510"/>
+        <location filename="main_window.ui" line="517"/>
         <source>Remove selected movies from list</source>
         <translation>Rimuovi dalla lista i film selezionati</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="522"/>
+        <location filename="main_window.ui" line="529"/>
         <source>Remove all movies from list</source>
         <translation>Rimuovi dalla lista tutti i film</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="531"/>
+        <location filename="main_window.ui" line="541"/>
         <source>Change renaming rule</source>
         <translation>Cambia la regola di rinomina</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="534"/>
+        <location filename="main_window.ui" line="541"/>
         <source>Change  renaming rule</source>
-        <translation>Cambia la regola di rinomina</translation>
+        <translation type="obsolete">Cambia la regola di rinomina</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="471"/>
+        <location filename="main_window.ui" line="478"/>
         <source>About ALmoviesRenamer</source>
         <translation>Riguardo ALmoviesRenamer</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="441"/>
+        <source>Settings</source>
+        <translation>Impostazioni</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="559"/>
+        <source>Settings...</source>
+        <translation>Impostazioni...</translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="562"/>
+        <source>Open settings</source>
+        <translation type="obsolete">Apri </translation>
+    </message>
+    <message>
+        <location filename="main_window.ui" line="562"/>
+        <source>Change settings</source>
+        <translation>Cambia le impostazioni</translation>
     </message>
 </context>
 </TS>

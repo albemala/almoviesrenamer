@@ -13,7 +13,10 @@ class StatsAgreementDialog(QDialog):
     def __init__(self, parent):
         QDialog.__init__(self, parent)
 
+        # load UI
         self.ui = loadUi("stats_agreement_dialog.ui", self)
+        # adjust wondow size to content
+        self.adjustSize()
         # load settings
         self.settings = QSettings("settings.ini", QSettings.IniFormat)
         ## slots connection

@@ -4,10 +4,14 @@ SOURCES = main.py \
           exceptionhandler.py \
           movie.py \
           renamingrule.py \
-          utils.py
+          utils.py \
+          settings.py \
+          statsagreement.py
           
 FORMS = main_window.ui \
-        renaming_rule_dialog.ui
+        renaming_rule_dialog.ui \
+        settings_dialog.ui \
+        stats_agreement_dialog.ui
         
 TRANSLATIONS = app_it.ts \
                app_fr.ts \
