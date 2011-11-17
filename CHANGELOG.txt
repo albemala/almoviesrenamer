@@ -90,6 +90,7 @@
 	ADD: internet connection check during program loading
 	ADD: usage statistics (agreement + settings)
 	CHG: more elements at once, in renaming rules, can now be selected and moved or removed
+	ADD: check for new program version
 	
 	
 	

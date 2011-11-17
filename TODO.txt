@@ -18,6 +18,9 @@ usare caratteri piu utili, ad es. & -> and
 
 controllo aggiornamenti
 
+problema (forse) con quei film con piu parti, che hanno uno spazio tra
+"part" o "cd" e il numero (es: CD 1 invece di CD1)
+
 uso della durata del video per determinare il runtime migliore
 mediainfo
 
@@ -41,6 +44,9 @@ guessing:
 	
 quando il guessing del film diventerà abbastanza figo, memorizzare un solo film
 per ogni file, invece dei 3 piu probabili
+
+invio via web app dei log di errore
+notifica tramite email di nuovi errori su DB
 	
 	
 

@@ -45,8 +45,7 @@ class GUI(QMainWindow):
         # stores current (selected) movie
         self.selected_movie = None
 
-        # XXX: da togliere
-        self.settings.setValue("first_time", True)
+        # show stats agreement dialog
         self.show_stats_agreement()
 
         # load GUI
@@ -63,7 +62,7 @@ class GUI(QMainWindow):
         # adjust wondow size to content
         self.adjustSize()
 
-        ## connect signals
+        ## signals connection
         # MENU Movies
         self.ui.action_add_movies.triggered.connect(self.add_movies)
         self.ui.action_add_all_movies_in_folder.triggered.connect(self.add_movies_in_folder)
@@ -125,10 +124,19 @@ class GUI(QMainWindow):
             msg_box.exec_()
 
     def check_new_version(self):
+        """
+        checks for new program version, and notify in case of
+        a newer version
+        """
+
+        # create url, with current program version
         url = "http://almoviesrenamer.appspot.com/checknewversion?version=" + \
               utils.PROGRAM_VERSION
+        # call web service
         f = urllib.urlopen(url)
+        # read the answer (could be "yes" for new version, or "no")
         answer = f.read()
+        # if there is a new version
         if answer[:-1] == "new":
             title = self.tr("New version available")
             msg = self.tr("""
@@ -141,26 +149,50 @@ class GUI(QMainWindow):
                 </a>
             </p>
             """).format(utils.PROGRAM_NAME)
+            # show a notification dialog, with link to download page
             QMessageBox.information(None, title, msg)
 
     def show_stats_agreement(self):
+        """
+        shows usage statistics agreement dialog
+        """
+
+        # get if this is the first time user opens the program
         first_time = self.settings.value("first_time").toBool()
         if first_time:
+            # create agreement dialog
             stats_agreement_dialog = StatsAgreementDialog(self)
+            # show it
             stats_agreement_dialog.exec_()
+            # send usage statistics
             self.send_usage_statistics()
-            self.settings.setValue("first_time", False)
+            # nex time user will open the program, don't show that dialog
+            # XXX: da scommentare
+#            self.settings.setValue("first_time", False)
 
     def send_usage_statistics(self):
+        """
+        checks user choice about sending usage statistics and
+        sends usage statistics to a dedicated web service
+        """
+
+        # get user choice about sending usage statistics
         send_usage_statistics = self.settings.value("stats_agreement").toInt()[0]
-        if send_usage_statistics == StatsAgreementDialog.STATS_AGREE:
-            # start loading thread
+        # if user chose to send usage statistics
+        if send_usage_statistics == SettingsDialog.STATS_AGREE:
+            # start sending thread
             threading.Thread(target = self.send_usage_statistics_run).start()
 
     def send_usage_statistics_run(self):
-        # 
+        """
+        sends usage statistics to a dedicated web service
+        """
+
+        # get renaming rule from settings
         renaming_rule = self.settings.value("renaming_rule").toString()
+        # creates url, using renaming rule
         url = "http://almoviesrenamer.appspot.com/rulestats?addrule=" + renaming_rule
+        # call web service
         f = urllib.urlopen(url)
 
     #--------------------------------- SLOTS ----------------------------------

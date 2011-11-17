@@ -22,20 +22,20 @@ class StatsAgreementDialog(QDialog):
 
     def stats_agreement_agree(self, checked):
         """
-        called when renaming rule changes
-        
-        creates and saves new renaming rule, and generate the movie example's new name
+        called when user clicks on radio button to agree with 
+        usage statistics agreement
         """
 
+        # save value on settings file
         self.settings.setValue("stats_agreement", self.STATS_AGREE)
 
     def stats_agreement_disagree(self, checked):
         """
-        called when renaming rule changes
-        
-        creates and saves new renaming rule, and generate the movie example's new name
+        called when user clicks on radio button to disagree with 
+        usage statistics agreement
         """
 
+        # save value on settings file
         self.settings.setValue("stats_agreement", self.STATS_DISAGREE)
 
 

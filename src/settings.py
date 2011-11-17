@@ -13,6 +13,7 @@ class SettingsDialog(QDialog):
     def __init__(self, parent):
         QDialog.__init__(self, parent)
 
+        # load UI
         self.ui = loadUi("settings_dialog.ui", self)
         # load settings
         self.load_settings()
@@ -22,11 +23,15 @@ class SettingsDialog(QDialog):
 
     def load_settings(self):
         """
-        populate renaming rule by rule read from settings
+        loads settings, and sets GUI elements according to 
+        user choices
         """
 
+        # load settings
         self.settings = QSettings("settings.ini", QSettings.IniFormat)
+        # get usage statistics agreement choice
         stats_agreement = self.settings.value("stats_agreement").toInt()[0]
+        # set radio buttons checked
         if stats_agreement == self.STATS_AGREE:
             self.ui.radio_agree.setChecked(True)
         else:
@@ -34,20 +39,20 @@ class SettingsDialog(QDialog):
 
     def stats_agreement_agree(self, checked):
         """
-        called when renaming rule changes
-        
-        creates and saves new renaming rule, and generate the movie example's new name
+        called when user clicks on radio button to agree with 
+        usage statistics agreement
         """
 
+        # save value on settings file
         self.settings.setValue("stats_agreement", self.STATS_AGREE)
 
     def stats_agreement_disagree(self, checked):
         """
-        called when renaming rule changes
-        
-        creates and saves new renaming rule, and generate the movie example's new name
+        called when user clicks on radio button to disagree with 
+        usage statistics agreement
         """
 
+        # save value on settings file
         self.settings.setValue("stats_agreement", self.STATS_DISAGREE)
 
 
