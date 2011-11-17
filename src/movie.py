@@ -42,7 +42,7 @@ class Movie:
 
         if filepath == None:
             self.create_movie_example()
-            
+
         else:
             path, name = os.path.split(filepath)
             name, extension = os.path.splitext(name)
@@ -78,7 +78,7 @@ class Movie:
         """
         creates a movie example by filling info from a fake movie
         """
-        
+
         self.language_index = 0
         self.part = '1'
         self.new_name = ""
@@ -136,7 +136,7 @@ class Movie:
         """
         get info from original name
         """
-        
+
         ## split name        
         # lower the name string
         name = self.original_name.lower()
@@ -155,7 +155,7 @@ class Movie:
         """
         tries to guess the movie spoken language from movie title
         """
-        
+
         # scores used to determine most probable language
         # order: EN, ES, DE, FR, IT
         language_scores = [0, 0, 0, 0, 0]
@@ -189,7 +189,7 @@ class Movie:
         """
         tries to guess movie part from movie title
         """
-        
+
         # name contains splitted original name
         # loop on it
         for word in name:
@@ -462,7 +462,7 @@ class Movie:
         or self.original_name == self.new_name:
             return False
         # char used to replace bad characters in name
-        replace_with = "_"
+        replace_with = ""
         # get operative system
         sysname = platform.system()
         # copy new name to a temp variable
@@ -489,7 +489,7 @@ class Movie:
             # platform.system docs say it could also return "Windows" or "Java".
             # Failsafe and use Windows sanitisation for Java, as it could be any
             # operating system.
-            blacklist = r'\/:*?\"<>|'
+            blacklist = r'\/:*?"<>|'
         # Replace every blacklisted character with a underscore
         name = re.sub("[{0}]".format(re.escape(blacklist)), replace_with, name)
         # Remove any trailing whitespace
@@ -526,7 +526,7 @@ class Movie:
         # if a file with current new name already exists, don't rename it
 #        if os.path.isfile(os.path.join(self.path, name + extension)):
 #            return False
-        
+
         # set cleaned new name and extension
         self.new_name = unicode(name)
         self.extension = extension

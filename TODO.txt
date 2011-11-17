@@ -51,6 +51,8 @@ invio via web app dei log di errore
 notifica tramite email di nuovi errori su DB
 
 miglioare codice html nelle lable che ne fanno uso
+
+sistemare i tooltips
 	
 	
 
