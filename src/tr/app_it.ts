@@ -3,102 +3,77 @@
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="14"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="14"/>
         <source>Renaming rule</source>
-        <translation>Regola di rinomina</translation>
+        <translation type="unfinished">Regola di rinomina</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="24"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="24"/>
         <source>Define renaming rule using movies attributes:</source>
-        <translation>Definisci la regola di rinomina usando gli attributi dei film:</translation>
+        <translation type="unfinished">Definisci la regola di rinomina usando gli attributi dei film:</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="106"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="106"/>
         <source>Title</source>
-        <translation>Titolo</translation>
+        <translation type="unfinished">Titolo</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="113"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="113"/>
         <source>Canonical title</source>
-        <translation>Titolo canonico</translation>
+        <translation type="unfinished">Titolo canonico</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="120"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="120"/>
         <source>AKA</source>
-        <translation>AKA</translation>
+        <translation type="unfinished">AKA</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="127"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="127"/>
         <source>Language</source>
-        <translation>Lingua</translation>
+        <translation type="unfinished">Lingua</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="134"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="134"/>
         <source>Director</source>
-        <translation>Regista</translation>
+        <translation type="unfinished">Regista</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="141"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="141"/>
         <source>Run Time</source>
-        <translation>Durata</translation>
+        <translation type="unfinished">Durata</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="246"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="246"/>
         <source>Year</source>
-        <translation>Anno</translation>
+        <translation type="unfinished">Anno</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="253"/>
-        <source>(...)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="renaming_rule_dialog.ui" line="302"/>
-        <source>[...]</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="renaming_rule_dialog.ui" line="309"/>
-        <source>{...}</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="renaming_rule_dialog.ui" line="318"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="318"/>
         <source>Example</source>
-        <translation>Esempio</translation>
+        <translation type="unfinished">Esempio</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="329"/>
-        <source>A.Really.Cool.Movie.2008.ENG.XviD-Republic.CD1</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="renaming_rule_dialog.ui" line="336"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="336"/>
         <source>will be renamed into:</source>
-        <translation>sarà rinominato in:</translation>
+        <translation type="unfinished">sarà rinominato in:</translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="349"/>
-        <source>TextLabel</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="settings_dialog.ui" line="104"/>
+        <location filename="ui/settings_dialog.ui" line="104"/>
         <source>Close</source>
-        <translation>Chiudi</translation>
+        <translation type="unfinished">Chiudi</translation>
     </message>
     <message>
-        <location filename="settings_dialog.ui" line="14"/>
+        <location filename="ui/settings_dialog.ui" line="14"/>
         <source>Settings</source>
-        <translation>Impostazioni</translation>
+        <translation type="unfinished">Impostazioni</translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="14"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="14"/>
         <source>Usage statistics agreement</source>
-        <translation>Accordo per le statistiche di utilizzo</translation>
+        <translation type="unfinished">Accordo per le statistiche di utilizzo</translation>
     </message>
     <message>
-        <location filename="settings_dialog.ui" line="30"/>
+        <location filename="ui/settings_dialog.ui" line="30"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -107,7 +82,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;ALmoviesRenamer collects information about:&lt;/span&gt;&lt;/p&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li  style=&quot; margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;chosen renaming rule&lt;/span&gt;.&lt;/li&gt;&lt;/ul&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;These information are then sent to a server, in a complete anonymity, and nothing is used or memorized in order to know your identity.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot;font-style:normal;font-weight:400;&quot;&gt;
@@ -117,22 +92,17 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;Queste informazioni sono poi inviate ad un server, in completa anonimità, e non è usato o memorizzato niente che possa far risalire alla tua identità.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="84"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="84"/>
         <source>I agree, send anonymous usage statistics.</source>
-        <translation>Sono d&apos;accordo. Invia statistiche di utilizzo anonime.</translation>
+        <translation type="unfinished">Sono d&apos;accordo. Invia statistiche di utilizzo anonime.</translation>
     </message>
     <message>
-        <location filename="settings_dialog.ui" line="79"/>
-        <source>button_group_stats</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="stats_agreement_dialog.ui" line="97"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="97"/>
         <source>I don&apos;t agree. Do not send usage statistics.</source>
-        <translation>Non sono d&apos;accordo. Non inviare statistiche di utilizzo.</translation>
+        <translation type="unfinished">Non sono d&apos;accordo. Non inviare statistiche di utilizzo.</translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="48"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="48"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -141,7 +111,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;ALmoviesRenamer collects information about:&lt;/span&gt;&lt;/p&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li  style=&quot; margin-top:5px; margin-bottom:5px; margin-left:5px; margin-right:5px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;chosen renaming rule&lt;/span&gt;.&lt;/li&gt;&lt;/ul&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;These information are then sent to a server, in a complete anonymity, and nothing is used or memorized in order to know your identity.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-weight:400; font-style:normal;&quot;&gt;
@@ -151,22 +121,52 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;Queste informazioni sono poi inviate ad un server, in completa anonimità, e non è usato o memorizzato niente che possa far risalire alla tua identità.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="100"/>
-        <source>button_group</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="stats_agreement_dialog.ui" line="123"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="123"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot;font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;You can always change your choice later, under &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Settings&lt;/span&gt;&lt;span&gt; menu.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot;font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span&gt;Puoi sempre cambiare la tua scelta più tardi, nel menu &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Impostazioni&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="ui/renaming_rule_dialog.ui" line="253"/>
+        <source>(...)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/renaming_rule_dialog.ui" line="302"/>
+        <source>[...]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/renaming_rule_dialog.ui" line="309"/>
+        <source>{...}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/renaming_rule_dialog.ui" line="329"/>
+        <source>A.Really.Cool.Movie.2008.ENG.XviD-Republic.CD1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/renaming_rule_dialog.ui" line="349"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/settings_dialog.ui" line="79"/>
+        <source>button_group_stats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/stats_agreement_dialog.ui" line="100"/>
+        <source>button_group</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -418,44 +418,39 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main_window.ui" line="34"/>
-        <source>TextLabel</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="73"/>
+        <location filename="ui/main_window.ui" line="73"/>
         <source>Original name</source>
-        <translation>Nome originale</translation>
+        <translation type="unfinished">Nome originale</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="78"/>
+        <location filename="ui/main_window.ui" line="78"/>
         <source>New name</source>
-        <translation>Nuovo nome</translation>
+        <translation type="unfinished">Nuovo nome</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="101"/>
+        <location filename="ui/main_window.ui" line="101"/>
         <source>Movie title:</source>
-        <translation>Titolo del film:</translation>
+        <translation type="unfinished">Titolo del film:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="122"/>
+        <location filename="ui/main_window.ui" line="122"/>
         <source>Not the right movie?</source>
-        <translation>Non è il film giusto?</translation>
+        <translation type="unfinished">Non è il film giusto?</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="129"/>
+        <location filename="ui/main_window.ui" line="129"/>
         <source>Search it manually...</source>
-        <translation>Cercalo manualmente...</translation>
+        <translation type="unfinished">Cercalo manualmente...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="174"/>
+        <location filename="ui/main_window.ui" line="174"/>
         <source>Search...</source>
-        <translation>Cerca...</translation>
+        <translation type="unfinished">Cerca...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="189"/>
+        <location filename="ui/main_window.ui" line="189"/>
         <source>Searching for movie information...</source>
-        <translation>Sto cercando informazioni sul film...</translation>
+        <translation type="unfinished">Sto cercando informazioni sul film...</translation>
     </message>
     <message>
         <location filename="main_window.ui" line="219"/>
@@ -463,79 +458,34 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Non riesco a trovare questo film.</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="220"/>
+        <location filename="ui/main_window.ui" line="220"/>
         <source>Search again...</source>
-        <translation>Cerca di nuovo...</translation>
+        <translation type="unfinished">Cerca di nuovo...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="237"/>
+        <location filename="ui/main_window.ui" line="237"/>
         <source>Year:</source>
-        <translation>Anno:</translation>
+        <translation type="unfinished">Anno:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="244"/>
+        <location filename="ui/main_window.ui" line="244"/>
         <source>Director:</source>
-        <translation>Regista:</translation>
+        <translation type="unfinished">Regista:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="251"/>
+        <location filename="ui/main_window.ui" line="251"/>
         <source>Run Time:</source>
-        <translation>Durata:</translation>
+        <translation type="unfinished">Durata:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="258"/>
-        <source>2000</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="265"/>
-        <source>a. director</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="275"/>
+        <location filename="ui/main_window.ui" line="275"/>
         <source>Canonical title:</source>
-        <translation>Titolo canonico:</translation>
+        <translation type="unfinished">Titolo canonico:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="282"/>
-        <source>title, the</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="289"/>
-        <source>AKA:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="299"/>
+        <location filename="ui/main_window.ui" line="299"/>
         <source>Language:</source>
-        <translation>Lingua:</translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="307"/>
-        <source>EN</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="312"/>
-        <source>ES</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="317"/>
-        <source>DE</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="322"/>
-        <source>FR</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="327"/>
-        <source>IT</source>
-        <translation></translation>
+        <translation type="unfinished">Lingua:</translation>
     </message>
     <message>
         <location filename="main_window.ui" line="347"/>
@@ -543,24 +493,14 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Questo film è stato rinominato con successo, può essere ora rimosso dalla lista.</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="369"/>
+        <location filename="ui/main_window.ui" line="369"/>
         <source>There has been the following error during renaming:</source>
-        <translation>C&apos;è stato il seguente errore durante la rinomina:</translation>
+        <translation type="unfinished">C&apos;è stato il seguente errore durante la rinomina:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="420"/>
-        <source>?</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="426"/>
+        <location filename="ui/main_window.ui" line="426"/>
         <source>Movies</source>
-        <translation>Film</translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="451"/>
-        <source>toolBar</source>
-        <translation></translation>
+        <translation type="unfinished">Film</translation>
     </message>
     <message>
         <location filename="main_window.ui" line="471"/>
@@ -568,19 +508,19 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Riguardo...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="487"/>
+        <location filename="ui/main_window.ui" line="487"/>
         <source>Add movies...</source>
-        <translation>Aggiungi film...</translation>
+        <translation type="unfinished">Aggiungi film...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="496"/>
+        <location filename="ui/main_window.ui" line="496"/>
         <source>Add all movies in folder...</source>
-        <translation>Aggiungi tutti i film nella cartella...</translation>
+        <translation type="unfinished">Aggiungi tutti i film nella cartella...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="505"/>
+        <location filename="ui/main_window.ui" line="505"/>
         <source>Add all movies in folder (including subfolders)...</source>
-        <translation>Aggiungi tutti i film nella cartella (incluse le sottocartelle)...</translation>
+        <translation type="unfinished">Aggiungi tutti i film nella cartella (incluse le sottocartelle)...</translation>
     </message>
     <message>
         <location filename="main_window.ui" line="511"/>
@@ -598,60 +538,55 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Cambia la regola di rinomina</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="550"/>
+        <location filename="ui/main_window.ui" line="550"/>
         <source>Rename movies</source>
-        <translation>Rinomina i film</translation>
+        <translation type="unfinished">Rinomina i film</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="14"/>
-        <source>ALmoviesRenamer</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="213"/>
+        <location filename="ui/main_window.ui" line="213"/>
         <source>I cannot find that movie.</source>
-        <translation>Non riesco a trovare questo film.</translation>
+        <translation type="unfinished">Non riesco a trovare questo film.</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="341"/>
+        <location filename="ui/main_window.ui" line="341"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#005000;&quot;&gt;This movie has been correctly renamed, and can be removed from list.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#005000;&quot;&gt;Questo film è stato rinominato con successo, può essere ora rimosso dalla lista.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="382"/>
+        <location filename="ui/main_window.ui" line="382"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;TextLabel&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;TextLabel&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="517"/>
+        <location filename="ui/main_window.ui" line="517"/>
         <source>Remove selected movies from list</source>
-        <translation>Rimuovi dalla lista i film selezionati</translation>
+        <translation type="unfinished">Rimuovi dalla lista i film selezionati</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="529"/>
+        <location filename="ui/main_window.ui" line="529"/>
         <source>Remove all movies from list</source>
-        <translation>Rimuovi dalla lista tutti i film</translation>
+        <translation type="unfinished">Rimuovi dalla lista tutti i film</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="541"/>
+        <location filename="ui/main_window.ui" line="541"/>
         <source>Change renaming rule</source>
-        <translation>Cambia la regola di rinomina</translation>
+        <translation type="unfinished">Cambia la regola di rinomina</translation>
     </message>
     <message>
         <location filename="main_window.ui" line="541"/>
@@ -659,19 +594,19 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Cambia la regola di rinomina</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="478"/>
+        <location filename="ui/main_window.ui" line="478"/>
         <source>About ALmoviesRenamer</source>
-        <translation>Riguardo ALmoviesRenamer</translation>
+        <translation type="unfinished">Riguardo ALmoviesRenamer</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="441"/>
+        <location filename="ui/main_window.ui" line="441"/>
         <source>Settings</source>
-        <translation>Impostazioni</translation>
+        <translation type="unfinished">Impostazioni</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="559"/>
+        <location filename="ui/main_window.ui" line="559"/>
         <source>Settings...</source>
-        <translation>Impostazioni...</translation>
+        <translation type="unfinished">Impostazioni...</translation>
     </message>
     <message>
         <location filename="main_window.ui" line="562"/>
@@ -679,9 +614,74 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Apri </translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="562"/>
+        <location filename="ui/main_window.ui" line="562"/>
         <source>Change settings</source>
-        <translation>Cambia le impostazioni</translation>
+        <translation type="unfinished">Cambia le impostazioni</translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="14"/>
+        <source>ALmoviesRenamer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="34"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="258"/>
+        <source>2000</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="265"/>
+        <source>a. director</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="282"/>
+        <source>title, the</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="289"/>
+        <source>AKA:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="307"/>
+        <source>EN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="312"/>
+        <source>ES</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="317"/>
+        <source>DE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="322"/>
+        <source>FR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="327"/>
+        <source>IT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="420"/>
+        <source>?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="451"/>
+        <source>toolBar</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

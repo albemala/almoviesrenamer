@@ -20,7 +20,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     translator = QTranslator()
-    translator.load("app_" + QLocale.system().name())
+    translator.load("tr/app_" + QLocale.system().name())
     app.installTranslator(translator)
 
     gui = GUI()

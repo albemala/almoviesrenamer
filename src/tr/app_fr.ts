@@ -3,102 +3,102 @@
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="14"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="14"/>
         <source>Renaming rule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="24"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="24"/>
         <source>Define renaming rule using movies attributes:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="106"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="106"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="113"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="113"/>
         <source>Canonical title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="120"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="120"/>
         <source>AKA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="127"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="127"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="134"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="134"/>
         <source>Director</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="141"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="141"/>
         <source>Run Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="246"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="246"/>
         <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="253"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="253"/>
         <source>(...)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="302"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="302"/>
         <source>[...]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="309"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="309"/>
         <source>{...}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="318"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="318"/>
         <source>Example</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="329"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="329"/>
         <source>A.Really.Cool.Movie.2008.ENG.XviD-Republic.CD1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="336"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="336"/>
         <source>will be renamed into:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="renaming_rule_dialog.ui" line="349"/>
+        <location filename="ui/renaming_rule_dialog.ui" line="349"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings_dialog.ui" line="104"/>
+        <location filename="ui/settings_dialog.ui" line="104"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings_dialog.ui" line="14"/>
+        <location filename="ui/settings_dialog.ui" line="14"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="14"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="14"/>
         <source>Usage statistics agreement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings_dialog.ui" line="30"/>
+        <location filename="ui/settings_dialog.ui" line="30"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -110,22 +110,22 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="84"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="84"/>
         <source>I agree, send anonymous usage statistics.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings_dialog.ui" line="79"/>
+        <location filename="ui/settings_dialog.ui" line="79"/>
         <source>button_group_stats</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="97"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="97"/>
         <source>I don&apos;t agree. Do not send usage statistics.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="48"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="48"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -137,12 +137,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="100"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="100"/>
         <source>button_group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="stats_agreement_dialog.ui" line="123"/>
+        <location filename="ui/stats_agreement_dialog.ui" line="123"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -265,172 +265,132 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main_window.ui" line="14"/>
+        <location filename="ui/main_window.ui" line="14"/>
         <source>ALmoviesRenamer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="34"/>
+        <location filename="ui/main_window.ui" line="34"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="73"/>
+        <location filename="ui/main_window.ui" line="73"/>
         <source>Original name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="78"/>
+        <location filename="ui/main_window.ui" line="78"/>
         <source>New name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="101"/>
+        <location filename="ui/main_window.ui" line="101"/>
         <source>Movie title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="122"/>
+        <location filename="ui/main_window.ui" line="122"/>
         <source>Not the right movie?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="129"/>
+        <location filename="ui/main_window.ui" line="129"/>
         <source>Search it manually...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="174"/>
+        <location filename="ui/main_window.ui" line="174"/>
         <source>Search...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="189"/>
+        <location filename="ui/main_window.ui" line="189"/>
         <source>Searching for movie information...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="220"/>
-        <source>Search again...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="237"/>
-        <source>Year:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="244"/>
-        <source>Director:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="251"/>
-        <source>Run Time:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="258"/>
-        <source>2000</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="265"/>
-        <source>a. director</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="275"/>
-        <source>Canonical title:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="282"/>
-        <source>title, the</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="289"/>
-        <source>AKA:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="299"/>
-        <source>Language:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="307"/>
-        <source>EN</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="312"/>
-        <source>ES</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="317"/>
-        <source>DE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="322"/>
-        <source>FR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="327"/>
-        <source>IT</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="369"/>
-        <source>There has been the following error during renaming:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="420"/>
-        <source>?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="426"/>
-        <source>Movies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="451"/>
-        <source>toolBar</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="487"/>
-        <source>Add movies...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="496"/>
-        <source>Add all movies in folder...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="505"/>
-        <source>Add all movies in folder (including subfolders)...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="550"/>
-        <source>Rename movies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="213"/>
+        <location filename="ui/main_window.ui" line="213"/>
         <source>I cannot find that movie.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="341"/>
+        <location filename="ui/main_window.ui" line="220"/>
+        <source>Search again...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="237"/>
+        <source>Year:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="244"/>
+        <source>Director:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="251"/>
+        <source>Run Time:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="258"/>
+        <source>2000</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="265"/>
+        <source>a. director</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="275"/>
+        <source>Canonical title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="282"/>
+        <source>title, the</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="289"/>
+        <source>AKA:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="299"/>
+        <source>Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="307"/>
+        <source>EN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="312"/>
+        <source>ES</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="317"/>
+        <source>DE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="322"/>
+        <source>FR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="327"/>
+        <source>IT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="341"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -439,7 +399,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="382"/>
+        <location filename="ui/main_window.ui" line="369"/>
+        <source>There has been the following error during renaming:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="382"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -448,37 +413,72 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="517"/>
-        <source>Remove selected movies from list</source>
+        <location filename="ui/main_window.ui" line="420"/>
+        <source>?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="529"/>
-        <source>Remove all movies from list</source>
+        <location filename="ui/main_window.ui" line="426"/>
+        <source>Movies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="541"/>
-        <source>Change renaming rule</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="478"/>
-        <source>About ALmoviesRenamer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main_window.ui" line="441"/>
+        <location filename="ui/main_window.ui" line="441"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="559"/>
+        <location filename="ui/main_window.ui" line="451"/>
+        <source>toolBar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="478"/>
+        <source>About ALmoviesRenamer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="487"/>
+        <source>Add movies...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="496"/>
+        <source>Add all movies in folder...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="505"/>
+        <source>Add all movies in folder (including subfolders)...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="517"/>
+        <source>Remove selected movies from list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="529"/>
+        <source>Remove all movies from list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="541"/>
+        <source>Change renaming rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="550"/>
+        <source>Rename movies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.ui" line="559"/>
         <source>Settings...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="562"/>
+        <location filename="ui/main_window.ui" line="562"/>
         <source>Change settings</source>
         <translation type="unfinished"></translation>
     </message>

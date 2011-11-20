@@ -89,7 +89,7 @@ class RenamingRuleDialog(QDialog):
     def __init__(self, parent):
         QDialog.__init__(self, parent)
 
-        self.ui = loadUi("renaming_rule_dialog.ui", self)
+        self.ui = loadUi("ui/renaming_rule_dialog.ui", self)
         # load settings
         self.settings = QSettings("settings.ini", QSettings.IniFormat)
         self.renaming_rule = self.settings.value("renaming_rule").toString()

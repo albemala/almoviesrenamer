@@ -49,7 +49,7 @@ class GUI(QMainWindow):
         self.show_stats_agreement()
 
         # load GUI
-        self.ui = loadUi("main_window.ui", self)
+        self.ui = loadUi("ui/main_window.ui", self)
         # create RenamingRuleDialog
         self.ui.renaming_rule_dialog = RenamingRuleDialog(self)
         # create SettingsDialog
@@ -119,7 +119,7 @@ class GUI(QMainWindow):
             </p>
             """))
             icon = QPixmap()
-            icon.load('icons/exclamation.png')
+            icon.load('ui/icons/exclamation.png')
             msg_box.setIconPixmap(icon)
             msg_box.exec_()
 

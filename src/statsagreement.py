@@ -14,7 +14,7 @@ class StatsAgreementDialog(QDialog):
         QDialog.__init__(self, parent)
 
         # load UI
-        self.ui = loadUi("stats_agreement_dialog.ui", self)
+        self.ui = loadUi("ui/stats_agreement_dialog.ui", self)
         # adjust wondow size to content
         self.adjustSize()
         # load settings

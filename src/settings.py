@@ -14,7 +14,7 @@ class SettingsDialog(QDialog):
         QDialog.__init__(self, parent)
 
         # load UI
-        self.ui = loadUi("settings_dialog.ui", self)
+        self.ui = loadUi("ui/settings_dialog.ui", self)
         # adjust wondow size to content
         self.adjustSize()
         # load settings

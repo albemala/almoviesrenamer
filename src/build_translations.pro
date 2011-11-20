@@ -8,12 +8,12 @@ SOURCES = main.py \
           settings.py \
           statsagreement.py
           
-FORMS = main_window.ui \
-        renaming_rule_dialog.ui \
-        settings_dialog.ui \
-        stats_agreement_dialog.ui
+FORMS = ui/main_window.ui \
+        ui/renaming_rule_dialog.ui \
+        ui/settings_dialog.ui \
+        ui/stats_agreement_dialog.ui
         
-TRANSLATIONS = app_it.ts \
-               app_fr.ts \
-               app_de.ts \
-               app_es.ts \
+TRANSLATIONS = tr/app_it.ts \
+               tr/app_fr.ts \
+               tr/app_de.ts \
+               tr/app_es.ts \

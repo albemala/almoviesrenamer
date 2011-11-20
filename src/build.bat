@@ -1,1 +1,1 @@
-c:\Python26\python.exe setup.py build
+c:\Python26\python.exe setup.py bdist_dumb
