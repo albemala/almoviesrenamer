@@ -53,13 +53,15 @@ buildOptions = dict(
                     )
 
 base = None
+targetName = "ALmoviesRenamer"
 if sys.platform == "win32":
     base = "Win32GUI"
+    targetName.append(".exe")
 
 main_exe = Executable(
                       script = "main.py",
                       base = base,
-                      targetName = "ALmoviesRenamer.exe",
+                      targetName = targetName,
                       compress = True,
                       )
 
