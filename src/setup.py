@@ -12,6 +12,7 @@ from PyQt4.QtCore import QSettings
 settings = QSettings("settings.ini", QSettings.IniFormat)
 # save value on settings file
 settings.setValue("first_time", True)
+settings.sync()
 
 includes = []
 
