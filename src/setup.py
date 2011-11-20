@@ -56,7 +56,7 @@ base = None
 targetName = "ALmoviesRenamer"
 if sys.platform == "win32":
     base = "Win32GUI"
-    targetName.append(".exe")
+    targetName += ".exe"
 
 main_exe = Executable(
                       script = "main.py",
