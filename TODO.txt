@@ -6,8 +6,6 @@ tooltips
 traduzionare
 changeloggare
 buildare translations
-preparare per release
-cambiare setting : first_time=true
 buildare (win + linux)
 
 le regole di rinomina rimangono in inglese anche se la lingua è diversa
@@ -18,8 +16,6 @@ altrimenti sceglie sempre solo in base alla lingua, e non va sempre bene..
 invece di sostituire i caratteri illegali dei sistemi operativi con underscore,
 usare caratteri piu utili, ad es. & -> and
 
-controllo aggiornamenti
-
 problema (forse) con quei film con piu parti, che hanno uno spazio tra
 "part" o "cd" e il numero (es: CD 1 invece di CD1)
 
@@ -27,8 +23,6 @@ uso della durata del video per determinare il runtime migliore
 mediainfo
 
 doppio click sugli item delle tabelle per aprire la cartella che contiene i file corrispondenti
-
-creare un autoupdate? o solo una notifica di nuovi aggiornamenti...
 
 mettere un pulsante per fermare la ricerca e tornare o alla vista delle info sul film o alla ricerca manuale
 
@@ -50,7 +44,7 @@ per ogni file, invece dei 3 piu probabili
 invio via web app dei log di errore
 notifica tramite email di nuovi errori su DB
 
-miglioare codice html nelle lable che ne fanno uso
+miglioare codice html nelle label che ne fanno uso
 
 sistemare i tooltips
 	
