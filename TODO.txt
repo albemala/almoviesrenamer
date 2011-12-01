@@ -1,12 +1,20 @@
-﻿
+﻿--------------------------------------------------------------------------------
 nuovo numero versione
 commentare
 codificare
 tooltips
 traduzionare
-changeloggare
 buildare translations
+changeloggare
+readme
+testare
+aggiornare setup.py
 buildare (win + linux)
+--------------------------------------------------------------------------------
+
+
+aggiungere una impostazione per definire il separatore tra le parole, 
+invece della virgola standard
 
 le regole di rinomina rimangono in inglese anche se la lingua è diversa
 
@@ -38,11 +46,19 @@ guessing:
 	
 	http://stackoverflow.com/questions/7573952/comparing-strings-in-python-to-find-errors
 	
+	http://pypi.python.org/pypi/python-Levenshtein
+	
+	http://pypi.python.org/pypi/guessit
+	
 quando il guessing del film diventerà abbastanza figo, memorizzare un solo film
 per ogni file, invece dei 3 piu probabili
 
-invio via web app dei log di errore
-notifica tramite email di nuovi errori su DB
+exception handler:
+
+	invio via web app dei log di errore
+	notifica tramite email di nuovi errori su DB
+	
+	spostare costante LOG_PATH da utils a exceptionhandler
 
 miglioare codice html nelle label che ne fanno uso
 

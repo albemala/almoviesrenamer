@@ -55,6 +55,7 @@ class GUI(QMainWindow):
         # create SettingsDialog
         self.ui.settings_dialog = SettingsDialog(self)
         # set some GUI parameters
+        self.setWindowTitle(utils.PROGRAM_NAME)
         self.ui.panel_loading.setVisible(False)
         self.ui.stack_movie.setVisible(False)
         self.ui.stack_title_search.setVisible(False)

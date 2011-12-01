@@ -10,9 +10,6 @@
     <height>603</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>ALmoviesRenamer</string>
-  </property>
   <property name="windowIcon">
    <iconset>
     <normaloff>icons/brand.png</normaloff>icons/brand.png</iconset>

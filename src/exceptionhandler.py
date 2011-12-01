@@ -18,8 +18,9 @@ import os.path
 import sys
 import time
 import traceback
-import utils
 
+# directory used to store logs
+LOG_PATH = os.path.abspath("log")
 
 def excepthook(excType, excValue, tracebackobj):
     """
@@ -65,10 +66,10 @@ def excepthook(excType, excValue, tracebackobj):
     sections = [separator, timeString, separator, versionInfo, separator, tbinfo, separator, errmsg]
     msg = '\n'.join(sections) + '\n' * 3
 
-    if not os.path.isdir(utils.LOG_PATH): os.mkdir(utils.LOG_PATH)
+    if not os.path.isdir(LOG_PATH): os.mkdir(LOG_PATH)
 
     logFileName = time.strftime("%Y-%m-%d") + "_errors.log"
-    logFile = os.path.join(utils.LOG_PATH, logFileName)
+    logFile = os.path.join(LOG_PATH, logFileName)
 
     try:
         with open(logFile, "a") as f:
