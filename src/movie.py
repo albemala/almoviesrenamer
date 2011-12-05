@@ -7,6 +7,8 @@ import os
 import platform
 import re
 import unicodedata
+import guessit
+import difflib
 
 class Movie:
     """
@@ -52,36 +54,48 @@ class Movie:
             self.original_name = unicode(name)
             # file extension
             self.extension = unicode(extension)
+            # movie new title (after renaming)
+            self.new_name = ''
+
+            self.title = ''
+            self.canonical_title = ''
+            self.aka_index = 0
+            self.year = 0
+            self.director = ''
+            # XXX usare un unico run time
+            self.run_time_index = 0
             # index used in GUI, representing movie spoken language 
             self.language_index = 0
             # some movies are divided into more parts, represented in 
             # title with words like "disk1" or "cd2".
             # that information is guessed from title
-            self.part = '0'
-            # movie new title (after renaming)
-            self.new_name = ""
+            self.part = 0
             # current state
             # states are used to show a proper panel in GUI
             self.state = self.STATE_BEFORE_RENAMING
             # possible movies corresponding to this one, with information about them
             # (title, director, year, ...)
-            self.info = []
+#            self.info = []
             # info index, used to memorize which info is associated with that movie
-            self.info_index = 0
+#            self.info_index = 0
             # error occurred during renaming operation
-            self.renaming_error = ""
+            self.renaming_error = ''
 
             # try to guess new movie name from current name
-            self.get_info()
+#            self.get_info()
+            self.guess_info()
+            self.search_title_2()
 
     def create_movie_example(self):
         """
         creates a movie example by filling info from a fake movie
         """
 
+        # XXX da riscrivere
+
         self.language_index = 0
         self.part = '1'
-        self.new_name = ""
+        self.new_name = ''
         self.info_index = 0
         self.info = []
 
@@ -131,6 +145,33 @@ class Movie:
         """
 
         return os.path.join(self.path, self.new_name + self.extension)
+
+    def manual_search_title(self, title):
+        self.title = title
+        self.year = 0
+        self.search_title_2()
+
+    def guess_info(self):
+        # guessing needs complete name
+        name = self.original_name + self.extension
+        # guess movie info, using guessit module
+        info = guessit.guess_movie_info(name)
+        # remove everything inside parenthesis
+        # need this because of a problem with guessit module,
+        # which has some problem with parenthesis
+        name = re.sub('[([{].*?[)\]}]', ' ', name)
+        # guess name again, this time without parenthesis
+        info2 = guessit.guess_movie_info(name)
+        # get only guessed title from new guess
+        info['title'] = info2['title']
+        # save guessed info in movie attributes
+        if 'title' in info:
+            self.title = info['title']
+        if 'year' in info:
+            self.year = info['year']
+        if 'cdNumber' in info:
+            self.part = info['cdNumber']
+        # XXX ci manca da salvare la lingua
 
     def get_info(self):
         """
@@ -198,6 +239,66 @@ class Movie:
                 # get part number
                 self.part = word[-1:]
 
+    def clean_name_2(self):
+        """
+        prepare the original name for a following use in IMDB search
+        """
+
+        # lower the original name
+#        print(self.original_name)
+        name = self.original_name.lower()
+#        print(name)
+        # replace dots, underscores and dashes with spaces
+        name = re.sub('[\._\'"]|( - )', ' ', name)
+#        print(name)
+        # remove everything inside (), [], {}
+        name = re.sub('[([{].*?[)\]}]', ' ', name)
+#        # remove everything inside ( )
+#        name = re.sub(r'\((.+)\)', '', name)
+#        print(name)
+#        # remove everything inside [ ]
+#        name = re.sub(r'\[(.+)\]', '', name)
+#        print(name)
+#        # remove everything inside { }
+#        name = re.sub(r'{(.+)}', '', name)
+#        print(name)
+#        # remove brackets
+#        name = re.sub('\(\)|{}|\[\]', '', name)
+#        print(name)
+        # remove year
+        name = re.sub(r'\d\d\d\d', '', name)
+#        print(name)
+        # remove disk information
+        name = re.sub(r'disk[0-9]|cd[0-9]|part[0-9]', '', name)
+#        print(name)
+        # split it using spaces
+        name = name.split()
+#        print(name)
+
+        # creates a blacklist of unwanted words 
+        blacklist = ['dvdrip', 'divx', 'xvid', 'brrip']
+        # that index represents first occurrence of a 
+        # black word (word in blacklist)
+#        first_blackword_index = -1
+        title = []
+        # loop on name
+        for word in name:
+#            word = name[i]
+            if word not in blacklist:
+                title.append(word)
+            else:
+                # found a blackword, memorize index and break loop
+#                first_blackword_index = i
+                break
+            # remove black words
+#        if first_blackword_index != -1:
+            # remove all words from name after first blackword occurrence
+            # does that because successives words are probably other unwanted words
+#            name = name[:first_blackword_index]
+#        print(title)
+        # return new cleaned name
+        return ' '.join(title)
+
     def clean_name(self):
         """
         prepare the original name for a following use in IMDB search
@@ -244,6 +345,75 @@ class Movie:
             name = name[:first_blackword_index]
         # return new cleaned name
         return ' '.join(name)
+
+    def search_title_2(self):
+        """
+        search given title on IMDB, and get corresponding movies info
+        """
+
+        # create imdb search engine
+        imdb_archive = imdb.IMDb()
+        # search for title into IMDB, and returns some candidate movies
+        candidate_movies = imdb_archive.search_movie(self.title)
+        best_movie = None
+        best_score = 0
+        # XXX da togliere
+        best_title = ""
+        best_aka = ""
+        print(self.title)
+        for movie in candidate_movies:
+#            for item in movie.items():
+#                print(str(item))
+            print(movie['title'])
+            year = 0
+            try:
+                year = movie['year']
+            except:
+                pass
+            score = self.get_title_ratio(movie['title'], year)
+            if score > best_score:
+                best_score = score
+                best_movie = movie
+                # XXX da togliere
+                best_title = movie['title']
+                best_aka = ""
+            try:
+                akas = movie['akas']
+                for aka in akas:
+                    try:
+                        # sometimes the AKAs list ends with a u'\xbb', so I remove it
+#                        if aka != u'\xbb':                            
+                        aka = aka.split('::')
+#                        if len(splitted_aka) > 1:
+#                            akas.append(splitted_aka[0])
+                        print(aka[0])
+                        score = self.get_title_ratio(aka[0], year)
+                        if score > best_score:
+                            best_score = score
+                            best_movie = movie
+                            # XXX da togliere
+                            best_title = movie['title']
+                            best_aka = aka[0]
+                    except UnicodeEncodeError:
+                        pass
+            except KeyError:
+                pass
+        print('best movie ' + '-' * 30 + '> ' + best_title)
+        print('best aka ' + '-' * 30 + '> ' + best_aka)
+        print('best score ' + '-' * 30 + '> ' + str(best_score))
+        print('')
+        return best_movie
+
+    def get_title_ratio(self, title, year):
+        # XXX usare anche la lingua per comparare l'aka?
+        sm = difflib.SequenceMatcher(None, self.title, title)
+        score = sm.ratio()
+        if self.year != 0 \
+        and year != 0 \
+        and self.year == year:
+            score += 1
+        print(score)
+        return score
 
     def search_title(self, title):
         """

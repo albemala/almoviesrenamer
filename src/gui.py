@@ -31,7 +31,7 @@ class GUI(QMainWindow):
         # check internet connection
         self.check_connection()
         # check for new program version
-        self.check_new_version()
+#        self.check_new_version()
 
         ## variables
         # load settings
@@ -303,17 +303,17 @@ class GUI(QMainWindow):
             # create a new movie object
             movie = Movie(filepath)
             # generate new movie name based on renaming rule
-            movie.generate_new_name(self.renaming_rule)
-            # add movie to list
-            self.movies.append(movie)
-            # insert a new row in movie table
-            self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
-            # create a table item with original movie file name
-            item_original_name = QTableWidgetItem(movie.original_name)
-            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
-            # create a table item with new movie file name
-            item_new_name = QTableWidgetItem(movie.new_name)
-            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
+#            movie.generate_new_name(self.renaming_rule)
+#            # add movie to list
+#            self.movies.append(movie)
+#            # insert a new row in movie table
+#            self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
+#            # create a table item with original movie file name
+#            item_original_name = QTableWidgetItem(movie.original_name)
+#            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
+#            # create a table item with new movie file name
+#            item_new_name = QTableWidgetItem(movie.new_name)
+#            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
         self.load_movies_finished.emit()
 
     def load_movies_end(self):

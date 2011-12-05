@@ -10,7 +10,29 @@ readme
 testare
 aggiornare setup.py
 buildare (win + linux)
+aggiornare versione su web service
 --------------------------------------------------------------------------------
+
+
+ripristinare controllo versione: gui > 34
+ripristinare in gui > load_movies_run 
+
+
+guessit considera anche l'estensione, quindi è da aggiungere
+
+togliere le parentesi e riusare guessit, e prendere solo il titolo
+
+
+usare un runtime unico, il migliore in base alla durata del video
+
+tradurre "Part x" alla fine di movie.generate_new_name
+
+quando recuper le info sul film, potrei recuperare solo il regista se è quello che mi manca
+
+ci sono dei casi in cui, cercato il titolo in italiano, la ricerca non trova gli aka 
+per quel film, ma solo il titolo originale in inglese. in questo caso 
+sarebbe bello aggiungere comunque l'aka trovato nel titolo 
+tra gli aka del film per la lingua trovata, cosi da proporlo nella rinomina del file
 
 
 aggiungere una impostazione per definire il separatore tra le parole, 
