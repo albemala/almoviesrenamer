@@ -17,20 +17,20 @@ settings.sync()
 includes = []
 
 excludes = [
-            '_gtkagg',
-            '_tkagg',
-            'bsddb',
-            'curses',
-            'email',
-            'pywin.debugger',
-            'pywin.debugger.dbgcon',
-            'pywin.dialogs',
-            'tcl',
-            'Tkconstants',
-            'Tkinter',
-            'win32api',
-            '_ssl',
-            '_sqlite3'
+#            '_gtkagg',
+#            '_tkagg',
+#            'bsddb',
+#            'curses',
+#            'email',
+#            'pywin.debugger',
+#            'pywin.debugger.dbgcon',
+#            'pywin.dialogs',
+#            'tcl',
+#            'Tkconstants',
+#            'Tkinter',
+#            'win32api',
+#            '_ssl',
+#            '_sqlite3'
             ]
 
 include_files = [

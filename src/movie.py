@@ -59,11 +59,13 @@ class Movie:
 
             self.title = ''
             self.canonical_title = ''
-            self.aka_index = 0
+            self.akas = []
+            self.akas_index = 0
             self.year = 0
             self.director = ''
             # XXX usare un unico run time
-            self.run_time_index = 0
+            self.run_times = []
+            self.run_times_index = 0
             # index used in GUI, representing movie spoken language 
             self.language_index = 0
             # some movies are divided into more parts, represented in 
@@ -84,7 +86,7 @@ class Movie:
             # try to guess new movie name from current name
 #            self.get_info()
             self.guess_info()
-            self.search_title_2()
+            movie = self.search_title_2() # XXX cosa succede se ritorna None?
 
     def create_movie_example(self):
         """
@@ -149,6 +151,7 @@ class Movie:
     def manual_search_title(self, title):
         self.title = title
         self.year = 0
+        # XXX resettare anche la lingua
         self.search_title_2()
 
     def guess_info(self):
@@ -160,6 +163,11 @@ class Movie:
         # need this because of a problem with guessit module,
         # which has some problem with parenthesis
         name = re.sub('[([{].*?[)\]}]', ' ', name)
+        # some titles ends with 1 (example: Alien 1), 
+        # which causes wrong guessing, so remove it
+        if name.endswith(' 1'):
+            print('endswith1')
+            name = name[:-2]
         # guess name again, this time without parenthesis
         info2 = guessit.guess_movie_info(name)
         # get only guessed title from new guess
@@ -171,6 +179,10 @@ class Movie:
             self.year = info['year']
         if 'cdNumber' in info:
             self.part = info['cdNumber']
+        if 'language' in info:
+            languages = info['language']
+            for language in languages:
+                print(language.lng3())
         # XXX ci manca da salvare la lingua
 
     def get_info(self):
@@ -357,27 +369,23 @@ class Movie:
         candidate_movies = imdb_archive.search_movie(self.title)
         best_movie = None
         best_score = 0
-        # XXX da togliere
-        best_title = ""
-        best_aka = ""
+        best_title = "" # XXX da togliere
+        best_aka = "" # XXX da togliere
         print(self.title)
         for movie in candidate_movies:
 #            for item in movie.items():
 #                print(str(item))
             print(movie['title'])
             year = 0
-            try:
+            if 'year' in movie:
                 year = movie['year']
-            except:
-                pass
             score = self.get_title_ratio(movie['title'], year)
             if score > best_score:
                 best_score = score
                 best_movie = movie
-                # XXX da togliere
-                best_title = movie['title']
-                best_aka = ""
-            try:
+                best_title = movie['title'] # XXX da togliere
+                best_aka = "" # XXX da togliere
+            if 'akas' in movie:
                 akas = movie['akas']
                 for aka in akas:
                     try:
@@ -391,13 +399,10 @@ class Movie:
                         if score > best_score:
                             best_score = score
                             best_movie = movie
-                            # XXX da togliere
-                            best_title = movie['title']
-                            best_aka = aka[0]
+                            best_title = movie['title'] # XXX da togliere
+                            best_aka = aka[0] # XXX da togliere
                     except UnicodeEncodeError:
                         pass
-            except KeyError:
-                pass
         print('best movie ' + '-' * 30 + '> ' + best_title)
         print('best aka ' + '-' * 30 + '> ' + best_aka)
         print('best score ' + '-' * 30 + '> ' + str(best_score))
@@ -414,6 +419,67 @@ class Movie:
             score += 1
         print(score)
         return score
+
+    def set_movie_info(self, movie):
+        # create imdb search engine
+        imdb_archive = imdb.IMDb()
+        # get other information from IMDB
+        imdb_archive.update(movie)
+        # store only some information returned by IMDB (most useful ones)
+        # I also clean these information and store them in a useful format.
+        # set title
+        self.title = movie['title']
+        # set canonical title        
+        # not every movie returns a canonical title...
+        if 'canonical title' in movie:
+            self.canonical_title = movie['canonical title']
+        # set akas
+        self.akas = []
+        # first aka is the original title
+        self.akas.append(movie['title'])
+        self.akas_index = 0
+        if 'akas' in movie:
+            # select AKAS index based on most probable language.
+            # loop on akas
+            akas = movie['akas']
+            for i in range(len(akas)):
+                aka = akas[i]
+#                try:
+                aka = aka.split('::')
+                self.akas.append(aka[0])
+#                except UnicodeEncodeError:
+#                    pass
+
+                # if spanish language is the most probable one and if current AKAS
+                # is the spanish one...
+                if self.language_index == 1 and re.search(r'Spain', aka[1]):
+                    # ... select it.
+                    akas_index = i + 1
+                # the same for other languages
+                elif self.language_index == 2 and re.search(r'Germany', aka[1]):
+                    akas_index = i + 1
+                elif self.language_index == 3 and re.search(r'France', aka[1]):
+                    akas_index = i + 1
+                elif self.language_index == 4 and re.search(r'Italy', aka[1]):
+                    akas_index = i + 1
+
+        if 'year' in movie:
+            self.year = movie['year']
+
+        if 'director' in movie:
+            directors = []
+            for director in movie['director']:
+                directors.append(director['name'])
+            self.director = ', '.join(directors)
+
+        run_times = []
+        run_times_index = 0
+        if 'runtimes' in movie:
+            for run_time in movie['runtimes']:
+                # from runtimes, get only numbers representing time
+                match = re.search('\d+', run_time)
+                if match:
+                    run_times.append(run_time[match.start():match.end()])
 
     def search_title(self, title):
         """

@@ -18,12 +18,30 @@ ripristinare controllo versione: gui > 34
 ripristinare in gui > load_movies_run 
 
 
+in effetti, finora quando cercavo un film su imdb e non trovavo niente, davo un errore
+tipo "film non trovato". ma visto che alcune informazioni vengono comunque ritornate
+dall'analisi del nome del file, posso tenere e proporre quelle se la ricerca on line non
+trova altro
+
+suoni per conferma operazioni?
+
+probabilmente la lingua guessed da guessit va raffinata usando quella di sistema,
+o comunque impostare quella di sistema come quella di default se non trovata nel titolo
+del file
+
 guessit considera anche l'estensione, quindi è da aggiungere
 
 togliere le parentesi e riusare guessit, e prendere solo il titolo
 
 
 usare un runtime unico, il migliore in base alla durata del video
+
+per recuperare la durata del video, ho due possibilità:
+	- usare mediainfo, però dovrei fare un wrapper dell'eseguibile
+	sia per windows che per linux, che occupano abbastanza
+	- usare hachoir parser, e magari farne una cura dimagrante
+	e tenere solo la parte che mi interessa (se la licenza lo permette)
+
 
 tradurre "Part x" alla fine di movie.generate_new_name
 
