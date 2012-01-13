@@ -19,4 +19,4 @@ Programming notes:
     Packaging:
 	    cx_Freeze 4.2
 	    python-dev [under Linux]
-	    libsssl-dev [under Linux]
+	    libssl-dev [under Linux]
