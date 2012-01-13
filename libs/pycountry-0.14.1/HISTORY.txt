@@ -1,0 +1,66 @@
+Changes
+=======
+
+0.14.1 (2011-07-15)
+-------------------
+
+- Re-release 0.14 after packaging mistake.
+
+
+0.14 (2011-07-06)
+-----------------
+
+- Update data to iso-codes 3.26.
+
+
+0.13 (2010-04-23)
+-----------------
+
+- Applied patch from Pedro Araujo which removes the somewhat superfluous
+  dependency on lxml to the builtin minidom. This seems to consistently turn
+  all strings into unicode even if they only contain ASCII characters.
+
+
+0.12.1 (2010-04-21)
+-------------------
+
+- Remedy brown-bag release 0.12 which was missing all data files due to a bad
+  interaction between the build system for the data and zest.releaeser's
+  full-release script.
+
+
+0.12 (2010-04-20)
+-----------------
+
+- Follow Debian repository to git.
+
+- Upgrade data to revision 770fa9cd603f90f9fb982b32fe6f45d253f1d33e as
+  requested by #5488 and others.
+
+- Reflect subdivision changes with how they reference their parents in the XML
+  (they used to use space as a separator but now use a hyphen).
+
+- Refactor index building structures a bit.
+
+- Remove superfluous 'code' index from subdivision database. (Together with
+  the data upgrade this also gets rid of all the annoying warnings as
+  described in #6667).
+
+- Some light PEP 8 improvements.
+
+0.11 (2009-03-03)
+-----------------
+
+- Updated Debian repository to r1752.
+
+
+0.10 (2008-06-26)
+-----------------
+
+- Added support for country subdivisions (ISO 3166-2). 
+
+
+0.9
+---
+
+- Initial release
