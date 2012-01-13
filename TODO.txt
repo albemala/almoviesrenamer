@@ -18,6 +18,9 @@ ripristinare controllo versione: gui > 34
 ripristinare in gui > load_movies_run 
 
 
+considerare lingua film e lingua sottotitoli
+
+
 in effetti, finora quando cercavo un film su imdb e non trovavo niente, davo un errore
 tipo "film non trovato". ma visto che alcune informazioni vengono comunque ritornate
 dall'analisi del nome del file, posso tenere e proporre quelle se la ricerca on line non

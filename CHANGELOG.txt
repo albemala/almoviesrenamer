@@ -94,7 +94,7 @@
 	
 	
 	
-	
+	FIX: now also movie part is translated
 	
 	
 	

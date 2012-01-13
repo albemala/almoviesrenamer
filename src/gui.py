@@ -9,6 +9,7 @@ from movie import Movie
 from renamingrule import RenamingRuleDialog
 from settings import SettingsDialog
 from statsagreement import StatsAgreementDialog
+from changemovie import ChangeMovieDialog
 import imdb
 import os.path
 import sys
@@ -51,14 +52,15 @@ class GUI(QMainWindow):
         # load GUI
         self.ui = loadUi("ui/main_window.ui", self)
         # create RenamingRuleDialog
-        self.ui.renaming_rule_dialog = RenamingRuleDialog(self)
+        self.ui.change_movie_dialog = ChangeMovieDialog(self)
+        # create RenamingRuleDialog
+#        self.ui.renaming_rule_dialog = RenamingRuleDialog(self)
         # create SettingsDialog
-        self.ui.settings_dialog = SettingsDialog(self)
+#        self.ui.preferences_dialog = SettingsDialog(self)
         # set some GUI parameters
         self.setWindowTitle(utils.PROGRAM_NAME)
         self.ui.panel_loading.setVisible(False)
         self.ui.stack_movie.setVisible(False)
-        self.ui.stack_title_search.setVisible(False)
         self.ui.table_movies.resizeColumnToContents(0)
         # adjust wondow size to content
         self.adjustSize()
@@ -70,26 +72,27 @@ class GUI(QMainWindow):
         self.ui.action_add_all_movies_in_folder_subfolders.triggered.connect(self.add_movies_in_folder_subfolders)
         self.ui.action_remove_selected_movies.triggered.connect(self.remove_selected_movies)
         self.ui.action_remove_all_movies.triggered.connect(self.remove_all_movies)
-        self.ui.action_change_rename_pattern.triggered.connect(self.change_renaming_rule)
+        self.ui.action_change_renaming_rule.triggered.connect(self.change_renaming_rule)
         self.ui.action_rename_movies.triggered.connect(self.rename_movies)
         self.load_movies_finished.connect(self.load_movies_end)
         # MENU Settings
-        self.ui.action_settings.triggered.connect(self.show_settings)
+        self.ui.action_preferences.triggered.connect(self.show_preferences)
         # MENU ?
         self.ui.action_about.triggered.connect(self.show_about)
         # TABLE movies
         self.ui.table_movies.itemSelectionChanged.connect(self.movies_selection_changed)
         # STACK movie
-        self.ui.combo_movie_titles.activated.connect(self.movie_title_changed)
-        self.ui.combo_aka.activated.connect(self.aka_changed)
-        self.ui.combo_runtime.activated.connect(self.runtime_changed)
-        self.ui.combo_language.activated.connect(self.language_changed)
-        # searching panel
-        self.ui.button_manual_title_search.toggled.connect(self.manual_title_search)
-        self.ui.text_title_search.returnPressed.connect(self.search_title)
-        self.ui.button_title_search.clicked.connect(self.search_title)
-        self.ui.button_title_new_research.clicked.connect(self.search_again_for_title)
-        self.search_title_finished.connect(self.search_title_end)
+        self.ui.button_change_associated_movie.clicked.connect(self.change_associated_movie)
+
+        #XXX da togliere
+        # create a new movie object
+        movie = Movie(None)
+        self.movies.append(movie)
+        # insert a new row in movie table
+        self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
+        # create a table item with original movie file name
+        item_original_name = QTableWidgetItem(movie.original_name)
+        self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
 
     def check_connection(self):
         """
@@ -304,13 +307,13 @@ class GUI(QMainWindow):
             movie = Movie(filepath)
             # generate new movie name based on renaming rule
 #            movie.generate_new_name(self.renaming_rule)
-#            # add movie to list
-#            self.movies.append(movie)
-#            # insert a new row in movie table
-#            self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
-#            # create a table item with original movie file name
-#            item_original_name = QTableWidgetItem(movie.original_name)
-#            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
+            # add movie to list
+            self.movies.append(movie)
+            # insert a new row in movie table
+            self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
+            # create a table item with original movie file name
+            item_original_name = QTableWidgetItem(movie.original_name)
+            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
 #            # create a table item with new movie file name
 #            item_new_name = QTableWidgetItem(movie.new_name)
 #            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
@@ -331,7 +334,7 @@ class GUI(QMainWindow):
         self.ui.action_add_all_movies_in_folder_subfolders.setEnabled(enabled)
         self.ui.action_remove_selected_movies.setEnabled(enabled)
         self.ui.action_remove_all_movies.setEnabled(enabled)
-        self.ui.action_change_rename_pattern.setEnabled(enabled)
+        self.ui.action_change_renaming_rule.setEnabled(enabled)
         self.ui.action_rename_movies.setEnabled(enabled)
         if enabled == False:
             # clear table selection (and hide movie panel, if visible)
@@ -422,12 +425,12 @@ class GUI(QMainWindow):
         # if a table item is selected, update panel
         self.movies_selection_changed()
 
-    def show_settings(self):
-        #show renaming rule dialog
-        self.ui.settings_dialog.exec_()
-        self.send_usage_statistics()
+    # MENU Program
 
-    # MENU ?
+    def show_preferences(self):
+        #show renaming rule dialog
+        self.ui.preferences_dialog.exec_()
+        self.send_usage_statistics()
 
     def show_about(self):
         """
@@ -496,224 +499,34 @@ class GUI(QMainWindow):
             # set movie panel based on movie state (
             self.ui.stack_movie.setCurrentIndex(movie.state)
             # populate movie panel
-            self.populate_movie_stack(movie)
+#            self.populate_movie_stack(movie)
+            if movie.state == Movie.STATE_RENAMING_ERROR:
+                self.ui.label_error.setText(movie.renaming_error)
+            elif movie.state == Movie.STATE_BEFORE_RENAMING:
+                #XXX qui devo usare gli indici scelti nelle preferenze
+                self.ui.label_title.setText(movie.info['title'][0])
+                self.ui.label_aka.setText(movie.info['aka'])
+                self.ui.label_year.setText(movie.info['year'])
+                self.ui.label_director.setText(movie.info['director'])
+                self.ui.label_duration.setText(movie.info['duration'][0])
+                #XXX per la lingua dovrei creare un'altra chiave per memorizzare 
+                # la versione di guessit, e nella chiave language ci metto le due versioni
+                # in formato stringa
+#                self.ui.label_language.setText(movie.info['language'][0])
+
             # set panel visible
             self.ui.stack_movie.setVisible(True)
 
     # STACK movie
 
-    def movie_title_changed(self, index):
-        """
-        called when current movie title changes.
-        
-        each movie have at least one title associated, and user can change 
-        the proper one.
-        """
-
+    def change_associated_movie(self):
         row = self.selected_movie.row()
         movie = self.movies[row]
-        # set new index on movie
-        movie.info_index = index
-        # generate new movie name
-        movie.generate_new_name(self.renaming_rule)
-        # update table with new name
-        self.ui.table_movies.item(row, 1).setText(movie.new_name)
-        # selected movie title changed, so movie panel needs to
-        # be populated with current movie title information
-        self.populate_movie_info(movie)
+        result = self.ui.change_movie_dialog.exec2(movie)
+        print(result)
+#        self.ui.change_movie_dialog.populate(movie)
+#        result = self.ui.change_movie_dialog.exec_()
 
-    def aka_changed(self, index):
-        """
-        called when AKA, for current movie, changes
-        """
-
-        row = self.selected_movie.row()
-        movie = self.movies[row]
-        # set new index on movie
-        movie.info[movie.info_index][Movie.AKAS_INDEX] = index
-        # generate new movie name
-        movie.generate_new_name(self.renaming_rule)
-        # update table with new name
-        self.ui.table_movies.item(row, 1).setText(movie.new_name)
-
-    def runtime_changed(self, index):
-        """
-        called when runtime, for selected movie, changes
-        """
-
-        row = self.selected_movie.row()
-        movie = self.movies[row]
-        # set new index on movie
-        movie.info[movie.info_index][Movie.RUNTIMES_INDEX] = index
-        # generate new movie name
-        movie.generate_new_name(self.renaming_rule)
-        # update table with new name
-        self.ui.table_movies.item(row, 1).setText(movie.new_name)
-
-    def language_changed(self, index):
-        """
-        called when language, for selected movie, changes
-        """
-
-        row = self.selected_movie.row()
-        movie = self.movies[row]
-        # set new index on movie
-        movie.language_index = index
-        # generate new movie name
-        movie.generate_new_name(self.renaming_rule)
-        # update table with new name
-        self.ui.table_movies.item(row, 1).setText(movie.new_name)
-
-    def manual_title_search(self, checked):
-        """
-        show or hide manual title search_title_run panel
-        
-        button associated with that slot is a toggle button,
-        so checked represents its state
-        """
-
-        # title search_title_run panel visibility
-        self.ui.stack_title_search.setVisible(checked)
-        # search_title_run panel visible
-        if checked:
-            self.prepare_new_search()
-
-    def search_title(self):
-        """
-        search_title_run for a movie title
-        """
-
-        # get title to look for
-        title = unicode(self.ui.text_title_search.text())
-        # do not start searching if textTitleSearch is empty
-        if title.strip() == "":
-            return
-        # set gui elements disabled
-        self.set_gui_enabled_search_title(False)
-        # show searching panel
-        self.ui.stack_title_search.setCurrentIndex(1)
-        # start searching thread
-        threading.Thread(target = self.search_title_run, args = (title,)).start()
-
-    def search_title_run(self, title):
-        """
-        thread used for movie title searching
-        """
-
-        row = self.selected_movie.row()
-        movie = self.movies[row]
-        # search_title_run for movie title
-        movie.search_title(title)
-        # emit signal
-        self.search_title_finished.emit()
-
-    def search_title_end(self):
-        """
-        used when movie title searching finishes (thread returns)
-        """
-
-        row = self.selected_movie.row()
-        movie = self.movies[row]
-        # re-enable gui elements
-        self.set_gui_enabled_search_title(True)
-        # no corresponding movie found
-        if len(movie.info) == 0:
-            # set failed search_title_run panel
-            self.ui.stack_title_search.setCurrentIndex(2)
-        else:
-            # generate new movie name, based on new information
-            movie.generate_new_name(self.renaming_rule)
-            # update table with new name
-            self.ui.table_movies.item(row, 1).setText(movie.new_name)
-            # populate movie panel
-            self.populate_movie_stack(movie)
-
-    def set_gui_enabled_search_title(self, enabled):
-        # set enabled property on actions
-        self.ui.action_add_movies.setEnabled(enabled)
-        self.ui.action_add_all_movies_in_folder.setEnabled(enabled)
-        self.ui.action_add_all_movies_in_folder_subfolders.setEnabled(enabled)
-        self.ui.action_remove_selected_movies.setEnabled(enabled)
-        self.ui.action_remove_all_movies.setEnabled(enabled)
-        self.ui.action_change_rename_pattern.setEnabled(enabled)
-        self.ui.action_rename_movies.setEnabled(enabled)
-        # set enabled property on movie panel
-        self.ui.combo_movie_titles.setEnabled(enabled)
-        self.ui.button_manual_title_search.setEnabled(enabled)
-        self.ui.combo_aka.setEnabled(enabled)
-        self.ui.combo_language.setEnabled(enabled)
-        self.ui.combo_runtime.setEnabled(enabled)
-        # set enabled property on table
-        self.ui.table_movies.setEnabled(enabled)
-
-    def search_again_for_title(self):
-        """
-        called when user wants to search_title_run again for a title
-        """
-
-        self.prepare_new_search()
-
-    def prepare_new_search(self):
-        """
-        prepare searching panel for a new title search_title_run
-        """
-
-        # set stack index on search_title_run panel
-        self.ui.stack_title_search.setCurrentIndex(0)
-        # select all text in searching text field
-        self.ui.text_title_search.selectAll()
-        # set focus on searching text field
-        self.ui.text_title_search.setFocus()
-
-    def populate_movie_stack(self, movie):
-        """
-        used to update movie panel with information about selected movie,
-        based on movie state
-        """
-
-        if movie.state == Movie.STATE_RENAMING_ERROR:
-            self.ui.label_error.setText(movie.renaming_error)
-        elif movie.state == Movie.STATE_BEFORE_RENAMING:
-            # clear the titles combo...
-            self.ui.combo_movie_titles.clear()
-            # if movie info not empty
-            if len(movie.info) != 0:
-                # populate combo with titles
-                for movie_info in movie.info:
-                    self.ui.combo_movie_titles.addItem(movie_info['title'])
-                # set the proper index
-                self.ui.combo_movie_titles.setCurrentIndex(movie.info_index)
-            # update also the panel
-            self.populate_movie_info(movie)
-
-    def populate_movie_info(self, movie):
-        """
-        used to update movie panel with information about 
-        selected movie title
-        """
-
-        self.ui.combo_aka.clear()
-        self.ui.combo_runtime.clear()
-        # reset search_title_run panel
-        self.ui.button_manual_title_search.setChecked(False)
-        self.ui.stack_title_search.setCurrentIndex(0)
-        self.ui.text_title_search.setText("")
-        # if movie info not empty
-        if len(movie.info) != 0:
-            # get movie index
-            info = movie.info[movie.info_index]
-            self.ui.label_canonical_title.setText(info[Movie.CANONICAL_TITLE])
-            self.ui.combo_aka.addItems(info[Movie.AKAS])
-            self.ui.combo_aka.setCurrentIndex(info[Movie.AKAS_INDEX])
-            self.ui.label_year.setText(info[Movie.YEAR])
-            self.ui.label_director.setText(info[Movie.DIRECTOR])
-            self.ui.combo_runtime.addItems(info[Movie.RUNTIMES])
-            self.ui.combo_runtime.setCurrentIndex(info[Movie.RUNTIMES_INDEX])
-        else:
-            self.ui.label_canonical_title.setText('')
-            self.ui.label_year.setText('')
-            self.ui.label_director.setText('')
-        self.ui.combo_language.setCurrentIndex(movie.language_index)
 
 
 

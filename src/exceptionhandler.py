@@ -18,6 +18,7 @@ import os.path
 import sys
 import time
 import traceback
+import utils
 
 # directory used to store logs
 LOG_PATH = os.path.abspath("log")

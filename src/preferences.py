@@ -5,7 +5,7 @@ from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QDialog
 from PyQt4.uic import loadUi
 
-class SettingsDialog(QDialog):
+class PreferencesDialog(QDialog):
 
     STATS_AGREE = 1
     STATS_DISAGREE = 0
@@ -14,7 +14,7 @@ class SettingsDialog(QDialog):
         QDialog.__init__(self, parent)
 
         # load UI
-        self.ui = loadUi("ui/settings_dialog.ui", self)
+        self.ui = loadUi("ui/preferences_dialog.ui", self)
         # adjust wondow size to content
         self.adjustSize()
         # load settings
