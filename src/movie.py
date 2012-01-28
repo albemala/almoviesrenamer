@@ -13,7 +13,7 @@ import re
 import unicodedata
 import enzyme
 from fuzzywuzzy import fuzz
-#import pycountry
+import pycountry
 import guess
 
 class Movie:
@@ -102,6 +102,9 @@ class Movie:
             print('*' * 30)
             info = guess.info(name)
             self.update_info(info)
+            for k in info['languages_'].keys():
+                print(str(k.name) + ': ' + str(info['languages_'][k]))
+
 #            for key in info.keys():
 #                print(key + ': ' + str(info[key]))
 
@@ -261,18 +264,56 @@ class Movie:
             best_aka = movie['title']
             best_score = 0
             language = ''
-            akas = movie.get('akas')
-            if akas != None:
-                for aka in akas:
-                    aka = unicodedata.normalize('NFKD', aka).encode('ascii', 'ignore')
-#                    print(aka)
+            akas = []
+            countries = []
+            movie_akas = movie.get('akas')
+            if movie_akas != None:
+                for aka in movie_akas:
+#                    aka.encode('utf-8')
+#                    aka = unicodedata.normalize('NFKD', aka).encode('ascii', 'ignore')
+#                    print(aka.encode('utf-8'))
 #                    try: #XXX è proprio necessario? se faccio delle conversioni in unicode?
                     aka = aka.split('::')
-                    score = difflib.SequenceMatcher(None, aka[0].lower(), original_title.lower()).ratio()
-                    if score > best_score:
-                        best_score = score
-                        best_aka = aka[0]
-                        language = gl.guessLanguageName(aka[0])
+                    if len(aka) == 2:
+                        akas.append(aka[0])
+#                        print(gl.guessLanguageName(aka[0]))
+    #                    print(aka[0])
+                        raw_aka_countries = aka[1].split(', ')
+                        aka_countries = []
+                        for country in raw_aka_countries:
+                            country = re.sub('[(].*?[)]', '', country).strip()
+                            aka_countries.append(country)
+                        countries.append(aka_countries)
+
+            akas = dict(zip(akas, countries))
+            best_akas = difflib.get_close_matches(original_title, akas.keys(), 1)
+            if len(best_akas) > 0:
+                best_aka = best_akas[0]
+
+#                language_code = gl.guessLanguage(best_aka)
+#                if language_code != 'UNKNOWN':
+#                    found_language = pycountry.languages.get(alpha2 = language_code)
+#                    if found_language in info['languages_']:
+#                        info['languages_'].update({found_language: info['languages_'][found_language] + 1})
+#                    else:
+#                        info['languages_'].update({found_language: 1})
+
+                countries = akas[best_aka]
+                for country in countries:
+                    if country in pycountry.countries:
+                        found_country = pycountry.countries.get(name = country)
+                        found_language = pycountry.languages.get(alpha2 = found_country.alpha2.lower())
+                        if found_language in info['languages_']:
+                            info['languages_'].update({found_language: info['languages_'][found_language] + 1})
+                        else:
+                            info['languages_'].update({found_language: 1})
+
+#                    score = difflib.SequenceMatcher(None, aka[0].lower(), original_title.lower()).ratio()
+#                    if score > best_score:
+#                        best_score = score
+#                        best_aka = aka[0]
+#                        language = gl.guessLanguageName(aka[0])
+
 #                    print(score)
 #                    print(language_code)
 #                    if 'country' in info \
@@ -283,6 +324,7 @@ class Movie:
 #                            best_aka = aka[0]
 #                    except UnicodeEncodeError:
 #                        pass
+
 #            print('*' * 20)
 #            print(best_aka)
 #            print(best_score)

@@ -35,7 +35,7 @@ def info(title):
     """
 
     title, year = guess_year(title)
-    title, language, country = guess_language(title)
+    title, language, country, languages = guess_language(title)
     title, part = guess_part(title)
     title = clean_title(title)
     # create info dictionary
@@ -43,6 +43,7 @@ def info(title):
           'title': title,
           'year': year,
           'language_': language,
+          'languages_': languages,
 #          'country_': country,
           'part': part,
           }
@@ -76,6 +77,7 @@ def guess_language(title):
     #XXX cercare anche usando il nome della lingua in inglese
     found_language = None
     country = None
+    languages = dict()
     # loop on supported languages
     for language in pycountry.languages:
         # search for language terminology (which is the 3-letters language 
@@ -85,6 +87,7 @@ def guess_language(title):
         match = re.search('[^a-z0-9]' + language.terminology + '[^a-z0-9]', title.lower())
         if match:
             found_language = language
+            languages.update({found_language: 1}) #TEST
             # retrieve country for that language
             #XXX ma non ritorna una lista??
 #            country = pycountry.countries.get(alpha3 = language.terminology.upper())
@@ -96,7 +99,17 @@ def guess_language(title):
         language_code = gl.guessLanguage(title)
         if language_code != 'UNKNOWN':
             found_language = pycountry.languages.get(alpha2 = language_code)
-    return title, found_language, country
+
+    #TEST
+#    language_code = gl.guessLanguage(title)
+#    if language_code != 'UNKNOWN':
+#        found_language = pycountry.languages.get(alpha2 = language_code)
+#        if found_language in languages:
+#            languages.update({found_language: languages[found_language] + 1})
+#        else:
+#            languages.update({found_language: 1})
+
+    return title, found_language, country, languages
 
 def guess_part(title):
     """
