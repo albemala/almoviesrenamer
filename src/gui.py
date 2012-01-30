@@ -44,7 +44,7 @@ class GUI(QMainWindow):
         # stores movies objects
         self.movies = []
         # stores current (selected) movie
-        self.selected_movie = None
+        self.current_movie = None
 
         # show stats agreement dialog
         self.show_stats_agreement()
@@ -52,7 +52,7 @@ class GUI(QMainWindow):
         # load GUI
         self.ui = loadUi("ui/main_window.ui", self)
         # create RenamingRuleDialog
-        self.ui.change_movie_dialog = ChangeMovieDialog(self)
+#        self.ui.change_movie_dialog = ChangeMovieDialog(self)
         # create RenamingRuleDialog
 #        self.ui.renaming_rule_dialog = RenamingRuleDialog(self)
         # create SettingsDialog
@@ -82,7 +82,8 @@ class GUI(QMainWindow):
         # TABLE movies
         self.ui.table_movies.itemSelectionChanged.connect(self.movies_selection_changed)
         # STACK movie
-        self.ui.button_change_associated_movie.clicked.connect(self.change_associated_movie)
+        self.ui.button_change_movie.toggled.connect(self.change_movie)
+        self.ui.table_alternative_movies.itemSelectionChanged.connect(self.alternative_movies_selection_changed)
 
         #XXX da togliere
         # create a new movie object
@@ -91,7 +92,7 @@ class GUI(QMainWindow):
         # insert a new row in movie table
         self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
         # create a table item with original movie file name
-        item_original_name = QTableWidgetItem(movie.original_name)
+        item_original_name = QTableWidgetItem(movie.original_name())
         self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
 
     def check_connection(self):
@@ -312,10 +313,10 @@ class GUI(QMainWindow):
             # insert a new row in movie table
             self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
             # create a table item with original movie file name
-            item_original_name = QTableWidgetItem(movie.original_name)
+            item_original_name = QTableWidgetItem(movie.original_name())
             self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
-#            # create a table item with new movie file name
-#            item_new_name = QTableWidgetItem(movie.new_name)
+            # create a table item with new movie file name
+#            item_new_name = QTableWidgetItem(movie.new_name())
 #            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
         self.load_movies_finished.emit()
 
@@ -336,6 +337,7 @@ class GUI(QMainWindow):
         self.ui.action_remove_all_movies.setEnabled(enabled)
         self.ui.action_change_renaming_rule.setEnabled(enabled)
         self.ui.action_rename_movies.setEnabled(enabled)
+        self.ui.action_preferences.setEnabled(enabled)
         if enabled == False:
             # clear table selection (and hide movie panel, if visible)
             self.ui.table_movies.selectionModel().clear()
@@ -389,7 +391,7 @@ class GUI(QMainWindow):
             movie.generate_new_name(self.renaming_rule)
             # set "before renaming state", because after renaming a movie
             # can be renamed a second time, after having changed the rule
-            movie.state = Movie.STATE_BEFORE_RENAMING
+            movie.state = Movie.STATE_BEFORE_RENAMING #XXX da cambiare col metodo set_state
             self.ui.table_movies.item(i, 1).setForeground(QBrush(Qt.black))
             self.ui.table_movies.item(i, 1).setText(movie.new_name)
 
@@ -493,42 +495,68 @@ class GUI(QMainWindow):
             self.ui.stack_movie.setVisible(False)
         else:
             # store first selected movie
-            self.selected_movie = selected_items[0]
-            movie = self.movies[self.selected_movie.row()]
+            index = selected_items[0].row()
+            self.current_movie = self.movies[index]
+            movie = self.current_movie
 
             # set movie panel based on movie state (
-            self.ui.stack_movie.setCurrentIndex(movie.state)
+            self.ui.stack_movie.setCurrentIndex(movie.state())
             # populate movie panel
-#            self.populate_movie_stack(movie)
-            if movie.state == Movie.STATE_RENAMING_ERROR:
+            if movie.state() == Movie.STATE_RENAMING_ERROR:
                 self.ui.label_error.setText(movie.renaming_error)
-            elif movie.state == Movie.STATE_BEFORE_RENAMING:
-                #XXX qui devo usare gli indici scelti nelle preferenze
-                self.ui.label_title.setText(movie.info['title'][0])
-                self.ui.label_aka.setText(movie.info['aka'])
-                self.ui.label_year.setText(movie.info['year'])
-                self.ui.label_director.setText(movie.info['director'])
-                self.ui.label_duration.setText(movie.info['duration'][0])
-                #XXX per la lingua dovrei creare un'altra chiave per memorizzare 
-                # la versione di guessit, e nella chiave language ci metto le due versioni
-                # in formato stringa
-#                self.ui.label_language.setText(movie.info['language'][0])
+            elif movie.state() == Movie.STATE_BEFORE_RENAMING:
+                self.ui.label_title.setText(movie.title())
+                self.ui.label_original_title.setText(movie.original_title())
+                self.ui.label_year.setText(movie.year())
+                self.ui.label_director.setText(movie.director())
+                self.ui.label_duration.setText(movie.duration())
+                self.ui.label_language.setText(movie.language())
+
+                # clear table contents
+                self.ui.table_alternative_movies.clearContents()
+                # remove all rows
+                self.ui.table_alternative_movies.setRowCount(0)
+                for alternative_movie in movie.alternative_movies():
+                    title = alternative_movie.title()
+                    year = alternative_movie.year()
+                    countries = alternative_movie.countries()
+                    # insert a new row in movie table
+                    self.ui.table_alternative_movies.insertRow(self.ui.table_alternative_movies.rowCount())
+                    # create a table item with original movie file name
+                    item_title = QTableWidgetItem(title)
+                    self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 0, item_title)
+                    item_year = QTableWidgetItem(year)
+                    self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 1, item_year)
+                    item_countries = QTableWidgetItem(countries)
+                    self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 2, item_countries)
+
+                self.ui.stack_search_title.setCurrentIndex(0)
+                self.ui.text_search_title.clear()
+
+            self.ui.button_change_movie.setChecked(False)
 
             # set panel visible
             self.ui.stack_movie.setVisible(True)
+            self.ui.adjustSize()
 
     # STACK movie
 
-    def change_associated_movie(self):
-        row = self.selected_movie.row()
-        movie = self.movies[row]
-        result = self.ui.change_movie_dialog.exec2(movie)
-        print(result)
-#        self.ui.change_movie_dialog.populate(movie)
-#        result = self.ui.change_movie_dialog.exec_()
+    def change_movie(self, checked):
+        self.ui.widget_alternative_movies.setVisible(checked)
+        self.ui.adjustSize()
 
+    def alternative_movies_selection_changed(self):
+        selected_items = self.ui.table_alternative_movies.selectedItems()
+        if len(selected_items) > 0:
+            index = selected_items[0].row()
+            movie = self.current_movie
+            movie.set_movie(index)
 
-
-
+            self.ui.label_title.setText(movie.title())
+            self.ui.label_original_title.setText(movie.original_title())
+            self.ui.label_year.setText(movie.year())
+            self.ui.label_director.setText(movie.director())
+            self.ui.label_duration.setText(movie.duration())
+            self.ui.label_language.setText(movie.language())
 
 

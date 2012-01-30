@@ -34,18 +34,23 @@ def info(title):
     language and country are pycountry classes
     """
 
-    title, year = guess_year(title)
-    title, language, country = guess_language(title)
-    title, part = guess_part(title)
-    title = clean_title(title)
     # create info dictionary
-    info = {
-          'title': title,
-          'year': year,
-          'language_': language,
-#          'country_': country,
-          'part': part,
-          }
+    info = dict()
+    # guess year
+    title, year = guess_year(title)
+    if year != None:
+        info.update({'year': year})
+    # guess language
+    title, language = guess_language(title)
+    if language != None:
+        info.update({'language': language})
+    # guess part
+    title, part = guess_part(title)
+    if part != None:
+        info.update({'part': part})
+    # clean title
+    title = clean_title(title)
+    info.update({'title': title})
     # return guessed information
     return info
 
@@ -58,7 +63,7 @@ def guess_year(title):
     year but 1492 would not
     """
 
-    year = ''
+    year = None
     # search for year pattern (4 consequent digit)
     match = re.search(r'[0-9]{4}', title)
     # if found, check if year is between 1920 and now + 5 years
@@ -70,6 +75,27 @@ def guess_year(title):
     return title, year
 
 def guess_language(title):
+    """
+    guess movie language, looking for ISO language representation in title
+    """
+
+    found_language = None
+    # loop on supported languages
+    for language in pycountry.languages:
+        # search for language terminology (which is the 3-letters language 
+        # representation in ISO 639 form) in title.
+        # match only if is preceded or followed by a symbol, not letters
+        # (that means these three letters are not part of a word)
+        match = re.search('[^a-z0-9]' + language.terminology + '[^a-z0-9]', title.lower())
+        if match:
+            found_language = language
+            # remove language from title
+            title = title[:match.start() + 1] + title[match.end() - 1:]
+            # break loop, so don't look for other languages
+            break
+    return title, found_language
+
+def guess_language_old(title):
     """
     guess movie language, looking for ISO language representation in title
     """
@@ -103,7 +129,7 @@ def guess_part(title):
     guess movie part, i.e. CD1
     """
 
-    part = ''
+    part = None
     # search part, which can be like, for example, disk1 or disk 1
     match = re.search('(cd|disk|part)[ ]?[0-9]', title.lower(), re.IGNORECASE)
     if match:
@@ -132,10 +158,6 @@ def clean_title(title):
         else:
             break
     title = ' '.join(title)
-    # some titles ends with 1 (example: Alien 1), 
-    # which causes wrong guessing, so remove it
-    #XXX forse posso toglierlo se la ricerca su IMDB funziona lo stesso
-#    title = re.sub('( 1)$', '', title)
     return title
 
 #def guess_language(self):
