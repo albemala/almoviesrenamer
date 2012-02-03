@@ -5,7 +5,7 @@ __author__ = "Alberto Malagoli"
 #import guess_language as gl
 import re
 import datetime
-import pycountry
+import utils
 
 blackwords = [
               # video type
@@ -84,7 +84,7 @@ def guess_language(title):
     if match:
         try:
             print(match.group(1))
-            language = pycountry.languages.get(bibliographic = match.group(1).lower())
+            language = utils.alpha3_to_language(match.group(1).lower())
             print(language.name)
             # remove language from title
             title = title[:match.start() + 1] + title[match.end() - 1:]

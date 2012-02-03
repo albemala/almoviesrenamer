@@ -23,7 +23,7 @@ class AlternativeMovie:
             possible_language = re.search('(?:[(])([a-zA-Z]+?)(?: title[)])', countries)
             if possible_language:
                 try:
-                    language = utils.languages_db.get(name = possible_language.group(1))
+                    language = utils.name_to_language(possible_language.group(1))
                 except KeyError:
                     pass
             if language == None:
@@ -31,10 +31,13 @@ class AlternativeMovie:
                 country = countries.split(',')[0]
                 country = re.sub('\(.*?\)', '', country).strip()
                 try:
+#                    print(country)
+#                    language_name = utils.countryToLanguage(country)
+#                    print(language_name)
+#                    language = utils.name_to_language(language_name)
+#                    print(language.name)
                     print(country)
-                    language_name = utils.countryToLanguage(country)
-                    print(language_name)
-                    language = utils.languages_db.get(name = language_name)
+                    language = utils.country_to_language(country)
                     print(language.name)
                 except KeyError:
                     pass
@@ -43,7 +46,7 @@ class AlternativeMovie:
             language_name = movie.guessLanguage()
             if language_name != None:
                 try:
-                    language = utils.languages_db.get(name = language_name)
+                    language = utils.name_to_language(language_name)
                 except KeyError:
                     pass
 

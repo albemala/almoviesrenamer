@@ -97,12 +97,20 @@ def load_languages_db():
 def load_country_to_languages_db():
     global country_to_languages_db
     country_to_languages_db = dict()
-    with open('countries_languages_2') as f:
-        for line in f:
-            country, language = line.strip('\n').split('|')
+    with open('countries_languages.xml', 'rb') as f:
+        tree = minidom.parse(f)
+        for entry in tree.getElementsByTagName('country_language_entry'):
+            country = entry.getAttribute('country')
+            language = entry.getAttribute('language')
             country_to_languages_db.update({country: language})
 
-def countryToLanguage(given_country):
+def alpha3_to_language(given_alpha3):
+    return languages_db.get(bibliographic = given_alpha3)
 
-    return country_to_languages_db[given_country]
+def name_to_language(given_name):
+    return languages_db.get(name = given_name)
+
+def country_to_language(given_country):
+    language = country_to_languages_db[given_country]
+    return name_to_language(language)
 
