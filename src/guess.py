@@ -1,8 +1,8 @@
 # -*- coding: latin-1 -*-
 __author__ = "Alberto Malagoli"
 
-from PyQt4.QtCore import QLocale
-import guess_language as gl
+#from PyQt4.QtCore import QLocale
+#import guess_language as gl
 import re
 import datetime
 import pycountry
@@ -79,50 +79,68 @@ def guess_language(title):
     guess movie language, looking for ISO language representation in title
     """
 
-    found_language = None
-    # loop on supported languages
-    for language in pycountry.languages:
-        # search for language terminology (which is the 3-letters language 
-        # representation in ISO 639 form) in title.
-        # match only if is preceded or followed by a symbol, not letters
-        # (that means these three letters are not part of a word)
-        match = re.search('[^a-z0-9]' + language.terminology + '[^a-z0-9]', title.lower())
-        if match:
-            found_language = language
+    language = None
+    match = re.search('(?:[^A-Z])([A-Z]{3})(?:[^A-Z])', title)
+    if match:
+        try:
+            print(match.group(1))
+            language = pycountry.languages.get(terminology = match.group(1).lower())
+            print(language.name)
             # remove language from title
             title = title[:match.start() + 1] + title[match.end() - 1:]
-            # break loop, so don't look for other languages
-            break
-    return title, found_language
+        except KeyError:
+            pass
+    return title, language
 
-def guess_language_old(title):
-    """
-    guess movie language, looking for ISO language representation in title
-    """
-    #XXX cercare anche usando il nome della lingua in inglese
-    found_language = None
-    country = None
-    # loop on supported languages
-    for language in pycountry.languages:
-        # search for language terminology (which is the 3-letters language 
-        # representation in ISO 639 form) in title.
-        # match only if is preceded or followed by a symbol, not letters
-        # (that means these three letters are not part of a word)
-        match = re.search('[^a-z0-9]' + language.terminology + '[^a-z0-9]', title.lower())
-        if match:
-            found_language = language
-            # retrieve country for that language
-            #XXX ma non ritorna una lista??
-#            country = pycountry.countries.get(alpha3 = language.terminology.upper())
-            # remove language from title
-            title = title[:match.start() + 1] + title[match.end() - 1:]
-            # break loop, so don't look for other languages
-            break
-    if not found_language:
-        language_code = gl.guessLanguage(title)
-        if language_code != 'UNKNOWN':
-            found_language = pycountry.languages.get(alpha2 = language_code)
-    return title, found_language, country
+#def guess_language_old(title):
+#    """
+#    guess movie language, looking for ISO language representation in title
+#    """
+#
+#    found_language = None
+#    # loop on supported languages
+#    for language in pycountry.languages:
+#        # search for language terminology (which is the 3-letters language 
+#        # representation in ISO 639 form) in title.
+#        # match only if is preceded or followed by a symbol, not letters
+#        # (that means these three letters are not part of a word)
+#        match = re.search('[^a-z0-9]' + language.terminology + '[^a-z0-9]', title.lower())
+#        if match:
+#            found_language = language
+#            # remove language from title
+#            title = title[:match.start() + 1] + title[match.end() - 1:]
+#            # break loop, so don't look for other languages
+#            break
+#    return title, found_language
+
+#def guess_language_old_old(title):
+#    """
+#    guess movie language, looking for ISO language representation in title
+#    """
+#    #XXX cercare anche usando il nome della lingua in inglese
+#    found_language = None
+#    country = None
+#    # loop on supported languages
+#    for language in pycountry.languages:
+#        # search for language terminology (which is the 3-letters language 
+#        # representation in ISO 639 form) in title.
+#        # match only if is preceded or followed by a symbol, not letters
+#        # (that means these three letters are not part of a word)
+#        match = re.search('[^a-z0-9]' + language.terminology + '[^a-z0-9]', title.lower())
+#        if match:
+#            found_language = language
+#            # retrieve country for that language
+#            #XXX ma non ritorna una lista??
+##            country = pycountry.countries.get(alpha3 = language.terminology.upper())
+#            # remove language from title
+#            title = title[:match.start() + 1] + title[match.end() - 1:]
+#            # break loop, so don't look for other languages
+#            break
+#    if not found_language:
+#        language_code = gl.guessLanguage(title)
+#        if language_code != 'UNKNOWN':
+#            found_language = pycountry.languages.get(alpha2 = language_code)
+#    return title, found_language, country
 
 def guess_part(title):
     """

@@ -1,5 +1,4 @@
 # -*- coding: latin-1 -*-
-__author__ = "Alberto Malagoli"
 
 from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal
 from PyQt4.QtGui import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, \
@@ -16,6 +15,8 @@ import sys
 import threading
 import urllib
 import utils
+
+__author__ = "Alberto Malagoli"
 
 class GUI(QMainWindow):
 
@@ -75,6 +76,9 @@ class GUI(QMainWindow):
         self.ui.action_change_renaming_rule.triggered.connect(self.change_renaming_rule)
         self.ui.action_rename_movies.triggered.connect(self.rename_movies)
         self.load_movies_finished.connect(self.load_movies_end)
+        self.ui.text_search_title.returnPressed.connect(self.search_new_title)
+        self.ui.button_search_title.clicked.connect(self.search_new_title)
+        self.search_title_finished.connect(self.search_title_end)
         # MENU Settings
         self.ui.action_preferences.triggered.connect(self.show_preferences)
         # MENU ?
@@ -505,31 +509,7 @@ class GUI(QMainWindow):
             if movie.state() == Movie.STATE_RENAMING_ERROR:
                 self.ui.label_error.setText(movie.renaming_error)
             elif movie.state() == Movie.STATE_BEFORE_RENAMING:
-                self.ui.label_title.setText(movie.title())
-                self.ui.label_original_title.setText(movie.original_title())
-                self.ui.label_year.setText(movie.year())
-                self.ui.label_director.setText(movie.director())
-                self.ui.label_duration.setText(movie.duration())
-                self.ui.label_language.setText(movie.language())
-
-                # clear table contents
-                self.ui.table_alternative_movies.clearContents()
-                # remove all rows
-                self.ui.table_alternative_movies.setRowCount(0)
-                for alternative_movie in movie.alternative_movies():
-                    title = alternative_movie.title()
-                    year = alternative_movie.year()
-                    countries = alternative_movie.countries()
-                    # insert a new row in movie table
-                    self.ui.table_alternative_movies.insertRow(self.ui.table_alternative_movies.rowCount())
-                    # create a table item with original movie file name
-                    item_title = QTableWidgetItem(title)
-                    self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 0, item_title)
-                    item_year = QTableWidgetItem(year)
-                    self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 1, item_year)
-                    item_countries = QTableWidgetItem(countries)
-                    self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 2, item_countries)
-
+                self.populate_movie_panel()
                 self.ui.stack_search_title.setCurrentIndex(0)
                 self.ui.text_search_title.clear()
 
@@ -539,7 +519,37 @@ class GUI(QMainWindow):
             self.ui.stack_movie.setVisible(True)
             self.ui.adjustSize()
 
-    # STACK movie
+    def populate_movie_panel(self):
+        movie = self.current_movie
+
+        self.ui.label_title.setText(movie.title())
+        self.ui.label_original_title.setText(movie.original_title())
+        self.ui.label_year.setText(movie.year())
+        self.ui.label_director.setText(movie.director())
+        self.ui.label_duration.setText(movie.duration())
+        self.ui.label_language.setText(movie.language())
+
+        # clear table contents
+        self.ui.table_alternative_movies.clearContents()
+        # remove all rows
+        self.ui.table_alternative_movies.setRowCount(0)
+        for alternative_movie in movie.alternative_movies():
+            title = alternative_movie.title()
+            year = alternative_movie.year()
+            countries = alternative_movie.countries()
+            # insert a new row in movie table
+            self.ui.table_alternative_movies.insertRow(self.ui.table_alternative_movies.rowCount())
+            # create a table item with original movie file name
+            item_title = QTableWidgetItem(title)
+            self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 0, item_title)
+            item_year = QTableWidgetItem(year)
+            self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 1, item_year)
+            item_countries = QTableWidgetItem(countries)
+            self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 2, item_countries)
+        # auto resize table columns
+        self.ui.table_alternative_movies.resizeColumnToContents(0)
+
+    # PANEL movie
 
     def change_movie(self, checked):
         self.ui.widget_alternative_movies.setVisible(checked)
@@ -559,4 +569,51 @@ class GUI(QMainWindow):
             self.ui.label_duration.setText(movie.duration())
             self.ui.label_language.setText(movie.language())
 
+    def search_new_title(self):
+        # get title to look for
+        title = unicode(self.ui.text_search_title.text())
+        # do not start searching if textTitleSearch is empty
+        if title.strip() == '':
+            return
+        # set gui elements disabled
+        self.set_gui_enabled_search_title(False)
+        # show searching panel
+        self.ui.stack_search_title.setCurrentIndex(1)
+        # start searching thread
+        threading.Thread(target = self.search_title_run, args = (title,)).start()
+
+    def search_title_run(self, title):
+        """
+        thread used for movie title searching
+        """
+
+        self.current_movie.search_new_title(title)
+        # emit signal
+        self.search_title_finished.emit()
+
+    def search_title_end(self):
+        """
+        used when movie title searching finishes (thread returns)
+        """
+
+        # re-enable gui elements
+        self.set_gui_enabled_search_title(True)
+        self.populate_movie_panel()
+        self.ui.stack_search_title.setCurrentIndex(0)
+
+    def set_gui_enabled_search_title(self, enabled):
+        # set enabled property on actions
+        self.ui.action_add_movies.setEnabled(enabled)
+        self.ui.action_add_all_movies_in_folder.setEnabled(enabled)
+        self.ui.action_add_all_movies_in_folder_subfolders.setEnabled(enabled)
+        self.ui.action_remove_selected_movies.setEnabled(enabled)
+        self.ui.action_remove_all_movies.setEnabled(enabled)
+        self.ui.action_change_renaming_rule.setEnabled(enabled)
+        self.ui.action_rename_movies.setEnabled(enabled)
+        self.ui.action_preferences.setEnabled(enabled)
+        # set enabled property on table
+        self.ui.table_movies.setEnabled(enabled)
+
+        self.ui.button_change_movie.setEnabled(enabled)
+        self.ui.table_alternative_movies.setEnabled(enabled)
 
