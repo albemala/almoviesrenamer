@@ -1,6 +1,0 @@
-recursive-include docs *
-include README.rst
-include HISTORY.txt
-global-exclude *pyc
-global-exclude .project
-global-exclude .pydevproject

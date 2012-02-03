@@ -8,7 +8,6 @@ from movie import Movie
 from renamingrule import RenamingRuleDialog
 from settings import SettingsDialog
 from statsagreement import StatsAgreementDialog
-from changemovie import ChangeMovieDialog
 import imdb
 import os.path
 import sys
@@ -52,8 +51,6 @@ class GUI(QMainWindow):
 
         # load GUI
         self.ui = loadUi("ui/main_window.ui", self)
-        # create RenamingRuleDialog
-#        self.ui.change_movie_dialog = ChangeMovieDialog(self)
         # create RenamingRuleDialog
 #        self.ui.renaming_rule_dialog = RenamingRuleDialog(self)
         # create SettingsDialog

@@ -1,9 +1,10 @@
 # -*- coding: latin-1 -*-
-__author__ = "Alberto Malagoli"
 
 import re
 import utils
 import difflib
+
+__author__ = "Alberto Malagoli"
 
 class AlternativeMovie:
     """    
@@ -31,17 +32,9 @@ class AlternativeMovie:
                 country = countries.split(',')[0]
                 country = re.sub('\(.*?\)', '', country).strip()
                 try:
-#                    print(country)
-#                    language_name = utils.countryToLanguage(country)
-#                    print(language_name)
-#                    language = utils.name_to_language(language_name)
-#                    print(language.name)
-                    print(country)
                     language = utils.country_to_language(country)
-                    print(language.name)
                 except KeyError:
                     pass
-                print('---')
         else:
             language_name = movie.guessLanguage()
             if language_name != None:
