@@ -8,12 +8,26 @@ __author__ = "Alberto Malagoli"
 PROGRAM_NAME = "ALmoviesRenamer"
 PROGRAM_VERSION = "3.0"
 
+class Language:
+
+    def __init__(self, name, alpha3):
+        self.name_ = name
+        self.alpha3_ = alpha3
+
+    def name(self):
+        return self.name_
+
+    def alpha3(self):
+        return self.alpha3_
+
+
 class Data(object):
 
     def __init__(self, element, **kw):
         self._element = element
         for key, value in kw.items():
             setattr(self, key, value)
+
 
 class Database(object):
 
@@ -104,13 +118,32 @@ def load_country_to_languages_db():
             language = entry.getAttribute('language')
             country_to_languages_db.update({country: language})
 
+def load_languages():
+    alpha3_to_language_db = dict()
+    with open('languages.xml', 'rb') as f:
+        tree = minidom.parse(f)
+        for entry in tree.getElementsByTagName('iso_639_entry'):
+            alpha3 = entry.getAttribute('iso_639_2T_code').upper()
+            language = entry.getAttribute('name')
+            alpha3_to_language_db.update({alpha3: language})
+#    name_to_language_db=dict()
+    country_to_language_db = dict()
+    with open('countries_languages.xml', 'rb') as f:
+        tree = minidom.parse(f)
+        for entry in tree.getElementsByTagName('country_language_entry'):
+            country = entry.getAttribute('country')
+            language = entry.getAttribute('language')
+            country_to_languages_db.update({country: language})
+
 def alpha3_to_language(given_alpha3):
-    return languages_db.get(bibliographic = given_alpha3)
+    return alpha3_to_language_db[given_alpha3]
+#    return languages_db.get(bibliographic = given_alpha3)
 
 def name_to_language(given_name):
     return languages_db.get(name = given_name)
 
 def country_to_language(given_country):
-    language = country_to_languages_db[given_country]
-    return name_to_language(language)
+    return country_to_languages_db[given_country]
+#    language = country_to_languages_db[given_country]
+#    return name_to_language(language)
 

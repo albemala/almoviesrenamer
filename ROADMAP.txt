@@ -1,5 +1,2 @@
 
-2.2
-	
-	better titles guessing
-	send error logs via web
+add subtitles language detection

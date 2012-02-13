@@ -298,6 +298,10 @@ class Movie:
                 directors = ', '.join(directors)
                 movie.update({'director': directors})
 
+            #XXX calcolo di duration, che diventa una lista con due stringhe
+            # rappresentanti la durata nei due formati mmm e hhmm
+            #XXX aggiunta di una chiave duration con la nuova lista
+
             am = alternativemovie.AlternativeMovie(movie['title'], movie, self.guessed_info_['title'])
             self.alternative_movies_.append(am)
 
