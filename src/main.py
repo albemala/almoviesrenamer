@@ -13,13 +13,10 @@ import utils
 
 __author__ = "Alberto Malagoli"
 
-#if __name__ == "__main__":
-
 # using my excepthook
 sys.excepthook = exceptionhandler.excepthook
 
-utils.load_languages_db()
-utils.load_country_to_languages_db()
+utils.load_languages()
 
 # create the GUI and shows it
 app = QApplication(sys.argv)

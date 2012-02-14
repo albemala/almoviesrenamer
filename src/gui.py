@@ -93,7 +93,7 @@ class GUI(QMainWindow):
         # insert a new row in movie table
         self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
         # create a table item with original movie file name
-        item_original_name = QTableWidgetItem(movie.original_name())
+        item_original_name = QTableWidgetItem(movie.original_file_name())
         self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
 
     def check_connection(self):
@@ -314,10 +314,10 @@ class GUI(QMainWindow):
             # insert a new row in movie table
             self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
             # create a table item with original movie file name
-            item_original_name = QTableWidgetItem(movie.original_name())
+            item_original_name = QTableWidgetItem(movie.original_file_name())
             self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
             # create a table item with new movie file name
-#            item_new_name = QTableWidgetItem(movie.new_name())
+#            item_new_name = QTableWidgetItem(movie.new_file_name())
 #            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
         self.load_movies_finished.emit()
 
@@ -530,10 +530,10 @@ class GUI(QMainWindow):
         self.ui.table_alternative_movies.clearContents()
         # remove all rows
         self.ui.table_alternative_movies.setRowCount(0)
-        for alternative_movie in movie.alternative_movies():
-            title = alternative_movie.title()
-            year = alternative_movie.year()
-            countries = alternative_movie.countries()
+        for other_info in movie.others_info():
+            title = other_info['title']
+            year = other_info['year']
+            language = other_info['language'][0]
             # insert a new row in movie table
             self.ui.table_alternative_movies.insertRow(self.ui.table_alternative_movies.rowCount())
             # create a table item with original movie file name
@@ -541,8 +541,8 @@ class GUI(QMainWindow):
             self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 0, item_title)
             item_year = QTableWidgetItem(year)
             self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 1, item_year)
-            item_countries = QTableWidgetItem(countries)
-            self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 2, item_countries)
+            item_language = QTableWidgetItem(language)
+            self.ui.table_alternative_movies.setItem(self.ui.table_alternative_movies.rowCount() - 1, 2, item_language)
         # auto resize table columns
         self.ui.table_alternative_movies.resizeColumnToContents(0)
 

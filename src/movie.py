@@ -1,16 +1,16 @@
 # -*- coding: latin-1 -*-
 
-from PyQt4.QtCore import QLocale
+#from PyQt4.QtCore import QLocale
 import difflib
 import enzyme
 import guess
 import imdb
 import os
 import platform
-import pycountry
+#import pycountry
 import re
 import unicodedata
-import alternativemovie
+import utils
 
 __author__ = "Alberto Malagoli"
 
@@ -59,18 +59,19 @@ class Movie:
             # states are used to show a proper panel in GUI
             self.state_ = self.STATE_BEFORE_RENAMING
 
-            self.guessed_info_ = None
+            self.guessed_info_ = {'part': '1'}
 
-            self.title_ = 'Un film molto figo'
-            self.info_ = {
-                       'title': 'A really cool movie',
-                       'year': '2012',
-                       'director': 'A. Director',
-                       'part': '1'
-                       }
-            self.language_ = pycountry.languages.get(name = 'Italian')
-            self.video_duration_ = 100
-            self.alternative_movies_ = []
+            info = {
+                    'title': 'Un film molto figo',
+                    'original_title': 'A really cool movie',
+                    'year': '2012',
+                    'director': 'A. Director',
+                    'duration': ['100m', '1h40m'],
+                    'language': ['Italian', 'ITA'],
+                    'score': 1}
+
+            self.others_info_ = [info]
+            self.info_ = info
 
         else:
             path, name = os.path.split(filepath)
@@ -89,17 +90,13 @@ class Movie:
             # error occurred during renaming operation
             self.renaming_error_ = ''
 
-            self.title_ = ''
-            self.video_duration_ = None
-            self.language_ = None
-            self.info_ = None
-
             print('*' * 30)
             print(name)
             print('*' * 30)
             # get video duration
+            self.video_duration_ = None
             try:
-                video_info = enzyme.parse(self.abs_original_name())
+                video_info = enzyme.parse(self.abs_original_file_name())
             except ValueError:
                 pass
             else:
@@ -110,27 +107,20 @@ class Movie:
             self.guessed_info_ = guess.info(name)
             self.get_movies_()
 
-#            print(self.title())
-#            print(self.original_title())
-#            print(self.year())
-#            print(self.duration())
-#            print(self.director())
-#            print(self.language())
-
-    def original_name(self):
+    def original_file_name(self):
         return self.original_name_
 
-    def new_name(self):
+    def new_file_name(self):
         return self.new_name_
 
-    def abs_original_name(self):
+    def abs_original_file_name(self):
         """
         return the complete original file name, from the root
         """
 
         return os.path.join(self.path_, self.original_name_ + self.extension_)
 
-    def abs_new_name(self):
+    def abs_new_file_name(self):
         """
         return the complete new file name, from the root
         """
@@ -138,68 +128,39 @@ class Movie:
         return os.path.join(self.path_, self.new_name_ + self.extension_)
 
     def title(self):
-        if self.title_ != '':
-            return self.title_
+        if self.info_ != None:
+            return self.info_['title']
         return self.guessed_info_['title']
 
     def original_title(self):
         if self.info_ != None:
-            return self.info_.get('title')
+            return self.info_['original_title']
         return ''
 
     def year(self):
-        if self.info_ != None \
-        and self.info_.get('year') != None:
-            return unicode(self.info_.get('year'))
+        if self.info_ != None:
+            return self.info_['year']
         if self.guessed_info_ != None \
         and 'year' in self.guessed_info_:
             return self.guessed_info_['year']
         return ''
 
     def director(self):
-        if self.info_ != None \
-        and self.info_.get('director') != None:
-            return self.info_.get('director')
-
-    def duration(self):
-        if self.video_duration_ != None:
-            return unicode(self.video_duration_)
-        elif self.info_ != None:
-            runtimes = self.info_.get('runtimes')
-            if runtimes != None:
-                #XXX per adesso tengo solo il primo runtime,
-                # ma sarebbe interessante considerare le info di ciascun runtime sulla
-                # country associata (es: [u'92', u'South Korea:97::(uncut version)', u'Japan:98'])
-                runtime = runtimes[0]
-                match = re.search('\d+', runtime)
-                if match:
-                    return match.group(0)
+        if self.info_ != None:
+            return self.info_['director']
         return ''
-#    if duration != 0:
-#            duration1 = str(duration) + 'm'
-#            hours = int(duration / 60)
-#            minutes = int(duration % 60)
-#            duration2 = str(hours) + 'h'
-#            if minutes != 0:
-#                duration2 = duration2 + str(minutes) + 'm'
-#            duration = [duration1, duration2]
-#        else:
-#            duration = ['', '']
 
-    def language(self):
-        if self.language_ != None:
-            language = self.language_.name
-            #XXX da togliere dopo che ho pulito il file xml
-            language = language.split(';')[0]
-            language = language.split(',')[0]
-            return language
+    def duration(self, index = 0):
+        if self.info_ != None:
+            return self.info_['duration'][index]
+        return ''
+
+    def language(self, index = 0):
+        if self.info_ != None:
+            return self.info_['language'][index]
         if self.guessed_info_ != None \
         and 'language' in self.guessed_info_:
-            language = self.guessed_info_['language'].name
-            #XXX da togliere dopo che ho pulito il file xml
-            language = language.split(';')[0]
-            language = language.split(',')[0]
-            return language
+            return self.guessed_info_['language'][index]
         return ''
 
     def part(self):
@@ -208,8 +169,8 @@ class Movie:
             return self.guessed_info_['part']
         return ''
 
-    def alternative_movies(self):
-        return self.alternative_movies_
+    def others_info(self):
+        return self.others_info_
 
     def state(self):
         return self.state_
@@ -230,12 +191,145 @@ class Movie:
             self.original_name_ = self.new_name_
 
     def set_movie(self, index):
-        alternative_movie = self.alternative_movies_[index]
-        self.title_ = alternative_movie.title()
-        self.language_ = alternative_movie.language()
-        self.info_ = alternative_movie.movie()
+        self.info_ = self.others_info_[index]
 
     def get_movies_(self):
+
+        # create imdb search engine
+        imdb_archive = imdb.IMDb()
+        # search for title into IMDB, and returns some candidate movies
+        movies = imdb_archive.search_movie(self.guessed_info_['title'])
+
+        keep_index = 0
+        if len(movies) > 0:
+            # sometimes, with movies with an old version and a new version
+            # (e.g. Godzilla: a 1954 version and a 1998 version)
+            # imdb search returns the oldest one as the second result.
+            # so, keep movie year found on title into consideration as
+            # discrimination for the right movie
+            if 'year' in self.guessed_info_ \
+            and len(movies) > 1:
+                movie_year = movies[1].get('year')
+                if movie_year != None \
+                and self.guessed_info_['year'] == str(movie_year):
+                    keep_index = 1
+
+        self.others_info_ = []
+        self.info_ = None
+        for index in range(len(movies)):
+            movie = movies[index]
+
+            # get more info on this movie
+            imdb_archive.update(movie)
+
+            year = ''
+            movie_year = movie.get('year')
+            if movie_year != None:
+                year = unicode(movie_year)
+            elif self.guessed_info_ != None \
+            and 'year' in self.guessed_info_:
+                year = unicode(self.guessed_info_['year'])
+
+            director = ''
+            movie_directors = movie.get('director')
+            if movie_directors != None:
+                directors = []
+                for director in movie_directors:
+                    directors.append(director['name'])
+                directors = ', '.join(directors)
+                director = directors
+
+            duration1 = ''
+            duration2 = ''
+            duration = None
+            runtimes = movie.get('runtimes')
+            if runtimes != None:
+                #XXX by now, I only keep the first runtime,
+                # but it would be interesting to consider also the associated
+                # country (e.g.: [u'92', u'South Korea:97::(uncut version)', u'Japan:98'])
+                runtime = runtimes[0]
+                match = re.search('\d+', runtime)
+                if match:
+                    duration = int(match.group(0))
+            elif self.video_duration_ != None:
+                duration = self.video_duration_
+            if duration != None:
+                duration1 = str(duration) + 'm'
+                hours = int(duration / 60)
+                minutes = int(duration % 60)
+                duration2 = str(hours) + 'h'
+                if minutes != 0:
+                    duration2 = duration2 + str(minutes) + 'm'
+            duration = [duration1, duration2]
+
+            #XXX se guessed_info['language'] == None, recupera la lingua dal best_aka
+            #XXX se guessed_info['language'] != None: usa anche la lingua per determinare l'aka
+            #XXX alla fine, anche self.language_ deve essere != None, quindi recupero o dall'aka o da guessed_info['language']
+
+            language = movie.guessLanguage()
+            if language != None:
+                language = utils.name_to_language(language)
+            if language == None:
+                language = ['', '']
+
+            title1 = movie['title'].lower()
+            title2 = self.guessed_info_['title'].lower()
+            score = difflib.SequenceMatcher(None, title1, title2).ratio()
+
+            info = {
+                    'title': movie['title'],
+                    'original_title': movie['title'],
+                    'year': year,
+                    'director': director,
+                    'duration': duration,
+                    'language': language,
+                    'score': score}
+            self.others_info_.append(info)
+
+            if index == keep_index:
+                self.info_ = info
+                best_score = score
+
+            akas = movie.get('akas')
+            if akas != None:
+                for aka in akas:
+
+                    aka = aka.split('::')
+                    language = None
+                    if len(aka) == 2:
+                        countries = aka[1]
+                        possible_language = re.search('(?:[(])([a-zA-Z]+?)(?: title[)])', countries)
+                        if possible_language:
+                            language = utils.name_to_language(possible_language.group(1))
+                        if language == None:
+                            country = countries.split(',')[0]
+                            country = re.sub('\(.*?\)', '', country).strip()
+                            language = utils.country_to_language(country)
+                    if language == None:
+                        language = ['', '']
+
+                    title1 = aka[0].lower()
+                    title2 = self.guessed_info_['title'].lower()
+                    score = difflib.SequenceMatcher(None, title1, title2).ratio()
+
+                    info = {
+                            'title': aka[0],
+                            'original_title': movie['title'],
+                            'year': year,
+                            'director': director,
+                            'duration': duration,
+                            'language': language,
+                            'score': score}
+                    self.others_info_.append(info)
+
+                    if index == keep_index \
+                    and score > best_score:
+                        self.info_ = info
+                        best_score = score
+
+        self.others_info_ = sorted(self.others_info_, cmp = lambda x, y: cmp(x['score'], y['score']), reverse = True)
+
+    def get_movies_OLD(self):
 
         # create imdb search engine
         imdb_archive = imdb.IMDb()
@@ -284,7 +378,7 @@ class Movie:
         else:
             self.info_ = None
 
-        self.alternative_movies_ = []
+        self.others_info_ = []
         for movie in movies:
 
             # get more info on this movie
@@ -303,15 +397,15 @@ class Movie:
             #XXX aggiunta di una chiave duration con la nuova lista
 
             am = alternativemovie.AlternativeMovie(movie['title'], movie, self.guessed_info_['title'])
-            self.alternative_movies_.append(am)
+            self.others_info_.append(am)
 
             akas = movie.get('akas')
             if akas != None:
                 for aka in akas:
                     am = alternativemovie.AlternativeMovie(aka, movie, self.guessed_info_['title'])
-                    self.alternative_movies_.append(am)
+                    self.others_info_.append(am)
 
-        self.alternative_movies_ = sorted(self.alternative_movies_, key = alternativemovie.AlternativeMovie.score, reverse = True)
+        self.others_info_ = sorted(self.others_info_, key = alternativemovie.AlternativeMovie.score, reverse = True)
 
     def search_new_title(self, title):
         guessed_info = guess.info(title)
@@ -385,7 +479,7 @@ class Movie:
                 # add part to new name
                 new_name.append(self.tr("Part ") + self.part)
             # join new name (was a list) and set it as the new name for that movie
-            self.new_name_ = unicode(''.join(new_name).strip())
+            self.new_name_ = unicode(''.join(new_file_name).strip())
 
         return self.new_name_
 
@@ -454,7 +548,7 @@ class Movie:
                 # add part to new name
                 new_name.append(self.tr("Part ") + self.part)
             # join new name (was a list) and set it as the new name for that movie
-            self.new_name_ = unicode(''.join(new_name).strip())
+            self.new_name_ = unicode(''.join(new_file_name).strip())
 
         return self.new_name_
 
