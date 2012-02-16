@@ -514,7 +514,7 @@ class GUI(QMainWindow):
 
             # set panel visible
             self.ui.stack_movie.setVisible(True)
-            self.ui.adjustSize()
+#            self.ui.adjustSize()
 
     def populate_movie_panel(self):
         movie = self.current_movie
@@ -531,9 +531,9 @@ class GUI(QMainWindow):
         # remove all rows
         self.ui.table_alternative_movies.setRowCount(0)
         for other_info in movie.others_info():
-            title = other_info['title']
-            year = other_info['year']
-            language = other_info['language'][0]
+            title = other_info[0]
+            year = other_info[1]
+            language = other_info[2]
             # insert a new row in movie table
             self.ui.table_alternative_movies.insertRow(self.ui.table_alternative_movies.rowCount())
             # create a table item with original movie file name
@@ -550,7 +550,7 @@ class GUI(QMainWindow):
 
     def change_movie(self, checked):
         self.ui.widget_alternative_movies.setVisible(checked)
-        self.ui.adjustSize()
+#        self.ui.adjustSize()
 
     def alternative_movies_selection_changed(self):
         selected_items = self.ui.table_alternative_movies.selectedItems()

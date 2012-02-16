@@ -3,7 +3,7 @@ nuovo numero versione
 commentare
 codificare
 tooltips
-aggiornamre "about"
+aggiornamre "about" (anche librerie)
 traduzionare
 buildare translations
 changeloggare

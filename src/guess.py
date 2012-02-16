@@ -79,12 +79,10 @@ def guess_language(title):
     """
 
     language = None
-    match = re.search('(?:[^A-Z])([A-Z]{3})(?:[^A-Z])', title)
+    match = re.search('(?:[^a-zA-Z])([a-zA-Z]{3})(?:[^a-zA-Z])', title)
     if match:
         try:
-#            print(match.group(1))
             language = utils.alpha3_to_language(match.group(1))
-#            print(language.name)
             # remove language from title
             title = title[:match.start() + 1] + title[match.end() - 1:]
         except KeyError:

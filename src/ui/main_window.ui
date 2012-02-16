@@ -281,6 +281,9 @@
              <property name="cornerButtonEnabled">
               <bool>false</bool>
              </property>
+             <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+              <bool>true</bool>
+             </attribute>
              <attribute name="horizontalHeaderStretchLastSection">
               <bool>true</bool>
              </attribute>
@@ -299,7 +302,7 @@
              </column>
              <column>
               <property name="text">
-               <string>Country(ies)</string>
+               <string>Language</string>
               </property>
              </column>
             </widget>

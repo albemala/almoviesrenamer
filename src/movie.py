@@ -1,13 +1,11 @@
 # -*- coding: latin-1 -*-
 
-#from PyQt4.QtCore import QLocale
 import difflib
 import enzyme
 import guess
 import imdb
 import os
 import platform
-#import pycountry
 import re
 import unicodedata
 import utils
@@ -105,7 +103,7 @@ class Movie:
                 elif video_info.video[0].length != None:
                     self.video_duration_ = int(video_info.video[0].length / 60)
             self.guessed_info_ = guess.info(name)
-            self.get_movies_()
+            self.get_info_()
 
     def original_file_name(self):
         return self.original_name_
@@ -170,7 +168,11 @@ class Movie:
         return ''
 
     def others_info(self):
-        return self.others_info_
+        others_info = []
+        for other_info in self.others_info_:
+            info = [other_info['title'], other_info['year'], other_info['language'][0]]
+            others_info.append(info)
+        return others_info
 
     def state(self):
         return self.state_
@@ -193,7 +195,7 @@ class Movie:
     def set_movie(self, index):
         self.info_ = self.others_info_[index]
 
-    def get_movies_(self):
+    def get_info_(self):
 
         # create imdb search engine
         imdb_archive = imdb.IMDb()
@@ -262,19 +264,29 @@ class Movie:
                     duration2 = duration2 + str(minutes) + 'm'
             duration = [duration1, duration2]
 
-            #XXX se guessed_info['language'] == None, recupera la lingua dal best_aka
-            #XXX se guessed_info['language'] != None: usa anche la lingua per determinare l'aka
-            #XXX alla fine, anche self.language_ deve essere != None, quindi recupero o dall'aka o da guessed_info['language']
-
-            language = movie.guessLanguage()
-            if language != None:
-                language = utils.name_to_language(language)
+            language = None
+            if self.guessed_info_ != None \
+            and 'language' in self.guessed_info_:
+                language = self.guessed_info_['language']
+            else:
+                language = movie.guessLanguage()
+                if language != None:
+                    language = utils.name_to_language(language)
             if language == None:
                 language = ['', '']
 
             title1 = movie['title'].lower()
             title2 = self.guessed_info_['title'].lower()
             score = difflib.SequenceMatcher(None, title1, title2).ratio()
+            if movie_year != None \
+            and self.guessed_info_ != None \
+            and 'year' in self.guessed_info_ \
+            and self.guessed_info_['year'] == movie_year:
+                score += 1
+#            if self.guessed_info_ != None \
+#            and 'language' in self.guessed_info_ \
+#            and self.guessed_info_['language'] == language:
+#                score += 1
 
             info = {
                     'title': movie['title'],
@@ -284,7 +296,8 @@ class Movie:
                     'duration': duration,
                     'language': language,
                     'score': score}
-            self.others_info_.append(info)
+            if score > 0.3:
+                self.others_info_.append(info)
 
             if index == keep_index:
                 self.info_ = info
@@ -305,12 +318,22 @@ class Movie:
                             country = countries.split(',')[0]
                             country = re.sub('\(.*?\)', '', country).strip()
                             language = utils.country_to_language(country)
+                        print(countries + ' --> ' + str(language))
                     if language == None:
                         language = ['', '']
 
                     title1 = aka[0].lower()
                     title2 = self.guessed_info_['title'].lower()
                     score = difflib.SequenceMatcher(None, title1, title2).ratio()
+                    if movie_year != None \
+                    and self.guessed_info_ != None \
+                    and 'year' in self.guessed_info_ \
+                    and self.guessed_info_['year'] == movie_year:
+                        score += 1
+                    if self.guessed_info_ != None \
+                    and 'language' in self.guessed_info_ \
+                    and self.guessed_info_['language'] == language:
+                        score += 1
 
                     info = {
                             'title': aka[0],
@@ -320,7 +343,8 @@ class Movie:
                             'duration': duration,
                             'language': language,
                             'score': score}
-                    self.others_info_.append(info)
+                    if score > 0.3:
+                        self.others_info_.append(info)
 
                     if index == keep_index \
                     and score > best_score:
@@ -329,90 +353,12 @@ class Movie:
 
         self.others_info_ = sorted(self.others_info_, cmp = lambda x, y: cmp(x['score'], y['score']), reverse = True)
 
-    def get_movies_OLD(self):
-
-        # create imdb search engine
-        imdb_archive = imdb.IMDb()
-        # search for title into IMDB, and returns some candidate movies
-        movies = imdb_archive.search_movie(self.guessed_info_['title'])
-        if len(movies) > 0:
-            movie = movies[0]
-
-            # sometimes, with movies with an old version and a new version
-            # (e.g. Godzilla: a 1954 version and a 1998 version)
-            # imdb search returns the oldest one as the second result.
-            # so, keep movie year found on title into consideration as
-            # discrimination for the right movie
-            if 'year' in self.guessed_info_ \
-            and len(movies) > 1:
-                movie_year = movies[1].get('year')
-                if movie_year != None \
-                and self.guessed_info_['year'] == str(movie_year):
-                    movie = movies[1]
-
-            #XXX se guessed_info['language'] == None, recupera la lingua dal best_aka
-            #XXX se guessed_info['language'] != None: usa anche la lingua per determinare l'aka
-            #XXX alla fine, anche self.language_ deve essere != None, quindi recupero o dall'aka o da guessed_info['language']
-
-            # add aka
-            best_aka = movie['title']
-            title1 = movie['title'].lower()
-            title2 = self.guessed_info_['title'].lower()
-            best_score = difflib.SequenceMatcher(None, title1, title2).ratio()
-
-            akas = movie.get('akas')
-            if akas != None:
-                for aka in akas:
-                    aka = aka.split('::')
-
-                    title1 = aka[0].lower()
-                    title2 = self.guessed_info_['title'].lower()
-                    score = difflib.SequenceMatcher(None, title1, title2).ratio()
-                    if score > best_score:
-                        best_score = score
-                        best_aka = aka[0]
-            self.title_ = best_aka
-
-            self.info_ = movie
-
-        else:
-            self.info_ = None
-
-        self.others_info_ = []
-        for movie in movies:
-
-            # get more info on this movie
-            imdb_archive.update(movie)
-
-            movie_directors = movie.get('director')
-            if movie_directors != None:
-                directors = []
-                for director in movie_directors:
-                    directors.append(director['name'])
-                directors = ', '.join(directors)
-                movie.update({'director': directors})
-
-            #XXX calcolo di duration, che diventa una lista con due stringhe
-            # rappresentanti la durata nei due formati mmm e hhmm
-            #XXX aggiunta di una chiave duration con la nuova lista
-
-            am = alternativemovie.AlternativeMovie(movie['title'], movie, self.guessed_info_['title'])
-            self.others_info_.append(am)
-
-            akas = movie.get('akas')
-            if akas != None:
-                for aka in akas:
-                    am = alternativemovie.AlternativeMovie(aka, movie, self.guessed_info_['title'])
-                    self.others_info_.append(am)
-
-        self.others_info_ = sorted(self.others_info_, key = alternativemovie.AlternativeMovie.score, reverse = True)
-
     def search_new_title(self, title):
         guessed_info = guess.info(title)
         self.guessed_info_['title'] = guessed_info['title']
         if 'year' in guessed_info:
             self.guessed_info_['year'] = guessed_info['year']
-        self.get_movies_()
+        self.get_info_()
 
     def generate_new_name(self, renaming_rule):
         """
