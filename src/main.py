@@ -17,6 +17,7 @@ __author__ = "Alberto Malagoli"
 sys.excepthook = exceptionhandler.excepthook
 
 utils.load_languages()
+utils.load_preferences()
 
 # create the GUI and shows it
 app = QApplication(sys.argv)

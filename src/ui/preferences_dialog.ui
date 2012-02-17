@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>260</height>
+    <width>323</width>
+    <height>315</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -30,6 +30,12 @@
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QLabel" name="label_13">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -56,9 +62,6 @@ p, li { white-space: pre-wrap; }
          <property name="checked">
           <bool>true</bool>
          </property>
-         <attribute name="buttonGroup">
-          <string notr="true">button_group_stats</string>
-         </attribute>
         </widget>
        </item>
        <item>
@@ -66,9 +69,6 @@ p, li { white-space: pre-wrap; }
          <property name="text">
           <string>I don't agree. Do not send usage statistics.</string>
          </property>
-         <attribute name="buttonGroup">
-          <string notr="true">button_group_stats</string>
-         </attribute>
         </widget>
        </item>
        <item>
@@ -111,7 +111,7 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QComboBox" name="comboBox_2">
+          <widget class="QComboBox" name="combo_duration">
            <item>
             <property name="text">
              <string>Minutes only (e.g.: 100m)</string>
@@ -132,7 +132,7 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QComboBox" name="comboBox_3">
+          <widget class="QComboBox" name="combo_language">
            <item>
             <property name="text">
              <string>English name (e.g.: English)</string>
@@ -153,7 +153,7 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QComboBox" name="comboBox_4">
+          <widget class="QComboBox" name="combo_words_separator">
            <item>
             <property name="text">
              <string>, (comma-space)</string>
@@ -235,7 +235,4 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
  </connections>
- <buttongroups>
-  <buttongroup name="button_group_stats"/>
- </buttongroups>
 </ui>

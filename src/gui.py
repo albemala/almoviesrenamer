@@ -2,11 +2,11 @@
 
 from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal
 from PyQt4.QtGui import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, \
-    QBrush, QPixmap
+    QBrush, QPixmap, QDialog
 from PyQt4.uic import loadUi
 from movie import Movie
 from renamingrule import RenamingRuleDialog
-from settings import SettingsDialog
+#from settings import SettingsDialog
 from statsagreement import StatsAgreementDialog
 import imdb
 import os.path
@@ -54,7 +54,7 @@ class GUI(QMainWindow):
         # create RenamingRuleDialog
 #        self.ui.renaming_rule_dialog = RenamingRuleDialog(self)
         # create SettingsDialog
-#        self.ui.preferences_dialog = SettingsDialog(self)
+        self.ui.preferences_dialog = PreferencesDialog(self)
         # set some GUI parameters
         self.setWindowTitle(utils.PROGRAM_NAME)
         self.ui.panel_loading.setVisible(False)
@@ -184,7 +184,7 @@ class GUI(QMainWindow):
         # get user choice about sending usage statistics
         send_usage_statistics = self.settings.value("stats_agreement").toInt()[0]
         # if user chose to send usage statistics
-        if send_usage_statistics == SettingsDialog.STATS_AGREE:
+        if send_usage_statistics == PreferencesDialog.STATS_AGREE:
             # start sending thread
             threading.Thread(target = self.send_usage_statistics_run).start()
 
@@ -613,4 +613,77 @@ class GUI(QMainWindow):
 
         self.ui.button_change_movie.setEnabled(enabled)
         self.ui.table_alternative_movies.setEnabled(enabled)
+
+class PreferencesDialog(QDialog):
+
+    STATS_AGREE = 1
+    STATS_DISAGREE = 0
+
+    def __init__(self, parent):
+        QDialog.__init__(self, parent)
+
+        # load UI
+        self.ui = loadUi("ui/preferences_dialog.ui", self)
+        # adjust window size to content
+        self.adjustSize()
+        # load settings
+        self.load_settings()
+        ## slots connection
+        self.ui.radio_agree.clicked.connect(self.stats_agreement_agree)
+        self.ui.radio_disagree.clicked.connect(self.stats_agreement_disagree)
+        self.ui.combo_duration.currentIndexChanged.connect(self.duration_representation_changed)
+        self.ui.combo_language.currentIndexChanged.connect(self.language_representation_changed)
+        self.ui.combo_words_separator.currentIndexChanged.connect(self.words_separator_representation_changed)
+
+    def load_settings(self):
+        """
+        loads settings, and sets GUI elements according to 
+        user choices
+        """
+
+        # get usage statistics agreement choice
+        stats_agreement = utils.preferences.value("stats_agreement").toInt()[0]
+        # set radio buttons checked
+        if stats_agreement == self.STATS_AGREE:
+            self.ui.radio_agree.setChecked(True)
+        else:
+            self.ui.radio_disagree.setChecked(True)
+
+        duration_representation = utils.preferences.value("duration_representation").toInt()[0]
+        self.ui.combo_duration.setCurrentIndex(duration_representation)
+        language_representation = utils.preferences.value("language_representation").toInt()[0]
+        self.ui.combo_language.setCurrentIndex(language_representation)
+        words_separator = utils.preferences.value("words_separator").toInt()[0]
+        self.ui.combo_words_separator.setCurrentIndex(words_separator)
+
+    def stats_agreement_agree(self, checked):
+        """
+        called when user clicks on radio button to agree with 
+        usage statistics agreement
+        """
+
+        # save value on settings file
+        utils.preferences.setValue("stats_agreement", self.STATS_AGREE)
+
+    def stats_agreement_disagree(self, checked):
+        """
+        called when user clicks on radio button to disagree with 
+        usage statistics agreement
+        """
+
+        # save value on settings file
+        utils.preferences.setValue("stats_agreement", self.STATS_DISAGREE)
+
+    def duration_representation_changed(self, index):
+        utils.preferences.setValue("duration_representation", index)
+
+    def language_representation_changed(self, index):
+        utils.preferences.setValue("language_representation", index)
+
+    def words_separator_representation_changed(self, index):
+        utils.preferences.setValue("words_separator", index)
+
+
+
+
 

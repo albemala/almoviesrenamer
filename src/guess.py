@@ -36,24 +36,24 @@ def info(title):
     # create info dictionary
     info = dict()
     # guess year
-    title, year = guess_year(title)
+    title, year = guess_year_(title)
     if year != None:
         info.update({'year': year})
     # guess language
-    title, language = guess_language(title)
+    title, language = guess_language_(title)
     if language != None:
         info.update({'language': language})
     # guess part
-    title, part = guess_part(title)
+    title, part = guess_part_(title)
     if part != None:
         info.update({'part': part})
     # clean title
-    title = clean_title(title)
+    title = clean_title_(title)
     info.update({'title': title})
     # return guessed information
     return info
 
-def guess_year(title):
+def guess_year_(title):
     """
     looks for year patterns, and return found year
     
@@ -73,7 +73,7 @@ def guess_year(title):
         title = title[:match.start()] + title[match.end():]
     return title, year
 
-def guess_language(title):
+def guess_language_(title):
     """
     guess movie language, looking for ISO language representation in title
     """
@@ -89,7 +89,7 @@ def guess_language(title):
             pass
     return title, language
 
-def guess_part(title):
+def guess_part_(title):
     """
     guess movie part, i.e. CD1
     """
@@ -104,7 +104,7 @@ def guess_part(title):
         title = title[:match.start()] + title[match.end():]
     return title, part
 
-def clean_title(title):
+def clean_title_(title):
     # remove everything inside parenthesis
     title = re.sub('[([{].*?[)\]}]', '', title)
     # replace dots, underscores and dashes with spaces
