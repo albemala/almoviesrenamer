@@ -683,7 +683,36 @@ class PreferencesDialog(QDialog):
     def words_separator_representation_changed(self, index):
         utils.preferences.setValue("words_separator", index)
 
+class StatsAgreementDialog(QDialog):
 
+    def __init__(self, parent):
+        QDialog.__init__(self, parent)
+
+        # load UI
+        self.ui = loadUi("ui/stats_agreement_dialog.ui", self)
+        # adjust wondow size to content
+        self.adjustSize()
+        ## slots connection
+        self.ui.radio_agree.clicked.connect(self.stats_agreement_agree)
+        self.ui.radio_disagree.clicked.connect(self.stats_agreement_disagree)
+
+    def stats_agreement_agree(self, checked):
+        """
+        called when user clicks on radio button to agree with 
+        usage statistics agreement
+        """
+
+        # save value on settings file
+        utils.preferences.setValue("stats_agreement", PreferencesDialog.STATS_AGREE)
+
+    def stats_agreement_disagree(self, checked):
+        """
+        called when user clicks on radio button to disagree with 
+        usage statistics agreement
+        """
+
+        # save value on settings file
+        utils.preferences.setValue("stats_agreement", PreferencesDialog.STATS_DISAGREE)
 
 
 

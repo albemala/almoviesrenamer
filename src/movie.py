@@ -2,15 +2,134 @@
 
 import difflib
 import enzyme
-import guess
 import imdb
 import os
 import platform
 import re
 import unicodedata
+import datetime
 import utils
 
 __author__ = "Alberto Malagoli"
+
+blackwords = [
+              # video type
+              'DVDRip', 'HD-DVD', 'HDDVD', 'HDDVDRip', 'BluRay', 'Blu-ray', 'BDRip', 'BRRip',
+              'HDRip', 'DVD', 'DVDivX', 'HDTV', 'DVB', 'DVBRip', 'PDTV', 'WEBRip', 'DVDSCR',
+              'Screener', 'VHS', 'VIDEO_TS',
+              # screen
+              '720p', '720',
+              # video codec
+              'XviD', 'DivX', 'x264', 'h264', 'Rv10',
+              # audio codec
+              'AC3', 'DTS', 'He-AAC', 'AAC-He', 'AAC', '5.1',
+              # ripper teams
+              'ESiR', 'WAF', 'SEPTiC', '[XCT]', 'iNT', 'PUKKA', 'CHD', 'ViTE', 'TLF',
+              'DEiTY', 'FLAiTE', 'MDX', 'GM4F', 'DVL', 'SVD', 'iLUMiNADOS', ' FiNaLe',
+              'UnSeeN', 'aXXo', 'KLAXXON', 'NoTV', 'ZeaL', 'LOL', 'iTALiAN'
+              ]
+
+def guess_info(title):
+    """
+    given a title, tries to guess as much information as possible.
+    
+    guessed information:
+    title, year, language, country, part
+    
+    language and country are pycountry classes
+    """
+
+    # create info dictionary
+    info = dict()
+    # guess year
+    title, year = guess_year_(title)
+    if year != None:
+        info.update({'year': year})
+    # guess language
+    title, language = guess_language_(title)
+    if language != None:
+        info.update({'language': language})
+    # guess part
+    title, part = guess_part_(title)
+    if part != None:
+        info.update({'part': part})
+    # clean title
+    title = clean_title_(title)
+    info.update({'title': title})
+    # return guessed information
+    return info
+
+def guess_year_(title):
+    """
+    looks for year patterns, and return found year
+    
+    note this only looks for valid production years, that is between 1920
+    and now + 5 years, so for instance 2000 would be returned as a valid
+    year but 1492 would not
+    """
+
+    year = None
+    # search for year pattern (4 consequent digit)
+    match = re.search(r'[0-9]{4}', title)
+    # if found, check if year is between 1920 and now + 5 years
+    if match \
+    and 1920 < int(match.group(0)) < datetime.date.today().year + 5:
+        year = match.group(0)
+        # remove year from title
+        title = title[:match.start()] + title[match.end():]
+    return title, year
+
+def guess_language_(title):
+    """
+    guess movie language, looking for ISO language representation in title
+    """
+
+    language = None
+    match = re.search('(?:[^a-zA-Z])([a-zA-Z]{3})(?:[^a-zA-Z])', title)
+    if match:
+        try:
+            language = utils.alpha3_to_language(match.group(1))
+            # remove language from title
+            title = title[:match.start() + 1] + title[match.end() - 1:]
+        except KeyError:
+            pass
+    return title, language
+
+def guess_part_(title):
+    """
+    guess movie part, i.e. CD1
+    """
+
+    part = None
+    # search part, which can be like, for example, disk1 or disk 1
+    match = re.search('(cd|disk|part)[ ]?[0-9]', title.lower(), re.IGNORECASE)
+    if match:
+        # get part number
+        part = match.group(0)[-1:]
+        # remove part from title
+        title = title[:match.start()] + title[match.end():]
+    return title, part
+
+def clean_title_(title):
+    # remove everything inside parenthesis
+    title = re.sub('[([{].*?[)\]}]', '', title)
+    # replace dots, underscores and dashes with spaces
+    title = re.sub('[\._\-\'"]', ' ', title)
+    stitle = title.split()
+    title = []
+    # loop on name
+    for word in stitle:
+        is_not_a_blackword = True
+        for blackword in blackwords:
+            if word.lower() == blackword.lower():
+                is_not_a_blackword = False
+                break
+        if is_not_a_blackword:
+            title.append(word)
+        else:
+            break
+    title = ' '.join(title)
+    return title
 
 class Movie:
     """
@@ -102,7 +221,7 @@ class Movie:
                     self.video_duration_ = int(video_info.length / 60)
                 elif video_info.video[0].length != None:
                     self.video_duration_ = int(video_info.video[0].length / 60)
-            self.guessed_info_ = guess.info(name)
+            self.guessed_info_ = guess_info(name)
             self.get_info_()
 
     def original_file_name(self):
@@ -354,7 +473,7 @@ class Movie:
         self.others_info_ = sorted(self.others_info_, cmp = lambda x, y: cmp(x['score'], y['score']), reverse = True)
 
     def search_new_title(self, title):
-        guessed_info = guess.info(title)
+        guessed_info = guess_info(title)
         self.guessed_info_['title'] = guessed_info['title']
         if 'year' in guessed_info:
             self.guessed_info_['year'] = guessed_info['year']
