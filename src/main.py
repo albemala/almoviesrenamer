@@ -14,7 +14,7 @@ import utils
 __author__ = "Alberto Malagoli"
 
 # using my excepthook
-sys.excepthook = exceptionhandler.excepthook
+#sys.excepthook = exceptionhandler.excepthook
 
 utils.load_languages()
 utils.load_preferences()

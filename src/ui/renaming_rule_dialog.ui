@@ -29,6 +29,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <widget class="QListWidget" name="list_visual_rule">
+       <property name="toolTip">
+        <string>Drag to reorder</string>
+       </property>
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
@@ -108,7 +111,7 @@
       </widget>
      </item>
      <item row="3" column="2">
-      <widget class="QLabel" name="label_15">
+      <widget class="QLabel" name="label_duration_representation">
        <property name="font">
         <font>
          <italic>true</italic>
@@ -228,7 +231,7 @@
       </widget>
      </item>
      <item row="3" column="5">
-      <widget class="QLabel" name="label_12">
+      <widget class="QLabel" name="label_language_representation">
        <property name="font">
         <font>
          <italic>true</italic>
@@ -335,7 +338,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_10">
+      <widget class="QLabel" name="label_separator_representation">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -355,7 +358,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="button_show_preferences">
      <property name="text">
       <string>Change representation preferences...</string>
      </property>
@@ -422,7 +425,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="button_close">
        <property name="text">
         <string>Close</string>
        </property>
@@ -433,22 +436,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>423</x>
-     <y>334</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>332</x>
-     <y>334</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
