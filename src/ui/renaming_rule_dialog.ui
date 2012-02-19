@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>496</width>
-    <height>549</height>
+    <height>438</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QListWidget" name="list_renaming_rule">
+      <widget class="QListWidget" name="list_visual_rule">
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
@@ -137,7 +137,7 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QPushButton" name="button_add_aka">
+      <widget class="QPushButton" name="button_add_original_title">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>

@@ -15,19 +15,10 @@ aggiornare versione su web service
 --------------------------------------------------------------------------------
 
 
-invio statistiche delle prefernze
+invio statistiche delle preferenze
 
 ripristinare controllo versione: gui > 34
 ripristinare in gui > load_movies_run 
-
-
-considerare lingua film e lingua sottotitoli
-
-
-in effetti, finora quando cercavo un film su imdb e non trovavo niente, davo un errore
-tipo "film non trovato". ma visto che alcune informazioni vengono comunque ritornate
-dall'analisi del nome del file, posso tenere e proporre quelle se la ricerca on line non
-trova altro
 
 suoni per conferma operazioni?
 
@@ -35,70 +26,22 @@ probabilmente la lingua guessed da guessit va raffinata usando quella di sistema
 o comunque impostare quella di sistema come quella di default se non trovata nel titolo
 del file
 
-guessit considera anche l'estensione, quindi è da aggiungere
-
-togliere le parentesi e riusare guessit, e prendere solo il titolo
-
-
-usare un runtime unico, il migliore in base alla durata del video
-
-per recuperare la durata del video, ho due possibilità:
-	- usare mediainfo, però dovrei fare un wrapper dell'eseguibile
-	sia per windows che per linux, che occupano abbastanza
-	- usare hachoir parser, e magari farne una cura dimagrante
-	e tenere solo la parte che mi interessa (se la licenza lo permette)
-
+uso della durata del video per determinare il runtime migliore
 
 tradurre "Part x" alla fine di movie.generate_new_name
-
-quando recuper le info sul film, potrei recuperare solo il regista se è quello che mi manca
-
-ci sono dei casi in cui, cercato il titolo in italiano, la ricerca non trova gli aka 
-per quel film, ma solo il titolo originale in inglese. in questo caso 
-sarebbe bello aggiungere comunque l'aka trovato nel titolo 
-tra gli aka del film per la lingua trovata, cosi da proporlo nella rinomina del file
-
-
-aggiungere una impostazione per definire il separatore tra le parole, 
-invece della virgola standard
+preferenza di visualizzazione della parte (Part, CD, ...)
 
 le regole di rinomina rimangono in inglese anche se la lingua è diversa
-
-la scelta dell'aka dovrebbe usare anche il nome del file per scegliere quale usare,
-altrimenti sceglie sempre solo in base alla lingua, e non va sempre bene..
 
 invece di sostituire i caratteri illegali dei sistemi operativi con underscore,
 usare caratteri piu utili, ad es. & -> and
 
-problema (forse) con quei film con piu parti, che hanno uno spazio tra
-"part" o "cd" e il numero (es: CD 1 invece di CD1)
-
-uso della durata del video per determinare il runtime migliore
-mediainfo
-
 doppio click sugli item delle tabelle per aprire la cartella che contiene i file corrispondenti
 
-mettere un pulsante per fermare la ricerca e tornare o alla vista delle info sul film o alla ricerca manuale
-
 guessing:
-
-	anno del film, da usare anche come criterio per affinare la ricerca ed eliminare i titoli che non corrispondono a quello cercato
-
-	quando la ricerca su IMDB ritorna, fare un matching col titolo del film cercato e scartare i titoli troppo diversi, e selezionare direttamente quello piu simile
-
-		usare anche gli aka come metodo di paragone (ma forse devo recuperare tutte le info sul film prima)
-
-	usare un dictionary per memorizzare le info predette?
 	
 	http://stackoverflow.com/questions/7573952/comparing-strings-in-python-to-find-errors
 	
-	http://pypi.python.org/pypi/python-Levenshtein
-	
-	http://pypi.python.org/pypi/guessit
-	
-quando il guessing del film diventerà abbastanza figo, memorizzare un solo film
-per ogni file, invece dei 3 piu probabili
-
 exception handler:
 
 	invio via web app dei log di errore

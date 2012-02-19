@@ -1,13 +1,13 @@
 # -*- coding: latin-1 -*-
 
-from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal
+from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal, QCoreApplication
 from PyQt4.QtGui import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, \
     QBrush, QPixmap, QDialog
 from PyQt4.uic import loadUi
 from movie import Movie
-from renamingrule import RenamingRuleDialog
+#from renamingrule import RenamingRuleDialog
 #from settings import SettingsDialog
-from statsagreement import StatsAgreementDialog
+#from statsagreement import StatsAgreementDialog
 import imdb
 import os.path
 import sys
@@ -16,6 +16,8 @@ import urllib
 import utils
 
 __author__ = "Alberto Malagoli"
+
+tr = QCoreApplication.translate
 
 class GUI(QMainWindow):
 
@@ -52,7 +54,7 @@ class GUI(QMainWindow):
         # load GUI
         self.ui = loadUi("ui/main_window.ui", self)
         # create RenamingRuleDialog
-#        self.ui.renaming_rule_dialog = RenamingRuleDialog(self)
+        self.ui.renaming_rule_dialog = RenamingRuleDialog(self)
         # create SettingsDialog
         self.ui.preferences_dialog = PreferencesDialog(self)
         # set some GUI parameters
@@ -87,14 +89,14 @@ class GUI(QMainWindow):
         self.ui.table_alternative_movies.itemSelectionChanged.connect(self.alternative_movies_selection_changed)
 
         #XXX da togliere
-        # create a new movie object
-        movie = Movie(None)
-        self.movies.append(movie)
-        # insert a new row in movie table
-        self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
-        # create a table item with original movie file name
-        item_original_name = QTableWidgetItem(movie.original_file_name())
-        self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
+#        # create a new movie object
+#        movie = Movie(None)
+#        self.movies.append(movie)
+#        # insert a new row in movie table
+#        self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
+#        # create a table item with original movie file name
+#        item_original_name = QTableWidgetItem(movie.original_file_name())
+#        self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
 
     def check_connection(self):
         """
@@ -318,7 +320,8 @@ class GUI(QMainWindow):
             self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
             # create a table item with new movie file name
 #            item_new_name = QTableWidgetItem(movie.new_file_name())
-#            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
+            item_new_name = QTableWidgetItem('')
+            self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
         self.load_movies_finished.emit()
 
     def load_movies_end(self):
@@ -383,7 +386,7 @@ class GUI(QMainWindow):
         #show renaming rule dialog
         self.ui.renaming_rule_dialog.exec_()
         # when dialog is closed, save new rule on settings
-        self.renaming_rule = self.settings.value("renaming_rule").toString()
+        self.renaming_rule = utils.preferences.value("renaming_rule").toString()
         self.send_usage_statistics()
         # loop on movies
         for i in range(len(self.movies)):
@@ -392,7 +395,7 @@ class GUI(QMainWindow):
             movie.generate_new_name(self.renaming_rule)
             # set "before renaming state", because after renaming a movie
             # can be renamed a second time, after having changed the rule
-            movie.state = Movie.STATE_BEFORE_RENAMING #XXX da cambiare col metodo set_state
+            movie.set_state(Movie.STATE_BEFORE_RENAMING)
             self.ui.table_movies.item(i, 1).setForeground(QBrush(Qt.black))
             self.ui.table_movies.item(i, 1).setText(movie.new_name)
 
@@ -713,6 +716,215 @@ class StatsAgreementDialog(QDialog):
 
         # save value on settings file
         utils.preferences.setValue("stats_agreement", PreferencesDialog.STATS_DISAGREE)
+
+class RenamingRuleDialog(QDialog):
+
+    TITLE = tr('RenamingRuleDialog', "Title")
+    ORIGINAL_TITLE = tr('RenamingRuleDialog', "Original title")
+    YEAR = tr('RenamingRuleDialog', "Year")
+    DIRECTOR = tr('RenamingRuleDialog', "Director")
+    DURATION = tr('RenamingRuleDialog', "Duration")
+    LANGUAGE = tr('RenamingRuleDialog', "Language")
+    OPENED_ROUND_BRACKET = "("
+    CLOSED_ROUND_BRACKET = ")"
+    OPENED_SQUARE_BRACKET = "["
+    CLOSED_SQUARE_BRACKET = "]"
+    OPENED_CURLY_BRACKET = "{"
+    CLOSED_CURLY_BRACKET = "}"
+
+    RENAMING_TO_VISUAL_RULE = {
+        Movie.TITLE:TITLE,
+        Movie.ORIGINAL_TITLE:ORIGINAL_TITLE,
+        Movie.YEAR:YEAR,
+        Movie.DIRECTOR:DIRECTOR,
+        Movie.DURATION:DURATION,
+        Movie.LANGUAGE:LANGUAGE,
+        OPENED_ROUND_BRACKET:OPENED_ROUND_BRACKET,
+        CLOSED_ROUND_BRACKET:CLOSED_ROUND_BRACKET,
+        OPENED_SQUARE_BRACKET:OPENED_SQUARE_BRACKET,
+        CLOSED_SQUARE_BRACKET:CLOSED_SQUARE_BRACKET,
+        OPENED_CURLY_BRACKET:OPENED_CURLY_BRACKET,
+        CLOSED_CURLY_BRACKET:CLOSED_CURLY_BRACKET
+    }
+
+    VISUAL_TO_RENAMING_RULE = {
+       TITLE:Movie.TITLE,
+       ORIGINAL_TITLE:Movie.ORIGINAL_TITLE,
+       YEAR:Movie.YEAR,
+       DIRECTOR:Movie.DIRECTOR,
+       DURATION:Movie.DURATION,
+       LANGUAGE:Movie.LANGUAGE,
+       OPENED_ROUND_BRACKET:OPENED_ROUND_BRACKET,
+       CLOSED_ROUND_BRACKET:CLOSED_ROUND_BRACKET,
+       OPENED_SQUARE_BRACKET:OPENED_SQUARE_BRACKET,
+       CLOSED_SQUARE_BRACKET:CLOSED_SQUARE_BRACKET,
+       OPENED_CURLY_BRACKET:OPENED_CURLY_BRACKET,
+       CLOSED_CURLY_BRACKET:CLOSED_CURLY_BRACKET
+   }
+
+    def __init__(self, parent):
+        QDialog.__init__(self, parent)
+
+        self.ui = loadUi("ui/renaming_rule_dialog.ui", self)
+        # load settings
+        self.renaming_rule = utils.preferences.value("renaming_rule").toString()
+        # creates an example movie, used to test the renaming rule
+        self.example_movie = Movie()
+
+        self.populate_list_visual_rule()
+        ## slots connection
+        self.ui.list_visual_rule.model().rowsInserted.connect(self.rule_changed)
+        self.ui.list_visual_rule.model().rowsRemoved.connect(self.rule_changed)
+
+        self.ui.button_remove_rule.clicked.connect(self.remove_rule)
+        self.ui.button_clean_rule.clicked.connect(self.clean_rule)
+
+        self.ui.button_add_title.clicked.connect(self.add_title)
+        self.ui.button_add_original_title.clicked.connect(self.add_original_title)
+        self.ui.button_add_year.clicked.connect(self.add_year)
+        self.ui.button_add_director.clicked.connect(self.add_director)
+        self.ui.button_add_duration.clicked.connect(self.add_duration)
+        self.ui.button_add_language.clicked.connect(self.add_language)
+
+        self.ui.button_add_round_brackets.clicked.connect(self.add_round_brackets)
+        self.ui.button_add_square_brackets.clicked.connect(self.add_square_brackets)
+        self.ui.button_add_curly_brackets.clicked.connect(self.add_curly_brackets)
+
+    def populate_list_visual_rule(self):
+        """
+        populate renaming rule by rule read from settings
+        """
+
+        # split rule
+        rules = self.renaming_rule.split('.')
+        # if rule is empty, reset it to 'title'
+        if rules[0] == '':
+            rules[0] = Movie.TITLE
+            self.renaming_rule = Movie.TITLE
+            utils.preferences.setValue("renaming_rule", self.renaming_rule)
+        visual_rule = []
+        # loop on rules
+        for rule in rules:
+            visual_rule.append(self.RENAMING_TO_VISUAL_RULE[rule])
+        self.ui.list_visual_rule.addItems(visual_rule)
+        # generate new name for example movie
+#        example_movie_new_name = self.example_movie.generate_new_name(self.renaming_rule)
+        # show it on label
+#        self.ui.label_example_movie_name.setText(example_movie_new_name)
+
+    def rule_changed(self, parent = None, start = None, end = None):
+        """
+        called when renaming rule changes
+        
+        creates and saves new renaming rule, and generate the movie example's new name
+        """
+
+        rule = []
+        for index in range(self.ui.list_visual_rule.count()):
+            text = self.ui.list_visual_rule.item(index).text()
+            # when an item is moved inside the list_visual_rule, firstly 
+            # a new empty item is inserted into the destination location, then 
+            # the item from source location is deleted. that function is called 
+            # for both events (insertion and deletion), and when is called for
+            # the insertion event after a list items move, the list contains an empty item,
+            # which is a kind of error. 
+            if text != '':
+                rule.append(self.VISUAL_TO_RENAMING_RULE[text])
+        # creates renaming rule
+        self.renaming_rule = '.'.join(rule)
+        #save renaming rule on settings
+        utils.preferences.setValue("renaming_rule", self.renaming_rule)
+        #update example movie
+#        example_movie_new_name = self.example_movie.generate_new_name(self.renaming_rule)
+#        self.ui.label_example_movie_name.setText(example_movie_new_name)
+
+    def remove_rule(self):
+        """
+        removes selected rule
+        """
+
+        # get selected items in rule
+        selected_items = self.ui.list_visual_rule.selectedItems()
+        # remove its from list
+        for item in reversed(selected_items):
+            row = self.ui.list_visual_rule.row(item)
+            self.ui.list_visual_rule.takeItem(row)
+
+    def clean_rule(self):
+        """
+        cleans rule (remove all renaming rules)
+        """
+
+        self.ui.list_visual_rule.clear()
+        # needs to call rule_changed because clear() doesn't 
+        # throw any signal
+        self.rule_changed()
+
+    def add_title(self):
+        """
+        add title to rule
+        """
+
+        self.ui.list_visual_rule.addItem(self.TITLE)
+
+    def add_original_title(self):
+        """
+        add aka to rule
+        """
+
+        self.ui.list_visual_rule.addItem(self.ORIGINAL_TITLE)
+
+    def add_year(self):
+        """
+        add year to rule
+        """
+
+        self.ui.list_visual_rule.addItem(self.YEAR)
+
+    def add_director(self):
+        """
+        add director to rule
+        """
+
+        self.ui.list_visual_rule.addItem(self.DIRECTOR)
+
+    def add_duration(self):
+        """
+        add runtime to rule
+        """
+
+        self.ui.list_visual_rule.addItem(self.DURATION)
+
+    def add_language(self):
+        """
+        add language to rule
+        """
+
+        self.ui.list_visual_rule.addItem(self.LANGUAGE)
+
+    def add_round_brackets(self):
+        """
+        add opened and closed round brackets to rule
+        """
+
+        self.ui.list_visual_rule.addItem(self.OPENED_ROUND_BRACKET)
+        self.ui.list_visual_rule.addItem(self.CLOSED_ROUND_BRACKET)
+
+    def add_square_brackets(self):
+        """
+        add opened and closed square brackets to rule
+        """
+
+        self.ui.list_visual_rule.addItem(self.OPENED_SQUARE_BRACKET)
+        self.ui.list_visual_rule.addItem(self.CLOSED_SQUARE_BRACKET)
+
+    def add_curly_brackets(self):
+        """
+        add opened and closed curly brackets to rule
+        """
+
+        self.ui.list_visual_rule.addItem(self.OPENED_CURLY_BRACKET)
+        self.ui.list_visual_rule.addItem(self.CLOSED_CURLY_BRACKET)
 
 
 
