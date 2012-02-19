@@ -5,9 +5,6 @@ from PyQt4.QtGui import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem,
     QBrush, QPixmap, QDialog
 from PyQt4.uic import loadUi
 from movie import Movie
-#from renamingrule import RenamingRuleDialog
-#from settings import SettingsDialog
-#from statsagreement import StatsAgreementDialog
 import imdb
 import os.path
 import sys
@@ -38,11 +35,10 @@ class GUI(QMainWindow):
 
         ## variables
         # load settings
-        self.settings = QSettings("settings.ini", QSettings.IniFormat)
         # get renaming rule from settings
-        self.renaming_rule = self.settings.value("renaming_rule").toString()
+        self.renaming_rule = utils.preferences.value("renaming_rule").toString()
         # get last visited directory from settings
-        self.last_visited_directory = self.settings.value("last_visited_directory").toString()
+        self.last_visited_directory = utils.preferences.value("last_visited_directory").toString()
         # stores movies objects
         self.movies = []
         # stores current (selected) movie
@@ -88,16 +84,6 @@ class GUI(QMainWindow):
         self.ui.button_change_movie.toggled.connect(self.change_movie)
         self.ui.table_alternative_movies.itemSelectionChanged.connect(self.alternative_movies_selection_changed)
 
-        #XXX da togliere
-#        # create a new movie object
-#        movie = Movie(None)
-#        self.movies.append(movie)
-#        # insert a new row in movie table
-#        self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
-#        # create a table item with original movie file name
-#        item_original_name = QTableWidgetItem(movie.original_file_name())
-#        self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
-
     def check_connection(self):
         """
         checks if internet connection is up.
@@ -111,8 +97,8 @@ class GUI(QMainWindow):
         except Exception:
             # if an error occurs, notify the user with a message
             msg_box = QMessageBox()
-            msg_box.setWindowTitle(self.tr("Internet connection down?"))
-            msg_box.setText(self.tr("""
+            msg_box.setWindowTitle(tr('GUI', "Internet connection down?"))
+            msg_box.setText(tr('GUI', """
             <p>
                 It seems your internet connection is down
                 (but maybe I'm wrong).
@@ -146,8 +132,8 @@ class GUI(QMainWindow):
         answer = f.read()
         # if there is a new version
         if answer[:-1] == "new":
-            title = self.tr("New version available")
-            msg = self.tr("""
+            title = tr('GUI', "New version available")
+            msg = tr('GUI', """
             <p>
                 A new version of {0} is available! 
             </p>
@@ -166,7 +152,7 @@ class GUI(QMainWindow):
         """
 
         # get if this is the first time user opens the program
-        first_time = self.settings.value("first_time").toBool()
+        first_time = utils.preferences.value("first_time").toBool()
         if first_time:
             # create agreement dialog
             stats_agreement_dialog = StatsAgreementDialog(self)
@@ -175,7 +161,7 @@ class GUI(QMainWindow):
             # send usage statistics
             self.send_usage_statistics()
             # nex time user will open the program, don't show that dialog
-            self.settings.setValue("first_time", False)
+            utils.preferences.setValue("first_time", False)
 
     def send_usage_statistics(self):
         """
@@ -184,7 +170,7 @@ class GUI(QMainWindow):
         """
 
         # get user choice about sending usage statistics
-        send_usage_statistics = self.settings.value("stats_agreement").toInt()[0]
+        send_usage_statistics = utils.preferences.value("stats_agreement").toInt()[0]
         # if user chose to send usage statistics
         if send_usage_statistics == PreferencesDialog.STATS_AGREE:
             # start sending thread
@@ -196,7 +182,7 @@ class GUI(QMainWindow):
         """
 
         # get renaming rule from settings
-        renaming_rule = self.settings.value("renaming_rule").toString()
+        renaming_rule = utils.preferences.value("renaming_rule").toString()
         # creates url, using renaming rule
         url = "http://almoviesrenamer.appspot.com/rulestats?addrule=" + renaming_rule
         # call web service
@@ -217,9 +203,9 @@ class GUI(QMainWindow):
         """
 
         # create a filter, only video files can be selected
-        video_filter = self.tr("Video (*") + ' *'.join(self.VIDEO_EXTENSIONS) + ")"
+        video_filter = tr('GUI', "Video (*") + ' *'.join(self.VIDEO_EXTENSIONS) + ")"
         # dialog title
-        title = self.tr("Select movies you want to rename...")
+        title = tr('GUI', "Select movies you want to rename...")
         # select video files from file system
         filepaths = QFileDialog.getOpenFileNames(self, title, self.last_visited_directory, video_filter)
         # if at least one file has been selected
@@ -237,7 +223,7 @@ class GUI(QMainWindow):
         """
 
         # dialog title
-        title = self.tr("Select a folder containing movies...")
+        title = tr('GUI', "Select a folder containing movies...")
         # select folder from file system
         dirpath = QFileDialog.getExistingDirectory(self, title, self.last_visited_directory)
         # if a directory has been selected
@@ -265,7 +251,7 @@ class GUI(QMainWindow):
         """
 
         # dialog title
-        title = self.tr("Select a folder containing movies...")
+        title = tr('GUI', "Select a folder containing movies...")
         # select folder from file system
         dirpath = QFileDialog.getExistingDirectory(self, title, self.last_visited_directory)
         # if a directory has been selected
@@ -293,7 +279,7 @@ class GUI(QMainWindow):
         # takes first selected file and get the file path, use it as the last visited directory
         self.last_visited_directory = os.path.normpath(os.path.split(filepaths[0])[0])
         # save it in settings
-        self.settings.setValue("last_visited_directory", self.last_visited_directory)
+        utils.preferences.setValue("last_visited_directory", self.last_visited_directory)
         # disable gui elements which cannot be used during loading
         self.set_gui_enabled_load_movies(False)
         # show loading panel
@@ -305,12 +291,12 @@ class GUI(QMainWindow):
         # loop on file paths
         for filepath in filepaths:
             # set loading label text, show current file name
-            self.ui.label_loading.setText(self.tr("Getting information from ")\
+            self.ui.label_loading.setText(tr('GUI', "Getting information from ")\
                                            + os.path.split(filepath)[1])
             # create a new movie object
             movie = Movie(filepath)
             # generate new movie name based on renaming rule
-#            movie.generate_new_name(self.renaming_rule)
+            movie.generate_new_name(self.renaming_rule)
             # add movie to list
             self.movies.append(movie)
             # insert a new row in movie table
@@ -319,8 +305,7 @@ class GUI(QMainWindow):
             item_original_name = QTableWidgetItem(movie.original_file_name())
             self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
             # create a table item with new movie file name
-#            item_new_name = QTableWidgetItem(movie.new_file_name())
-            item_new_name = QTableWidgetItem('')
+            item_new_name = QTableWidgetItem(movie.new_file_name())
             self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
         self.load_movies_finished.emit()
 
@@ -422,7 +407,7 @@ class GUI(QMainWindow):
                     # paint "new name" table item with red
                     self.ui.table_movies.item(i, 1).setForeground(QBrush(Qt.red))
                 else:
-                    # correclty renamed
+                    # correctly renamed
                     movie.set_state(Movie.STATE_RENAMED)
                     # set "original name" table item with new movie name
                     self.ui.table_movies.item(i, 0).setText(movie.new_name)
@@ -444,7 +429,7 @@ class GUI(QMainWindow):
         """
 
         # message shown on about dialog
-        msg = self.tr("""
+        msg = tr('GUI', """
         <p>
             <b>{0}</b>
         </p>
@@ -482,7 +467,7 @@ class GUI(QMainWindow):
         </p>
         """).format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, sys.version.split()[0], PYQT_VERSION_STR, imdb.VERSION)
         # show the about dialog
-        QMessageBox.about(self, self.tr("About {0}").format(utils.PROGRAM_NAME), msg)
+        QMessageBox.about(self, tr('GUI', "About {0}").format(utils.PROGRAM_NAME), msg)
 
     # TABLE movies
 
@@ -621,6 +606,8 @@ class PreferencesDialog(QDialog):
 
     STATS_AGREE = 1
     STATS_DISAGREE = 0
+
+    WORDS_SEPARATORS = (', ', ' - ', ' ',)
 
     def __init__(self, parent):
         QDialog.__init__(self, parent)
@@ -808,9 +795,9 @@ class RenamingRuleDialog(QDialog):
             visual_rule.append(self.RENAMING_TO_VISUAL_RULE[rule])
         self.ui.list_visual_rule.addItems(visual_rule)
         # generate new name for example movie
-#        example_movie_new_name = self.example_movie.generate_new_name(self.renaming_rule)
+        example_movie_new_name = self.example_movie.generate_new_name(self.renaming_rule)
         # show it on label
-#        self.ui.label_example_movie_name.setText(example_movie_new_name)
+        self.ui.label_example_movie_name.setText(example_movie_new_name)
 
     def rule_changed(self, parent = None, start = None, end = None):
         """
@@ -835,8 +822,8 @@ class RenamingRuleDialog(QDialog):
         #save renaming rule on settings
         utils.preferences.setValue("renaming_rule", self.renaming_rule)
         #update example movie
-#        example_movie_new_name = self.example_movie.generate_new_name(self.renaming_rule)
-#        self.ui.label_example_movie_name.setText(example_movie_new_name)
+        example_movie_new_name = self.example_movie.generate_new_name(self.renaming_rule)
+        self.ui.label_example_movie_name.setText(example_movie_new_name)
 
     def remove_rule(self):
         """

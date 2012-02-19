@@ -1,5 +1,6 @@
 # -*- coding: latin-1 -*-
 
+from PyQt4.QtCore import QCoreApplication
 import difflib
 import enzyme
 import imdb
@@ -11,6 +12,8 @@ import datetime
 import utils
 
 __author__ = "Alberto Malagoli"
+
+tr = QCoreApplication.translate
 
 blackwords = [
               # video type
@@ -141,9 +144,6 @@ class Movie:
     STATE_BEFORE_RENAMING = 0
     STATE_RENAMED = 1
     STATE_RENAMING_ERROR = 2
-
-#    LANGUAGES_CODES_INDEXES = {'en':0, 'es':1, 'de':2, 'fr':3, 'it':4}
-#    LANGUAGES_INDEXES_CODES = {0:'EN', 1:'ES', 2:'DE', 3:'FR', 4:'IT'}
 
     TITLE = 'title'
     ORIGINAL_TITLE = 'original_title'
@@ -483,136 +483,54 @@ class Movie:
         generates new file name based on given renaming rule
         """
 
+        from gui import PreferencesDialog as Preferences
+        from gui import RenamingRuleDialog as RenamingRule
+
         if len(renaming_rule) == 0:
             self.new_name_ = ''
         else:
+            duration_index = utils.preferences.value("duration_representation").toInt()[0]
+            language_index = utils.preferences.value("language_representation").toInt()[0]
+            words_separator_index = utils.preferences.value("words_separator").toInt()[0]
+            separator = Preferences.WORDS_SEPARATORS[words_separator_index]
             new_name = []
             # split renaming rule
             rules = renaming_rule.split('.')
             # creates a list of rules, so it's easier to look for them
-            info_keys = [self.TITLE, self.CANONICAL_TITLE, self.AKAS, self.YEAR, self.DIRECTOR, self.RUNTIMES]
-            opened_brackets = ['(', '[', '{']
-            closed_brackets = [')', ']', '}']
+            info_keys = [self.TITLE, self.ORIGINAL_TITLE, self.YEAR, self.DIRECTOR, self.DURATION, self.LANGUAGE]
+            opened_brackets = [
+                               RenamingRule.OPENED_ROUND_BRACKET,
+                               RenamingRule.OPENED_SQUARE_BRACKET,
+                               RenamingRule.OPENED_CURLY_BRACKET]
+            closed_brackets = [
+                               RenamingRule.CLOSED_ROUND_BRACKET,
+                               RenamingRule.CLOSED_SQUARE_BRACKET,
+                               RenamingRule.CLOSED_CURLY_BRACKET]
             # loop on rules
             for i in range(len(rules)):
                 rule = rules[i]
-                try:
-                    if rule in info_keys:
-                        # get corresponding info, based on info index also
-                        info = self.info[self.info_index][rule]
-                        # if rule is AKAS or RUNTIMES, get corresponding rule based 
-                        # on selected index
-                        if rule == self.AKAS:
-                            index = self.info[self.info_index][self.AKAS_INDEX]
-                            info = info[index]
-                        elif rule == self.RUNTIMES:
-                            index = self.info[self.info_index][self.RUNTIMES_INDEX]
-                            info = info[index]
-                        # append info to new name
-                        new_name.append(info)
-                        if i + 1 < len(rules):
-                            # if next rule is not an opened or closed bracket 
-                            if rules[i + 1] not in opened_brackets and \
-                            rules[i + 1] not in closed_brackets:
-                                # separate info with a comma
-                                new_name.append(', ')
-                    elif rule in opened_brackets:
-                        new_name.append(' ' + rule)
-                    elif rule in closed_brackets:
-                        new_name.append(rule + ' ')
-                    elif rule == self.LANGUAGE:
-                        # append selected language to new name
-                        new_name.append(self.LANGUAGES_INDEXES_CODES[self.language_index])
-                        if i + 1 < len(rules):
-                            # if next rule is not an opened or closed bracket 
-                            if rules[i + 1] not in opened_brackets and \
-                            rules[i + 1] not in closed_brackets:
-                                # separate info with a comma
-                                new_name.append(', ')
-                except KeyError:
-                    pass
-                except IndexError:
-                    pass
+                if rule == self.TITLE:
+                    new_name.append(self.title())
+                elif rule == self.ORIGINAL_TITLE:
+                    new_name.append(self.original_title())
+                elif rule == self.YEAR:
+                    new_name.append(self.year())
+                elif rule == self.DIRECTOR:
+                    new_name.append(self.director())
+                elif rule == self.DURATION:
+                    new_name.append(self.duration(duration_index))
+                elif rule == self.LANGUAGE:
+                    new_name.append(self.language(language_index))
+                elif rule in opened_brackets:
+                    new_name.append(' ' + rule)
+                elif rule in closed_brackets:
+                    new_name.append(rule + ' ')
             # if current movie is divided into parts 
-            if self.part != '0':
-                # if next rule is not an opened or closed bracket 
-                if rules[-1] not in opened_brackets and \
-                rules[-1] not in closed_brackets:
-                     # separate info with a comma
-                    new_name.append(', ')
+            if self.part() != '':
                 # add part to new name
-                new_name.append(self.tr("Part ") + self.part)
+                new_name.append(tr('Movie', "Part ") + self.part())
             # join new name (was a list) and set it as the new name for that movie
-            self.new_name_ = unicode(''.join(new_file_name).strip())
-
-        return self.new_name_
-
-    def generate_new_name_old(self, renaming_rule):
-        """
-        generates new file name based on given renaming rule
-        """
-
-        if len(self.info) == 0 or len(renaming_rule) == 0:
-            self.new_name_ = ''
-        else:
-            new_name = []
-            # split renaming rule
-            rules = renaming_rule.split('.')
-            # creates a list of rules, so it's easier to look for them
-            info_keys = [self.TITLE, self.CANONICAL_TITLE, self.AKAS, self.YEAR, self.DIRECTOR, self.RUNTIMES]
-            opened_brackets = ['(', '[', '{']
-            closed_brackets = [')', ']', '}']
-            # loop on rules
-            for i in range(len(rules)):
-                rule = rules[i]
-                try:
-                    if rule in info_keys:
-                        # get corresponding info, based on info index also
-                        info = self.info[self.info_index][rule]
-                        # if rule is AKAS or RUNTIMES, get corresponding rule based 
-                        # on selected index
-                        if rule == self.AKAS:
-                            index = self.info[self.info_index][self.AKAS_INDEX]
-                            info = info[index]
-                        elif rule == self.RUNTIMES:
-                            index = self.info[self.info_index][self.RUNTIMES_INDEX]
-                            info = info[index]
-                        # append info to new name
-                        new_name.append(info)
-                        if i + 1 < len(rules):
-                            # if next rule is not an opened or closed bracket 
-                            if rules[i + 1] not in opened_brackets and \
-                            rules[i + 1] not in closed_brackets:
-                                # separate info with a comma
-                                new_name.append(', ')
-                    elif rule in opened_brackets:
-                        new_name.append(' ' + rule)
-                    elif rule in closed_brackets:
-                        new_name.append(rule + ' ')
-                    elif rule == self.LANGUAGE:
-                        # append selected language to new name
-                        new_name.append(self.LANGUAGES_INDEXES_CODES[self.language_index])
-                        if i + 1 < len(rules):
-                            # if next rule is not an opened or closed bracket 
-                            if rules[i + 1] not in opened_brackets and \
-                            rules[i + 1] not in closed_brackets:
-                                # separate info with a comma
-                                new_name.append(', ')
-                except KeyError:
-                    pass
-                except IndexError:
-                    pass
-            # if current movie is divided into parts 
-            if self.part != '0':
-                # if next rule is not an opened or closed bracket 
-                if rules[-1] not in opened_brackets and \
-                rules[-1] not in closed_brackets:
-                     # separate info with a comma
-                    new_name.append(', ')
-                # add part to new name
-                new_name.append(self.tr("Part ") + self.part)
-            # join new name (was a list) and set it as the new name for that movie
-            self.new_name_ = unicode(''.join(new_file_name).strip())
+            self.new_name_ = separator.join(new_name)
 
         return self.new_name_
 
@@ -630,7 +548,7 @@ class Movie:
         or self.original_name_ == self.new_name_:
             return False
         # char used to replace bad characters in name
-        replace_with = ""
+        replace_with = ''
         # get operative system
         sysname = platform.system()
         # copy new name to a temp variable
@@ -671,8 +589,8 @@ class Movie:
             if name in invalid_filenames:
                 name = "_" + name
         # Replace accented characters with ASCII equivalent
-        name = unicode(name) # cast data to unicode
-        name = unicodedata.normalize('NFKD', name).encode('ascii', 'ignore')
+#        name = unicode(name) # cast data to unicode
+#        name = unicodedata.normalize('NFKD', name).encode('ascii', 'ignore')
         # Treat extension seperatly
         extension = self.extension_
         # Truncate filenames to valid/sane length.
