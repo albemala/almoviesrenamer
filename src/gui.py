@@ -67,7 +67,7 @@ class GUI(QMainWindow):
         # check internet connection
         self.check_connection()
         # check for new program version
-        self.check_new_version()
+#        self.check_new_version()
 
         ## variables
         # get last visited directory from settings
@@ -157,14 +157,13 @@ class GUI(QMainWindow):
         """
 
         # create url, with current program version
-        url = "http://almoviesrenamer.appspot.com/checknewversion?version=" + \
-              utils.PROGRAM_VERSION
+        url = "http://almoviesrenamer.appspot.com/checknewversion"
         # call web service
-        f = urllib.urlopen(url)
+        f = urllib2.urlopen(url)
         # read the answer (could be "yes" for new version, or "no")
-        answer = f.read()
+        version = f.read().rstrip('\n')
         # if there is a new version
-        if answer[:-1] == "new":
+        if version != utils.PROGRAM_VERSION:
             title = tr('GUI', "New version available")
             msg = tr('GUI', """
             <p>
