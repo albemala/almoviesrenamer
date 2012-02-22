@@ -64,3 +64,4 @@ Urdu|urd|Pakistan
 Polish|pol|Poland
 Arabic|ara|Saudi Arabia;Kuwait;Oman;Yemen;United Arab Emirates;Bahrain;Libya;Palestinian State (proposed);Qatar;Algeria;Morocco;Lebanon;Tunisia;Djibouti;Sudan;Jordan;Mauritania;Iraq;Syria;Egypt
 Sinhala|sin|Sri Lanka
+Hungarian|hun|Hungary

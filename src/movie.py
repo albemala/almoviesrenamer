@@ -1,5 +1,7 @@
 # -*- coding: latin-1 -*-
 
+__author__ = "Alberto Malagoli"
+
 from PyQt4.QtCore import QCoreApplication
 import difflib
 import enzyme
@@ -10,8 +12,6 @@ import re
 import unicodedata
 import datetime
 import utils
-
-__author__ = "Alberto Malagoli"
 
 tr = QCoreApplication.translate
 
@@ -431,6 +431,7 @@ class Movie:
                         countries = aka[1]
                         possible_language = re.search('(?:[(])([a-zA-Z]+?)(?: title[)])', countries)
                         if possible_language:
+                            #XXX potrebbe esserci un problema con group(1), che torna un valore sbagliato..
                             language = utils.name_to_language(possible_language.group(1))
                         if language == None:
                             country = countries.split(',')[0]

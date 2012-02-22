@@ -1,7 +1,7 @@
 ﻿--------------------------------------------------------------------------------
 nuovo numero versione
 commentare
-codificare
+codificare/gui/icone/labels
 tooltips
 aggiornamre "about" (anche librerie)
 traduzionare
@@ -15,10 +15,6 @@ aggiornare versione su web service
 --------------------------------------------------------------------------------
 
 
-invio statistiche delle preferenze
-
-ripristinare controllo versione: gui > 34
-ripristinare in gui > load_movies_run 
 
 suoni per conferma operazioni?
 
@@ -26,32 +22,12 @@ probabilmente la lingua guessed da guessit va raffinata usando quella di sistema
 o comunque impostare quella di sistema come quella di default se non trovata nel titolo
 del file
 
-uso della durata del video per determinare il runtime migliore
-
-tradurre "Part x" alla fine di movie.generate_new_name
-preferenza di visualizzazione della parte (Part, CD, ...)
-
-le regole di rinomina rimangono in inglese anche se la lingua è diversa
-
 invece di sostituire i caratteri illegali dei sistemi operativi con underscore,
 usare caratteri piu utili, ad es. & -> and
-
-doppio click sugli item delle tabelle per aprire la cartella che contiene i file corrispondenti
 
 guessing:
 	
 	http://stackoverflow.com/questions/7573952/comparing-strings-in-python-to-find-errors
-	
-exception handler:
-
-	invio via web app dei log di errore
-	notifica tramite email di nuovi errori su DB
-	
-	spostare costante LOG_PATH da utils a exceptionhandler
-
-miglioare codice html nelle label che ne fanno uso
-
-sistemare i tooltips
 	
 	
 

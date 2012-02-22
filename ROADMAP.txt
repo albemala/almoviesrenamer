@@ -2,3 +2,9 @@
 add subtitles language detection
 
 in manual search, add ability to specify the language
+
+use video duration to get the best runtime
+
+movie part representation preference (Part, CD, ...)
+
+double click on a movie to open the containing folder

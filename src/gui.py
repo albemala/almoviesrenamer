@@ -1,5 +1,7 @@
 # -*- coding: latin-1 -*-
 
+__author__ = "Alberto Malagoli"
+
 from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal, QCoreApplication
 from PyQt4.QtGui import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, \
     QBrush, QPixmap, QDialog
@@ -10,9 +12,8 @@ import os.path
 import sys
 import threading
 import urllib
+import urllib2
 import utils
-
-__author__ = "Alberto Malagoli"
 
 tr = QCoreApplication.translate
 
@@ -35,11 +36,21 @@ def send_usage_statistics_run():
     """
 
     # get renaming rule from settings
-    renaming_rule = utils.preferences.value("renaming_rule").toString()
+    rule = utils.preferences.value("renaming_rule").toString()
+    duration = utils.preferences.value("duration_representation").toString()
+    language = utils.preferences.value("language_representation").toString()
+    separator = utils.preferences.value("words_separator").toString()
     # creates url, using renaming rule
-    url = "http://almoviesrenamer.appspot.com/rulestats?addrule=" + renaming_rule
+    url = "http://almoviesrenamer.appspot.com/stats"
+    values = {
+        'rule' : rule,
+        'duration' : duration,
+        'language' : language,
+        'separator' : separator
+    }
+    data = urllib.urlencode(values)
     # call web service
-    f = urllib.urlopen(url)
+    f = urllib2.urlopen(url, data)
 
 class GUI(QMainWindow):
 
@@ -56,7 +67,7 @@ class GUI(QMainWindow):
         # check internet connection
         self.check_connection()
         # check for new program version
-#        self.check_new_version()
+        self.check_new_version()
 
         ## variables
         # get last visited directory from settings
@@ -115,8 +126,8 @@ class GUI(QMainWindow):
 
         try:
             # try to open a web URL
-            f = urllib.urlopen("http://almoviesrenamer.appspot.com/rulestats")
-        except Exception:
+            f = urllib2.urlopen("http://www.google.com/")
+        except URLError:
             # if an error occurs, notify the user with a message
             msg_box = QMessageBox()
             msg_box.setWindowTitle(tr('GUI', "Internet connection down?"))
@@ -299,9 +310,11 @@ class GUI(QMainWindow):
             self.ui.table_movies.insertRow(self.ui.table_movies.rowCount())
             # create a table item with original movie file name
             item_original_name = QTableWidgetItem(movie.original_file_name())
+            item_original_name.setForeground(QBrush(Qt.black))
             self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 0, item_original_name)
             # create a table item with new movie file name
             item_new_name = QTableWidgetItem(movie.new_file_name())
+            item_new_name.setForeground(QBrush(Qt.black))
             self.ui.table_movies.setItem(self.ui.table_movies.rowCount() - 1, 1, item_new_name)
         self.load_movies_finished.emit()
 

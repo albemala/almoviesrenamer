@@ -1,8 +1,8 @@
 # -*- coding: latin-1 -*-
 
-from PyQt4.QtCore import QSettings
-
 __author__ = "Alberto Malagoli"
+
+from PyQt4.QtCore import QSettings
 
 # program name and version, used in excepthook
 PROGRAM_NAME = "ALmoviesRenamer"
@@ -19,7 +19,6 @@ def load_languages():
     alpha3_to_language_ = dict()
     global country_to_language_
     country_to_language_ = dict()
-    languages = []
     with open('languages.txt', 'r') as f:
         for line in f:
             name, alpha3, countries = line.rstrip('\n').split('|')

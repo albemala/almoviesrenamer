@@ -1,20 +1,20 @@
 # -*- coding: latin-1 -*-
 
+# using my excepthook
+#sys.excepthook = exceptionhandler.excepthook
+
+__author__ = "Alberto Malagoli"
+
 import sip
 # using version 2 of SIP API
 sip.setapi('QString', 2)
 
-from gui import GUI
 from PyQt4.QtCore import QTranslator, QLocale
 from PyQt4.QtGui import QApplication
 import sys
 import exceptionhandler
 import utils
-
-__author__ = "Alberto Malagoli"
-
-# using my excepthook
-#sys.excepthook = exceptionhandler.excepthook
+from gui import GUI
 
 utils.load_languages()
 utils.load_preferences()
