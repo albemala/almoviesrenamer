@@ -21,7 +21,7 @@
    <item>
     <widget class="QLabel" name="label_9">
      <property name="text">
-      <string>Define renaming rule using movies attributes:</string>
+      <string>Define renaming rule using movie attributes:</string>
      </property>
     </widget>
    </item>
