@@ -35,13 +35,14 @@ def send_usage_statistics_run():
     sends usage statistics to a dedicated web service
     """
 
-    # get renaming rule from settings
+    # get preferences
     rule = utils.preferences.value("renaming_rule").toString()
     duration = utils.preferences.value("duration_representation").toString()
     language = utils.preferences.value("language_representation").toString()
     separator = utils.preferences.value("words_separator").toString()
-    # creates url, using renaming rule
+    # web service url
     url = "http://almoviesrenamer.appspot.com/stats"
+    # create data
     values = {
         'rule' : rule,
         'duration' : duration,
@@ -49,7 +50,7 @@ def send_usage_statistics_run():
         'separator' : separator
     }
     data = urllib.urlencode(values)
-    # call web service
+    # POST send data to web service
     f = urllib2.urlopen(url, data)
 
 class GUI(QMainWindow):
@@ -107,9 +108,8 @@ class GUI(QMainWindow):
         self.ui.text_search_title.returnPressed.connect(self.search_new_title)
         self.ui.button_search_title.clicked.connect(self.search_new_title)
         self.search_title_finished.connect(self.search_title_end)
-        # MENU Settings
+        # MENU Program
         self.ui.action_preferences.triggered.connect(self.show_preferences)
-        # MENU ?
         self.ui.action_about.triggered.connect(self.show_about)
         # TABLE movies
         self.ui.table_movies.itemSelectionChanged.connect(self.movies_selection_changed)
@@ -390,8 +390,6 @@ class GUI(QMainWindow):
             self.ui.table_movies.item(i, 1).setForeground(QBrush(Qt.black))
             self.ui.table_movies.item(i, 1).setText(movie.new_file_name())
 
-#        self.movies_selection_changed()
-
     def rename_movies(self):
         """
         rename files with new name
@@ -517,7 +515,6 @@ class GUI(QMainWindow):
 
             # set panel visible
             self.ui.stack_movie.setVisible(True)
-#            self.ui.adjustSize()
 
     def populate_movie_panel(self):
         movie = self.current_movie
@@ -553,7 +550,6 @@ class GUI(QMainWindow):
 
     def change_movie(self, checked):
         self.ui.widget_alternative_movies.setVisible(checked)
-#        self.ui.adjustSize()
 
     def alternative_movies_selection_changed(self):
         selected_items = self.ui.table_others_info.selectedItems()
@@ -655,6 +651,8 @@ class PreferencesDialog(QDialog):
         self.ui.combo_words_separator.currentIndexChanged.connect(self.words_separator_representation_changed)
 
         self.ui.button_close.clicked.connect(self.close)
+
+        self.ui.tab_widget.setCurrentIndex(0)
 
     def load_settings(self):
         """
@@ -794,6 +792,8 @@ class RenamingRuleDialog(QDialog):
         QDialog.__init__(self, parent)
 
         self.ui = loadUi("ui/renaming_rule_dialog.ui", self)
+        self.adjustSize()
+
         self.ui.preferences_dialog = preferences_dialog
 
         # creates an example movie, used to test the renaming rule

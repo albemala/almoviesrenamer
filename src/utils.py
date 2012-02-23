@@ -9,10 +9,20 @@ PROGRAM_NAME = "ALmoviesRenamer"
 PROGRAM_VERSION = "3.0"
 
 def load_preferences():
+    """
+    loads preferences file, and keep it into the 'preferences' global variable
+    """
+
     global preferences
     preferences = QSettings("preferences.ini", QSettings.IniFormat)
 
 def load_languages():
+    """
+    creates 3 dictionaries, used to convert a language name, a 3-letters ISO 
+    representation of a language, and a country name, into a language
+    (with the representation used in movie class)
+    """
+
     global name_to_language_
     name_to_language_ = dict()
     global alpha3_to_language_
@@ -30,18 +40,32 @@ def load_languages():
                 country_to_language_.update({country: language})
 
 def alpha3_to_language(given_alpha3):
+    """
+    given a 3-letters ISO representation of a language, returns 
+    corresponding language
+    """
+
     try:
         return alpha3_to_language_[given_alpha3]
     except KeyError:
         return None
 
 def name_to_language(given_name):
+    """
+    given a language English name, returns 
+    corresponding language
+    """
+
     try:
         return name_to_language_[given_name]
     except KeyError:
         return None
 
 def country_to_language(given_country):
+    """
+    given a country name, returns corresponding language
+    """
+
     try:
         return country_to_language_[given_country]
     except KeyError:

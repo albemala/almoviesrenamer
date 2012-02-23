@@ -3,7 +3,7 @@ nuovo numero versione
 commentare
 codificare/gui/icone/labels
 tooltips
-aggiornamre "about" (anche librerie)
+aggiornare "about" (anche librerie)
 traduzionare
 buildare translations
 changeloggare
@@ -18,7 +18,7 @@ aggiornare versione su web service
 
 suoni per conferma operazioni?
 
-probabilmente la lingua guessed da guessit va raffinata usando quella di sistema,
+probabilmente la lingua guessed va raffinata usando quella di sistema,
 o comunque impostare quella di sistema come quella di default se non trovata nel titolo
 del file
 

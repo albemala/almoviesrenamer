@@ -13,22 +13,20 @@ try:
     import utils
     from gui import GUI
 
+    # load languages and preferences
     utils.load_languages()
     utils.load_preferences()
-
     # create the GUI and shows it
     app = QApplication(sys.argv)
-
+    # load translation
     translator = QTranslator()
     translator.load("tr/app_" + QLocale.system().name())
     app.installTranslator(translator)
-
+    # show gui
     gui = GUI()
     gui.show()
-
     # execute the application
     app.exec_()
-
 except:
     import traceback
     import exceptionhandler
