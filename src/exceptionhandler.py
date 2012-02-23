@@ -1,87 +1,85 @@
 # -*- coding: latin-1 -*-
+
 __author__ = "Alberto Malagoli"
 
-# Python version: 2.6
-#
-# Revision: 11
-#
-# TODO
-# - i dati di log dovrebbero essere inviati in automatico tramite email o ftp o
-# altro senza chiedere niente all'utente, e senza visualizzare nessuna dialog.
-# guardare eric ide per questa feature.
-
 from PyQt4.QtCore import QT_VERSION_STR, PYQT_VERSION_STR
-import cStringIO
 import imdb
 import locale
 import os.path
-import sys
 import time
 import traceback
+import platform
+import urllib
+import urllib2
 import utils
 
 # directory used to store logs
 LOG_PATH = os.path.abspath("log")
 
-def excepthook(excType, excValue, tracebackobj):
-    """
-    Global function to catch unhandled exceptions.
-
-    Thanks to <a href="http://eric-ide.python-projects.org/">Eric IDE</a>
-    for this code.
-
-    @param excType exception type
-    @param excValue exception value
-    @param tracebackobj traceback object
-    """
-
-    separator = '-' * 80
-    timeString = time.strftime("%Y-%m-%d, %H:%M:%S")
-
-    versionInfo = "Version Numbers:\n"
-
-    versionInfo += "Python: {0}\n".format(sys.version.split()[0])
-
-    versionInfo += "Qt: {0}\n".format(str(QT_VERSION_STR))
-    versionInfo += "PyQt4: {0}\n".format(str(PYQT_VERSION_STR))
+def save_exception():
+    time_info = time.strftime("%Y-%m-%d, %H:%M:%S")
+    architecture_info = platform.architecture()[0]
+    os_info = platform.platform()
+    locale_info = locale.getdefaultlocale()[0]
+    program_info = utils.PROGRAM_VERSION
+    python_info = platform.python_version()
+    qt_info = str(QT_VERSION_STR)
+    pyqt_info = str(PYQT_VERSION_STR)
     try:
         import sipconfig
-        sip_version_str = sipconfig.Configuration().sip_version_str
+        sip_info = sipconfig.Configuration().sip_version_str
     except ImportError:
-        sip_version_str = "version not available"
-    versionInfo += "sip: {0}\n".format(str(sip_version_str))
+        sip_info = ''
+    imdbpy_info = str(imdb.VERSION)
+    error_info = traceback.format_exc()
 
-    versionInfo += "IMDbPY: {0}\n".format(str(imdb.VERSION))
+    separator = '-' * 60
 
-    versionInfo += "{0}: {1}\n".format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION)
+    info = [
+          separator,
+          time_info,
+          separator,
+          "Architecture: " + architecture_info,
+          "Operative System: " + os_info,
+          "Locale: " + locale_info,
+          utils.PROGRAM_NAME + ": " + program_info,
+          "Python: " + python_info,
+          "Qt: " + qt_info,
+          "PyQt: " + pyqt_info,
+          "sip: " + sip_info,
+          "IMDbPY: " + imdbpy_info,
+          separator,
+          error_info,
+          '\n'
+          ]
 
-    versionInfo += "\nPlatform:\n{0}\n{1}\n{2}".format(sys.platform, sys.version, locale.getdefaultlocale()[0])
+    info_str = '\n'.join(info)
 
-    errmsg = '{0}: \n{1}'.format(str(excType), str(excValue))
+    save_on_file(info_str)
+    send_to_ws(info_str)
 
-    tbinfofile = cStringIO.StringIO()
-    traceback.print_tb(tracebackobj, None, tbinfofile)
-    tbinfofile.seek(0)
-    tbinfo = tbinfofile.read()
-
-    sections = [separator, timeString, separator, versionInfo, separator, tbinfo, separator, errmsg]
-    msg = '\n'.join(sections) + '\n' * 3
-
+def save_on_file(info_str):
     if not os.path.isdir(LOG_PATH): os.mkdir(LOG_PATH)
 
-    logFileName = time.strftime("%Y-%m-%d") + "_errors.log"
-    logFile = os.path.join(LOG_PATH, logFileName)
+    log_file_name = time.strftime("%Y-%m-%d") + ".log"
+    log_file = os.path.join(LOG_PATH, log_file_name)
 
     try:
-        with open(logFile, "a") as f:
-            f.write(msg)
+        with open(log_file, "a") as f:
+            f.write(info_str)
     except IOError:
         pass
 
+def send_to_ws(info_str):
+    url = "http://almoviesrenamer.appspot.com/exceptions"
+    values = {
+        'exception' : info_str
+    }
+    data = urllib.urlencode(values)
+    # call web service
+    f = urllib2.urlopen(url, data)
 
-if __name__ == "__main__":
 
-    sys.excepthook = excepthook
 
-    a = 10
-    b = a / 0
+
+
