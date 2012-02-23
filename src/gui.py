@@ -9,7 +9,7 @@ from PyQt4.uic import loadUi
 from movie import Movie
 import imdb
 import os.path
-import sys
+import platform
 import threading
 import urllib
 import urllib2
@@ -457,28 +457,23 @@ class GUI(QMainWindow):
         <p>
             Libraries:
             <ul>
-                <li>Python: {2}</li>
-                <li>PyQt: {3}</li>
-                <li>IMDbPY: {4}</li>
-                <li>cx-Freeze: 4.2.3</li>
+                <li><a href="http://www.python.org/">Python</a>: {2}</li>
+                <li><a href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a>: {3}</li>
+                <li><a href="http://imdbpy.sourceforge.net/">IMDbPY</a>: {4}</li>
+                <li><a href="https://github.com/Diaoul/enzyme">enzyme</a>: 0.1</li>
+                <li><a href="http://cx-freeze.sourceforge.net/">cx-Freeze</a>: 4.2.3</li>
             </ul>
         </p>
         <p>
             Thanks to:
-            <ul>
-                <li><a href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a></li>
-                <li><a href="http://imdbpy.sourceforge.net/">IMDbPY</a></li>
-                
+            <ul>                
                 <li><a href="http://file-folder-ren.sourceforge.net/">M\xe9tamorphose</a>
                     for some stolen code</li>
-                <li><a href="http://eric-ide.python-projects.org/">Eric IDE</a>
-                    for code in <i>excepthook</i> function (exceptionhandler.py file)</li>
-
                 <li><a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>
                     for Fugue Icons</li>
             </ul>
         </p>
-        """).format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, sys.version.split()[0], PYQT_VERSION_STR, imdb.VERSION)
+        """).format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, platform.python_version(), PYQT_VERSION_STR, imdb.VERSION)
         # show the about dialog
         QMessageBox.about(self, tr('GUI', "About {0}").format(utils.PROGRAM_NAME), msg)
 

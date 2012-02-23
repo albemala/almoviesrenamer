@@ -174,7 +174,7 @@ class Movie:
             # states are used to show a proper panel in GUI
             self.state_ = self.STATE_BEFORE_RENAMING
             self.guessed_info_ = {self.PART: '1'}
-            Noneinfo = {
+            info = {
                     self.TITLE: 'Un film molto figo',
                     self.ORIGINAL_TITLE: 'A really cool movie',
                     self.YEAR: '2012',

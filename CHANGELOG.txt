@@ -1,7 +1,12 @@
 
 3.0
 	
-	
+	CHG: improvements on movies rename process, with a new way for selecting movies information
+	CHG: better movies recognition
+	CHG: new movies attributes, and better representation
+	ADD: the representation of some movie attributes and words separator can now be personalized
+	ADD: enzyme module to get video duration
+	CHG: a lot of other small changes and improvements
 	
 2.1
 	

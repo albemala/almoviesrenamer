@@ -5,7 +5,7 @@ Libraries:
     Python 2.7
     PyQt 4.8 (http://www.riverbankcomputing.co.uk/software/pyqt/download)
     IMDbPY 4.8 (http://imdbpy.sourceforge.net/)
-    guessit 0.2 (http://gitorious.org/smewt/guessit) (http://pypi.python.org/pypi/guessit/0.2)
+    enzyme 0.1 (https://github.com/Diaoul/enzyme)
     cx_Freeze 4.2
 
 IDE: Eclipse 3.7
