@@ -16,6 +16,10 @@ aggiornare versione su web service
 
 
 
+aver scritto le label nelle dialog di avviso (tipo nell'about) usando codice html
+crea dei grossi problemi al momento di tradurle. vedere se si può togliere
+anche in quelle scritte in Designer col modulo html apposito
+
 suoni per conferma operazioni?
 
 probabilmente la lingua guessed va raffinata usando quella di sistema,

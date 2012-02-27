@@ -2,7 +2,7 @@
 
 __author__ = "Alberto Malagoli"
 
-from PyQt4.QtCore import QCoreApplication
+from PyQt4.QtGui import QApplication
 import difflib
 import enzyme
 import imdb
@@ -12,8 +12,6 @@ import re
 import unicodedata
 import datetime
 import utils
-
-tr = QCoreApplication.translate
 
 # black words in file names
 blackwords = [
@@ -615,12 +613,19 @@ class Movie:
                     new_name.append(' ' + rule)
                 elif rule in closed_brackets:
                     new_name.append(rule + ' ')
+                if rule in info_keys \
+                and i + 1 < len(rules) \
+                and rules[i + 1] not in opened_brackets \
+                and rules[i + 1] not in closed_brackets :
+                    new_name.append(separator)
             # if current movie is divided into parts 
             if self.part() != '':
                 # add part to new name
-                new_name.append(tr('Movie', "Part ") + self.part())
+                if rules[len(rules) - 1] not in closed_brackets :
+                    new_name.append(separator)
+                new_name.append(QApplication.translate('Movie', "Part ") + self.part())
             # join new name (was a list) and set it as the new name for that movie
-            self.new_name_ = separator.join(new_name)
+            self.new_name_ = ''.join(new_name)
 
         return self.new_name_
 

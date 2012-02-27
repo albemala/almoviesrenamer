@@ -20,7 +20,7 @@ try:
     app = QApplication(sys.argv)
     # load translation
     translator = QTranslator()
-    translator.load("tr/app_" + QLocale.system().name())
+    translator.load("app_" + QLocale.system().name())
     app.installTranslator(translator)
     # show gui
     gui = GUI()

@@ -2,9 +2,9 @@
 
 __author__ = "Alberto Malagoli"
 
-from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal, QCoreApplication
+from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal
 from PyQt4.QtGui import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, \
-    QBrush, QPixmap, QDialog
+    QBrush, QPixmap, QDialog, QApplication
 from PyQt4.uic import loadUi
 from movie import Movie
 import imdb
@@ -14,8 +14,6 @@ import threading
 import urllib
 import urllib2
 import utils
-
-tr = QCoreApplication.translate
 
 def send_usage_statistics():
     """
@@ -68,7 +66,7 @@ class GUI(QMainWindow):
         # check internet connection
         self.check_connection()
         # check for new program version
-#        self.check_new_version()
+        self.check_new_version()
 
         ## variables
         # get last visited directory from settings
@@ -82,7 +80,7 @@ class GUI(QMainWindow):
         self.show_stats_agreement()
 
         # load GUI
-        self.ui = loadUi("ui/main_window.ui", self)
+        self.ui = loadUi("main_window.ui", self)
         # create SettingsDialog
         self.ui.preferences_dialog = PreferencesDialog(self)
         # create RenamingRuleDialog
@@ -130,23 +128,14 @@ class GUI(QMainWindow):
         except URLError:
             # if an error occurs, notify the user with a message
             msg_box = QMessageBox()
-            msg_box.setWindowTitle(tr('GUI', "Internet connection down?"))
-            msg_box.setText(tr('GUI', """
-            <p>
-                It seems your internet connection is down
-                (but maybe I'm wrong).
-            </p>
-            <p>
-                That program needs access to the internet, 
-                to get information about movies, 
-                so please check your connection.
-            </p>
-            <p>
-                If I'm wrong, sorry for the interruption...
-            </p>
+            msg_box.setWindowTitle(QApplication.translate('GUI', "Internet connection down?"))
+            msg_box.setText(QApplication.translate('GUI', """
+<p>It seems your internet connection is down (but maybe I'm wrong).</p>
+<p>That program needs access to the internet, to get information about movies, so please check your connection.</p>
+<p>If I'm wrong, sorry for the interruption...</p>
             """))
             icon = QPixmap()
-            icon.load('ui/icons/exclamation.png')
+            icon.load('icons/exclamation.png')
             msg_box.setIconPixmap(icon)
             msg_box.exec_()
 
@@ -164,17 +153,11 @@ class GUI(QMainWindow):
         version = f.read().rstrip('\n')
         # if there is a new version
         if version != utils.PROGRAM_VERSION:
-            title = tr('GUI', "New version available")
-            msg = tr('GUI', """
-            <p>
-                A new version of {0} is available! 
-            </p>
-            <p>
-                <a href="http://code.google.com/p/almoviesrenamer/downloads/list">
-                    Download it.
-                </a>
-            </p>
-            """).format(utils.PROGRAM_NAME)
+            title = QApplication.translate('GUI', "New version available")
+            msg = QApplication.translate('GUI', """
+<p>A new version of {0} is available: <b>{1}</b></p>
+<p><a href="http://code.google.com/p/almoviesrenamer/downloads/list">Download it.</a></p>
+            """).format(utils.PROGRAM_NAME, version)
             # show a notification dialog, with link to download page
             QMessageBox.information(None, title, msg)
 
@@ -208,9 +191,9 @@ class GUI(QMainWindow):
         """
 
         # create a filter, only video files can be selected
-        video_filter = tr('GUI', "Video (*") + ' *'.join(self.VIDEO_EXTENSIONS) + ")"
+        video_filter = QApplication.translate('GUI', "Video (*") + ' *'.join(self.VIDEO_EXTENSIONS) + ')'
         # dialog title
-        title = tr('GUI', "Select movies you want to rename...")
+        title = QApplication.translate('GUI', "Select movies you want to rename...")
         # select video files from file system
         filepaths = QFileDialog.getOpenFileNames(self, title, self.last_visited_directory, video_filter)
         # if at least one file has been selected
@@ -228,7 +211,7 @@ class GUI(QMainWindow):
         """
 
         # dialog title
-        title = tr('GUI', "Select a folder containing movies...")
+        title = QApplication.translate('GUI', "Select a folder containing movies...")
         # select folder from file system
         dirpath = QFileDialog.getExistingDirectory(self, title, self.last_visited_directory)
         # if a directory has been selected
@@ -256,7 +239,7 @@ class GUI(QMainWindow):
         """
 
         # dialog title
-        title = tr('GUI', "Select a folder containing movies...")
+        title = QApplication.translate('GUI', "Select a folder containing movies...")
         # select folder from file system
         dirpath = QFileDialog.getExistingDirectory(self, title, self.last_visited_directory)
         # if a directory has been selected
@@ -297,7 +280,7 @@ class GUI(QMainWindow):
         # loop on file paths
         for filepath in filepaths:
             # set loading label text, show current file name
-            self.ui.label_loading.setText(tr('GUI', "Getting information from ")\
+            self.ui.label_loading.setText(QApplication.translate('GUI', "Getting information from ")\
                                            + os.path.split(filepath)[1])
             # create a new movie object
             movie = Movie(filepath)
@@ -442,7 +425,7 @@ class GUI(QMainWindow):
         """
 
         # message shown on about dialog
-        msg = tr('GUI', """
+        msg = QApplication.translate('GUI', """
         <p>
             <b>{0}</b>
         </p>
@@ -457,25 +440,37 @@ class GUI(QMainWindow):
         <p>
             Libraries:
             <ul>
-                <li><a href="http://www.python.org/">Python</a>: {2}</li>
-                <li><a href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a>: {3}</li>
-                <li><a href="http://imdbpy.sourceforge.net/">IMDbPY</a>: {4}</li>
-                <li><a href="https://github.com/Diaoul/enzyme">enzyme</a>: 0.1</li>
-                <li><a href="http://cx-freeze.sourceforge.net/">cx-Freeze</a>: 4.2.3</li>
+                <li>
+                    <a href="http://www.python.org/">Python</a>: {2}
+                </li>
+                <li>
+                    <a href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a>: {3}
+                </li>
+                <li>
+                    <a href="http://imdbpy.sourceforge.net/">IMDbPY</a>: {4}
+                </li>
+                <li>
+                    <a href="https://github.com/Diaoul/enzyme">enzyme</a>: 0.1
+                </li>
+                <li>
+                    <a href="http://cx-freeze.sourceforge.net/">cx-Freeze</a>: 4.2.3
+                </li>
             </ul>
         </p>
         <p>
             Thanks to:
             <ul>                
-                <li><a href="http://file-folder-ren.sourceforge.net/">M\xe9tamorphose</a>
-                    for some stolen code</li>
-                <li><a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>
-                    for Fugue Icons</li>
+                <li>
+                    <a href="http://file-folder-ren.sourceforge.net/">M\xe9tamorphose</a> for some stolen code
+                </li>
+                <li>
+                <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a> for Fugue Icons
+                </li>
             </ul>
         </p>
         """).format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, platform.python_version(), PYQT_VERSION_STR, imdb.VERSION)
         # show the about dialog
-        QMessageBox.about(self, tr('GUI', "About {0}").format(utils.PROGRAM_NAME), msg)
+        QMessageBox.about(self, QApplication.translate('GUI', "About {0}").format(utils.PROGRAM_NAME), msg)
 
     # TABLE movies
 
@@ -614,17 +609,17 @@ class PreferencesDialog(QDialog):
     STATS_DISAGREE = 0
 
     DURATION_REPRESENTATIONS = (
-                                tr('PreferencesDialog', "Minutes only"),
-                                tr('PreferencesDialog', "Hours and minutes"),
+                                QApplication.translate('PreferencesDialog', "Minutes only"),
+                                QApplication.translate('PreferencesDialog', "Hours and minutes"),
                                 )
     LANGUAGE_REPRESENTATIONS = (
-                                tr('PreferencesDialog', "English name"),
-                                tr('PreferencesDialog', "3-letters"),
+                                QApplication.translate('PreferencesDialog', "English name"),
+                                QApplication.translate('PreferencesDialog', "3-letters"),
                                 )
     WORDS_SEPARATORS_REPRESENTATIONS = (
-                                        tr('PreferencesDialog', ", (comma-space)"),
-                                        tr('PreferencesDialog', "- (space-dash-space)"),
-                                        tr('PreferencesDialog', " (space)"),
+                                        QApplication.translate('PreferencesDialog', ", (comma-space)"),
+                                        QApplication.translate('PreferencesDialog', "- (space-dash-space)"),
+                                        QApplication.translate('PreferencesDialog', " (space)"),
                                         )
 
     WORDS_SEPARATORS = (', ', ' - ', ' ',)
@@ -633,7 +628,7 @@ class PreferencesDialog(QDialog):
         QDialog.__init__(self, parent)
 
         # load UI
-        self.ui = loadUi("ui/preferences_dialog.ui", self)
+        self.ui = loadUi("preferences_dialog.ui", self)
         # adjust window size to content
         self.adjustSize()
         # load settings
@@ -707,7 +702,7 @@ class StatsAgreementDialog(QDialog):
         QDialog.__init__(self, parent)
 
         # load UI
-        self.ui = loadUi("ui/stats_agreement_dialog.ui", self)
+        self.ui = loadUi("stats_agreement_dialog.ui", self)
         # adjust wondow size to content
         self.adjustSize()
         ## slots connection
@@ -740,12 +735,12 @@ class StatsAgreementDialog(QDialog):
 
 class RenamingRuleDialog(QDialog):
 
-    TITLE = tr('RenamingRuleDialog', "Title")
-    ORIGINAL_TITLE = tr('RenamingRuleDialog', "Original title")
-    YEAR = tr('RenamingRuleDialog', "Year")
-    DIRECTOR = tr('RenamingRuleDialog', "Director")
-    DURATION = tr('RenamingRuleDialog', "Duration")
-    LANGUAGE = tr('RenamingRuleDialog', "Language")
+    TITLE = QApplication.translate('RenamingRuleDialog', "Title")
+    ORIGINAL_TITLE = QApplication.translate('RenamingRuleDialog', "Original title")
+    YEAR = QApplication.translate('RenamingRuleDialog', "Year")
+    DIRECTOR = QApplication.translate('RenamingRuleDialog', "Director")
+    DURATION = QApplication.translate('RenamingRuleDialog', "Duration")
+    LANGUAGE = QApplication.translate('RenamingRuleDialog', "Language")
     OPENED_ROUND_BRACKET = "("
     CLOSED_ROUND_BRACKET = ")"
     OPENED_SQUARE_BRACKET = "["
@@ -786,8 +781,7 @@ class RenamingRuleDialog(QDialog):
     def __init__(self, parent, preferences_dialog):
         QDialog.__init__(self, parent)
 
-        self.ui = loadUi("ui/renaming_rule_dialog.ui", self)
-        self.adjustSize()
+        self.ui = loadUi("renaming_rule_dialog.ui", self)
 
         self.ui.preferences_dialog = preferences_dialog
 
