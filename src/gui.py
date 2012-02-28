@@ -496,7 +496,13 @@ class GUI(QMainWindow):
             self.ui.stack_movie.setCurrentIndex(movie.state())
             # populate movie panel
             if movie.state() == Movie.STATE_RENAMING_ERROR:
-                self.ui.label_error.setText(movie.renaming_error)
+                self.ui.label_error.setText("""
+                <html><head/><body><p><span style="font-size:11pt; font-weight:400; color:#ff0000;">
+                """
+                + movie.renaming_error() +
+                """
+                </span></p></body></html>
+                """)
             elif movie.state() == Movie.STATE_BEFORE_RENAMING:
                 self.populate_movie_panel()
                 self.ui.stack_search_title.setCurrentIndex(0)

@@ -1,0 +1,12 @@
+
+problema sempre con la generazione del nuovo nome, perchè vengono aggiunti anche gli attributi vuoti.
+poi c'è il problema delle parentesi vuote, che può capitare se gli attributi dentro parentesi sono tutti 
+vuoti.
+
+nella tabella delle info, l'ordinamento per colonna non funziona
+
+quando si cerca un titolo, scrivere nella label: Cercando <titolo>..., cosi faccio vedere cosa si sta cercando
+
+alla fine di una ricerca, viene selezionato il film migliore ma non viene aggiornato il nuovo nome del file
+
+le label delle info del film selezionato devono poter essere selezionabili

@@ -373,6 +373,9 @@ class Movie:
         if state == Movie.STATE_RENAMED:
             self.original_name_ = self.new_name_
 
+    def renaming_error(self):
+        return self.renaming_error_
+
     def set_movie(self, index):
         """
         set currently associated info, from list of others information
