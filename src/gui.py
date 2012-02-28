@@ -330,7 +330,7 @@ class GUI(QMainWindow):
         """
 
         # get selected items
-        selected_items = self.ui.table_movies.selectedItems()
+        selected_items = self.ui.table_movies.selectionModel().selectedRows()
         # loop on items
         for item in reversed(selected_items):
             # get item row
@@ -488,6 +488,7 @@ class GUI(QMainWindow):
         else:
             # store first selected movie
             index = selected_items[0].row()
+            print(index)
             self.current_movie = self.movies[index]
             movie = self.current_movie
 
