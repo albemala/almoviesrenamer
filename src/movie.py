@@ -88,7 +88,10 @@ def guess_language_(title):
     match = re.search('(?:[^a-zA-Z])([a-zA-Z]{3})(?:[^a-zA-Z])', title)
     if match:
         # get corresponding language, given 3-letters ISO language code found
-        language = utils.alpha3_to_language(match.group(1))
+        language = utils.alpha3_to_language(match.groups()[0])
+#        print(match.group(1))
+        print(match.groups())
+        print(language)
         # remove language from title
         title = title[:match.start() + 1] + title[match.end() - 1:]
     return title, language
@@ -205,7 +208,7 @@ class Movie:
             # transformed in a better formed and stored into this attribute
             self.others_info_ = None
             # currently associated movie, returned from imdb search, is stored here
-            self.info_ = info
+            self.info_ = None
             # get video duration
             self.video_duration_ = None
             try:
@@ -463,6 +466,7 @@ class Movie:
                     language = utils.name_to_language(language)
             if language == None:
                 language = ['', '']
+#            print(language)
             # calculate string distance from current title and guessed title
             title1 = movie['title'].lower()
             title2 = self.guessed_info_[self.TITLE].lower()
@@ -516,7 +520,7 @@ class Movie:
                             country = re.sub('\(.*?\)', '', country).strip()
                             # get language corresponding to found country
                             language = utils.country_to_language(country)
-                        print(countries + ' --> ' + str(language))
+#                        print(countries + ' --> ' + str(language))
                     if language == None:
                         language = ['', '']
                     # calculate string distance from current title and guessed title

@@ -32,7 +32,7 @@ def load_languages():
     with open('languages.txt', 'r') as f:
         for line in f:
             name, alpha3, countries = line.rstrip('\n').split('|')
-            language = [name, alpha3]
+            language = [name, alpha3.upper()]
             name_to_language_.update({name: language})
             alpha3_to_language_.update({alpha3: language})
             countries = countries.split(';')
@@ -46,7 +46,7 @@ def alpha3_to_language(given_alpha3):
     """
 
     try:
-        return alpha3_to_language_[given_alpha3]
+        return alpha3_to_language_[given_alpha3.lower()]
     except KeyError:
         return None
 
