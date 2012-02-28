@@ -543,12 +543,21 @@ class GUI(QMainWindow):
         self.ui.widget_alternative_movies.setVisible(checked)
 
     def alternative_movies_selection_changed(self):
-        selected_items = self.ui.table_others_info.selectedItems()
-        if len(selected_items) > 0:
-            index = selected_items[0].row()
+        selected_info = self.ui.table_others_info.selectedItems()[0]
+        if len(selected_info) > 0:
+            info_index = selected_info.row()
             movie = self.current_movie
-            movie.set_movie(index)
-
+            movie.set_movie(info_index)
+            renaming_rule = utils.preferences.value("renaming_rule").toString()
+            # generate new movie name based on renaming rule
+            movie.generate_new_name(renaming_rule)
+            # create a table item with new movie file name
+            item_new_name = QTableWidgetItem(movie.new_file_name())
+            selected_movie = self.ui.table_movies.selectedItems()[0]
+            # store first selected movie
+            movie_index = selected_movie.row()
+            self.ui.table_movies.setItem(movie_index, 1, item_new_name)
+            # update labels in movie panel
             self.ui.label_title.setText(movie.title())
             self.ui.label_original_title.setText(movie.original_title())
             self.ui.label_year.setText(movie.year())

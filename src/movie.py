@@ -602,17 +602,23 @@ class Movie:
             for i in range(len(rules)):
                 rule = rules[i]
                 if rule == self.TITLE:
-                    new_name.append(self.title())
+                    if self.title() != '':
+                        new_name.append(self.title())
                 elif rule == self.ORIGINAL_TITLE:
-                    new_name.append(self.original_title())
+                    if self.original_title() != '':
+                        new_name.append(self.original_title())
                 elif rule == self.YEAR:
-                    new_name.append(self.year())
+                    if self.year() != '':
+                        new_name.append(self.year())
                 elif rule == self.DIRECTOR:
-                    new_name.append(self.director())
+                    if self.director() != '':
+                        new_name.append(self.director())
                 elif rule == self.DURATION:
-                    new_name.append(self.duration(duration_index))
+                    if self.duration() != '':
+                        new_name.append(self.duration(duration_index))
                 elif rule == self.LANGUAGE:
-                    new_name.append(self.language(language_index))
+                    if self.language() != '':
+                        new_name.append(self.language(language_index))
                 elif rule in opened_brackets:
                     new_name.append(' ' + rule)
                 elif rule in closed_brackets:
