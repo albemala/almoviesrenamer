@@ -359,6 +359,7 @@ class GUI(QMainWindow):
         show renaming rule dialog
         """
 
+        self.ui.table_movies.clearSelection()
         #show renaming rule dialog
         self.ui.renaming_rule_dialog.exec_()
         renaming_rule = utils.preferences.value("renaming_rule").toString()
@@ -488,7 +489,6 @@ class GUI(QMainWindow):
         else:
             # store first selected movie
             index = selected_items[0].row()
-            print(index)
             self.current_movie = self.movies[index]
             movie = self.current_movie
 
@@ -543,9 +543,9 @@ class GUI(QMainWindow):
         self.ui.widget_alternative_movies.setVisible(checked)
 
     def alternative_movies_selection_changed(self):
-        selected_info = self.ui.table_others_info.selectedItems()[0]
+        selected_info = self.ui.table_others_info.selectedItems()
         if len(selected_info) > 0:
-            info_index = selected_info.row()
+            info_index = selected_info[0].row()
             movie = self.current_movie
             movie.set_movie(info_index)
             renaming_rule = utils.preferences.value("renaming_rule").toString()
