@@ -600,6 +600,15 @@ class GUI(QMainWindow):
 
         # re-enable gui elements
         self.set_gui_enabled_search_title(True)
+        renaming_rule = utils.preferences.value("renaming_rule").toString()
+        # generate new movie name based on renaming rule
+        movie.generate_new_name(renaming_rule)
+        # create a table item with new movie file name
+        item_new_name = QTableWidgetItem(movie.new_file_name())
+        selected_movie = self.ui.table_movies.selectedItems()[0]
+        # store first selected movie
+        movie_index = selected_movie.row()
+        self.ui.table_movies.setItem(movie_index, 1, item_new_name)
         self.populate_movie_panel()
         self.ui.stack_search_title.setCurrentIndex(0)
 

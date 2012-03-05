@@ -320,10 +320,10 @@ Programma &amp;gt; Preferenze.
     <message>
         <location filename="gui.py" line="283"/>
         <source>Getting information from </source>
-        <translation>Sto cercando informazioni su</translation>
+        <translation>Sto cercando informazioni su </translation>
     </message>
     <message>
-        <location filename="gui.py" line="428"/>
+        <location filename="gui.py" line="429"/>
         <source>
         &lt;p&gt;
             &lt;b&gt;{0}&lt;/b&gt;
@@ -414,7 +414,7 @@ Programma &amp;gt; Preferenze.
         </translation>
     </message>
     <message>
-        <location filename="gui.py" line="473"/>
+        <location filename="gui.py" line="474"/>
         <source>About {0}</source>
         <translation>Riguardo {0}</translation>
     </message>
@@ -488,177 +488,177 @@ Programma &amp;gt; Preferenze.
         <translation></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="113"/>
+        <location filename="main_window.ui" line="116"/>
         <source>Title:</source>
         <translation>Titolo:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="125"/>
+        <location filename="main_window.ui" line="128"/>
         <source>Original title:</source>
         <translation>Titolo originale:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="138"/>
+        <location filename="main_window.ui" line="141"/>
         <source>A really cool movie</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="150"/>
+        <location filename="main_window.ui" line="156"/>
         <source>Year:</source>
         <translation>Anno:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="157"/>
+        <location filename="main_window.ui" line="163"/>
         <source>2012</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="169"/>
+        <location filename="main_window.ui" line="175"/>
         <source>Director(s):</source>
         <translation>Regista/i:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="176"/>
+        <location filename="main_window.ui" line="182"/>
         <source>A. Director</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="188"/>
+        <location filename="main_window.ui" line="194"/>
         <source>Duration:</source>
         <translation>Durata:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="200"/>
+        <location filename="main_window.ui" line="206"/>
         <source>Language:</source>
         <translation>Lingua:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="207"/>
+        <location filename="main_window.ui" line="213"/>
         <source>100&apos;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="214"/>
+        <location filename="main_window.ui" line="220"/>
         <source>Italian</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="232"/>
+        <location filename="main_window.ui" line="238"/>
         <source>Not the right movie?</source>
         <translation>Non è il film giusto?</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="239"/>
+        <location filename="main_window.ui" line="245"/>
         <source>Change it...</source>
         <translation>Cambialo...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="295"/>
+        <location filename="main_window.ui" line="301"/>
         <source>Title</source>
         <translation>Titolo</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="300"/>
+        <location filename="main_window.ui" line="306"/>
         <source>Year</source>
         <translation>Anno</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="305"/>
+        <location filename="main_window.ui" line="311"/>
         <source>Language</source>
         <translation>Lingua</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="313"/>
+        <location filename="main_window.ui" line="319"/>
         <source>Search for this title (add year for better results):</source>
         <translation>Cerca questo titolo (aggiungi l&apos;anno per avere risultati migliori):</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="339"/>
+        <location filename="main_window.ui" line="345"/>
         <source>Search...</source>
         <translation>Cerca...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="357"/>
+        <location filename="main_window.ui" line="363"/>
         <source>Searching...</source>
         <translation>Cercando...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="389"/>
+        <location filename="main_window.ui" line="395"/>
         <source>Sorry, I cannot find that movie...</source>
         <translation>Spiacente, non riesco a trovare questo film...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="431"/>
+        <location filename="main_window.ui" line="437"/>
         <source>There has been the following error during renaming:</source>
         <translation>C&apos;è stato il seguente errore durante la rinomina:</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="478"/>
+        <location filename="main_window.ui" line="484"/>
         <source>Movies</source>
         <translation>Film</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="493"/>
+        <location filename="main_window.ui" line="499"/>
         <source>Program</source>
         <translation>Programma</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="524"/>
+        <location filename="main_window.ui" line="530"/>
         <source>Add movies...</source>
         <translation>Aggiungi film...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="533"/>
+        <location filename="main_window.ui" line="539"/>
         <source>Add all movies in folder...</source>
         <translation>Aggiungi tutti i film nella cartella...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="542"/>
+        <location filename="main_window.ui" line="548"/>
         <source>Add all movies in folder (including subfolders)...</source>
         <translation>Aggiungi tutti i film nella cartella (incluse le sottocartelle)...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="554"/>
+        <location filename="main_window.ui" line="560"/>
         <source>Remove selected movies from list</source>
         <translation>Rimuovi dalla lista i film selezionati</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="566"/>
+        <location filename="main_window.ui" line="572"/>
         <source>Remove all movies from list</source>
         <translation>Rimuovi dalla lista tutti i film</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="578"/>
+        <location filename="main_window.ui" line="584"/>
         <source>Change renaming rule</source>
         <translation>Cambia la regola di rinomina</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="587"/>
+        <location filename="main_window.ui" line="593"/>
         <source>Rename movies</source>
         <translation>Rinomina i film</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="596"/>
+        <location filename="main_window.ui" line="602"/>
         <source>Preferences...</source>
         <translation>Preferenze...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="599"/>
+        <location filename="main_window.ui" line="605"/>
         <source>Change preferences</source>
         <translation>Cambia le preferenze</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="608"/>
+        <location filename="main_window.ui" line="614"/>
         <source>About...</source>
         <translation>Riguardo...</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="407"/>
+        <location filename="main_window.ui" line="413"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-size:11pt; color:#005000;&quot;&gt;This movie has been correctly renamed, and can be removed from list.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-size:11pt; color:#005000;&quot;&gt;Questo film è stato rinominato con successo, può essere ora rimosso dalla lista.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="main_window.ui" line="444"/>
+        <location filename="main_window.ui" line="450"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-size:11pt; font-weight:400; color:#ff0000;&quot;&gt;ERROR!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
@@ -666,7 +666,7 @@ Programma &amp;gt; Preferenze.
 <context>
     <name>Movie</name>
     <message>
-        <location filename="movie.py" line="626"/>
+        <location filename="movie.py" line="639"/>
         <source>Part </source>
         <translation>Parte</translation>
     </message>
@@ -674,37 +674,37 @@ Programma &amp;gt; Preferenze.
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="gui.py" line="611"/>
+        <location filename="gui.py" line="636"/>
         <source>Minutes only</source>
-        <translation type="unfinished">Solo minuti</translation>
+        <translation>Solo minuti</translation>
     </message>
     <message>
-        <location filename="gui.py" line="611"/>
+        <location filename="gui.py" line="636"/>
         <source>Hours and minutes</source>
-        <translation type="unfinished">Ore e minuti</translation>
+        <translation>Ore e minuti</translation>
     </message>
     <message>
-        <location filename="gui.py" line="615"/>
+        <location filename="gui.py" line="640"/>
         <source>English name</source>
         <translation>Nome in Inglese</translation>
     </message>
     <message>
-        <location filename="gui.py" line="615"/>
+        <location filename="gui.py" line="640"/>
         <source>3-letters</source>
         <translation>3 lettere</translation>
     </message>
     <message>
-        <location filename="gui.py" line="619"/>
+        <location filename="gui.py" line="644"/>
         <source>, (comma-space)</source>
         <translation>, (virgola-spazio)</translation>
     </message>
     <message>
-        <location filename="gui.py" line="619"/>
+        <location filename="gui.py" line="644"/>
         <source>- (space-dash-space)</source>
         <translation> - (spazio-trattino-spazio)</translation>
     </message>
     <message>
-        <location filename="gui.py" line="619"/>
+        <location filename="gui.py" line="644"/>
         <source> (space)</source>
         <translation> (spazio)</translation>
     </message>
@@ -712,32 +712,32 @@ Programma &amp;gt; Preferenze.
 <context>
     <name>RenamingRuleDialog</name>
     <message>
-        <location filename="gui.py" line="738"/>
+        <location filename="gui.py" line="763"/>
         <source>Title</source>
         <translation>Titolo</translation>
     </message>
     <message>
-        <location filename="gui.py" line="739"/>
+        <location filename="gui.py" line="764"/>
         <source>Original title</source>
         <translation>Titolo originale</translation>
     </message>
     <message>
-        <location filename="gui.py" line="740"/>
+        <location filename="gui.py" line="765"/>
         <source>Year</source>
         <translation>Anno</translation>
     </message>
     <message>
-        <location filename="gui.py" line="741"/>
+        <location filename="gui.py" line="766"/>
         <source>Director</source>
         <translation>Regista</translation>
     </message>
     <message>
-        <location filename="gui.py" line="742"/>
+        <location filename="gui.py" line="767"/>
         <source>Duration</source>
         <translation>Durata</translation>
     </message>
     <message>
-        <location filename="gui.py" line="743"/>
+        <location filename="gui.py" line="768"/>
         <source>Language</source>
         <translation>Lingua</translation>
     </message>
