@@ -284,9 +284,6 @@
              <property name="selectionMode">
               <enum>QAbstractItemView::SingleSelection</enum>
              </property>
-             <property name="sortingEnabled">
-              <bool>true</bool>
-             </property>
              <property name="cornerButtonEnabled">
               <bool>false</bool>
              </property>
@@ -323,7 +320,7 @@
            <item>
             <widget class="QStackedWidget" name="stack_search_title">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page">
               <layout class="QHBoxLayout" name="horizontalLayout_2">
