@@ -2,7 +2,3 @@
 problema sempre con la generazione del nuovo nome, perchè vengono aggiunti anche gli attributi vuoti.
 poi c'è il problema delle parentesi vuote, che può capitare se gli attributi dentro parentesi sono tutti 
 vuoti.
-
-nella tabella delle info, l'ordinamento per colonna non funziona
-
-quando si cerca un titolo, scrivere nella label: Cercando <titolo>..., cosi faccio vedere cosa si sta cercando
