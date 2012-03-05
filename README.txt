@@ -20,3 +20,5 @@ Programming notes:
 	    cx_Freeze 4.2
 	    python-dev [under Linux]
 	    libssl-dev [under Linux]
+	    
+		setup.py bdist_dumb

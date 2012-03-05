@@ -4,10 +4,10 @@ __author__ = "Alberto Malagoli"
 
 from cx_Freeze import setup, Executable
 import sys
-sys.path.append('src')
 import os.path
-import utils
 import shutil
+sys.path.append('src')
+import utils
 
 ## change setting first_time before building
 from PyQt4.QtCore import QSettings
