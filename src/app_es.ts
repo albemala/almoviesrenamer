@@ -320,6 +320,11 @@ menu.
             </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="gui.py" line="582"/>
+        <source>Searching </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -530,37 +535,37 @@ menu.
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="gui.py" line="640"/>
+        <location filename="gui.py" line="642"/>
         <source>English name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="640"/>
+        <location filename="gui.py" line="642"/>
         <source>3-letters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="644"/>
+        <location filename="gui.py" line="646"/>
         <source>, (comma-space)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="644"/>
+        <location filename="gui.py" line="646"/>
         <source>- (space-dash-space)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="644"/>
+        <location filename="gui.py" line="646"/>
         <source> (space)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="636"/>
+        <location filename="gui.py" line="638"/>
         <source>Minutes only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="636"/>
+        <location filename="gui.py" line="638"/>
         <source>Hours and minutes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -568,32 +573,32 @@ menu.
 <context>
     <name>RenamingRuleDialog</name>
     <message>
-        <location filename="gui.py" line="763"/>
+        <location filename="gui.py" line="765"/>
         <source>Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="764"/>
+        <location filename="gui.py" line="766"/>
         <source>Original title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="765"/>
+        <location filename="gui.py" line="767"/>
         <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="766"/>
+        <location filename="gui.py" line="768"/>
         <source>Director</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="767"/>
+        <location filename="gui.py" line="769"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="gui.py" line="768"/>
+        <location filename="gui.py" line="770"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>

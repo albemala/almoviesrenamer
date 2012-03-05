@@ -464,6 +464,11 @@ Programma &amp;gt; Preferenze.
         <source>Hours and minutes</source>
         <translation type="obsolete">Ore e minuti</translation>
     </message>
+    <message>
+        <location filename="gui.py" line="582"/>
+        <source>Searching </source>
+        <translation>Cercando </translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -668,43 +673,43 @@ Programma &amp;gt; Preferenze.
     <message>
         <location filename="movie.py" line="639"/>
         <source>Part </source>
-        <translation>Parte</translation>
+        <translation>Parte </translation>
     </message>
 </context>
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="gui.py" line="636"/>
+        <location filename="gui.py" line="638"/>
         <source>Minutes only</source>
         <translation>Solo minuti</translation>
     </message>
     <message>
-        <location filename="gui.py" line="636"/>
+        <location filename="gui.py" line="638"/>
         <source>Hours and minutes</source>
         <translation>Ore e minuti</translation>
     </message>
     <message>
-        <location filename="gui.py" line="640"/>
+        <location filename="gui.py" line="642"/>
         <source>English name</source>
         <translation>Nome in Inglese</translation>
     </message>
     <message>
-        <location filename="gui.py" line="640"/>
+        <location filename="gui.py" line="642"/>
         <source>3-letters</source>
         <translation>3 lettere</translation>
     </message>
     <message>
-        <location filename="gui.py" line="644"/>
+        <location filename="gui.py" line="646"/>
         <source>, (comma-space)</source>
         <translation>, (virgola-spazio)</translation>
     </message>
     <message>
-        <location filename="gui.py" line="644"/>
+        <location filename="gui.py" line="646"/>
         <source>- (space-dash-space)</source>
         <translation> - (spazio-trattino-spazio)</translation>
     </message>
     <message>
-        <location filename="gui.py" line="644"/>
+        <location filename="gui.py" line="646"/>
         <source> (space)</source>
         <translation> (spazio)</translation>
     </message>
@@ -712,32 +717,32 @@ Programma &amp;gt; Preferenze.
 <context>
     <name>RenamingRuleDialog</name>
     <message>
-        <location filename="gui.py" line="763"/>
+        <location filename="gui.py" line="765"/>
         <source>Title</source>
         <translation>Titolo</translation>
     </message>
     <message>
-        <location filename="gui.py" line="764"/>
+        <location filename="gui.py" line="766"/>
         <source>Original title</source>
         <translation>Titolo originale</translation>
     </message>
     <message>
-        <location filename="gui.py" line="765"/>
+        <location filename="gui.py" line="767"/>
         <source>Year</source>
         <translation>Anno</translation>
     </message>
     <message>
-        <location filename="gui.py" line="766"/>
+        <location filename="gui.py" line="768"/>
         <source>Director</source>
         <translation>Regista</translation>
     </message>
     <message>
-        <location filename="gui.py" line="767"/>
+        <location filename="gui.py" line="769"/>
         <source>Duration</source>
         <translation>Durata</translation>
     </message>
     <message>
-        <location filename="gui.py" line="768"/>
+        <location filename="gui.py" line="770"/>
         <source>Language</source>
         <translation>Lingua</translation>
     </message>

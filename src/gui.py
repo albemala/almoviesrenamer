@@ -579,6 +579,7 @@ class GUI(QMainWindow):
             return
         # set gui elements disabled
         self.set_gui_enabled_search_title(False)
+        self.ui.label_searching.setText(QApplication.translate('GUI', "Searching ") + title + "...")
         # show searching panel
         self.ui.stack_search_title.setCurrentIndex(1)
         # start searching thread
@@ -602,6 +603,7 @@ class GUI(QMainWindow):
         self.set_gui_enabled_search_title(True)
         renaming_rule = utils.preferences.value("renaming_rule").toString()
         # generate new movie name based on renaming rule
+        movie = self.current_movie
         movie.generate_new_name(renaming_rule)
         # create a table item with new movie file name
         item_new_name = QTableWidgetItem(movie.new_file_name())
