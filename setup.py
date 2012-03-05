@@ -45,16 +45,12 @@ excludes = [
             ]
 
 include_files = [
+                 ("src/enzyme", "enzyme"),
                  ("src/icons", "icons"),
                  ("src/app_de.qm", "app_de.qm"),
                  ("src/app_es.qm", "app_es.qm"),
                  ("src/app_fr.qm", "app_fr.qm"),
                  ("src/app_it.qm", "app_it.qm"),
-#                 ("src/exceptionhandler.py", "exceptionhandler.py"),
-#                 ("src/gui.py", "gui.py"),
-#                 ("src/main.py", "main.py"),
-#                 ("src/movie.py", "movie.py"),
-#                 ("src/utils.py", "utils.py"),
                  ("src/main_window.ui", "main_window.ui"),
                  ("src/preferences_dialog.ui", "preferences_dialog.ui"),
                  ("src/renaming_rule_dialog.ui", "renaming_rule_dialog.ui"),
@@ -76,7 +72,7 @@ buildOptions = dict(
 base = None
 target_name = utils.PROGRAM_NAME
 if sys.platform == "win32":
-    base = "Win32GUI"
+#    base = "Win32GUI"
     target_name += ".exe"
 
 main_exe = Executable(
