@@ -588,9 +588,6 @@ class Movie:
             language_index = utils.preferences.value("language_representation").toInt()[0]
             words_separator_index = utils.preferences.value("words_separator").toInt()[0]
             separator = Preferences.WORDS_SEPARATORS[words_separator_index]
-            new_name = []
-            # split renaming rule
-            rules = renaming_rule.split('.')
             # creates a list of rules, so it's easier to look for them
             info_keys = [self.TITLE, self.ORIGINAL_TITLE, self.YEAR, self.DIRECTOR, self.DURATION, self.LANGUAGE]
             opened_brackets = [
@@ -601,27 +598,30 @@ class Movie:
                                RenamingRule.CLOSED_ROUND_BRACKET,
                                RenamingRule.CLOSED_SQUARE_BRACKET,
                                RenamingRule.CLOSED_CURLY_BRACKET]
-            # loop on rules
+            new_name = []
+            # split renaming rule
+            rules = renaming_rule.split('.')
+            # first round: replace rule new_name with corresponding movie attribute
             for i in range(len(rules)):
                 rule = rules[i]
-                if rule == self.TITLE:
-                    if self.title() != '':
-                        new_name.append(self.title())
-                elif rule == self.ORIGINAL_TITLE:
-                    if self.original_title() != '':
-                        new_name.append(self.original_title())
-                elif rule == self.YEAR:
-                    if self.year() != '':
-                        new_name.append(self.year())
-                elif rule == self.DIRECTOR:
-                    if self.director() != '':
-                        new_name.append(self.director())
-                elif rule == self.DURATION:
-                    if self.duration() != '':
-                        new_name.append(self.duration(duration_index))
-                elif rule == self.LANGUAGE:
-                    if self.language() != '':
-                        new_name.append(self.language(language_index))
+                if rule == self.TITLE \
+                and self.title() != '':
+                    new_name.append(self.title())
+                elif rule == self.ORIGINAL_TITLE \
+                and self.original_title() != '':
+                    new_name.append(self.original_title())
+                elif rule == self.YEAR \
+                and self.year() != '':
+                    new_name.append(self.year())
+                elif rule == self.DIRECTOR \
+                and self.director() != '':
+                    new_name.append(self.director())
+                elif rule == self.DURATION \
+                and self.duration() != '':
+                    new_name.append(self.duration(duration_index))
+                elif rule == self.LANGUAGE \
+                and self.language() != '':
+                    new_name.append(self.language(language_index))
                 elif rule in opened_brackets:
                     new_name.append(' ' + rule)
                 elif rule in closed_brackets:
