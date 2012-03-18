@@ -103,10 +103,10 @@ def guess_part_(title):
 
     part = None
     # search part, which can be like, for example, disk1 or disk 1
-    match = re.search('(cd|disk|part)[ ]?[0-9]', title.lower(), re.IGNORECASE)
+    match = re.search('(?:cd|disk|part[ ]?)(\d)', title, re.IGNORECASE)
     if match:
         # get part number
-        part = match.group(0)[-1:]
+        part = match.group(1)
         # remove part from title
         title = title[:match.start()] + title[match.end():]
     return title, part
@@ -636,7 +636,7 @@ class Movie:
                 # add part to new name
                 if rules[len(rules) - 1] not in closed_brackets :
                     new_name.append(separator)
-                new_name.append(QApplication.translate('Movie', "Part ") + self.part())
+                new_name.append("Part " + self.part())
             # join new name (was a list) and set it as the new name for that movie
             self.new_name_ = ''.join(new_name)
 
