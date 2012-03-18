@@ -85,15 +85,12 @@ def guess_language_(title):
     """
 
     language = None
-    match = re.search('(?:[^a-zA-Z])([a-zA-Z]{3})(?:[^a-zA-Z])', title)
+    match = re.search(r'\b([a-zA-Z]{3})\b', title)
     if match:
         # get corresponding language, given 3-letters ISO language code found
-        language = utils.alpha3_to_language(match.groups()[0])
-#        print(match.group(1))
-        print(match.groups())
-        print(language)
+        language = utils.alpha3_to_language(match.group(0))
         # remove language from title
-        title = title[:match.start() + 1] + title[match.end() - 1:]
+        title = title[:match.start()] + title[match.end():]
     return title, language
 
 def guess_part_(title):
@@ -103,7 +100,7 @@ def guess_part_(title):
 
     part = None
     # search part, which can be like, for example, disk1 or disk 1
-    match = re.search('(?:cd|disk|part[ ]?)(\d)', title, re.IGNORECASE)
+    match = re.search(r'(?:cd|disk|part[ ]?)(\d)', title, re.IGNORECASE)
     if match:
         # get part number
         part = match.group(1)
@@ -115,7 +112,7 @@ def clean_title_(title):
     # remove everything inside parenthesis
     title = re.sub('[([{].*?[)\]}]', '', title)
     # replace dots, underscores and dashes with spaces
-    title = re.sub('[\._\-\'"]', ' ', title)
+    title = re.sub(r'[^a-zA-Z0-9]', ' ', title)
     stitle = title.split()
     title = []
     # loop on name
