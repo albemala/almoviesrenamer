@@ -27,8 +27,8 @@ blackwords = [
               'AC3', 'DTS', 'He-AAC', 'AAC-He', 'AAC', '5.1',
               # ripper teams
               'ESiR', 'WAF', 'SEPTiC', '[XCT]', 'iNT', 'PUKKA', 'CHD', 'ViTE', 'TLF',
-              'DEiTY', 'FLAiTE', 'MDX', 'GM4F', 'DVL', 'SVD', 'iLUMiNADOS', ' FiNaLe',
-              'UnSeeN', 'aXXo', 'KLAXXON', 'NoTV', 'ZeaL', 'LOL', 'iTALiAN'
+              'DEiTY', 'FLAiTE', 'MDX', 'GM4F', 'DVL', 'SVD', 'iLUMiNADOS',
+              'UnSeeN', 'aXXo', 'KLAXXON', 'NoTV', 'ZeaL', 'LOL'
               ]
 
 def guess_info(title):
@@ -120,7 +120,7 @@ def clean_title_(title):
     for word in stitle:
         is_not_a_blackword = True
         for blackword in blackwords:
-            if word == blackword:
+            if word.lower() == blackword.lower():
                 is_not_a_blackword = False
                 break
         if is_not_a_blackword:

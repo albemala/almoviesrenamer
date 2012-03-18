@@ -3,16 +3,6 @@ problema sempre con la generazione del nuovo nome, perchè vengono aggiunti anche
 poi c'è il problema delle parentesi vuote, che può capitare se gli attributi dentro parentesi sono tutti 
 vuoti.
 
-problemi di guessing con quei titoli che sono solo in minuscolo o maiuscolo, o cmq che hanno
-lettere diverse da quelle definite nelle blackwords. il problema nasce dal fatto che quando si rimuovono
-le blackword le si lascia con la capitalizzazione standard. questo era stato fatto per evitare che venissero
-tolte alcune parole che invece facevano parte del titolo (tipo italian), ma forse, dato che sono più i casi
-di titoli con lettere minuscole/maiuscole diverse che non i casi limite in cui la blackword fa parte del titolo,
-converrebbe ignorare la capitalizz. delle lettere
-inoltre, nel guessing di un titolo in ricerca manuale, viene cmq applicata la pulizia del titolo,
-che rimuove le blackword. un esempio: the italian job > verrebbe tolta la parola italian anche nella 
-ricertca manuale, e non verrebbe risolto il problema
-
 ci sono ancora dei problemi con il recupero delle lingue, perché vengono identificate delle lingue che 
 sono invece parole che fanno parte del titolo 
 
