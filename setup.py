@@ -62,25 +62,11 @@ include_files = [
                  "README.txt"
                  ]
 
-buildOptions = dict(
-                    includes = includes,
-                    excludes = excludes,
-                    include_files = include_files,
-                    optimize = 2,
-                    )
-
 base = None
 target_name = utils.PROGRAM_NAME
 if sys.platform == "win32":
-#    base = "Win32GUI"
+    base = "Win32GUI"
     target_name += ".exe"
-
-main_exe = Executable(
-                      script = "src/main.py",
-                      base = base,
-                      targetName = target_name,
-                      compress = True,
-                      )
 
 setup(
       name = utils.PROGRAM_NAME,
@@ -88,8 +74,21 @@ setup(
       author = "Alberto Malagoli",
       author_email = 'albemala@gmail.com',
       url = 'https://code.google.com/p/almoviesrenamer/',
-      options = dict(build_exe = buildOptions),
-      executables = [main_exe]
+      options = dict(
+                     build_exe = dict(
+                                      includes = includes,
+                                      excludes = excludes,
+                                      include_files = include_files,
+                                      optimize = 2,
+                                      create_shared_zip = True
+                                      )),
+      executables = [
+                     Executable(
+                                script = "src/main.py",
+                                base = base,
+                                targetName = target_name,
+                                compress = True,
+                                )]
       )
 
 
