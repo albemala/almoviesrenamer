@@ -1,6 +1,8 @@
 
 License: GNU General Public License version 3 (GPLv3)
 
+IDE: Eclipse 3.7
+
 Libraries:
     Python 2.7
     PyQt 4.9 - http://www.riverbankcomputing.co.uk/software/pyqt/download
@@ -8,8 +10,9 @@ Libraries:
     IMDbPY 4.8 - http://imdbpy.sourceforge.net/
     enzyme 0.1 - https://github.com/Diaoul/enzyme
     cx_Freeze 4.2 - http://cx-freeze.sourceforge.net/
-
-IDE: Eclipse 3.7
+    
+Docs:
+	cx_Freeze - http://cx_freeze.readthedocs.org/en/latest/index.html
 
 Programming notes:
 
