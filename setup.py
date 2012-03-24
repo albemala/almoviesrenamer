@@ -15,7 +15,7 @@ from PyQt4.QtCore import QSettings
 settings = QSettings("src/preferences.ini", QSettings.IniFormat)
 # save value on settings file
 settings.setValue("first_time", True)
-settings.setValue("stats_agreement", 0)
+settings.setValue("stats_agreement", 1)
 settings.setValue("duration_representation", 0)
 settings.setValue("language_representation", 1)
 settings.setValue("words_separator", 0)
@@ -82,7 +82,7 @@ setup(
                                 script = "src/main.py",
                                 base = base,
                                 targetName = target_name,
-                                icon = "src/icons/brand.png",
+                                icon = "src/icons/brand.ico",
                                 compress = True,
                                 )]
       )
