@@ -44,10 +44,7 @@ excludes = [
 include_files = [
                  ("src/enzyme", "enzyme"),
                  ("src/icons", "icons"),
-                 ("src/app_de.qm", "app_de.qm"),
-                 ("src/app_es.qm", "app_es.qm"),
-                 ("src/app_fr.qm", "app_fr.qm"),
-                 ("src/app_it.qm", "app_it.qm"),
+                 ("src/qm", "qm"),
                  ("src/main_window.ui", "main_window.ui"),
                  ("src/preferences_dialog.ui", "preferences_dialog.ui"),
                  ("src/renaming_rule_dialog.ui", "renaming_rule_dialog.ui"),

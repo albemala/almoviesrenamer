@@ -4,6 +4,9 @@ __author__ = "Alberto Malagoli"
 
 import platform
 import subprocess
+from glob import glob
+import os
+import shutil
 
 pylupdate4 = ''
 lrelease = ''
@@ -20,3 +23,9 @@ elif os == 'Linux':
 
 subprocess.call([pylupdate4, 'src/translations.pro'], shell = True)
 subprocess.call([lrelease, 'src/translations.pro'], shell = True)
+
+for qm_file in glob('src/qm/*'):
+    os.remove(qm_file)
+
+for qm_file in glob('src/*.qm'):
+    shutil.move(qm_file, 'src/qm')
