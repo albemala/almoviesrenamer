@@ -2,15 +2,16 @@
 
 __author__ = "Alberto Malagoli"
 
+from PyQt4.QtCore import QSettings
 from cx_Freeze import setup, Executable
-import sys
 import os.path
 import shutil
+import sys
+import platform
 sys.path.append('src')
 import utils
 
 ## change setting first_time before building
-from PyQt4.QtCore import QSettings
 # load settings
 settings = QSettings("src/preferences.ini", QSettings.IniFormat)
 # save value on settings file
@@ -58,9 +59,11 @@ include_files = [
 
 base = None
 target_name = utils.PROGRAM_NAME
+archive_format = "gztar"
 if sys.platform == "win32":
     base = "Win32GUI"
     target_name += ".exe"
+    archive_format = "zip"
 
 setup(
       name = utils.PROGRAM_NAME,
@@ -84,5 +87,8 @@ setup(
                                 )]
       )
 
-
+archive_name = "dist/" + utils.PROGRAM_NAME + "-" + utils.PROGRAM_VERSION + "-" + sys.platform
+python_version = platform.python_version_tuple()
+root_dir = "build/exe." + sys.platform + "-" + python_version[0] + "." + python_version[1]
+shutil.make_archive(archive_name, archive_format, root_dir)
 
