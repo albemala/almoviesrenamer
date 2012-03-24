@@ -28,20 +28,17 @@ includes = [
             ]
 
 excludes = [
-#            '_gtkagg',
-#            '_tkagg',
-#            'bsddb',
-#            'curses',
-#            'email',
-#            'pywin.debugger',
-#            'pywin.debugger.dbgcon',
-#            'pywin.dialogs',
-#            'tcl',
-#            'Tkconstants',
-#            'Tkinter',
-#            'win32api',
-#            '_ssl',
-#            '_sqlite3'
+            '_gtkagg',
+            '_tkagg',
+            'bsddb',
+            'curses',
+            'email',
+            'pywin.debugger',
+            'pywin.debugger.dbgcon',
+            'pywin.dialogs',
+            'tcl',
+            'Tkconstants',
+            'Tkinter',
             ]
 
 include_files = [
@@ -75,18 +72,17 @@ setup(
       author_email = 'albemala@gmail.com',
       url = 'https://code.google.com/p/almoviesrenamer/',
       options = dict(
-                     build_exe = dict(
-                                      includes = includes,
-                                      excludes = excludes,
-                                      include_files = include_files,
-                                      optimize = 2,
-                                      create_shared_zip = True
-                                      )),
-      executables = [
-                     Executable(
+                     build_exe = {"includes": includes,
+                                  "excludes": excludes,
+                                  "include_files": include_files,
+                                  "optimize": 2,
+                                  "create_shared_zip": True
+                                  }),
+      executables = [Executable(
                                 script = "src/main.py",
                                 base = base,
                                 targetName = target_name,
+                                icon = "src/icons/brand.png",
                                 compress = True,
                                 )]
       )
