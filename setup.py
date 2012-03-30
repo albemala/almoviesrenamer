@@ -4,7 +4,9 @@ __author__ = "Alberto Malagoli"
 
 from PyQt4.QtCore import QSettings
 from cx_Freeze import setup, Executable
+from glob import glob
 import os.path
+import os
 import shutil
 import sys
 import platform
@@ -22,7 +24,10 @@ settings.setValue("language_representation", 1)
 settings.setValue("words_separator", 0)
 settings.sync()
 
-shutil.rmtree('src/log', ignore_errors = True)
+if os.path.isdir('build'):
+    shutil.rmtree('build')
+if os.path.isdir('src/log'):
+    shutil.rmtree('src/log')
 
 includes = [
             'enzyme'
@@ -87,8 +92,38 @@ setup(
                                 )]
       )
 
-archive_name = "dist/" + utils.PROGRAM_NAME + "-" + utils.PROGRAM_VERSION + "-" + sys.platform
+archive_name = "dist/{0}-{1}-{2}" \
+    .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, sys.platform)
+if os.path.isfile(archive_name):
+    os.remove(archive_name)
 python_version = platform.python_version_tuple()
-root_dir = "build/exe." + sys.platform + "-" + python_version[0] + "." + python_version[1]
+root_dir = "build/exe.{0}-{1}.{2}" \
+    .format(sys.platform, python_version[0], python_version[1])
+print("create " + archive_format + " " + archive_name)
 shutil.make_archive(archive_name, archive_format, root_dir)
 
+if os.path.isdir('tmp'):
+    shutil.rmtree('tmp')
+print("create tmp folder")
+os.mkdir("tmp")
+print("copying source files on it...")
+shutil.copytree("src", "tmp/src")
+shutil.copytree("libs", "tmp/libs")
+for f in glob("*.py"):
+    shutil.copy2(f, "tmp")
+for f in glob("*.txt"):
+    shutil.copy2(f, "tmp")
+print("files copied")
+
+archive_name = "dist/{0}-{1}-src" \
+    .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION)
+if os.path.isfile(archive_name):
+    os.remove(archive_name)
+root_dir = "tmp"
+print("create gztar " + archive_name)
+#XXX c'è un problema qui, dentro l'archivio viene ricreato il path assoluto della cartella "tmp"
+shutil.make_archive(archive_name, "gztar", root_dir)
+print("remove tmp folder")
+#shutil.rmtree("tmp")
+
+print("END")

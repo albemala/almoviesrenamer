@@ -525,9 +525,6 @@ menu.
     </message>
 </context>
 <context>
-    <name>Movie</name>
-</context>
-<context>
     <name>PreferencesDialog</name>
     <message>
         <location filename="gui.py" line="642"/>
