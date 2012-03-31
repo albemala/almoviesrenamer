@@ -1,4 +1,10 @@
 
+3.1
+
+	CHG: some corrections in guessing info from file name
+	ADD: executable icon
+	FIX: statistics where not correctly handled
+
 3.0
 	
 	CHG: improvements on movies rename process, with a new way for selecting movies information

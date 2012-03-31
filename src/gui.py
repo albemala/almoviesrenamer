@@ -757,7 +757,6 @@ class StatsAgreementDialog(QDialog):
         utils.preferences.setValue("stats_agreement", PreferencesDialog.STATS_DISAGREE)
 
     def close(self):
-        send_usage_statistics()
         self.accept()
 
 class RenamingRuleDialog(QDialog):

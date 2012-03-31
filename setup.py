@@ -2,55 +2,55 @@
 
 __author__ = "Alberto Malagoli"
 
+from PyQt4.QtCore import QSettings
 from cx_Freeze import setup, Executable
-import sys
+from glob import glob
 import os.path
+import os
 import shutil
+import sys
+import platform
 sys.path.append('src')
 import utils
 
 ## change setting first_time before building
-from PyQt4.QtCore import QSettings
 # load settings
 settings = QSettings("src/preferences.ini", QSettings.IniFormat)
 # save value on settings file
 settings.setValue("first_time", True)
-settings.setValue("stats_agreement", 0)
+settings.setValue("stats_agreement", 1)
 settings.setValue("duration_representation", 0)
 settings.setValue("language_representation", 1)
 settings.setValue("words_separator", 0)
 settings.sync()
 
-shutil.rmtree('src/log', ignore_errors = True)
+if os.path.isdir('build'):
+    shutil.rmtree('build')
+if os.path.isdir('src/log'):
+    shutil.rmtree('src/log')
 
 includes = [
             'enzyme'
             ]
 
 excludes = [
-#            '_gtkagg',
-#            '_tkagg',
-#            'bsddb',
-#            'curses',
-#            'email',
-#            'pywin.debugger',
-#            'pywin.debugger.dbgcon',
-#            'pywin.dialogs',
-#            'tcl',
-#            'Tkconstants',
-#            'Tkinter',
-#            'win32api',
-#            '_ssl',
-#            '_sqlite3'
+            '_gtkagg',
+            '_tkagg',
+            'bsddb',
+            'curses',
+            'email',
+            'pywin.debugger',
+            'pywin.debugger.dbgcon',
+            'pywin.dialogs',
+            'tcl',
+            'Tkconstants',
+            'Tkinter',
             ]
 
 include_files = [
                  ("src/enzyme", "enzyme"),
                  ("src/icons", "icons"),
-                 ("src/app_de.qm", "app_de.qm"),
-                 ("src/app_es.qm", "app_es.qm"),
-                 ("src/app_fr.qm", "app_fr.qm"),
-                 ("src/app_it.qm", "app_it.qm"),
+                 ("src/qm", "qm"),
                  ("src/main_window.ui", "main_window.ui"),
                  ("src/preferences_dialog.ui", "preferences_dialog.ui"),
                  ("src/renaming_rule_dialog.ui", "renaming_rule_dialog.ui"),
@@ -64,9 +64,11 @@ include_files = [
 
 base = None
 target_name = utils.PROGRAM_NAME
+archive_format = "gztar"
 if sys.platform == "win32":
     base = "Win32GUI"
     target_name += ".exe"
+    archive_format = "zip"
 
 setup(
       name = utils.PROGRAM_NAME,
@@ -75,21 +77,31 @@ setup(
       author_email = 'albemala@gmail.com',
       url = 'https://code.google.com/p/almoviesrenamer/',
       options = dict(
-                     build_exe = dict(
-                                      includes = includes,
-                                      excludes = excludes,
-                                      include_files = include_files,
-                                      optimize = 2,
-                                      create_shared_zip = True
-                                      )),
-      executables = [
-                     Executable(
+                     build_exe = {"includes": includes,
+                                  "excludes": excludes,
+                                  "include_files": include_files,
+                                  "optimize": 2,
+                                  "create_shared_zip": True
+                                  }),
+      executables = [Executable(
                                 script = "src/main.py",
                                 base = base,
                                 targetName = target_name,
+                                icon = "src/icons/brand.ico",
                                 compress = True,
                                 )]
       )
 
+archive_name = "dist/{0}-{1}-{2}" \
+    .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, sys.platform)
+if os.path.isfile(archive_name):
+    os.remove(archive_name)
+python_version = platform.python_version_tuple()
+root_dir = os.path.abspath("build/exe.{0}-{1}.{2}" \
+    .format(sys.platform, python_version[0], python_version[1]))
+print("create " + archive_format + " " + archive_name)
+shutil.make_archive(archive_name, archive_format, root_dir)
+
+print("END")
 
 
