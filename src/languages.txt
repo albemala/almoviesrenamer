@@ -1,0 +1,67 @@
+Swahili|swa|Tanzania
+Swedish|swe|Sweden
+Lithuanian|lit|Lithuania
+Estonian|est|Estonia
+Turkish|tur|Azerbaijan;Turkey
+Romanian|ron|Romania
+Samoan|smo|Samoa
+Slovenian|slv|Slovenia
+Tok Pisin|tpi|Papua New Guinea
+Palauan|pau|Palau
+Macedonian|mkd|Macedonia
+Icelandic|isl|Iceland
+Hindi|hin|India
+Dutch|nld|Netherlands;Belgium;Suriname
+Norwegian|nor|Norway
+Marshallese|mah|Marshall Islands
+Korean|kor|Korea, North;Korea, South
+Danish|dan|Denmark
+Bulgarian|bul|Bulgaria
+Lao|lao|Laos
+Somali|som|Somalia
+Filipino|fil|Philippines
+Ukrainian|ukr|Ukraine
+Bosnian|bos|Bosnia and Herzegovina
+Georgian|kat|Georgia
+Vietnamese|vie|Vietnam
+Malay|msa|Brunei
+French|fra|Cameroon;Burkina Faso;Dominica;Gabon;Monaco;France;Benin;Togo;Central African Republic;Mali;Senegal;Niger;Congo, Republic of;Guinea;Congo, Democratic Republic of the;Luxembourg;Haiti;Chad;Burundi;Madagascar;Cote d'Ivoire;Comoros
+Tetum|tet|East Timor
+Catalan|cat|Andorra
+Armenian|hye|Armenia
+Russian|rus|Russia
+Tajik|tgk|Tajikistan
+Thai|tha|Thailand
+Croatian|hrv|Croatia
+Turkmen|tuk|Turkmenistan
+Nepali|nep|Nepal
+Finnish|fin|Finland
+Uzbek|uzb|Uzbekistan
+Albanian|sqi|Albania;Kosovo
+Hebrew|heb|Israel
+Khmer|khm|Cambodia
+Greek|ell|Cyprus;Greece
+Burmese|mya|Myanmar
+Latvian|lav|Latvia
+English|eng|Canada;Swaziland;Ghana;St. Lucia;Liberia;Zambia;Bahamas;New Zealand;Jamaica;Lesotho;Kenya;Fiji;Solomon Islands;Ireland;United States;Australia;South Africa;St. Vincent and the Grenadines;Uganda;Nigeria;USA;St. Kitts and Nevis;Kiribati;Belize;Sierra Leone;Gambia;Micronesia;Grenada;Antigua and Barbuda;Barbados;Malta;Zimbabwe;UK;Trinidad and Tobago;South Sudan;Guyana;Botswana;United Kingdom;Namibia
+Serbian|srp|Serbia
+Afar|aar|Eritrea
+Italian|ita|San Marino;Vatican City;Italy
+Portuguese|por|Cape Verde;Angola;Portugal;Mozambique;Brazil;Guinea-Bissau;Sao Tome and Principe
+Chinese|zho|China;Taiwan
+German|deu|Germany;Liechtenstein;West Germany;Switzerland;East Germany;Austria
+Bislama|bis|Vanuatu
+Japanese|jpn|Japan
+Kinyarwanda|kin|Rwanda
+Amharic|amh|Ethiopia
+Czech|ces|Czech Republic;Czechoslovakia
+Persian|fas|Afghanistan;Iran
+Slovak|slk|Slovakia
+Mongolian|mon|Mongolia
+Dzongkha|dzo|Bhutan
+Spanish|spa|Argentina;Bolivia;Guatemala;Paraguay;Uruguay;Peru;Cuba;Dominican Republic;Panama;Costa Rica;Ecuador;El Salvador;Chile;Equatorial Guinea;Spain;Colombia;Nicaragua;Venezuela;Honduras;Mexico
+Urdu|urd|Pakistan
+Polish|pol|Poland
+Arabic|ara|Saudi Arabia;Kuwait;Oman;Yemen;United Arab Emirates;Bahrain;Libya;Palestinian State (proposed);Qatar;Algeria;Morocco;Lebanon;Tunisia;Djibouti;Sudan;Jordan;Mauritania;Iraq;Syria;Egypt
+Sinhala|sin|Sri Lanka
+Hungarian|hun|Hungary

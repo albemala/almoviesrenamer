@@ -1,0 +1,61 @@
+﻿--------------------------------------------------------------------------------
+nuovo numero versione
+commentare
+codificare/gui/icone/labels
+tooltips
+aggiornare "about" (anche librerie)
+traduzionare
+buildare translations
+changeloggare
+readme
+testare
+aggiornare setup.py
+buildare (win + linux)
+aggiornare versione su web service
+--------------------------------------------------------------------------------
+
+
+
+suoni per conferma operazioni?
+
+probabilmente la lingua guessed va raffinata usando quella di sistema,
+o comunque impostare quella di sistema come quella di default se non trovata nel titolo
+del file
+
+invece di sostituire i caratteri illegali dei sistemi operativi con underscore,
+usare caratteri piu utili, ad es. & -> and
+
+guessing:
+	
+	http://stackoverflow.com/questions/7573952/comparing-strings-in-python-to-find-errors
+	
+	
+
+http://api.themoviedb.org/2.1/wrappers
+
+The policy we use with PyQt is as follows:
+• Use type str only when working with strictly 7-bit ASCII strings or with
+raw 8-bit data, that is, with raw bytes.
+• For strings that will be used only by PyQt functions, for example, strings
+that are returned by one PyQt function only to be passed at some point to
+another PyQt function—do not convert such strings. Simply keep them as
+QStrings.
+• In all other cases, use unicode strings, converting QStrings to unicode as
+soon as possible. In other words, as soon as a QString has been returned
+from a Qt function, always immediately convert it to type unicode.
+This policy means that we avoid making incorrect assumptions about 8-bit
+string encodings (because we use Unicode). It also ensures that the strings we
+pass to Python functions have the methods that Python expects: QStrings have
+different methods from str and unicode, so passing them to Python functions
+can lead to errors. PyQt uses QString rather than unicode because when PyQt
+was first created, Python’s Unicode support was nowhere near as good as it
+is today.
+
+le liste sono mutabili, quindi se ne faccio delle copie e cambio le copie,
+anche l'originale cambia. per caso modifico copie di liste da qualche parte?
+
+usare i set quando voglio liste con item non duplicati
+
+
+
+

@@ -1,0 +1,14 @@
+
+problema sempre con la generazione del nuovo nome, perchè vengono aggiunti anche gli attributi vuoti.
+poi c'è il problema delle parentesi vuote, che può capitare se gli attributi dentro parentesi sono tutti 
+vuoti.
+
+ci sono ancora dei problemi con il recupero delle lingue, perché vengono identificate delle lingue che 
+sono invece parole che fanno parte del titolo 
+
+quando vengono identificate più lingue, bisogna decidere quale tenere (e forse dare la possibilità 
+all'utente di scegliere successivamente). si potrebbero poi attribuire dei punteggi, ad esempio
+in base al contesto (se dentro parentesi puntoeggio più alto) e in base alle parole che ci
+sono prima/dopo (es: sub ITA)
+
+funziona su x86?

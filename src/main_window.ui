@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>503</width>
+    <height>712</height>
+   </rect>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons/brand.png</normaloff>icons/brand.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QWidget" name="panel_loading" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_loading">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="progress_loading">
+         <property name="maximum">
+          <number>0</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="table_movies">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Original name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>New name</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item>
+     <widget class="QStackedWidget" name="stack_movie">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="page_2">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="1" colspan="3">
+           <widget class="QLabel" name="label_title">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Un film molto figo</string>
+            </property>
+            <property name="textInteractionFlags">
+             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="font">
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="text">
+             <string>Title:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="font">
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="text">
+             <string>Original title:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="3">
+           <widget class="QLabel" name="label_original_title">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>A really cool movie</string>
+            </property>
+            <property name="textInteractionFlags">
+             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_13">
+            <property name="font">
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="text">
+             <string>Year:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="label_year">
+            <property name="text">
+             <string>2012</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_14">
+            <property name="font">
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="text">
+             <string>Director(s):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLabel" name="label_director">
+            <property name="text">
+             <string>A. Director</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="font">
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="text">
+             <string>Duration:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLabel" name="label_15">
+            <property name="font">
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="text">
+             <string>Language:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_duration">
+            <property name="text">
+             <string>100'</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QLabel" name="label_language">
+            <property name="text">
+             <string>Italian</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Not the right movie?</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="button_change_movie">
+            <property name="text">
+             <string>Change it...</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_alternative_movies" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <property name="bottomMargin">
+            <number>9</number>
+           </property>
+           <item>
+            <widget class="QTableWidget" name="table_others_info">
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+             </property>
+             <property name="cornerButtonEnabled">
+              <bool>false</bool>
+             </property>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Title</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Year</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Language</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>Search for this title (add year for better results):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QStackedWidget" name="stack_search_title">
+             <property name="currentIndex">
+              <number>0</number>
+             </property>
+             <widget class="QWidget" name="page">
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <property name="margin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLineEdit" name="text_search_title">
+                 <property name="font">
+                  <font>
+                   <family>DejaVu Sans Mono</family>
+                  </font>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="button_search_title">
+                 <property name="text">
+                  <string>Search...</string>
+                 </property>
+                 <property name="icon">
+                  <iconset>
+                   <normaloff>icons/magnifier.png</normaloff>icons/magnifier.png</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="page_3">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <property name="margin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="label_searching">
+                 <property name="text">
+                  <string>Searching...</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QProgressBar" name="progress_searching">
+                 <property name="maximum">
+                  <number>0</number>
+                 </property>
+                 <property name="textVisible">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="page_5">
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <property name="margin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="label_9">
+                 <property name="font">
+                  <font>
+                   <italic>true</italic>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Sorry, I cannot find that movie...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_4">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-size:11pt; color:#005000;&quot;&gt;This movie has been correctly renamed, and can be removed from list.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_6">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>There has been the following error during renaming:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_error">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-size:11pt; font-weight:400; color:#ff0000;&quot;&gt;ERROR!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>503</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMovies">
+    <property name="title">
+     <string>Movies</string>
+    </property>
+    <addaction name="action_add_movies"/>
+    <addaction name="action_add_all_movies_in_folder"/>
+    <addaction name="action_add_all_movies_in_folder_subfolders"/>
+    <addaction name="separator"/>
+    <addaction name="action_remove_selected_movies"/>
+    <addaction name="action_remove_all_movies"/>
+    <addaction name="separator"/>
+    <addaction name="action_change_renaming_rule"/>
+    <addaction name="separator"/>
+    <addaction name="action_rename_movies"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Program</string>
+    </property>
+    <addaction name="action_preferences"/>
+    <addaction name="action_about"/>
+   </widget>
+   <addaction name="menuMovies"/>
+   <addaction name="menuSettings"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_add_movies"/>
+   <addaction name="action_remove_selected_movies"/>
+   <addaction name="separator"/>
+   <addaction name="action_change_renaming_rule"/>
+   <addaction name="separator"/>
+   <addaction name="action_rename_movies"/>
+  </widget>
+  <action name="action_add_movies">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/movie_add.png</normaloff>icons/movie_add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add movies...</string>
+   </property>
+  </action>
+  <action name="action_add_all_movies_in_folder">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/movies_from_folder.png</normaloff>icons/movies_from_folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add all movies in folder...</string>
+   </property>
+  </action>
+  <action name="action_add_all_movies_in_folder_subfolders">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/movies_from_folder.png</normaloff>icons/movies_from_folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add all movies in folder (including subfolders)...</string>
+   </property>
+  </action>
+  <action name="action_remove_selected_movies">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/movie_remove.png</normaloff>icons/movie_remove.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove selected movies from list</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove selected movies from list</string>
+   </property>
+  </action>
+  <action name="action_remove_all_movies">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/movie_erase.png</normaloff>icons/movie_erase.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove all movies from list</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove all movies from list</string>
+   </property>
+  </action>
+  <action name="action_change_renaming_rule">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/tag.png</normaloff>icons/tag.png</iconset>
+   </property>
+   <property name="text">
+    <string>Change renaming rule</string>
+   </property>
+   <property name="toolTip">
+    <string>Change renaming rule</string>
+   </property>
+  </action>
+  <action name="action_rename_movies">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/pencil.png</normaloff>icons/pencil.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rename movies</string>
+   </property>
+  </action>
+  <action name="action_preferences">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/wrench-screwdriver.png</normaloff>icons/wrench-screwdriver.png</iconset>
+   </property>
+   <property name="text">
+    <string>Preferences...</string>
+   </property>
+   <property name="toolTip">
+    <string>Change preferences</string>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/information.png</normaloff>icons/information.png</iconset>
+   </property>
+   <property name="text">
+    <string>About...</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
