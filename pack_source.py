@@ -3,7 +3,6 @@
 __author__ = "Alberto Malagoli"
 
 from PyQt4.QtCore import QSettings
-from cx_Freeze import setup, Executable
 from glob import glob
 import os.path
 import os
@@ -33,7 +32,6 @@ print("create tmp folder")
 os.mkdir("tmp")
 print("copying source files on it...")
 shutil.copytree("src", "tmp/src")
-shutil.copytree("libs", "tmp/libs")
 for f in glob("*.py"):
     shutil.copy2(f, "tmp")
 for f in glob("*.txt"):
@@ -42,15 +40,14 @@ print("files copied")
 
 archive_name = "dist/{0}-{1}-src" \
     .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION)
-if os.path.isfile(archive_name):
+archive_file_name = "{0}.tar.gz".format(archive_name)
+if os.path.isfile(archive_file_name):
     print("remove previously created archive")
-    os.remove(archive_name)
+    os.remove(archive_file_name)
 root_dir = "tmp" #os.path.abspath("tmp")
 print("create gztar " + archive_name)
-#XXX c'è un problema qui, dentro l'archivio viene ricreato il path assoluto della cartella "tmp"
 shutil.make_archive(archive_name, "gztar", root_dir = root_dir)
 print("remove tmp folder")
-shutil.rmtree("tmp")
 
 print("END")
 

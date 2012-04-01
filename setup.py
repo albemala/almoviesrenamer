@@ -93,12 +93,12 @@ setup(
       )
 
 archive_name = "dist/{0}-{1}-{2}" \
-    .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, sys.platform)
-if os.path.isfile(archive_name):
-    os.remove(archive_name)
-python_version = platform.python_version_tuple()
-root_dir = os.path.abspath("build/exe.{0}-{1}.{2}" \
-    .format(sys.platform, python_version[0], python_version[1]))
+    .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, platform.system())
+archive_file_name = glob("{0}*".format(archive_name))[0]
+if os.path.isfile(archive_file_name):
+    print("remove previously created archive")
+    os.remove(archive_file_name)
+root_dir = glob("build/exe*")[0]
 print("create " + archive_format + " " + archive_name)
 shutil.make_archive(archive_name, archive_format, root_dir)
 
