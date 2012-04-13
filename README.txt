@@ -29,4 +29,3 @@ Programming notes:
 	    python-dev [under Linux]
 	    libssl-dev [under Linux]
 	    
-		setup.py bdist_dumb

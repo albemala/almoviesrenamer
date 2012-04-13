@@ -6,7 +6,7 @@ from PyQt4.QtCore import QSettings
 
 # program name and version, used in excepthook
 PROGRAM_NAME = "ALmoviesRenamer"
-PROGRAM_VERSION = "3.1"
+PROGRAM_VERSION = "3.2"
 
 def load_preferences():
     """
