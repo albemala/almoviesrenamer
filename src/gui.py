@@ -2,9 +2,9 @@
 
 __author__ = "Alberto Malagoli"
 
-from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal
+from PyQt4.QtCore import PYQT_VERSION_STR, QSettings, Qt, pyqtSignal, QUrl
 from PyQt4.QtGui import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, \
-    QBrush, QPixmap, QDialog, QApplication
+    QBrush, QPixmap, QDialog, QApplication, QDesktopServices, QClipboard
 from PyQt4.uic import loadUi
 from movie import Movie
 import imdb
@@ -114,6 +114,8 @@ class GUI(QMainWindow):
         # TABLE movies
         self.ui.table_movies.itemSelectionChanged.connect(self.movies_selection_changed)
         self.ui.table_movies.itemDoubleClicked.connect(self.movie_double_clicked)
+        self.ui.table_movies.addAction(self.action_copy_title)
+        self.ui.action_copy_title.triggered.connect(self.copy_title)
         # STACK movie
         self.ui.button_change_movie.toggled.connect(self.change_movie)
         self.ui.table_others_info.itemSelectionChanged.connect(self.alternative_movies_selection_changed)
@@ -487,6 +489,7 @@ class GUI(QMainWindow):
         selected_items = self.ui.table_movies.selectedItems()
         # no movies selected
         if len(selected_items) == 0:
+            self.current_movie = None
             # hide movie panel
             self.ui.stack_movie.setVisible(False)
         else:
@@ -518,19 +521,25 @@ class GUI(QMainWindow):
 
     def movie_double_clicked(self, item):
         """
-        when a movie item is double clicked in table, it opens operative system 
-        file manager in file location on disk
+        when a movie item is double clicked in table, 
+        it opens operative system file manager 
+        with file location on disk
         """
 
         movie = self.movies[item.row()]
         path = movie.abs_original_file_path()
-        file_manager = ''
-        if platform.system() == 'Windows':
-            file_manager = 'explorer'
-        elif platform.system() == 'Linux':
-            file_manager = '/usr/bin/open'
-        if file_manager != '':
-            subprocess.call([file_manager, path])
+        QDesktopServices.openUrl(QUrl('file:///' + path))
+
+    def copy_title(self):
+        """
+        copy selected movie title in movie table
+        into clipboard
+        """
+
+        movie = self.current_movie
+        if movie != None:
+            clipboard = QApplication.clipboard()
+            clipboard.setText(movie.original_file_name())
 
     def populate_movie_panel(self):
         movie = self.current_movie
