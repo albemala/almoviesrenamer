@@ -3,6 +3,7 @@
 
 	CHG: new algorithm for generating new file name
 	ADD: double clicking on a movie opens file manager in containing folder
+	ADD: right click on a movie to open containing folder or copy file name
 	
 3.1
 
