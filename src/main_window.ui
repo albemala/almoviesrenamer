@@ -53,6 +53,9 @@
         <verstretch>1</verstretch>
        </sizepolicy>
       </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
@@ -609,6 +612,19 @@
    </property>
    <property name="text">
     <string>About...</string>
+   </property>
+  </action>
+  <action name="action_copy_title">
+   <property name="text">
+    <string>Copy title</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="action_open_containing_folder">
+   <property name="text">
+    <string>Open containing folder...</string>
    </property>
   </action>
  </widget>

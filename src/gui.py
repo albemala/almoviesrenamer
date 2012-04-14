@@ -115,7 +115,9 @@ class GUI(QMainWindow):
         self.ui.table_movies.itemSelectionChanged.connect(self.movies_selection_changed)
         self.ui.table_movies.itemDoubleClicked.connect(self.movie_double_clicked)
         self.ui.table_movies.addAction(self.action_copy_title)
+        self.ui.table_movies.addAction(self.action_open_containing_folder)
         self.ui.action_copy_title.triggered.connect(self.copy_title)
+        self.ui.action_open_containing_folder.triggered.connect(self.open_containing_folder)
         # STACK movie
         self.ui.button_change_movie.toggled.connect(self.change_movie)
         self.ui.table_others_info.itemSelectionChanged.connect(self.alternative_movies_selection_changed)
@@ -528,6 +530,18 @@ class GUI(QMainWindow):
 
         movie = self.movies[item.row()]
         path = movie.abs_original_file_path()
+        self.open_path(path)
+
+    def open_containing_folder(self):
+        movie = self.current_movie
+        if movie != None:
+            path = movie.abs_original_file_path()
+            self.open_path(path)
+
+    def open_path(self, path):
+        """
+        opens a path using the operative system file manager/explorer
+        """
         QDesktopServices.openUrl(QUrl('file:///' + path))
 
     def copy_title(self):
