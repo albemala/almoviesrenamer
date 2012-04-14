@@ -250,6 +250,13 @@ class Movie:
 
         return os.path.join(self.path_, self.new_name_ + self.extension_)
 
+    def abs_original_file_path(self):
+        """
+        return the complete original file name, from the root
+        """
+
+        return self.path_
+
     def title(self):
         """
         return the movie title

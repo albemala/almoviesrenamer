@@ -1,8 +1,4 @@
 
-problema sempre con la generazione del nuovo nome, perchè vengono aggiunti anche gli attributi vuoti.
-poi c'è il problema delle parentesi vuote, che può capitare se gli attributi dentro parentesi sono tutti 
-vuoti.
-
 ci sono ancora dei problemi con il recupero delle lingue, perché vengono identificate delle lingue che 
 sono invece parole che fanno parte del titolo 
 

@@ -7,7 +7,6 @@ use video duration to get the best runtime
 
 movie part representation preference (Part, CD, ...)
 
-double click on a movie to open the containing folder
 add a right-mouse-click menu on movie table items to open containing folder, or copy title name
 
 after a title search failed, let search again for another title
