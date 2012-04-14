@@ -62,6 +62,6 @@ Dzongkha|dzo|Bhutan
 Spanish|spa|Argentina;Bolivia;Guatemala;Paraguay;Uruguay;Peru;Cuba;Dominican Republic;Panama;Costa Rica;Ecuador;El Salvador;Chile;Equatorial Guinea;Spain;Colombia;Nicaragua;Venezuela;Honduras;Mexico
 Urdu|urd|Pakistan
 Polish|pol|Poland
-Arabic|ara|Saudi Arabia;Kuwait;Oman;Yemen;United Arab Emirates;Bahrain;Libya;Palestinian State (proposed);Qatar;Algeria;Morocco;Lebanon;Tunisia;Djibouti;Sudan;Jordan;Mauritania;Iraq;Syria;Egypt
+Arabic|ara|Saudi Arabia;Kuwait;Oman;Yemen;United Arab Emirates;Bahrain;Libya;Palestinian State;Qatar;Algeria;Morocco;Lebanon;Tunisia;Djibouti;Sudan;Jordan;Mauritania;Iraq;Syria;Egypt
 Sinhala|sin|Sri Lanka
 Hungarian|hun|Hungary

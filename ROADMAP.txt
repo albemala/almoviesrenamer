@@ -7,12 +7,7 @@ use video duration to get the best runtime
 
 movie part representation preference (Part, CD, ...)
 
-add a right-mouse-click menu on movie table items to open containing folder, or copy title name
-
 after a title search failed, let search again for another title
-
-remove languages.txt, and code it directly into utils module
-
 instead of showing "cannot find that movie" after a failed manual title search, use passed title 
 as new info and return to manual search title.
 
