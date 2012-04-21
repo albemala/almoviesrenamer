@@ -12,3 +12,6 @@ instead of showing "cannot find that movie" after a failed manual title search, 
 as new info and return to manual search title.
 
 sort movie info by title, year and language (need to implement also alternative_info sorting on movie)
+
+better organization of attributes
+in renaming rule dialog

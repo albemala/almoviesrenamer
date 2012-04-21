@@ -25,26 +25,26 @@ settings.setValue("words_separator", 0)
 settings.sync()
 
 if os.path.isdir('build'):
+    print("removing build path...")
     shutil.rmtree('build')
 if os.path.isdir('src/log'):
+    print("removing log path...")
     shutil.rmtree('src/log')
 
 includes = [
-            'enzyme'
+            'enzyme',
             ]
 
 excludes = [
-            '_gtkagg',
-            '_tkagg',
-            'bsddb',
-            'curses',
             'email',
-            'pywin.debugger',
-            'pywin.debugger.dbgcon',
-            'pywin.dialogs',
-            'tcl',
-            'Tkconstants',
-            'Tkinter',
+            'unittest',
+            '_hashlib',
+            '_ssl',
+            '_sqlite3',
+            'sqlite3',
+            'sqlobject',
+            'bz2',
+            'select',
             ]
 
 include_files = [
@@ -59,7 +59,12 @@ include_files = [
                  ("src/languages.txt", "languages.txt"),
                  "CHANGELOG.txt",
                  "gpl-3.0.txt",
-                 "README.txt"
+                 "README.txt",
+                 ]
+
+exclude_files = [
+                 "QtNetwork4.dll",
+                 "QtWebKit4.dll",
                  ]
 
 base = None
@@ -80,7 +85,9 @@ setup(
                      build_exe = {"includes": includes,
                                   "excludes": excludes,
                                   "include_files": include_files,
+                                  "bin_excludes": exclude_files,
                                   "optimize": 2,
+                                  "compressed": True, # Compress library.zip
                                   "create_shared_zip": True
                                   }),
       executables = [Executable(
