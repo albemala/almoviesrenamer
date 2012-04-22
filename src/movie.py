@@ -210,8 +210,11 @@ class Movie:
             self.video_duration_ = None
             try:
                 video_info = enzyme.parse(self.abs_original_file_name())
-            except ValueError:
-                pass
+            except Exception:
+                import traceback
+                import exceptionhandler
+                exceptionhandler.save_exception()
+                traceback.print_exc()
             else:
                 if video_info.length != None:
                     self.video_duration_ = int(video_info.length / 60)
