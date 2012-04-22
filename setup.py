@@ -45,6 +45,20 @@ excludes = [
             'sqlobject',
             'bz2',
             'select',
+            '_codecs_cn',
+            '_codecs_hk',
+            '_codecs_iso2022',
+            '_codecs_jp',
+            '_codecs_kr',
+            '_codecs_tw',
+            '_ctypes',
+            '_heapq',
+            'sqlalchemy.cprocessors',
+            'sqlalchemy.cresultproxy',
+            'PyQt4._qt',
+            '_json',
+            '_multibytecodec',
+            'termios'
             ]
 
 include_files = [
@@ -65,6 +79,20 @@ include_files = [
 exclude_files = [
                  "QtNetwork4.dll",
                  "QtWebKit4.dll",
+                 "libphonon.so.4",
+                 "libQtDBus.so.4",
+                 "libQtDeclarative.so.4",
+                 "libQtMultimedia.so.4",
+                 "libQtScript.so.4",
+                 "libQtScriptTools.so.4",
+                 "libQtSql.so.4",
+                 "libQtSvg.so.4",
+                 "libQtTest.so.4",
+                 "libQtWebKit.so.4",
+                 "libQtNetwork.so.4",
+                 "libQtXml.so.4",
+                 "libQtXml.so.4",
+                 "libQtXmlPatterns.so.4",
                  ]
 
 base = None
@@ -98,6 +126,8 @@ setup(
                                 compress = True,
                                 )]
       )
+
+shutil.rmtree(glob("build/exe*")[0] + '/PyQt4.uic.widget-plugins')
 
 archive_name = "dist/{0}-{1}-{2}" \
     .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, platform.system())
