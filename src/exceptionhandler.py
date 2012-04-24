@@ -45,6 +45,8 @@ def save_exception():
         sip_info = ''
     # imdbpy version
     imdbpy_info = str(imdb.VERSION)
+    # enzyme version
+    enzyme_info = "0.2"
     # error data
     error_info = traceback.format_exc()
     # separator 
@@ -63,6 +65,7 @@ def save_exception():
           "PyQt: " + pyqt_info,
           "sip: " + sip_info,
           "IMDbPY: " + imdbpy_info,
+          "enzyme: " + enzyme_info,
           separator,
           error_info,
           '\n'

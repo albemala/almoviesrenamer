@@ -434,48 +434,48 @@ class GUI(QMainWindow):
 
         # message shown on about dialog
         msg = QApplication.translate('GUI', """
-        <p>
-            <b>{0}</b>
-        </p>
-        <p>
-            Version: {1}<br />
-            License: GNU General Public License version 3 (GPLv3)
-        </p>
-        <p>
-            Programmed by: Alberto Malagoli<br />
-            Email: <a href="mailto:albemala@gmail.com">albemala@gmail.com</a>
-        </p>
-        <p>
-            Libraries:
-            <ul>
-                <li>
-                    <a href="http://www.python.org/">Python</a>: {2}
-                </li>
-                <li>
-                    <a href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a>: {3}
-                </li>
-                <li>
-                    <a href="http://imdbpy.sourceforge.net/">IMDbPY</a>: {4}
-                </li>
-                <li>
-                    <a href="https://github.com/Diaoul/enzyme">enzyme</a>: 0.1
-                </li>
-                <li>
-                    <a href="http://cx-freeze.sourceforge.net/">cx-Freeze</a>: 4.2.3
-                </li>
-            </ul>
-        </p>
-        <p>
-            Thanks to:
-            <ul>                
-                <li>
-                    <a href="http://file-folder-ren.sourceforge.net/">M\xe9tamorphose</a> for some stolen code
-                </li>
-                <li>
-                <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a> for Fugue Icons
-                </li>
-            </ul>
-        </p>
+<p>
+    <b>{0}</b>
+</p>
+<p>
+    Version: {1}<br />
+    License: GNU General Public License version 3 (GPLv3)
+</p>
+<p>
+    Programmed by: Alberto Malagoli<br />
+    Email: <a href="mailto:albemala@gmail.com">albemala@gmail.com</a>
+</p>
+<p>
+    Libraries:
+    <ul>
+        <li>
+            <a href="http://www.python.org/">Python</a>: {2}
+        </li>
+        <li>
+            <a href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a>: {3}
+        </li>
+        <li>
+            <a href="http://imdbpy.sourceforge.net/">IMDbPY</a>: {4}
+        </li>
+        <li>
+            <a href="https://github.com/Diaoul/enzyme">enzyme</a>: 0.2
+        </li>
+        <li>
+            <a href="http://cx-freeze.sourceforge.net/">cx-Freeze</a>: 4.2.3
+        </li>
+    </ul>
+</p>
+<p>
+    Thanks to:
+    <ul>                
+        <li>
+            <a href="http://file-folder-ren.sourceforge.net/">M\xe9tamorphose</a> for some stolen code
+        </li>
+        <li>
+        <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a> for Fugue Icons
+        </li>
+    </ul>
+</p>
         """).format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, platform.python_version(), PYQT_VERSION_STR, imdb.VERSION)
         # show the about dialog
         QMessageBox.about(self, QApplication.translate('GUI', "About {0}").format(utils.PROGRAM_NAME), msg)
