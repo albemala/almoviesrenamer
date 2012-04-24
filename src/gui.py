@@ -92,8 +92,8 @@ class GUI(QMainWindow):
         self.ui.panel_loading.setVisible(False)
         self.ui.stack_movie.setVisible(False)
         self.ui.table_movies.resizeColumnToContents(0)
-        # adjust wondow size to content
-        self.adjustSize()
+        # set window as maximized
+        self.ui.setWindowState(Qt.WindowMaximized)
 
         ## signals connection
         # MENU Movies
@@ -698,8 +698,6 @@ class PreferencesDialog(QDialog):
 
         # load UI
         self.ui = loadUi("preferences_dialog.ui", self)
-        # adjust window size to content
-        self.adjustSize()
         # load settings
         self.load_settings()
         ## slots connection
@@ -772,8 +770,6 @@ class StatsAgreementDialog(QDialog):
 
         # load UI
         self.ui = loadUi("stats_agreement_dialog.ui", self)
-        # adjust wondow size to content
-        self.adjustSize()
         ## slots connection
         self.ui.radio_agree.clicked.connect(self.stats_agreement_agree)
         self.ui.radio_disagree.clicked.connect(self.stats_agreement_disagree)
