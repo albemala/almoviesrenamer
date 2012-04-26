@@ -5,8 +5,6 @@ in manual search, add ability to specify the language
 
 use video duration to get the best runtime
 
-movie part representation preference (Part, CD, ...)
-
 after a title search failed, let search again for another title
 instead of showing "cannot find that movie" after a failed manual title search, use passed title 
 as new info and return to manual search title.

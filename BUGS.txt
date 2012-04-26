@@ -6,3 +6,5 @@ quando vengono identificate più lingue, bisogna decidere quale tenere (e forse d
 all'utente di scegliere successivamente). si potrebbero poi attribuire dei punteggi, ad esempio
 in base al contesto (se dentro parentesi puntoeggio più alto) e in base alle parole che ci
 sono prima/dopo (es: sub ITA)
+
+c'è un problema col riconoscimento delle lingue di iimdb sotto linux
