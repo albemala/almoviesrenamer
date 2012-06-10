@@ -1,5 +1,6 @@
 
-ci sono ancora dei problemi con il recupero delle lingue, perché vengono identificate delle lingue che 
+ci sono ancora dei problemi con il recupero delle lingue, 
+perché vengono identificate delle lingue che 
 sono invece parole che fanno parte del titolo 
 
 quando vengono identificate più lingue, bisogna decidere quale tenere (e forse dare la possibilità 
@@ -8,3 +9,12 @@ in base al contesto (se dentro parentesi puntoeggio più alto) e in base alle par
 sono prima/dopo (es: sub ITA)
 
 c'è un problema col riconoscimento delle lingue di iimdb sotto linux
+
+Preferences > Renaming rule > Wods separator, change it into "attributes separator"
+
+ci sono ancora problemi nel ricnonoscimento dei titoli
+sembra inoltre che venga ignorato l'anno del film
+
+non sempre viene selezionato il migliore aka,
+ed è strano perché dovrebbe prendere in considerazione 
+anche la lingua guessed
