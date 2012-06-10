@@ -4,6 +4,9 @@
 	CHG: new algorithm for generating new file name
 	ADD: double clicking on a movie opens file manager in containing folder
 	ADD: right click on a movie to open containing folder or copy file name
+	CHG: now www.imdbapi.com is used to retrieve correct movie from guessed 
+		 title. this speeds up movies info retrieving time, and information
+		 correctness
 	
 3.1
 

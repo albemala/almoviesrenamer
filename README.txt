@@ -8,7 +8,7 @@ Libraries:
     PyQt 4.9 - http://www.riverbankcomputing.co.uk/software/pyqt/download
     lxml 2.3 - http://pypi.python.org/pypi/lxml/2.3.3
     IMDbPY 4.8 - http://imdbpy.sourceforge.net/
-    enzyme 0.1 - https://github.com/Diaoul/enzyme
+    enzyme 0.2 - https://github.com/Diaoul/enzyme
     cx_Freeze 4.2 - http://cx-freeze.sourceforge.net/
     
 Docs:
