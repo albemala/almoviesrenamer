@@ -31,3 +31,11 @@ dovrebbe essere invece riconosciuto come francese,
 data l'indicazione della lingua French
 (oppure mi sbaglio, e non viene fatta una ricerca
 per nome della lingua?)
+
+il film Attack of the Killer Tomatoes! (1978, 83m, ENG)
+viene riconosciuto come francese.
+potrebbe essere colpa dello stringdiff?
+
+The Terminator (1984) viene riconosciuto come spagnolo
+potrebbe essere colpa del The, 
+riconosciuto come lingua?
