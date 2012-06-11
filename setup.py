@@ -22,6 +22,8 @@ settings.setValue("stats_agreement", 1)
 settings.setValue("duration_representation", 0)
 settings.setValue("language_representation", 1)
 settings.setValue("words_separator", 0)
+settings.setValue("last_visited_directory", "")
+settings.setValue("renaming_rule", "title.(.year.duration.language.)")
 settings.sync()
 
 if os.path.isdir('build'):
