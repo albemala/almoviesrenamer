@@ -18,3 +18,16 @@ sembra inoltre che venga ignorato l'anno del film
 non sempre viene selezionato il migliore aka,
 ed è strano perché dovrebbe prendere in considerazione 
 anche la lingua guessed
+
+il film Toy Story 2 (1999, 92m, FRA), nella cartella film francesi, 
+viene riconosciuto come inglese...
+non sembra essere colpa dell'indicazione della lingua (FRA),
+perché in altri film viene riconosciuta.
+potrebbe essere colpa dello stringdiff?
+
+il film Ratatouille French, nella cartella film francesi, 
+viene riconosciuto come inglese...
+dovrebbe essere invece riconosciuto come francese, 
+data l'indicazione della lingua French
+(oppure mi sbaglio, e non viene fatta una ricerca
+per nome della lingua?)

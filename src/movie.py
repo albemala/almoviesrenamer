@@ -418,48 +418,63 @@ class Movie:
 
         response = json.loads(f.read())
 
-        # create imdb search engine
-        imdb_archive = imdb.IMDb()
-        # search for title into IMDB, and returns some candidate movies
-        movie = imdb_archive.get_movie(response['imdbID'][2:])
+        if 'imdbID' in response:
+            # create imdb search engine
+            imdb_archive = imdb.IMDb()
+            # search for title into IMDB, and returns some candidate movies
+            movie = imdb_archive.get_movie(response['imdbID'][2:])
+        else:
+            movie = None
 
         print("")
 
         self.others_info_ = []
         self.info_ = None
 
-        # construct the others information list
+        ## construct the others information list
+        # save title and original title
+        if movie != None:
+            # take them from movie info
+            title = movie['title']
+            original_title = movie['title']
+        else:
+            # take them from guessed info
+            title = self.guessed_info_[self.TITLE]
+            original_title = self.guessed_info_[self.TITLE]
         # save the year
         year = ''
-        movie_year = movie.get('year')
-        if movie_year != None:
-            year = unicode(movie_year)
+        if movie != None:
+            movie_year = movie.get('year')
+            if movie_year != None:
+                year = unicode(movie_year)
         elif self.YEAR in self.guessed_info_:
             year = unicode(self.guessed_info_[self.YEAR])
         # save the director(s)
         director = ''
-        movie_directors = movie.get('director')
-        if movie_directors != None:
-            directors = []
-            for director in movie_directors:
-                directors.append(director['name'])
-            directors = ', '.join(directors)
-            director = directors
+        if movie != None:
+            movie_directors = movie.get('director')
+            if movie_directors != None:
+                directors = []
+                for director in movie_directors:
+                    directors.append(director['name'])
+                directors = ', '.join(directors)
+                director = directors
         # save the duration
         # minutes only representation
         duration1 = ''
         # hours-minutes representation
         duration2 = ''
         duration = None
-        runtimes = movie.get('runtimes')
-        if runtimes != None:
-            #XXX by now, I only keep the first runtime,
-            # but it would be interesting to consider also the associated
-            # country (e.g.: [u'92', u'South Korea:97::(uncut version)', u'Japan:98'])
-            runtime = runtimes[0]
-            match = re.search('\d+', runtime)
-            if match:
-                duration = int(match.group(0))
+        if movie != None:
+            runtimes = movie.get('runtimes')
+            if runtimes != None:
+                #XXX by now, I only keep the first runtime,
+                # but it would be interesting to consider also the associated
+                # country (e.g.: [u'92', u'South Korea:97::(uncut version)', u'Japan:98'])
+                runtime = runtimes[0]
+                match = re.search('\d+', runtime)
+                if match:
+                    duration = int(match.group(0))
         elif self.video_duration_ != None:
             duration = self.video_duration_
         if duration != None:
@@ -471,30 +486,29 @@ class Movie:
                 duration2 = duration2 + str(minutes) + 'm'
         duration = [duration1, duration2]
         # save language
-        language = None
-        if self.guessed_info_ != None \
-        and self.LANGUAGE in self.guessed_info_:
-            language = self.guessed_info_[self.LANGUAGE]
-        else:
+        language = ['', '']
+        if movie != None:
             language = movie.guessLanguage()
             if language != None:
                 language = utils.name_to_language(language)
-        if language == None:
-            language = ['', '']
-#            print(language)
-        # calculate string distance from current title and guessed title
-        title1 = movie['title'].lower()
-        title2 = self.guessed_info_[self.TITLE].lower()
-        score = difflib.SequenceMatcher(None, title1, title2).ratio()
-        #XXX        
-#            if self.guessed_info_ != None \
-#            and 'language' in self.guessed_info_ \
-#            and self.guessed_info_['language'] == language:
-#                score += 1
+        elif self.LANGUAGE in self.guessed_info_:
+            language = self.guessed_info_[self.LANGUAGE]
+
+        score = 0
+        if movie != None:
+            # calculate string distance from current title and guessed title
+            title1 = movie['title'].lower()
+            title2 = self.guessed_info_[self.TITLE].lower()
+            score = difflib.SequenceMatcher(None, title1, title2).ratio()
+            # if title language is the same as the guessed language, add 1 to score
+            if self.LANGUAGE in self.guessed_info_ \
+            and self.guessed_info_[self.LANGUAGE] == language:
+                score += 1
+            best_score = score
         # creates the info dictionary, to store the movie information
         info = {
-                self.TITLE: movie['title'],
-                self.ORIGINAL_TITLE: movie['title'],
+                self.TITLE: title,
+                self.ORIGINAL_TITLE: original_title,
                 self.YEAR: year,
                 self.DIRECTOR: director,
                 self.DURATION: duration,
@@ -504,58 +518,58 @@ class Movie:
         self.others_info_.append(info)
         # keep info as the current one
         self.info_ = info
-        best_score = score
-        # for each aka
-        akas = movie.get('akas')
-        if akas != None:
-            for aka in akas:
-                # split aka (title::countries)
-                aka = aka.split('::')
-                language = None
-                # sometimes there is no countries indication, so skip it
-                if len(aka) == 2:
-                    countries = aka[1]
-                    # search for language indication
-                    possible_language = re.search('(?:[(])([a-zA-Z]+?)(?: title[)])', countries)
-                    if possible_language:
-                        print(possible_language.group(1))
-                        #XXX potrebbe esserci un problema con group(1), che torna un valore sbagliato..
-                        language = utils.name_to_language(possible_language.group(1))
-                    # if not found
+
+        if movie != None:
+            # for each aka
+            akas = movie.get('akas')
+            if akas != None:
+                for aka in akas:
+                    # split aka (title::countries)
+                    aka = aka.split('::')
+                    language = None
+                    # sometimes there is no countries indication, so skip it
+                    if len(aka) == 2:
+                        countries = aka[1]
+                        # search for language indication
+                        possible_language = re.search('(?:[(])([a-zA-Z]+?)(?: title[)])', countries)
+                        if possible_language:
+    #                        print(possible_language.group(1))
+                            #XXX potrebbe esserci un problema con group(1), che torna un valore sbagliato..
+                            language = utils.name_to_language(possible_language.group(1))
+                        # if not found
+                        if language == None:
+                            # search for countries (keep only the first one)
+                            country = countries.split(',')[0]
+                            country = re.sub('\(.*?\)', '', country).strip()
+                            # get language corresponding to found country
+                            language = utils.country_to_language(country)
                     if language == None:
-                        # search for countries (keep only the first one)
-                        country = countries.split(',')[0]
-                        country = re.sub('\(.*?\)', '', country).strip()
-                        # get language corresponding to found country
-                        language = utils.country_to_language(country)
-#                        print(countries + ' --> ' + str(language))
-                if language == None:
-                    language = ['', '']
-                # calculate string distance from current title and guessed title
-                title1 = aka[0].lower()
-                title2 = self.guessed_info_[self.TITLE].lower()
-                score = difflib.SequenceMatcher(None, title1, title2).ratio()
-                # if title language is the same as the guessed language, add 1 to score
-                if self.guessed_info_ != None \
-                and self.LANGUAGE in self.guessed_info_ \
-                and self.guessed_info_[self.LANGUAGE] == language:
-                    score += 1
-                # creates the info dictionary, to store the movie information
-                info = {
-                        self.TITLE: aka[0],
-                        self.ORIGINAL_TITLE: movie['title'],
-                        self.YEAR: year,
-                        self.DIRECTOR: director,
-                        self.DURATION: duration,
-                        self.LANGUAGE: language,
-                        self.SCORE: score}
-                # keep these info
-                self.others_info_.append(info)
-                # if this is the best movie
-                if score > best_score:
-                    # keep info as the current one
-                    self.info_ = info
-                    best_score = score
+                        language = ['', '']
+                    # calculate string distance from current title and guessed title
+                    title1 = aka[0].lower()
+                    title2 = self.guessed_info_[self.TITLE].lower()
+                    score = difflib.SequenceMatcher(None, title1, title2).ratio()
+                    # if title language is the same as the guessed language, add 1 to score
+                    if self.LANGUAGE in self.guessed_info_ \
+                    and self.guessed_info_[self.LANGUAGE] == language:
+                        score += 1
+                    # creates the info dictionary, to store the movie information
+                    info = {
+                            self.TITLE: aka[0],
+                            self.ORIGINAL_TITLE: movie['title'],
+                            self.YEAR: year,
+                            self.DIRECTOR: director,
+                            self.DURATION: duration,
+                            self.LANGUAGE: language,
+                            self.SCORE: score}
+                    # keep these info
+                    self.others_info_.append(info)
+                    # if this is the best movie
+                    if score > best_score:
+                        # keep info as the current one
+                        self.info_ = info
+                        best_score = score
+
         # sort others information from best one to worst one, using calculated score
         self.others_info_ = sorted(self.others_info_, cmp = lambda x, y: cmp(x[self.SCORE], y[self.SCORE]), reverse = True)
 

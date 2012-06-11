@@ -5,3 +5,7 @@ syntax: regexp
 ^dist$
 syntax: regexp
 ^tmp$
+syntax: regexp
+^Microsoft\.VC90\.CRT\.manifest$
+syntax: regexp
+\.dll$
