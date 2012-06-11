@@ -7,6 +7,7 @@
 	CHG: now www.imdbapi.com is used to retrieve correct movie from guessed 
 		 title. this speeds up movies info retrieving time, and information
 		 correctness
+	CHG: better organization of attributes on renaming rule dialog
 	
 3.1
 
