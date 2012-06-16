@@ -8,6 +8,7 @@
 		 title. this speeds up movies info retrieving time, and information
 		 correctness
 	CHG: better organization of attributes on renaming rule dialog
+	FIX: language detection corrections under Linux
 	
 3.1
 
