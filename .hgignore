@@ -9,3 +9,5 @@ syntax: regexp
 ^Microsoft\.VC90\.CRT\.manifest$
 syntax: regexp
 \.dll$
+syntax: regexp
+^src/log$
