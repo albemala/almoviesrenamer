@@ -11,3 +11,7 @@ syntax: regexp
 \.dll$
 syntax: regexp
 ^src/log$
+syntax: regexp
+^src/preferences\.ini$
+syntax: regexp
+^src/preferences\.ini$
