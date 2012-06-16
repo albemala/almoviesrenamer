@@ -133,10 +133,11 @@ shutil.rmtree(glob("build/exe*")[0] + '/PyQt4.uic.widget-plugins')
 
 archive_name = "dist/{0}-{1}-{2}" \
     .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, platform.system())
-archive_file_name = glob("{0}*".format(archive_name))[0]
-if os.path.isfile(archive_file_name):
+archive_file_name = glob("{0}*".format(archive_name))
+if len(archive_file_name) > 0 \
+and os.path.isfile(archive_file_name[0]):
     print("remove previously created archive")
-    os.remove(archive_file_name)
+    os.remove(archive_file_name[0])
 root_dir = glob("build/exe*")[0]
 print("create " + archive_format + " " + archive_name)
 shutil.make_archive(archive_name, archive_format, root_dir)
