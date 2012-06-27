@@ -113,7 +113,7 @@ def guess_part_(title):
 
 def clean_title_(title):
     # remove everything inside parenthesis
-    title = re.sub('[([{].*?[)\]}]', '', title)
+    title = re.sub('[([{].*?[)\]}]', ' ', title)
     # replace dots, underscores and dashes with spaces
     title = re.sub(r'[^a-zA-Z0-9]', ' ', title)
     stitle = title.split()
