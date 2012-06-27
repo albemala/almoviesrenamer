@@ -115,7 +115,7 @@ def clean_title_(title):
     # remove everything inside parenthesis
     title = re.sub('[([{].*?[)\]}]', ' ', title)
     # replace dots, underscores and dashes with spaces
-    title = re.sub(r'[^a-zA-Z0-9]', ' ', title)
+    title = re.sub(r'[._-]', ' ', title)
     stitle = title.split()
     title = []
     # loop on name
