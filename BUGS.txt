@@ -10,7 +10,7 @@ sono prima/dopo (es: sub ITA)
 
 c'è un problema col riconoscimento delle lingue di iimdb sotto linux
 
-Preferences > Renaming rule > Wods separator, change it into "attributes separator"
+Preferences > Renaming rule > Words separator, change it into "attributes separator"
 
 ci sono ancora problemi nel ricnonoscimento dei titoli
 sembra inoltre che venga ignorato l'anno del film
@@ -85,4 +85,13 @@ come opzione di ricerca,
 specificando che è più lento,
 insieme a rotten tomatoes
 
-specificando che 
+aggiornare PyQt http://www.riverbankcomputing.co.uk/software/pyqt/download
+
+
+
+
+
+
+
+
+

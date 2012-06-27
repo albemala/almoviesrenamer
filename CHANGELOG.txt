@@ -2,6 +2,7 @@
 5
 
 	CHG: small changes in title cleanup
+	CHG: better organization of movie information panel
 
 4
 

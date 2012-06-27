@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>503</width>
-    <height>712</height>
+    <height>784</height>
    </rect>
   </property>
   <property name="windowIcon">
@@ -91,8 +91,26 @@
       <widget class="QWidget" name="page_2">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="1" colspan="3">
+         <layout class="QFormLayout" name="formLayout">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+          </property>
+          <property name="bottomMargin">
+           <number>9</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="font">
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="text">
+             <string>Title:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
            <widget class="QLabel" name="label_title">
             <property name="font">
              <font>
@@ -108,18 +126,6 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="font">
-             <font>
-              <italic>true</italic>
-             </font>
-            </property>
-            <property name="text">
-             <string>Title:</string>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_12">
             <property name="font">
@@ -132,7 +138,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1" colspan="3">
+          <item row="1" column="1">
            <widget class="QLabel" name="label_original_title">
             <property name="font">
              <font>
@@ -167,7 +173,7 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
+          <item row="3" column="0">
            <widget class="QLabel" name="label_14">
             <property name="font">
              <font>
@@ -179,14 +185,14 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="3">
+          <item row="3" column="1">
            <widget class="QLabel" name="label_director">
             <property name="text">
              <string>A. Director</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_16">
             <property name="font">
              <font>
@@ -198,7 +204,14 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="2">
+          <item row="4" column="1">
+           <widget class="QLabel" name="label_duration">
+            <property name="text">
+             <string>100'</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
            <widget class="QLabel" name="label_15">
             <property name="font">
              <font>
@@ -210,14 +223,7 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="label_duration">
-            <property name="text">
-             <string>100'</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3">
+          <item row="5" column="1">
            <widget class="QLabel" name="label_language">
             <property name="text">
              <string>Italian</string>
@@ -227,55 +233,14 @@
          </layout>
         </item>
         <item>
-         <widget class="Line" name="line">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Alternative titles:</string>
           </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Not the right movie?</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="button_change_movie">
-            <property name="text">
-             <string>Change it...</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QWidget" name="widget_alternative_movies" native="true">
+          <property name="flat">
+           <bool>true</bool>
+          </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
-           <property name="bottomMargin">
-            <number>9</number>
-           </property>
            <item>
             <widget class="QTableWidget" name="table_others_info">
              <property name="editTriggers">
@@ -303,16 +268,23 @@
              </column>
              <column>
               <property name="text">
-               <string>Year</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
                <string>Language</string>
               </property>
              </column>
             </widget>
            </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>Cannot find the right title?</string>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
             <widget class="QLabel" name="label_7">
              <property name="text">
@@ -374,25 +346,6 @@
                  </property>
                  <property name="textVisible">
                   <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-             <widget class="QWidget" name="page_5">
-              <layout class="QVBoxLayout" name="verticalLayout_8">
-               <property name="margin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QLabel" name="label_9">
-                 <property name="font">
-                  <font>
-                   <italic>true</italic>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Sorry, I cannot find that movie...</string>
                  </property>
                 </widget>
                </item>

@@ -119,7 +119,6 @@ class GUI(QMainWindow):
         self.ui.action_copy_title.triggered.connect(self.copy_title)
         self.ui.action_open_containing_folder.triggered.connect(self.open_containing_folder)
         # STACK movie
-        self.ui.button_change_movie.toggled.connect(self.change_movie)
         self.ui.table_others_info.itemSelectionChanged.connect(self.alternative_movies_selection_changed)
 
     def check_connection(self):
@@ -516,8 +515,6 @@ class GUI(QMainWindow):
                 self.ui.stack_search_title.setCurrentIndex(0)
                 self.ui.text_search_title.clear()
 
-            self.ui.button_change_movie.setChecked(False)
-
             # set panel visible
             self.ui.stack_movie.setVisible(True)
 
@@ -578,17 +575,12 @@ class GUI(QMainWindow):
             # create a table item with original movie file name
             item_title = QTableWidgetItem(title)
             self.ui.table_others_info.setItem(self.ui.table_others_info.rowCount() - 1, 0, item_title)
-            item_year = QTableWidgetItem(year)
-            self.ui.table_others_info.setItem(self.ui.table_others_info.rowCount() - 1, 1, item_year)
             item_language = QTableWidgetItem(language)
-            self.ui.table_others_info.setItem(self.ui.table_others_info.rowCount() - 1, 2, item_language)
+            self.ui.table_others_info.setItem(self.ui.table_others_info.rowCount() - 1, 1, item_language)
         # auto resize table columns
         self.ui.table_others_info.resizeColumnToContents(0)
 
     # PANEL movie
-
-    def change_movie(self, checked):
-        self.ui.widget_alternative_movies.setVisible(checked)
 
     def alternative_movies_selection_changed(self):
         selected_info = self.ui.table_others_info.selectedItems()
@@ -669,7 +661,6 @@ class GUI(QMainWindow):
         # set enabled property on table
         self.ui.table_movies.setEnabled(enabled)
 
-        self.ui.button_change_movie.setEnabled(enabled)
         self.ui.table_others_info.setEnabled(enabled)
 
 class PreferencesDialog(QDialog):
