@@ -39,3 +39,50 @@ potrebbe essere colpa dello stringdiff?
 The Terminator (1984) viene riconosciuto come spagnolo
 potrebbe essere colpa del The, 
 riconosciuto come lingua?
+
+---------------Baraka_1992_DVDrip_Xvid-Ekolb.avi-----------
+Traceback (most recent call last):
+  File "D:\Alberto\workspace\almoviesrenamer\src\movie.py", line 215, in __init__
+    video_info = enzyme.parse(self.abs_original_file_name())
+  File "D:\Alberto\workspace\almoviesrenamer\src\enzyme\__init__.py", line 62, in parse
+    p = mod.Parser(f)
+  File "D:\Alberto\workspace\almoviesrenamer\src\enzyme\mkv.py", line 401, in __init__
+    self.process_elem(elem)
+  File "D:\Alberto\workspace\almoviesrenamer\src\enzyme\mkv.py", line 441, in process_elem
+    self.process_seekhead(elem)
+  File "D:\Alberto\workspace\almoviesrenamer\src\enzyme\mkv.py", line 473, in process_seekhead
+    self.process_elem(elem)
+  File "D:\Alberto\workspace\almoviesrenamer\src\enzyme\mkv.py", line 432, in process_elem
+    self.process_tracks(elem)
+  File "D:\Alberto\workspace\almoviesrenamer\src\enzyme\mkv.py", line 482, in process_tracks
+    self.process_track(trackelem)
+  File "D:\Alberto\workspace\almoviesrenamer\src\enzyme\mkv.py", line 513, in process_track
+    track = self.process_video_track(elements)
+  File "D:\Alberto\workspace\almoviesrenamer\src\enzyme\mkv.py", line 583, in process_video_track
+    track.aspect = float(d_width) / d_height
+ZeroDivisionError: float division by zero
+Exception in thread Thread-2:
+Traceback (most recent call last):
+  File "C:\Python27\lib\threading.py", line 551, in __bootstrap_inner
+    self.run()
+  File "C:\Python27\lib\threading.py", line 504, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "D:\Alberto\workspace\almoviesrenamer\src\gui.py", line 295, in load_movies_run
+    movie.generate_new_name(renaming_rule)
+  File "D:\Alberto\workspace\almoviesrenamer\src\movie.py", line 636, in generate_new_name
+    and self.language() != '':
+  File "D:\Alberto\workspace\almoviesrenamer\src\movie.py", line 331, in language
+    return self.info_[self.LANGUAGE][index]
+TypeError: 'NoneType' object has no attribute '__getitem__'
+
+quando si eliminano le parentesi, meglio sostituirle con degli spazi invece che con niente!
+
+problema quando si selezionano film in mezzo alla lista per eliminarli, 
+venogono tolti quelli sbagliati
+
+siccome non sempre imdbapi funziona, reintrodurre l'uso di imdbpy,
+come opzione di ricerca,
+specificando che è più lento,
+insieme a rotten tomatoes
+
+specificando che 
