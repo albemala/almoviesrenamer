@@ -23,7 +23,7 @@ il film Toy Story 2 (1999, 92m, FRA), nella cartella film francesi,
 viene riconosciuto come inglese...
 non sembra essere colpa dell'indicazione della lingua (FRA),
 perché in altri film viene riconosciuta.
-potrebbe essere colpa dello stringdiff?
+guessed title: story 2 french
 
 il film Ratatouille French, nella cartella film francesi, 
 viene riconosciuto come inglese...
@@ -31,14 +31,6 @@ dovrebbe essere invece riconosciuto come francese,
 data l'indicazione della lingua French
 (oppure mi sbaglio, e non viene fatta una ricerca
 per nome della lingua?)
-
-il film Attack of the Killer Tomatoes! (1978, 83m, ENG)
-viene riconosciuto come francese.
-potrebbe essere colpa dello stringdiff?
-
-The Terminator (1984) viene riconosciuto come spagnolo
-potrebbe essere colpa del The, 
-riconosciuto come lingua?
 
 ---------------Baraka_1992_DVDrip_Xvid-Ekolb.avi-----------
 Traceback (most recent call last):
@@ -74,11 +66,6 @@ Traceback (most recent call last):
   File "D:\Alberto\workspace\almoviesrenamer\src\movie.py", line 331, in language
     return self.info_[self.LANGUAGE][index]
 TypeError: 'NoneType' object has no attribute '__getitem__'
-
-quando si eliminano le parentesi, meglio sostituirle con degli spazi invece che con niente!
-
-problema quando si selezionano film in mezzo alla lista per eliminarli, 
-venogono tolti quelli sbagliati
 
 siccome non sempre imdbapi funziona, reintrodurre l'uso di imdbpy,
 come opzione di ricerca,

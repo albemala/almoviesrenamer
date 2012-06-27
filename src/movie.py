@@ -15,6 +15,7 @@ import utils
 import urllib
 import urllib2
 import json
+import Levenshtein
 
 # black words in file names
 blackwords = [
@@ -92,8 +93,10 @@ def guess_language_(title):
     if match:
         # get corresponding language, given 3-letters ISO language code found
         language = utils.alpha3_to_language(match.group(0))
-        # remove language from title
-        title = title[:match.start()] + title[match.end():]
+        # language detected
+        if language != None:
+            # remove language from title
+            title = title[:match.start()] + title[match.end():]
     return title, language
 
 def guess_part_(title):
@@ -439,6 +442,7 @@ class Movie:
             # take them from guessed info
             title = self.guessed_info_[self.TITLE]
             original_title = self.guessed_info_[self.TITLE]
+        print("-------------" + title)
         # save the year
         year = ''
         if movie != None:
@@ -498,6 +502,11 @@ class Movie:
             title1 = movie['title'].lower()
             title2 = self.guessed_info_[self.TITLE].lower()
             score = difflib.SequenceMatcher(None, title1, title2).ratio()
+            print(title1.encode('utf_8'))
+            print(title2.encode('utf_8'))
+            print(score)
+            print(Levenshtein.ratio(title1, title2))
+            print("")
             # if title language is the same as the guessed language, add 1 to score
             if self.LANGUAGE in self.guessed_info_ \
             and self.guessed_info_[self.LANGUAGE] == language:
@@ -545,6 +554,11 @@ class Movie:
                     title1 = aka[0].lower()
                     title2 = self.guessed_info_[self.TITLE].lower()
                     score = difflib.SequenceMatcher(None, title1, title2).ratio()
+                    print(title1.encode('utf_8'))
+                    print(title2.encode('utf_8'))
+                    print(score)
+                    print(Levenshtein.ratio(title1, title2))
+                    print("")
                     # if title language is the same as the guessed language, add 1 to score
                     if self.LANGUAGE in self.guessed_info_ \
                     and self.guessed_info_[self.LANGUAGE] == language:
