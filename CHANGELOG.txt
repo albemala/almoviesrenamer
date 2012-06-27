@@ -3,6 +3,7 @@
 
 	CHG: small changes in title cleanup
 	CHG: better organization of movie information panel
+	FIX: corrections with some titles detection
 
 4
 

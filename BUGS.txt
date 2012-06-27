@@ -1,36 +1,22 @@
 
-ci sono ancora dei problemi con il recupero delle lingue, 
-perché vengono identificate delle lingue che 
-sono invece parole che fanno parte del titolo 
-
 quando vengono identificate più lingue, bisogna decidere quale tenere (e forse dare la possibilità 
 all'utente di scegliere successivamente). si potrebbero poi attribuire dei punteggi, ad esempio
 in base al contesto (se dentro parentesi puntoeggio più alto) e in base alle parole che ci
 sono prima/dopo (es: sub ITA)
 
-c'è un problema col riconoscimento delle lingue di iimdb sotto linux
-
 Preferences > Renaming rule > Words separator, change it into "attributes separator"
 
-ci sono ancora problemi nel ricnonoscimento dei titoli
-sembra inoltre che venga ignorato l'anno del film
+l'indicazione della lingua col suo nome inglese completo
+(es. french)
+non viene riconosciuta...
+aggiungere questa feature?
 
-non sempre viene selezionato il migliore aka,
-ed è strano perché dovrebbe prendere in considerazione 
-anche la lingua guessed
+non sempre viene recuperato l'aka per tutte le lingue
 
-il film Toy Story 2 (1999, 92m, FRA), nella cartella film francesi, 
-viene riconosciuto come inglese...
-non sembra essere colpa dell'indicazione della lingua (FRA),
-perché in altri film viene riconosciuta.
-guessed title: story 2 french
+aggiungere la lingua di sistema come lingua selezionabile per il film
 
-il film Ratatouille French, nella cartella film francesi, 
-viene riconosciuto come inglese...
-dovrebbe essere invece riconosciuto come francese, 
-data l'indicazione della lingua French
-(oppure mi sbaglio, e non viene fatta una ricerca
-per nome della lingua?)
+usare la lingua di sistema come metodo di selezione del best aka,
+quando non presenti indicazioni della lingua nel titolo?
 
 ---------------Baraka_1992_DVDrip_Xvid-Ekolb.avi-----------
 Traceback (most recent call last):

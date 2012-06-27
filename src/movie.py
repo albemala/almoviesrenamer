@@ -15,7 +15,6 @@ import utils
 import urllib
 import urllib2
 import json
-import Levenshtein
 
 # black words in file names
 blackwords = [
@@ -502,11 +501,6 @@ class Movie:
             title1 = movie['title'].lower()
             title2 = self.guessed_info_[self.TITLE].lower()
             score = difflib.SequenceMatcher(None, title1, title2).ratio()
-            print(title1.encode('utf_8'))
-            print(title2.encode('utf_8'))
-            print(score)
-            print(Levenshtein.ratio(title1, title2))
-            print("")
             # if title language is the same as the guessed language, add 1 to score
             if self.LANGUAGE in self.guessed_info_ \
             and self.guessed_info_[self.LANGUAGE] == language:
@@ -554,11 +548,6 @@ class Movie:
                     title1 = aka[0].lower()
                     title2 = self.guessed_info_[self.TITLE].lower()
                     score = difflib.SequenceMatcher(None, title1, title2).ratio()
-                    print(title1.encode('utf_8'))
-                    print(title2.encode('utf_8'))
-                    print(score)
-                    print(Levenshtein.ratio(title1, title2))
-                    print("")
                     # if title language is the same as the guessed language, add 1 to score
                     if self.LANGUAGE in self.guessed_info_ \
                     and self.guessed_info_[self.LANGUAGE] == language:
