@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>503</width>
-    <height>784</height>
+    <height>841</height>
    </rect>
   </property>
   <property name="windowIcon">
@@ -39,6 +39,38 @@
          </property>
          <property name="textVisible">
           <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>9</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_loading_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;This may take a while... I will play a sound when finishes.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;In the meantime, you can consider &lt;a href=&quot;http://www.imdbapi.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;donating to the maintainer of IMDb API&lt;/span&gt;&lt;/a&gt;, complete a &lt;a href=&quot;https://docs.google.com/spreadsheet/gform?key=0Au2mzMTLeYCydHJRb3BBb21rdHZ3eV9pSnVKWTV3b1E&amp;amp;hl=it#edit&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;survey on ALmoviesRenamer&lt;/span&gt;&lt;/a&gt;, or do whatever you prefer...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
