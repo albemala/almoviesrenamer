@@ -313,6 +313,8 @@ class GUI(QMainWindow):
         self.ui.table_movies.resizeColumnToContents(0)
         # hide loading panel
         self.ui.panel_loading.setVisible(False)
+        # play a sound
+        QApplication.beep()
 
     def set_gui_enabled_load_movies(self, enabled):
         # set enabled property on actions
