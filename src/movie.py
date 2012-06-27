@@ -441,7 +441,6 @@ class Movie:
             # take them from guessed info
             title = self.guessed_info_[self.TITLE]
             original_title = self.guessed_info_[self.TITLE]
-        print("-------------" + title)
         # save the year
         year = ''
         if movie != None:

@@ -4,6 +4,8 @@
 	CHG: small changes in title cleanup
 	CHG: better organization of movie information panel
 	FIX: corrections with some titles detection
+	ADD: the application now warns you with a sound, when information search finishes
+	ADD: "advertising" label during information search
 
 4
 
