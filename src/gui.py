@@ -466,9 +466,13 @@ class GUI(QMainWindow):
 </p>
 <p>
     Thanks to:
-    <ul>                
+    <ul>     
         <li>
-            <a href="http://file-folder-ren.sourceforge.net/">M\xe9tamorphose</a> for some stolen code
+            <a href="http://www.imdbapi.com/">The IMDb API</a>, which is used to retrieve movies information<br>
+            <b>Please donate to support this service!</b>
+        </li>
+        <li>
+            <a href="http://file-folder-ren.sourceforge.net/">M\xe9tamorphose</a> for some stolen code :)
         </li>
         <li>
         <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a> for Fugue Icons
