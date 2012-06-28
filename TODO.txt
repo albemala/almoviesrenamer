@@ -1,22 +1,11 @@
-﻿--------------------------------------------------------------------------------
-nuovo numero versione
-commentare
-codificare/gui/icone/labels
-tooltips
-aggiornare "about" (anche librerie)
-traduzionare
-buildare translations
-changeloggare
-readme
-testare
-aggiornare setup.py
-buildare (win + linux)
-aggiornare versione su web service
---------------------------------------------------------------------------------
+﻿
+add subtitles language detection
 
+in manual search, add ability to specify the language
 
+use video duration to get the best runtime
 
-suoni per conferma operazioni?
+sort movie info by title, year and language (need to implement also alternative_info sorting on movie)
 
 probabilmente la lingua guessed va raffinata usando quella di sistema,
 o comunque impostare quella di sistema come quella di default se non trovata nel titolo
@@ -24,37 +13,48 @@ del file
 
 invece di sostituire i caratteri illegali dei sistemi operativi con underscore,
 usare caratteri piu utili, ad es. & -> and
+	
+quando vengono identificate più lingue, bisogna decidere quale tenere (e forse dare la possibilità 
+all'utente di scegliere successivamente). si potrebbero poi attribuire dei punteggi, ad esempio
+in base al contesto (se dentro parentesi puntoeggio più alto) e in base alle parole che ci
+sono prima/dopo (es: sub ITA)
 
-guessing:
-	
-	http://stackoverflow.com/questions/7573952/comparing-strings-in-python-to-find-errors
-	
-	
+Preferences > Renaming rule > Words separator, change it into "attributes separator"
+
+l'indicazione della lingua col suo nome inglese completo
+(es. french)
+non viene riconosciuta...
+aggiungere questa feature?
+
+la ricerca su imdb molto spesso non ritorna la lingua del titolo, 
+e se non recuperata dal titolo originale, rimane vuota. 
+trovare una soluzione per avere sempre la lingua disposizione
+
+non sempre viene recuperato l'aka per tutte le lingue
+
+aggiungere la lingua di sistema come lingua selezionabile per il film
+
+usare la lingua di sistema come metodo di selezione del best aka,
+quando non presenti indicazioni della lingua nel titolo?
+
+siccome non sempre imdbapi funziona, reintrodurre l'uso di imdbpy,
+come opzione di ricerca,
+specificando che è più lento,
+insieme a rotten tomatoes
+
+aggiornare PyQt http://www.riverbankcomputing.co.uk/software/pyqt/download
 
 http://api.themoviedb.org/2.1/wrappers
 
-The policy we use with PyQt is as follows:
-• Use type str only when working with strictly 7-bit ASCII strings or with
-raw 8-bit data, that is, with raw bytes.
-• For strings that will be used only by PyQt functions, for example, strings
-that are returned by one PyQt function only to be passed at some point to
-another PyQt function—do not convert such strings. Simply keep them as
-QStrings.
-• In all other cases, use unicode strings, converting QStrings to unicode as
-soon as possible. In other words, as soon as a QString has been returned
-from a Qt function, always immediately convert it to type unicode.
-This policy means that we avoid making incorrect assumptions about 8-bit
-string encodings (because we use Unicode). It also ensures that the strings we
-pass to Python functions have the methods that Python expects: QStrings have
-different methods from str and unicode, so passing them to Python functions
-can lead to errors. PyQt uses QString rather than unicode because when PyQt
-was first created, Python’s Unicode support was nowhere near as good as it
-is today.
+aggiungere supporto a rotten tomatoes
 
-le liste sono mutabili, quindi se ne faccio delle copie e cambio le copie,
-anche l'originale cambia. per caso modifico copie di liste da qualche parte?
+aggiungere possibilità di avere più film con lo stesso nome, appendendo al nome del file un numero
 
-usare i set quando voglio liste con item non duplicati
+
+
+
+
+
 
 
 

@@ -1,23 +1,4 @@
 
-quando vengono identificate più lingue, bisogna decidere quale tenere (e forse dare la possibilità 
-all'utente di scegliere successivamente). si potrebbero poi attribuire dei punteggi, ad esempio
-in base al contesto (se dentro parentesi puntoeggio più alto) e in base alle parole che ci
-sono prima/dopo (es: sub ITA)
-
-Preferences > Renaming rule > Words separator, change it into "attributes separator"
-
-l'indicazione della lingua col suo nome inglese completo
-(es. french)
-non viene riconosciuta...
-aggiungere questa feature?
-
-non sempre viene recuperato l'aka per tutte le lingue
-
-aggiungere la lingua di sistema come lingua selezionabile per il film
-
-usare la lingua di sistema come metodo di selezione del best aka,
-quando non presenti indicazioni della lingua nel titolo?
-
 ---------------Baraka_1992_DVDrip_Xvid-Ekolb.avi-----------
 Traceback (most recent call last):
   File "D:\Alberto\workspace\almoviesrenamer\src\movie.py", line 215, in __init__
@@ -52,14 +33,6 @@ Traceback (most recent call last):
   File "D:\Alberto\workspace\almoviesrenamer\src\movie.py", line 331, in language
     return self.info_[self.LANGUAGE][index]
 TypeError: 'NoneType' object has no attribute '__getitem__'
-
-siccome non sempre imdbapi funziona, reintrodurre l'uso di imdbpy,
-come opzione di ricerca,
-specificando che è più lento,
-insieme a rotten tomatoes
-
-aggiornare PyQt http://www.riverbankcomputing.co.uk/software/pyqt/download
-
 
 
 
