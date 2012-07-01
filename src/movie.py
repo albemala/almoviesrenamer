@@ -152,6 +152,7 @@ class Movie:
     DIRECTOR = 'director'
     DURATION = 'duration'
     LANGUAGE = 'language'
+    SUBTITLES = 'subtitles'
     PART = 'part'
     SCORE = 'score'
 
@@ -184,6 +185,7 @@ class Movie:
                     self.DIRECTOR: 'A. Director',
                     self.DURATION: ['100m', '1h40m'],
                     self.LANGUAGE: ['Italian', 'ITA'],
+                    self.SUBTITLES: ['Italian', 'ITA'],
                     self.SCORE: 1}
             self.others_info_ = [info]
             self.info_ = info
@@ -334,6 +336,20 @@ class Movie:
         if self.guessed_info_ != None \
         and self.LANGUAGE in self.guessed_info_:
             return self.guessed_info_[self.LANGUAGE][index]
+        return ''
+
+    def subtitles(self):
+        """
+        return subtitles language
+
+        language have 2 representations:
+         - English name (e.g.: Italian)
+         - 3-letters (e.g.: ITA)
+        """
+
+        if self.guessed_info_ != None \
+        and self.SUBTITLES in self.guessed_info_:
+            return self.guessed_info_[self.SUBTITLES]
         return ''
 
     def part(self):
