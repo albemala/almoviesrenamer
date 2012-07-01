@@ -373,7 +373,7 @@ class Movie:
 
         others_info = []
         for other_info in self.others_info_:
-            info = [other_info[self.TITLE], other_info[self.YEAR], other_info[self.LANGUAGE][0]]
+            info = [other_info[self.TITLE], other_info[self.LANGUAGE][0]]
             others_info.append(info)
         return others_info
 

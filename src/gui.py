@@ -574,8 +574,7 @@ class GUI(QMainWindow):
         self.ui.table_others_info.setRowCount(0)
         for other_info in movie.others_info():
             title = other_info[0]
-            year = other_info[1]
-            language = other_info[2]
+            language = other_info[1]
             # insert a new row in movie table
             self.ui.table_others_info.insertRow(self.ui.table_others_info.rowCount())
             # create a table item with original movie file name
