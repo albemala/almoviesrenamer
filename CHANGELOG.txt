@@ -8,6 +8,7 @@
 	ADD: "advertising" label during information search
 	ADD: files with same names are now properly handled, 
 		 appending a counter at file name's end
+	ADD: subtitles detection
 
 4
 

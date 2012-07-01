@@ -56,6 +56,10 @@ def guess_info(title):
     title, part = guess_part_(title)
     if part != None:
         info.update({Movie.PART: part})
+    # guess subtitles
+    title, subtitles = guess_subtitles_(title)
+    if subtitles != None:
+        info.update({Movie.SUBTITLES: subtitles})
     # clean title
     title = clean_title_(title)
     info.update({Movie.TITLE: title})
@@ -97,6 +101,22 @@ def guess_language_(title):
             # remove language from title
             title = title[:match.start()] + title[match.end():]
     return title, language
+
+def guess_subtitles_(title):
+    """
+    guess subtitles subtitles, looking for ISO subtitles representation in title
+    """
+
+    subtitles = None
+    match = re.search(r'(?:[^a-zA-Z0-9]sub )([a-zA-Z]{3})(?:[^a-zA-Z0-9])', title)
+    if match:
+        # get corresponding subtitles, given 3-letters ISO subtitles code found
+        subtitles = utils.alpha3_to_language(match.group(1))
+        # subtitles detected
+        if subtitles != None:
+            # remove subtitles from title
+            title = title[:match.start() + 1] + title[match.end() - 1:]
+    return title, subtitles
 
 def guess_part_(title):
     """
@@ -177,7 +197,9 @@ class Movie:
             # current state
             # states are used to show a proper panel in GUI
             self.state_ = self.STATE_BEFORE_RENAMING
-            self.guessed_info_ = {self.PART: '1'}
+            self.guessed_info_ = {
+                                  self.SUBTITLES: ['Italian', 'ITA'],
+                                  self.PART: '1'}
             info = {
                     self.TITLE: 'Un film molto figo',
                     self.ORIGINAL_TITLE: 'A really cool movie',
@@ -185,7 +207,6 @@ class Movie:
                     self.DIRECTOR: 'A. Director',
                     self.DURATION: ['100m', '1h40m'],
                     self.LANGUAGE: ['Italian', 'ITA'],
-                    self.SUBTITLES: ['Italian', 'ITA'],
                     self.SCORE: 1}
             self.others_info_ = [info]
             self.info_ = info
@@ -338,18 +359,18 @@ class Movie:
             return self.guessed_info_[self.LANGUAGE][index]
         return ''
 
-    def subtitles(self):
+    def subtitles(self, index = 0):
         """
         return subtitles language
 
-        language have 2 representations:
+        subtitles have 2 representations:
          - English name (e.g.: Italian)
          - 3-letters (e.g.: ITA)
         """
 
         if self.guessed_info_ != None \
         and self.SUBTITLES in self.guessed_info_:
-            return self.guessed_info_[self.SUBTITLES]
+            return self.guessed_info_[self.SUBTITLES][index]
         return ''
 
     def part(self):
@@ -652,7 +673,10 @@ class Movie:
                 # language
                 elif rule == self.LANGUAGE \
                 and self.language() != '':
-                    new_name_items.append(self.language(language_index))
+                    language = self.language(language_index)
+                    if self.subtitles() != '':
+                        language += ' sub ' + self.subtitles(language_index)
+                    new_name_items.append(language)
                 # opened and closed brackets
                 elif rule in opened_brackets \
                 or rule in closed_brackets:

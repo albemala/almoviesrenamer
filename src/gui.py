@@ -566,7 +566,10 @@ class GUI(QMainWindow):
         self.ui.label_year.setText(movie.year())
         self.ui.label_director.setText(movie.director())
         self.ui.label_duration.setText(movie.duration())
-        self.ui.label_language.setText(movie.language())
+        language = movie.language()
+        if movie.subtitles() != '':
+            language += " (subtitled " + movie.subtitles() + ")"
+        self.ui.label_language.setText(language)
 
         # clear table contents
         self.ui.table_others_info.clearContents()
