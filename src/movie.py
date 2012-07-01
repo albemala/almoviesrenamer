@@ -771,9 +771,16 @@ class Movie:
                 new_length = max_len - len(extension)
                 name = name[:new_length]
 
-        # if a file with current new name already exists, don't rename it
-#        if os.path.isfile(os.path.join(self.path, name + extension)):
-#            return False
+        # if a file with current new name already exists
+        if os.path.isfile(os.path.join(self.path_, name + extension)):
+            # create a counter
+            counter = 1
+            # files with same name will have a counter appended at their name's end,
+            # with pattern "file name (<counter>)
+            # increase counter until it doesn't find highest counter 
+            while os.path.isfile(os.path.join(self.path_, name + ' (' + str(counter) + ')' + extension)):
+                counter += 1
+            name = name + ' (' + str(counter) + ')'
 
         # set cleaned new name and extension
         self.new_name_ = unicode(name)
