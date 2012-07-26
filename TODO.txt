@@ -50,7 +50,43 @@ aggiungere possibilità di avere più film con lo stesso nome, appendendo al nom
 
 
 
+chiedere mailinglist cx-freeze come si includono tutte le dll e i pyd in library.zip 
+(prima cercare in rete e nelle vecchie conversazioni della mailinglist)
 
+nuova identificazione di info dal titolo
+
+	Esistono dei vocabolari liberi con la lista di parole usate un una certa lingua? 
+	Si potrebbero usare per fare il matching con le parole che compongono il titolo. 
+	Da lì si potrebbe estrarre sia il titolo, sia altre info 
+	(es. Quelle che non appartengono al titolo perché parole non presenti nel dizionario) 
+	e la lingua. Oppure cercare delle librerie che facciano già questa cosa 
+	(analisi dei testi, elaborazione)
+
+	http://pypi.python.org/pypi/MontyLingua/2.1
+
+	http://www.nltk.org/
+
+implementare un metodo per recuperare dal nome del file le blackword e salvarle per future rinomine
+
+	la lista delle blackword verrà salvata anche su web service e aggiornata ogni volta che si apre il programma. 
+	tutti gli uteni parteciperanno così alla creazione della blackwords list
+
+il file di setup dovrebbe impostare le settings in automatico in base alle statistiche di utilizzo
+
+rivedere i todo lasciati sparsi nel codice
+
+pare che al titolo originale venga associata al lingua guessed, invece della lingua del titolo originale.. controllare
+
+aggiungere la possibilità di specificare la lingua, magari solo la lingua di sistema
+
+	non sempre la lingua del film è specificata nel titolo, e quindi non viene identificata. 
+	inoltre non sempre la lingua desiderata compare tra gli aka, quindi c'è la necessità 
+	di specificarla manualmente. si potrebbe quindi pensare ad una combobox per la lingua 
+	in cui si può scegliere la lingua di sistema come lingua alternativa
+
+chiedere all'autore di http://code.google.com/p/the-better-renamer/ se vuole unirsi al progetto
+
+chiedere a quelli di lifehacker se mi fanno pubblicità
 
 
 

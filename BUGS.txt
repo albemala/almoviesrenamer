@@ -34,8 +34,15 @@ Traceback (most recent call last):
     return self.info_[self.LANGUAGE][index]
 TypeError: 'NoneType' object has no attribute '__getitem__'
 
-
-
+---------------HERO, searching Ying Xiong -----------
+Traceback (most recent call last):
+  File "D:\Alberto\workspace\almoviesrenamer\src\gui.py", line 520, in movies_selection_changed
+    self.populate_movie_panel()
+  File "D:\Alberto\workspace\almoviesrenamer\src\gui.py", line 578, in populate_movie_panel
+    for other_info in movie.others_info():
+  File "D:\Alberto\workspace\almoviesrenamer\src\movie.py", line 398, in others_info
+    others_info.append(info)
+TypeError: 'NoneType' object has no attribute '__getitem__'
 
 
 
