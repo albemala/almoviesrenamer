@@ -15,6 +15,10 @@
 
 ## PyQt5
 
+- `pip3 install pyqt5-macos-built`
+ 
+This doesn't seems to work (for PyQt5.5.1, Nov 2015), even if it should be the right way:
+
 - `python3 configure.py --qmake ~/Qt/5.5/clang_64/bin/qmake --sip /Library/Frameworks/Python.framework/Versions/3.5/bin/sip`
 - `make`
 - `sudo make install`
