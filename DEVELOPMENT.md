@@ -12,6 +12,10 @@
 - `python3 configure.py`
 - `make`
 - `sudo make install`
+ 
+Alternative (not tested):
+
+- `pip3 install SIP`
 
 ## PyQt5
 
