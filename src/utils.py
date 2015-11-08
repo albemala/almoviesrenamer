@@ -1,12 +1,11 @@
-# -*- coding: latin-1 -*-
+from PyQt5.QtCore import QSettings
 
 __author__ = "Alberto Malagoli"
-
-from PyQt4.QtCore import QSettings
 
 # program name and version, used in excepthook
 PROGRAM_NAME = "ALmoviesRenamer"
 PROGRAM_VERSION = "5"
+
 
 def load_preferences():
     """
@@ -15,6 +14,7 @@ def load_preferences():
 
     global preferences
     preferences = QSettings("preferences.ini", QSettings.IniFormat)
+
 
 def load_languages():
     """
@@ -31,13 +31,14 @@ def load_languages():
     country_to_language_ = dict()
     with open('languages.txt', 'r') as f:
         for line in f:
-            name, alpha3, countries = unicode(line).rstrip('\n').rstrip('\r').split('|')
+            name, alpha3, countries = str(line).rstrip('\n').rstrip('\r').split('|')
             language = [name, alpha3.upper()]
             name_to_language_.update({name: language})
             alpha3_to_language_.update({alpha3: language})
             countries = countries.split(';')
             for country in countries:
                 country_to_language_.update({country: language})
+
 
 def alpha3_to_language(given_alpha3):
     """
@@ -50,6 +51,7 @@ def alpha3_to_language(given_alpha3):
     except KeyError:
         return None
 
+
 def name_to_language(given_name):
     """
     given a language English name, returns 
@@ -61,6 +63,7 @@ def name_to_language(given_name):
     except KeyError:
         return None
 
+
 def country_to_language(given_country):
     """
     given a country name, returns corresponding language
@@ -70,4 +73,3 @@ def country_to_language(given_country):
         return country_to_language_[given_country]
     except KeyError:
         return None
-
