@@ -73,3 +73,93 @@ def country_to_language(given_country):
         return country_to_language_[given_country]
     except KeyError:
         return None
+
+# TODO
+def send_usage_statistics():
+    pass
+    # """
+    # checks user choice about sending usage statistics and
+    # sends usage statistics to a dedicated web service
+    # """
+    #
+    # # get user choice about sending usage statistics
+    # send_usage_statistics = utils.preferences.value("stats_agreement").toInt()[0]
+    # # if user chose to send usage statistics
+    # if send_usage_statistics == PreferencesDialog.STATS_AGREE:
+    #     # start sending thread
+    #     threading.Thread(target = send_usage_statistics_run).start()
+
+# TODO
+def send_usage_statistics_run():
+    pass
+    # """
+    # sends usage statistics to a dedicated web service
+    # """
+    #
+    # # get preferences
+    # rule = utils.preferences.value("renaming_rule").toString()
+    # duration = utils.preferences.value("duration_representation").toString()
+    # language = utils.preferences.value("language_representation").toString()
+    # separator = utils.preferences.value("words_separator").toString()
+    # # web service url
+    # url = "http://almoviesrenamer.appspot.com/stats"
+    # # create data
+    # values = {
+    #     'rule' : rule,
+    #     'duration' : duration,
+    #     'language' : language,
+    #     'separator' : separator
+    # }
+    # data = urllib.urlencode(values)
+    # # POST send data to web service
+    # f = urllib2.urlopen(url, data)
+
+ # TODO
+def check_connection(self):
+    pass
+#     """
+#     checks if internet connection is up.
+#
+#     if internet connection is down, notifies the user with a message.
+#     """
+#
+#     try:
+#         # try to open a web URL
+#         f = urllib2.urlopen("http://www.google.com/")
+#     except URLError:
+#         # if an error occurs, notify the user with a message
+#         msg_box = QMessageBox()
+#         msg_box.setWindowTitle(QApplication.translate('GUI', "Internet connection down?"))
+#         msg_box.setText(QApplication.translate('GUI', """
+# <p>It seems your internet connection is down (but maybe I'm wrong).</p>
+# <p>That program needs access to the internet, to get information about movies, so please check your connection.</p>
+# <p>If I'm wrong, sorry for the interruption...</p>
+#             """))
+#         icon = QPixmap()
+#         icon.load('icons/exclamation.png')
+#         msg_box.setIconPixmap(icon)
+#         msg_box.exec_()
+
+ # TODO
+def check_new_version(self):
+    pass
+#     """
+#     checks for new program version, and notify in case of
+#     a newer version
+#     """
+#
+#     # create url, with current program version
+#     url = "http://almoviesrenamer.appspot.com/checknewversion"
+#     # call web service
+#     f = urllib2.urlopen(url)
+#     # read the answer (could be "yes" for new version, or "no")
+#     version = f.read().rstrip('\n')
+#     # if there is a new version
+#     if version != utils.PROGRAM_VERSION:
+#         title = QApplication.translate('GUI', "New version available")
+#         msg = QApplication.translate('GUI', """
+# <p>A new version of {0} is available: <b>{1}</b></p>
+# <p><a href="http://code.google.com/p/almoviesrenamer/downloads/list">Download it.</a></p>
+#             """).format(utils.PROGRAM_NAME, version)
+#         # show a notification dialog, with link to download page
+#         QMessageBox.information(None, title, msg)
