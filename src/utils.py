@@ -1,10 +1,13 @@
+import threading
+
 from PyQt5.QtCore import QSettings
+from preferences_dialog import PreferencesDialog
 
 __author__ = "Alberto Malagoli"
 
 # program name and version, used in excepthook
-PROGRAM_NAME = "ALmoviesRenamer"
-PROGRAM_VERSION = "5"
+PROGRAM_NAME = "ALMoviesRenamer"
+PROGRAM_VERSION = "6"
 
 
 def load_preferences():
