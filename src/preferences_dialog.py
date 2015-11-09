@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import QDialog, QApplication
-
 from PyQt5.uic import loadUi
 
-import utils
+from preferences import preferences
 
 __author__ = "Alberto Malagoli"
 
@@ -53,18 +52,18 @@ class PreferencesDialog(QDialog):
         """
 
         # get usage statistics agreement choice
-        stats_agreement = utils.preferences.value("stats_agreement").toInt()[0]
+        stats_agreement = preferences.get_stats_agreement()
         # set radio buttons checked
         if stats_agreement == self.STATS_AGREE:
             self.ui.radio_agree.setChecked(True)
         else:
             self.ui.radio_disagree.setChecked(True)
 
-        duration_representation = utils.preferences.value("duration_representation").toInt()[0]
+        duration_representation = preferences.get_duration_representation()
         self.ui.combo_duration.setCurrentIndex(duration_representation)
-        language_representation = utils.preferences.value("language_representation").toInt()[0]
+        language_representation = preferences.get_language_representation()
         self.ui.combo_language.setCurrentIndex(language_representation)
-        words_separator = utils.preferences.value("words_separator").toInt()[0]
+        words_separator = preferences.get_words_separator()
         self.ui.combo_words_separator.setCurrentIndex(words_separator)
 
     def stats_agreement_agree(self, checked):
@@ -74,7 +73,7 @@ class PreferencesDialog(QDialog):
         """
 
         # save value on settings file
-        utils.preferences.setValue("stats_agreement", self.STATS_AGREE)
+        preferences.set_stats_agreement(True)
 
     def stats_agreement_disagree(self, checked):
         """
@@ -83,16 +82,16 @@ class PreferencesDialog(QDialog):
         """
 
         # save value on settings file
-        utils.preferences.setValue("stats_agreement", self.STATS_DISAGREE)
+        preferences.set_stats_agreement(False)
 
     def duration_representation_changed(self, index):
-        utils.preferences.setValue("duration_representation", index)
+        preferences.set_duration_representation(index)
 
     def language_representation_changed(self, index):
-        utils.preferences.setValue("language_representation", index)
+        preferences.set_language_representation(index)
 
     def words_separator_representation_changed(self, index):
-        utils.preferences.setValue("words_separator", index)
+        preferences.set_words_separator(index)
 
     def close(self):
         # TODO

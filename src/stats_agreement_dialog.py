@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
 
-import utils
-from preferences_dialog import PreferencesDialog
+from preferences import preferences
 
 __author__ = "Alberto Malagoli"
 
@@ -13,7 +12,7 @@ class StatsAgreementDialog(QDialog):
 
         # load UI
         self.ui = loadUi("stats_agreement_dialog.ui", self)
-        ## slots connection
+        # slots connection
         self.ui.radio_agree.clicked.connect(self.stats_agreement_agree)
         self.ui.radio_disagree.clicked.connect(self.stats_agreement_disagree)
 
@@ -26,7 +25,7 @@ class StatsAgreementDialog(QDialog):
         """
 
         # save value on settings file
-        utils.preferences.setValue("stats_agreement", PreferencesDialog.STATS_AGREE)
+        preferences.set_stats_agreement(True)
 
     def stats_agreement_disagree(self, checked):
         """
@@ -35,7 +34,8 @@ class StatsAgreementDialog(QDialog):
         """
 
         # save value on settings file
-        utils.preferences.setValue("stats_agreement", PreferencesDialog.STATS_DISAGREE)
+        preferences.set_stats_agreement(False)
 
-    def close(self):
-        self.accept()
+
+def close(self):
+    self.accept()

@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QTableWidget
 from PyQt5.uic import loadUi
 
 from movie import Movie
+from preferences import preferences
 from preferences_dialog import PreferencesDialog
 from renaming_rule_dialog import RenamingRuleDialog
 from stats_agreement_dialog import StatsAgreementDialog
@@ -95,14 +96,14 @@ class MainWindow(QMainWindow):
         """
 
         # get if this is the first time user opens the program
-        first_time = utils.preferences.value("first_time").toBool()
+        first_time = preferences.get_first_time_opening()
         if first_time:
             # create agreement dialog
             stats_agreement_dialog = StatsAgreementDialog(self)
             # show it
             stats_agreement_dialog.exec_()
             # nex time user will open the program, don't show that dialog
-            utils.preferences.setValue("first_time", False)
+            preferences.set_first_time_opening(False)
 
             # --------------------------------- SLOTS ----------------------------------
 
@@ -195,7 +196,7 @@ class MainWindow(QMainWindow):
         # takes first selected file and get the file path, use it as the last visited directory
         self.last_visited_directory = os.path.normpath(os.path.split(filepaths[0])[0])
         # save it in settings
-        utils.preferences.setValue("last_visited_directory", self.last_visited_directory)
+        preferences.set_last_visited_directory(self.last_visited_directory)
         # disable gui elements which cannot be used during loading
         self.set_gui_enabled_load_movies(False)
         # show loading panel
@@ -204,7 +205,7 @@ class MainWindow(QMainWindow):
         threading.Thread(target=self.load_movies_run, args=(filepaths,)).start()
 
     def load_movies_run(self, filepaths):
-        renaming_rule = utils.preferences.value("renaming_rule").toString()
+        renaming_rule = preferences.get_renaming_rule()
         # loop on file paths
         for filepath in filepaths:
             # set loading label text, show current file name
@@ -292,7 +293,7 @@ class MainWindow(QMainWindow):
         self.ui.table_movies.clearSelection()
         # show renaming rule dialog
         self.ui.renaming_rule_dialog.exec_()
-        renaming_rule = utils.preferences.value("renaming_rule").toString()
+        renaming_rule = preferences.get_renaming_rule()
         # loop on movies
         for i in range(len(self.movies)):
             movie = self.movies[i]
@@ -338,7 +339,7 @@ class MainWindow(QMainWindow):
     def show_preferences(self):
         # show renaming rule dialog
         self.ui.preferences_dialog.exec_()
-        renaming_rule = utils.preferences.value("renaming_rule").toString()
+        renaming_rule = preferences.get_renaming_rule()
         # loop on movies
         for i in range(len(self.movies)):
             movie = self.movies[i]
@@ -521,7 +522,7 @@ class MainWindow(QMainWindow):
             info_index = selected_info[0].row()
             movie = self.current_movie
             movie.set_movie(info_index)
-            renaming_rule = utils.preferences.value("renaming_rule").toString()
+            renaming_rule = preferences.get_renaming_rule()
             # generate new movie name based on renaming rule
             movie.generate_new_name(renaming_rule)
             # create a table item with new movie file name
@@ -568,7 +569,7 @@ class MainWindow(QMainWindow):
 
         # re-enable gui elements
         self.set_gui_enabled_search_title(True)
-        renaming_rule = utils.preferences.value("renaming_rule").toString()
+        renaming_rule = preferences.get_renaming_rule()
         # generate new movie name based on renaming rule
         movie = self.current_movie
         movie.generate_new_name(renaming_rule)

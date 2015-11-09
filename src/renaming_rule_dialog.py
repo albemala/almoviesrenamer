@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
 
-import utils
 from movie import Movie
+from preferences import preferences
 from preferences_dialog import PreferencesDialog
 
 __author__ = "Alberto Malagoli"
@@ -96,14 +96,14 @@ class RenamingRuleDialog(QDialog):
         populate renaming rule by rule read from settings
         """
 
-        renaming_rule = utils.preferences.value("renaming_rule").toString()
+        renaming_rule = preferences.get_renaming_rule()
         # split rule
         rules = renaming_rule.split('.')
         # if rule is empty, reset it to 'title'
         if rules[0] == '':
             rules[0] = Movie.TITLE
             renaming_rule = Movie.TITLE
-            utils.preferences.setValue("renaming_rule", renaming_rule)
+            preferences.set_renaming_rule(renaming_rule)
         visual_rule = []
         # loop on rules
         for rule in rules:
@@ -111,15 +111,15 @@ class RenamingRuleDialog(QDialog):
         self.ui.list_visual_rule.addItems(visual_rule)
 
     def update_representations(self):
-        duration_index = utils.preferences.value("duration_representation").toInt()[0]
+        duration_index = preferences.get_duration_representation()
         duration_representation = PreferencesDialog.DURATION_REPRESENTATIONS[duration_index]
         self.ui.label_duration_representation.setText(duration_representation)
 
-        language_index = utils.preferences.value("language_representation").toInt()[0]
+        language_index = preferences.get_language_representation()
         language_representation = PreferencesDialog.LANGUAGE_REPRESENTATIONS[language_index]
         self.ui.label_language_representation.setText(language_representation)
 
-        separator_index = utils.preferences.value("words_separator").toInt()[0]
+        separator_index = preferences.get_words_separator()
         separator_representation = PreferencesDialog.WORDS_SEPARATORS_REPRESENTATIONS[separator_index]
         self.ui.label_separator_representation.setText(separator_representation)
 
@@ -150,7 +150,7 @@ class RenamingRuleDialog(QDialog):
         # creates renaming rule
         renaming_rule = '.'.join(rule)
         # save renaming rule on settings
-        utils.preferences.setValue("renaming_rule", renaming_rule)
+        preferences.set_renaming_rule(renaming_rule)
         # update example movie
         self.update_example_movie(renaming_rule)
 
