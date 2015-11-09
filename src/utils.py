@@ -1,22 +1,8 @@
-import threading
-
-from PyQt5.QtCore import QSettings
-from preferences_dialog import PreferencesDialog
-
 __author__ = "Alberto Malagoli"
 
 # program name and version, used in excepthook
 PROGRAM_NAME = "ALMoviesRenamer"
 PROGRAM_VERSION = "6"
-
-
-def load_preferences():
-    """
-    loads preferences file, and keep it into the 'preferences' global variable
-    """
-
-    global preferences
-    preferences = QSettings("preferences.ini", QSettings.IniFormat)
 
 
 def load_languages():
@@ -77,6 +63,7 @@ def country_to_language(given_country):
     except KeyError:
         return None
 
+
 # TODO
 def send_usage_statistics():
     pass
@@ -91,6 +78,7 @@ def send_usage_statistics():
     # if send_usage_statistics == PreferencesDialog.STATS_AGREE:
     #     # start sending thread
     #     threading.Thread(target = send_usage_statistics_run).start()
+
 
 # TODO
 def send_usage_statistics_run():
@@ -117,9 +105,13 @@ def send_usage_statistics_run():
     # # POST send data to web service
     # f = urllib2.urlopen(url, data)
 
- # TODO
+    # TODO
+
+
 def check_connection(self):
     pass
+
+
 #     """
 #     checks if internet connection is up.
 #
@@ -143,26 +135,26 @@ def check_connection(self):
 #         msg_box.setIconPixmap(icon)
 #         msg_box.exec_()
 
- # TODO
+# TODO
 def check_new_version(self):
     pass
-#     """
-#     checks for new program version, and notify in case of
-#     a newer version
-#     """
-#
-#     # create url, with current program version
-#     url = "http://almoviesrenamer.appspot.com/checknewversion"
-#     # call web service
-#     f = urllib2.urlopen(url)
-#     # read the answer (could be "yes" for new version, or "no")
-#     version = f.read().rstrip('\n')
-#     # if there is a new version
-#     if version != utils.PROGRAM_VERSION:
-#         title = QApplication.translate('GUI', "New version available")
-#         msg = QApplication.translate('GUI', """
-# <p>A new version of {0} is available: <b>{1}</b></p>
-# <p><a href="http://code.google.com/p/almoviesrenamer/downloads/list">Download it.</a></p>
-#             """).format(utils.PROGRAM_NAME, version)
-#         # show a notification dialog, with link to download page
-#         QMessageBox.information(None, title, msg)
+    #     """
+    #     checks for new program version, and notify in case of
+    #     a newer version
+    #     """
+    #
+    #     # create url, with current program version
+    #     url = "http://almoviesrenamer.appspot.com/checknewversion"
+    #     # call web service
+    #     f = urllib2.urlopen(url)
+    #     # read the answer (could be "yes" for new version, or "no")
+    #     version = f.read().rstrip('\n')
+    #     # if there is a new version
+    #     if version != utils.PROGRAM_VERSION:
+    #         title = QApplication.translate('GUI', "New version available")
+    #         msg = QApplication.translate('GUI', """
+    # <p>A new version of {0} is available: <b>{1}</b></p>
+    # <p><a href="http://code.google.com/p/almoviesrenamer/downloads/list">Download it.</a></p>
+    #             """).format(utils.PROGRAM_NAME, version)
+    #         # show a notification dialog, with link to download page
+    #         QMessageBox.information(None, title, msg)

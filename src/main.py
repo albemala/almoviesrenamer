@@ -12,8 +12,7 @@ try:
 
     # load languages and preferences
     utils.load_languages()
-    utils.load_preferences()
-    # create the GUI and shows it
+
     app = QApplication(sys.argv)
 
     # TODO
@@ -22,10 +21,9 @@ try:
     # translator.load("qm/app_" + QLocale.system().name())
     # app.installTranslator(translator)
 
-    # show gui
     gui = MainWindow()
-    # execute the application
     app.exec_()
+
 except:
     import traceback
 
