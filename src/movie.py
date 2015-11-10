@@ -1,39 +1,30 @@
-# -*- coding: latin-1 -*-
-
-
-from PyQt5.QtWidgets import QApplication
-import difflib
-# import enzyme
-# import imdb
+import datetime
 import os
 import platform
 import re
-# import unicodedata
-import datetime
+import enzyme
 import utils
-import urllib
-# import urllib2
-import json
 
 __author__ = "Alberto Malagoli"
 
 # black words in file names
 blackwords = [
-              # video type
-              'DVDRip', 'HD-DVD', 'HDDVD', 'HDDVDRip', 'BluRay', 'Blu-ray', 'BDRip', 'BRRip',
-              'HDRip', 'DVD', 'DVDivX', 'HDTV', 'DVB', 'DVBRip', 'PDTV', 'WEBRip', 'DVDSCR',
-              'Screener', 'VHS', 'VIDEO_TS',
-              # screen
-              '720p', '720',
-              # video codec
-              'XviD', 'DivX', 'x264', 'h264', 'Rv10',
-              # audio codec
-              'AC3', 'DTS', 'He-AAC', 'AAC-He', 'AAC', '5.1',
-              # ripper teams
-              'ESiR', 'WAF', 'SEPTiC', '[XCT]', 'iNT', 'PUKKA', 'CHD', 'ViTE', 'TLF',
-              'DEiTY', 'FLAiTE', 'MDX', 'GM4F', 'DVL', 'SVD', 'iLUMiNADOS',
-              'UnSeeN', 'aXXo', 'KLAXXON', 'NoTV', 'ZeaL', 'LOL'
-              ]
+    # video type
+    'DVDRip', 'HD-DVD', 'HDDVD', 'HDDVDRip', 'BluRay', 'Blu-ray', 'BDRip', 'BRRip',
+    'HDRip', 'DVD', 'DVDivX', 'HDTV', 'DVB', 'DVBRip', 'PDTV', 'WEBRip', 'DVDSCR',
+    'Screener', 'VHS', 'VIDEO_TS',
+    # screen
+    '720p', '720',
+    # video codec
+    'XviD', 'DivX', 'x264', 'h264', 'Rv10',
+    # audio codec
+    'AC3', 'DTS', 'He-AAC', 'AAC-He', 'AAC', '5.1',
+    # ripper teams
+    'ESiR', 'WAF', 'SEPTiC', '[XCT]', 'iNT', 'PUKKA', 'CHD', 'ViTE', 'TLF',
+    'DEiTY', 'FLAiTE', 'MDX', 'GM4F', 'DVL', 'SVD', 'iLUMiNADOS',
+    'UnSeeN', 'aXXo', 'KLAXXON', 'NoTV', 'ZeaL', 'LOL'
+]
+
 
 def guess_info(title):
     """
@@ -67,6 +58,7 @@ def guess_info(title):
     # return guessed information
     return info
 
+
 def guess_year_(title):
     """
     looks for year patterns, and return found year
@@ -81,11 +73,12 @@ def guess_year_(title):
     match = re.search(r'[0-9]{4}', title)
     # if found, check if year is between 1920 and now + 5 years
     if match \
-    and 1920 < int(match.group(0)) < datetime.date.today().year + 5:
+            and 1920 < int(match.group(0)) < datetime.date.today().year + 5:
         year = match.group(0)
         # remove year from title
         title = title[:match.start()] + title[match.end():]
     return title, year
+
 
 def guess_language_(title):
     """
@@ -103,6 +96,7 @@ def guess_language_(title):
             title = title[:match.start()] + title[match.end():]
     return title, language
 
+
 def guess_subtitles_(title):
     """
     guess subtitles subtitles, looking for ISO subtitles representation in title
@@ -119,6 +113,7 @@ def guess_subtitles_(title):
             title = title[:match.start() + 1] + title[match.end() - 1:]
     return title, subtitles
 
+
 def guess_part_(title):
     """
     guess movie part, e.g. CD1 -> 1
@@ -133,6 +128,7 @@ def guess_part_(title):
         # remove part from title
         title = title[:match.start()] + title[match.end():]
     return title, part
+
 
 def clean_title_(title):
     # remove everything inside parenthesis
@@ -156,6 +152,7 @@ def clean_title_(title):
     title = ' '.join(title)
     return title
 
+
 class Movie:
     """
     class representing a movie
@@ -177,7 +174,7 @@ class Movie:
     PART = 'part'
     SCORE = 'score'
 
-    def __init__(self, filepath = None):
+    def __init__(self, absolute_file_path=None):
         """
         constructor.
 
@@ -185,59 +182,59 @@ class Movie:
         a movie example
         """
 
+        # file path (only directory)
+        self._file_path = ""
+        # original movie title, before renaming
+        self._original_file_name = ""
+        # file extension
+        self._file_extension = ""
+        # movie new title (after renaming)
+        self._renamed_file_name = ""
+        # current state
+        # states are used to show a proper panel in GUI
+        self._renaming_state = self.STATE_BEFORE_RENAMING
+        # used to store guessed information from file name
+        self._guessed_info = {}
+        # imdb search for a given movie, return some results, which are
+        # transformed in a better formed and stored into this attribute
+        self._others_info = [{}]
+        # currently associated movie, returned from imdb search, is stored here
+        self._info = {}
+        # get video duration
+        self._video_duration = 0
+        # error occurred during renaming operation
+        self._renaming_error = ""
+
         # create a movie example
-        if filepath == None:
-            # file path (only directory)
-            self.path_ = 'C:\\'
-            # original movie title, before renaming
-            self.original_name_ = '[DivX ITA] A really cool movie (2012)'
-            # file extension
-            self.extension_ = '.avi'
-            # movie new title (after renaming)
-            self.new_name_ = ''
-            # current state
-            # states are used to show a proper panel in GUI
-            self.state_ = self.STATE_BEFORE_RENAMING
-            self.guessed_info_ = {
-                                  self.SUBTITLES: ['Italian', 'ITA'],
-                                  self.PART: '1'}
+        if absolute_file_path is None:
+            self._file_path = "C:\\"
+            self._original_file_name = "[DivX ITA] A really cool movie (2012)"
+            self._file_extension = ".avi"
+            # TODO maybe I want the guessed info to be filled by guessit?
+            self._guessed_info = {
+                self.SUBTITLES: ["Italian", "ITA"],
+                self.PART: "1"}
             info = {
-                    self.TITLE: 'Un film molto figo',
-                    self.ORIGINAL_TITLE: 'A really cool movie',
-                    self.YEAR: '2012',
-                    self.DIRECTOR: 'A. Director',
-                    self.DURATION: ['100m', '1h40m'],
-                    self.LANGUAGE: ['Italian', 'ITA'],
-                    self.SCORE: 1}
-            self.others_info_ = [info]
-            self.info_ = info
+                self.TITLE: "Un film molto figo",
+                self.ORIGINAL_TITLE: "A really cool movie",
+                self.YEAR: "2012",
+                self.DIRECTOR: "A. Director",
+                self.DURATION: ["100m", '1h40m'],
+                self.LANGUAGE: ["Italian", 'ITA'],
+                self.SCORE: 1}
+            self._others_info = [info]
+            self._info = info
 
         else:
-            path, name = os.path.split(filepath)
+            path, name = os.path.split(absolute_file_path)
+            name, extension = os.path.splitext(name)
+            self._file_path = os.path.normpath(path)
+            self._original_file_name = name
+            self._file_extension = extension
+            self._guessed_info = None
+            self._others_info = None
+            self._info = None
             # TODO
-            # name, extension = os.path.splitext(name)
-            # # file path (only directory)
-            # self.path_ = os.path.normpath(str(path))
-            # # original movie title, before renaming
-            # self.original_name_ = str(name)
-            # # file extension
-            # self.extension_ = str(extension)
-            # # movie new title (after renaming)
-            # self.new_name_ = ''
-            # # current state
-            # # states are used to show a proper panel in GUI
-            # self.state_ = self.STATE_BEFORE_RENAMING
-            # # error occurred during renaming operation
-            # self.renaming_error_ = ''
-            # # used to store guessed information from file name
-            # self.guessed_info_ = None
-            # # imdb search for a given movie, return some results, which are
-            # # transformed in a better formed and stored into this attribute
-            # self.others_info_ = None
-            # # currently associated movie, returned from imdb search, is stored here
-            # self.info_ = None
-            # # get video duration
-            # self.video_duration_ = None
             # try:
             #     video_info = enzyme.parse(self.abs_original_file_name())
             # except Exception:
@@ -250,9 +247,10 @@ class Movie:
             #         self.video_duration_ = int(video_info.length / 60)
             #     elif video_info.video[0].length != None:
             #         self.video_duration_ = int(video_info.video[0].length / 60)
-            # # guess info from file name
-            # self.guessed_info_ = guess_info(name)
-            # # get other movie info
+            # guess info from file name
+            self._guessed_info = guess_info(name)
+            # get other movie info
+            # TODO call this from outside
             # self.get_info_()
 
     def original_file_name(self):
@@ -260,44 +258,44 @@ class Movie:
         return the original file name
         """
 
-        return self.original_name_
+        return self._original_file_name
 
     def new_file_name(self):
         """
         return the new file name
         """
 
-        return self.new_name_
+        return self._renamed_file_name
 
     def abs_original_file_name(self):
         """
         return the complete original file name, from the root
         """
 
-        return os.path.join(self.path_, self.original_name_ + self.extension_)
+        return os.path.join(self._file_path, self._original_file_name + self._file_extension)
 
     def abs_new_file_name(self):
         """
         return the complete new file name, from the root
         """
 
-        return os.path.join(self.path_, self.new_name_ + self.extension_)
+        return os.path.join(self._file_path, self._renamed_file_name + self._file_extension)
 
     def abs_original_file_path(self):
         """
         return the complete original file name, from the root
         """
 
-        return self.path_
+        return self._file_path
 
     def title(self):
         """
         return the movie title
         """
 
-        if self.info_ != None:
-            return self.info_[self.TITLE]
-        return self.guessed_info_[self.TITLE]
+        if self._info != None:
+            return self._info[self.TITLE]
+        return self._guessed_info[self.TITLE]
 
     def original_title(self):
         """
@@ -307,8 +305,8 @@ class Movie:
         language, is Profondo Rosso
         """
 
-        if self.info_ != None:
-            return self.info_[self.ORIGINAL_TITLE]
+        if self._info != None:
+            return self._info[self.ORIGINAL_TITLE]
         return ''
 
     def year(self):
@@ -316,11 +314,11 @@ class Movie:
         return the movie year
         """
 
-        if self.info_ != None:
-            return self.info_[self.YEAR]
-        if self.guessed_info_ != None \
-        and self.YEAR in self.guessed_info_:
-            return self.guessed_info_[self.YEAR]
+        if self._info != None:
+            return self._info[self.YEAR]
+        if self._guessed_info != None \
+                and self.YEAR in self._guessed_info:
+            return self._guessed_info[self.YEAR]
         return ''
 
     def director(self):
@@ -328,11 +326,11 @@ class Movie:
         return the movie director(s)
         """
 
-        if self.info_ != None:
-            return self.info_[self.DIRECTOR]
+        if self._info != None:
+            return self._info[self.DIRECTOR]
         return ''
 
-    def duration(self, index = 0):
+    def duration(self, index=0):
         """
         return the movie duration
 
@@ -341,11 +339,11 @@ class Movie:
          - hours and minutes (e.g.: 1h40m)
         """
 
-        if self.info_ != None:
-            return self.info_[self.DURATION][index]
+        if self._info != None:
+            return self._info[self.DURATION][index]
         return ''
 
-    def language(self, index = 0):
+    def language(self, index=0):
         """
         return the movie language
 
@@ -354,14 +352,14 @@ class Movie:
          - 3-letters (e.g.: ITA)
         """
 
-        if self.info_ != None:
-            return self.info_[self.LANGUAGE][index]
-        if self.guessed_info_ != None \
-        and self.LANGUAGE in self.guessed_info_:
-            return self.guessed_info_[self.LANGUAGE][index]
+        if self._info != None:
+            return self._info[self.LANGUAGE][index]
+        if self._guessed_info != None \
+                and self.LANGUAGE in self._guessed_info:
+            return self._guessed_info[self.LANGUAGE][index]
         return ''
 
-    def subtitles(self, index = 0):
+    def subtitles(self, index=0):
         """
         return subtitles language
 
@@ -370,9 +368,9 @@ class Movie:
          - 3-letters (e.g.: ITA)
         """
 
-        if self.guessed_info_ != None \
-        and self.SUBTITLES in self.guessed_info_:
-            return self.guessed_info_[self.SUBTITLES][index]
+        if self._guessed_info != None \
+                and self.SUBTITLES in self._guessed_info:
+            return self._guessed_info[self.SUBTITLES][index]
         return ''
 
     def part(self):
@@ -380,9 +378,9 @@ class Movie:
         return the movie title
         """
 
-        if self.guessed_info_ != None \
-        and self.PART in self.guessed_info_:
-            return self.guessed_info_[self.PART]
+        if self._guessed_info != None \
+                and self.PART in self._guessed_info:
+            return self._guessed_info[self.PART]
         return ''
 
     def others_info(self):
@@ -395,7 +393,7 @@ class Movie:
         """
 
         others_info = []
-        for other_info in self.others_info_:
+        for other_info in self._others_info:
             info = [other_info[self.TITLE], other_info[self.LANGUAGE][0]]
             others_info.append(info)
         return others_info
@@ -407,9 +405,9 @@ class Movie:
         state is one of STATE_BEFORE_RENAMING, STATE_RENAMED, STATE_RENAMING_ERROR
         """
 
-        return self.state_
+        return self._renaming_state
 
-    def set_state(self, state, error = ""):
+    def set_state(self, state, error=""):
         """
         set state
 
@@ -418,24 +416,26 @@ class Movie:
         error could be an error message, used with STATE_RENAMING_ERROR
         """
 
-        self.state_ = state
-        self.renaming_error_ = error
+        self._renaming_state = state
+        self._renaming_error = error
         # when a file has been renamed, put new name as the original one 
         if state == Movie.STATE_RENAMED:
-            self.original_name_ = self.new_name_
+            self._original_file_name = self._renamed_file_name
 
     def renaming_error(self):
-        return self.renaming_error_
+        return self._renaming_error
 
     def set_movie(self, index):
         """
         set currently associated info, from list of others information
         """
 
-        self.info_ = self.others_info_[index]
+        self._info = self._others_info[index]
 
     # TODO
-    # def get_info_(self):
+    def get_info_(self):
+        pass
+
     #     """
     #     search on imdb for a movie title, and store results as others information.
     #
@@ -618,9 +618,9 @@ class Movie:
 
         # guess info from given title
         guessed_info = guess_info(title)
-        self.guessed_info_[self.TITLE] = guessed_info[self.TITLE]
+        self._guessed_info[self.TITLE] = guessed_info[self.TITLE]
         if self.YEAR in guessed_info:
-            self.guessed_info_[self.YEAR] = guessed_info[self.YEAR]
+            self._guessed_info[self.YEAR] = guessed_info[self.YEAR]
         self.get_info_()
 
     def generate_new_name(self, renaming_rule):
@@ -632,20 +632,20 @@ class Movie:
         from renaming_rule_dialog import RenamingRuleDialog as RenamingRule
 
         if len(renaming_rule) == 0:
-            self.new_name_ = ''
+            self._renamed_file_name = ''
         else:
             duration_index = utils.preferences.value("duration_representation").toInt()[0]
             language_index = utils.preferences.value("language_representation").toInt()[0]
             words_separator_index = utils.preferences.value("words_separator").toInt()[0]
             separator = Preferences.WORDS_SEPARATORS[words_separator_index]
             opened_brackets = [
-                               RenamingRule.OPENED_ROUND_BRACKET,
-                               RenamingRule.OPENED_SQUARE_BRACKET,
-                               RenamingRule.OPENED_CURLY_BRACKET]
+                RenamingRule.OPENED_ROUND_BRACKET,
+                RenamingRule.OPENED_SQUARE_BRACKET,
+                RenamingRule.OPENED_CURLY_BRACKET]
             closed_brackets = [
-                               RenamingRule.CLOSED_ROUND_BRACKET,
-                               RenamingRule.CLOSED_SQUARE_BRACKET,
-                               RenamingRule.CLOSED_CURLY_BRACKET]
+                RenamingRule.CLOSED_ROUND_BRACKET,
+                RenamingRule.CLOSED_SQUARE_BRACKET,
+                RenamingRule.CLOSED_CURLY_BRACKET]
             # split renaming rule
             rules = renaming_rule.split('.')
 
@@ -655,34 +655,34 @@ class Movie:
             for rule in rules:
                 # title
                 if rule == self.TITLE \
-                and self.title() != '':
+                        and self.title() != '':
                     new_name_items.append(self.title())
                 # original title
                 elif rule == self.ORIGINAL_TITLE \
-                and self.original_title() != '':
+                        and self.original_title() != '':
                     new_name_items.append(self.original_title())
                 # year
                 elif rule == self.YEAR \
-                and self.year() != '':
+                        and self.year() != '':
                     new_name_items.append(self.year())
                 # director
                 elif rule == self.DIRECTOR \
-                and self.director() != '':
+                        and self.director() != '':
                     new_name_items.append(self.director())
                 # duration
                 elif rule == self.DURATION \
-                and self.duration() != '':
+                        and self.duration() != '':
                     new_name_items.append(self.duration(duration_index))
                 # language
                 elif rule == self.LANGUAGE \
-                and self.language() != '':
+                        and self.language() != '':
                     language = self.language(language_index)
                     if self.subtitles() != '':
                         language += ' sub ' + self.subtitles(language_index)
                     new_name_items.append(language)
                 # opened and closed brackets
                 elif rule in opened_brackets \
-                or rule in closed_brackets:
+                        or rule in closed_brackets:
                     new_name_items.append(rule)
 
             ## 2nd round: remove empty brackets
@@ -690,17 +690,17 @@ class Movie:
             # loop on new name
             for i in range(len(new_name_items)):
                 item = new_name_items[i]
-                if (# current item is an opened bracket and next one is a closed bracket
-                    item in opened_brackets
-                    and i + 1 < len(new_name_items)
-                    and new_name_items[i + 1]
-                    not in closed_brackets) \
-                or (# current item is a closed bracket and previous one is not an opened bracket 
-                    item in closed_brackets
-                    and i - 1 > 0
-                    and new_name_items[i - 1] not in opened_brackets) \
-                or (# current item is neither an opened bracket nor a closed bracket 
-                    item not in opened_brackets and item not in closed_brackets):
+                if (  # current item is an opened bracket and next one is a closed bracket
+                                    item in opened_brackets
+                            and i + 1 < len(new_name_items)
+                        and new_name_items[i + 1]
+                        not in closed_brackets) \
+                        or (  # current item is a closed bracket and previous one is not an opened bracket
+                                            item in closed_brackets
+                                    and i - 1 > 0
+                                and new_name_items[i - 1] not in opened_brackets) \
+                        or (  # current item is neither an opened bracket nor a closed bracket
+                                        item not in opened_brackets and item not in closed_brackets):
                     # if previous clauses are true, keep the item
                     cleaned_new_name.append(item)
 
@@ -716,11 +716,11 @@ class Movie:
                     # separate closed brackets and next items with a space
                     if item in closed_brackets:
                         new_name += ' '
-                    elif item not in opened_brackets: # is an attribute
+                    elif item not in opened_brackets:  # is an attribute
                         # separate attributes and opened brackets with a space
                         if cleaned_new_name[i + 1] in opened_brackets:
                             new_name += ' '
-                        elif cleaned_new_name[i + 1] not in closed_brackets: # is an attribute
+                        elif cleaned_new_name[i + 1] not in closed_brackets:  # is an attribute
                             new_name += separator
 
             # if current movie is divided into parts 
@@ -735,9 +735,9 @@ class Movie:
                 # add part to new name
                 new_name += "Part " + self.part()
             # set file new name
-            self.new_name_ = new_name
+            self._renamed_file_name = new_name
 
-        return self.new_name_
+        return self._renamed_file_name
 
     def check_and_clean_new_name(self):
         """
@@ -749,15 +749,15 @@ class Movie:
 
         # if new name is empty or equal to old one,
         # don't rename the file
-        if self.new_name_.strip() == '' \
-        or self.original_name_ == self.new_name_:
+        if self._renamed_file_name.strip() == '' \
+                or self._original_file_name == self._renamed_file_name:
             return False
         # char used to replace bad characters in name
         replace_with = ''
         # get operative system
         sysname = platform.system()
         # copy new name to a temp variable
-        name = self.new_name_
+        name = self._renamed_file_name
 
         # If the filename starts with a . prepend it with an underscore, so it
         # doesn't become hidden.
@@ -789,15 +789,15 @@ class Movie:
         # As with character blacklist, treat non Darwin/Linux platforms as Windows
         if sysname not in ['Darwin', 'Linux']:
             invalid_filenames = ["CON", "PRN", "AUX", "NUL", "COM1", "COM2",
-            "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1",
-            "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"]
+                                 "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1",
+                                 "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"]
             if name in invalid_filenames:
                 name = "_" + name
-        # Replace accented characters with ASCII equivalent
-#        name = unicode(name) # cast data to unicode
-#        name = unicodedata.normalize('NFKD', name).encode('ascii', 'ignore')
+                # Replace accented characters with ASCII equivalent
+                #        name = unicode(name) # cast data to unicode
+                #        name = unicodedata.normalize('NFKD', name).encode('ascii', 'ignore')
         # Treat extension seperatly
-        extension = self.extension_
+        extension = self._file_extension
         # Truncate filenames to valid/sane length.
         # NTFS is limited to 255 characters, HFS+ and EXT3 don't seem to have
         # limits, FAT32 is 254. I doubt anyone will take issue with losing that
@@ -815,21 +815,18 @@ class Movie:
                 name = name[:new_length]
 
         # if a file with current new name already exists
-        if os.path.isfile(os.path.join(self.path_, name + extension)):
+        if os.path.isfile(os.path.join(self._file_path, name + extension)):
             # create a counter
             counter = 1
             # files with same name will have a counter appended at their name's end,
             # with pattern "file name (<counter>)
             # increase counter until it doesn't find highest counter 
-            while os.path.isfile(os.path.join(self.path_, name + ' (' + str(counter) + ')' + extension)):
+            while os.path.isfile(os.path.join(self._file_path, name + ' (' + str(counter) + ')' + extension)):
                 counter += 1
             name = name + ' (' + str(counter) + ')'
 
         # set cleaned new name and extension
-        self.new_name_ = str(name)
-        self.extension_ = extension
+        self._renamed_file_name = str(name)
+        self._file_extension = extension
         # ok, file can be renamed
         return True
-
-
-
