@@ -212,11 +212,11 @@ class MainWindow(QMainWindow):
             # insert a new row in movie table
             self._ui.table_movies.insertRow(self._ui.table_movies.rowCount())
             # create a table item with original movie file name
-            item_original_name = QTableWidgetItem(movie.original_file_name())
+            item_original_name = QTableWidgetItem(movie.get_original_file_name())
             item_original_name.setForeground(QBrush(Qt.black))
             self._ui.table_movies.setItem(self._ui.table_movies.rowCount() - 1, 0, item_original_name)
             # create a table item with new movie file name
-            item_new_name = QTableWidgetItem(movie.new_file_name())
+            item_new_name = QTableWidgetItem(movie.get_renamed_file_name())
             item_new_name.setForeground(QBrush(Qt.black))
             self._ui.table_movies.setItem(self._ui.table_movies.rowCount() - 1, 1, item_new_name)
         self.load_movies_finished.emit()
@@ -293,9 +293,9 @@ class MainWindow(QMainWindow):
             movie.generate_new_name(renaming_rule)
             # set "before renaming state", because after renaming a movie
             # can be renamed a second time, after having changed the rule
-            movie.set_state(Movie.STATE_BEFORE_RENAMING)
+            movie.set_renaming_state(Movie.STATE_BEFORE_RENAMING)
             self._ui.table_movies.item(i, 1).setForeground(QBrush(Qt.black))
-            self._ui.table_movies.item(i, 1).setText(movie.new_file_name())
+            self._ui.table_movies.item(i, 1).setText(movie.get_renamed_file_name())
 
     def rename_movies(self):
         """
@@ -309,20 +309,20 @@ class MainWindow(QMainWindow):
             # check if new title is a valid file name
             if movie.check_and_clean_new_name():
                 # set "new name" table item with new movie name
-                self._ui.table_movies.item(i, 1).setText(movie.new_file_name())
+                self._ui.table_movies.item(i, 1).setText(movie.get_renamed_file_name())
                 try:
                     # rename file
-                    os.rename(movie.abs_original_file_name(), movie.abs_new_file_name())
+                    os.rename(movie.get_absolute_original_file_path(), movie.get_absolute_renamed_file_path())
                 except OSError as e:
                     # set state and renaming error
-                    movie.set_state(Movie.STATE_RENAMING_ERROR, e.strerror)
+                    movie.set_renaming_state(Movie.STATE_RENAMING_ERROR, e.strerror)
                     # paint "new name" table item with red
                     self._ui.table_movies.item(i, 1).setForeground(QBrush(Qt.red))
                 else:
                     # correctly renamed
-                    movie.set_state(Movie.STATE_RENAMED)
+                    movie.set_renaming_state(Movie.STATE_RENAMED)
                     # set "original name" table item with new movie name
-                    self._ui.table_movies.item(i, 0).setText(movie.new_file_name())
+                    self._ui.table_movies.item(i, 0).setText(movie.get_renamed_file_name())
                     # paint "new name" table item with green
                     self._ui.table_movies.item(i, 1).setForeground(QBrush(Qt.darkGreen))
 
@@ -339,9 +339,9 @@ class MainWindow(QMainWindow):
             movie.generate_new_name(renaming_rule)
             # set "before renaming state", because after renaming a movie
             # can be renamed a second time, after having changed the rule
-            movie.set_state(Movie.STATE_BEFORE_RENAMING)
+            movie.set_renaming_state(Movie.STATE_BEFORE_RENAMING)
             self._ui.table_movies.item(i, 1).setForeground(QBrush(Qt.black))
-            self._ui.table_movies.item(i, 1).setText(movie.new_file_name())
+            self._ui.table_movies.item(i, 1).setText(movie.get_renamed_file_name())
 
     def show_about(self):
         """
@@ -424,17 +424,17 @@ class MainWindow(QMainWindow):
             movie = self._current_movie
 
             # set movie panel based on movie state (
-            self._ui.stack_movie.setCurrentIndex(movie.state())
+            self._ui.stack_movie.setCurrentIndex(movie.get_renaming_state())
             # populate movie panel
-            if movie.state() == Movie.STATE_RENAMING_ERROR:
+            if movie.get_renaming_state() == Movie.STATE_RENAMING_ERROR:
                 self._ui.label_error.setText("""
                     <html><head/><body><p><span style="font-size:11pt; font-weight:400; color:#ff0000;">
                     """
-                                             + movie.renaming_error() +
+                                             + movie.get_renaming_error() +
                                             """
                                             </span></p></body></html>
                                             """)
-            elif movie.state() == Movie.STATE_BEFORE_RENAMING:
+            elif movie.get_renaming_state() == Movie.STATE_BEFORE_RENAMING:
                 self.populate_movie_panel()
                 self._ui.stack_search_title.setCurrentIndex(0)
                 self._ui.text_search_title.clear()
@@ -450,13 +450,13 @@ class MainWindow(QMainWindow):
         """
 
         movie = self._movies[item.row()]
-        path = movie.abs_original_file_path()
+        path = movie.get_directory_path()
         self.open_path(path)
 
     def open_containing_folder(self):
         movie = self._current_movie
         if movie != None:
-            path = movie.abs_original_file_path()
+            path = movie.get_directory_path()
             self.open_path(path)
 
     def open_path(self, path):
@@ -474,19 +474,19 @@ class MainWindow(QMainWindow):
         movie = self._current_movie
         if movie != None:
             clipboard = QApplication.clipboard()
-            clipboard.setText(movie.original_file_name())
+            clipboard.setText(movie.get_original_file_name())
 
     def populate_movie_panel(self):
         movie = self._current_movie
 
-        self._ui.label_title.setText(movie.title())
-        self._ui.label_original_title.setText(movie.original_title())
-        self._ui.label_year.setText(movie.year())
-        self._ui.label_director.setText(movie.director())
-        self._ui.label_duration.setText(movie.duration())
-        language = movie.language()
-        if movie.subtitles() != '':
-            language += " (subtitled " + movie.subtitles() + ")"
+        self._ui.label_title.setText(movie.get_title())
+        self._ui.label_original_title.setText(movie.get_original_title())
+        self._ui.label_year.setText(movie.get_year())
+        self._ui.label_director.setText(movie.get_directors())
+        self._ui.label_duration.setText(movie.get_duration())
+        language = movie.get_language()
+        if movie.get_subtitles() != '':
+            language += " (subtitled " + movie.get_subtitles() + ")"
         self._ui.label_language.setText(language)
 
         # clear table contents
@@ -518,18 +518,18 @@ class MainWindow(QMainWindow):
             # generate new movie name based on renaming rule
             movie.generate_new_name(renaming_rule)
             # create a table item with new movie file name
-            item_new_name = QTableWidgetItem(movie.new_file_name())
+            item_new_name = QTableWidgetItem(movie.get_renamed_file_name())
             selected_movie = self._ui.table_movies.selectedItems()[0]
             # store first selected movie
             movie_index = selected_movie.row()
             self._ui.table_movies.setItem(movie_index, 1, item_new_name)
             # update labels in movie panel
-            self._ui.label_title.setText(movie.title())
-            self._ui.label_original_title.setText(movie.original_title())
-            self._ui.label_year.setText(movie.year())
-            self._ui.label_director.setText(movie.director())
-            self._ui.label_duration.setText(movie.duration())
-            self._ui.label_language.setText(movie.language())
+            self._ui.label_title.setText(movie.get_title())
+            self._ui.label_original_title.setText(movie.get_original_title())
+            self._ui.label_year.setText(movie.get_year())
+            self._ui.label_director.setText(movie.get_directors())
+            self._ui.label_duration.setText(movie.get_duration())
+            self._ui.label_language.setText(movie.get_language())
 
     def search_new_title(self):
         # get title to look for
@@ -566,7 +566,7 @@ class MainWindow(QMainWindow):
         movie = self._current_movie
         movie.generate_new_name(renaming_rule)
         # create a table item with new movie file name
-        item_new_name = QTableWidgetItem(movie.new_file_name())
+        item_new_name = QTableWidgetItem(movie.get_renamed_file_name())
         selected_movie = self._ui.table_movies.selectedItems()[0]
         # store first selected movie
         movie_index = selected_movie.row()
