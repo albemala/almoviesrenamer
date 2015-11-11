@@ -1,4 +1,5 @@
 # -*- coding: latin-1 -*-
+import application
 
 __author__ = "Alberto Malagoli"
 
@@ -41,7 +42,7 @@ for f in glob("*.txt"):
 print("files copied")
 
 archive_name = "dist/{0}-{1}-src" \
-    .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION)
+    .format(application.NAME, application.VERSION)
 archive_file_name = "{0}.tar.gz".format(archive_name)
 if os.path.isfile(archive_file_name):
     print("remove previously created archive")

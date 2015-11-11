@@ -1,4 +1,5 @@
 # -*- coding: latin-1 -*-
+import application
 
 __author__ = "Alberto Malagoli"
 
@@ -30,7 +31,7 @@ def save_exception():
     # language
     locale_info = locale.getdefaultlocale()[0]
     # program version
-    program_info = utils.PROGRAM_VERSION
+    program_info = application.VERSION
     # python version
     python_info = platform.python_version()
     # qt version
@@ -59,7 +60,7 @@ def save_exception():
           "Architecture: " + architecture_info,
           "Operative System: " + os_info,
           "Locale: " + locale_info,
-          utils.PROGRAM_NAME + ": " + program_info,
+          application.NAME + ": " + program_info,
           "Python: " + python_info,
           "Qt: " + qt_info,
           "PyQt: " + pyqt_info,

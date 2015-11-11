@@ -5,12 +5,13 @@ from PyQt5.QtCore import Qt, pyqtSignal, PYQT_VERSION_STR, QUrl
 from PyQt5.QtGui import QBrush, QDesktopServices
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QTableWidgetItem, QMessageBox
 from PyQt5.uic import loadUi
+
+import application
 from movie import Movie
 from preferences import preferences
 from preferences_dialog import PreferencesDialog
 from renaming_rule_dialog import RenamingRuleDialog
 from stats_agreement_dialog import StatsAgreementDialog
-# import imdb
 import utils
 
 __author__ = "Alberto Malagoli"
@@ -50,7 +51,7 @@ class MainWindow(QMainWindow):
         # create RenamingRuleDialog
         self._ui.renaming_rule_dialog = RenamingRuleDialog(self, self._ui.preferences_dialog)
         # set some GUI parameters
-        self.setWindowTitle(utils.PROGRAM_NAME)
+        self.setWindowTitle(application.NAME)
         self._ui.panel_loading.setVisible(False)
         self._ui.stack_movie.setVisible(False)
         self._ui.table_movies.resizeColumnToContents(0)
@@ -97,9 +98,9 @@ class MainWindow(QMainWindow):
             # nex time user will open the program, don't show that dialog
             preferences.set_first_time_opening(False)
 
-            # --------------------------------- SLOTS ----------------------------------
+    # --------------------------------- SLOTS ----------------------------------
 
-            # MENU Movies
+    # MENU Movies
 
     def add_movies(self):
         """
@@ -396,12 +397,12 @@ class MainWindow(QMainWindow):
             </li>
         </ul>
     </p>
-            """).format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, platform.python_version(), PYQT_VERSION_STR,
+            """).format(application.NAME, application.VERSION, platform.python_version(), PYQT_VERSION_STR,
                         # TODO
                         # imdb.VERSION
                         )
         # show the about dialog
-        QMessageBox.about(self, QApplication.translate('GUI', "About {0}").format(utils.PROGRAM_NAME), msg)
+        QMessageBox.about(self, QApplication.translate('GUI', "About {0}").format(application.NAME), msg)
 
         # TABLE movies
 

@@ -1,4 +1,4 @@
-
+import application
 from upload2google import upload2google
 import platform
 import sys
@@ -11,9 +11,9 @@ if platform.system() == "Windows":
 else:
     extension = "tar.gz"
 file_path = "dist/{0}-{1}-{2}.{3}" \
-    .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, platform.system(), extension)
+    .format(application.NAME, application.VERSION, platform.system(), extension)
 project = "almoviesrenamer"
-summary = utils.PROGRAM_NAME + " " + utils.PROGRAM_VERSION + " " + platform.system()
+summary = application.NAME + " " + application.VERSION + " " + platform.system()
 labels = ["Featured", "Type-Archive"]
 if platform.system() == "Windows":
     labels.append("OpSys-Windows")

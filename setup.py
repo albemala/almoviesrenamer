@@ -1,4 +1,5 @@
 # -*- coding: latin-1 -*-
+import application
 
 __author__ = "Alberto Malagoli"
 
@@ -98,7 +99,7 @@ exclude_files = [
                  ]
 
 base = None
-target_name = utils.PROGRAM_NAME
+target_name = application.NAME
 archive_format = "gztar"
 if sys.platform == "win32":
     base = "Win32GUI"
@@ -106,8 +107,8 @@ if sys.platform == "win32":
     archive_format = "zip"
 
 setup(
-      name = utils.PROGRAM_NAME,
-      version = utils.PROGRAM_VERSION,
+      name =application.NAME,
+      version =application.VERSION,
       author = "Alberto Malagoli",
       author_email = 'albemala@gmail.com',
       url = 'https://code.google.com/p/almoviesrenamer/',
@@ -132,7 +133,7 @@ setup(
 shutil.rmtree(glob("build/exe*")[0] + '/PyQt4.uic.widget-plugins')
 
 archive_name = "dist/{0}-{1}-{2}" \
-    .format(utils.PROGRAM_NAME, utils.PROGRAM_VERSION, platform.system())
+    .format(application.NAME, application.VERSION, platform.system())
 archive_file_name = glob("{0}*".format(archive_name))
 if len(archive_file_name) > 0 \
 and os.path.isfile(archive_file_name[0]):
