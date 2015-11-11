@@ -225,6 +225,7 @@ class Movie:
                 self.SCORE: 1}
             self._others_info = [info]
             self._info = info
+            self._video_duration = 0
 
         else:
             path, name = os.path.split(absolute_file_path)
