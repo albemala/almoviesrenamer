@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
-
 from movie import Movie
 from preferences import preferences
 from preferences_dialog import PreferencesDialog
@@ -9,12 +8,12 @@ __author__ = "Alberto Malagoli"
 
 
 class RenamingRuleDialog(QDialog):
-    TITLE = QApplication.translate('RenamingRuleDialog', "Title")
-    ORIGINAL_TITLE = QApplication.translate('RenamingRuleDialog', "Original title")
-    YEAR = QApplication.translate('RenamingRuleDialog', "Year")
-    DIRECTOR = QApplication.translate('RenamingRuleDialog', "Director")
-    DURATION = QApplication.translate('RenamingRuleDialog', "Duration")
-    LANGUAGE = QApplication.translate('RenamingRuleDialog', "Language")
+    TITLE = "Title"
+    ORIGINAL_TITLE = "Original title"
+    YEAR = "Year"
+    DIRECTOR = "Director"
+    DURATION = "Duration"
+    LANGUAGE = "Language"
     OPENED_ROUND_BRACKET = "("
     CLOSED_ROUND_BRACKET = ")"
     OPENED_SQUARE_BRACKET = "["

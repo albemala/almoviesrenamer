@@ -5,7 +5,6 @@ from PyQt5.QtCore import Qt, pyqtSignal, PYQT_VERSION_STR, QUrl
 from PyQt5.QtGui import QBrush, QDesktopServices
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QTableWidgetItem, QMessageBox
 from PyQt5.uic import loadUi
-
 import application
 from movie import Movie
 from preferences import preferences
@@ -113,11 +112,11 @@ class MainWindow(QMainWindow):
         """
 
         # create a filter, only video files can be selected
-        video_filter = QApplication.translate('GUI', "Video (*") + ' *'.join(self.VIDEO_EXTENSIONS) + ')'
+        video_filter = "Video (*{0})".format(" *".join(self.VIDEO_EXTENSIONS))
         # dialog title
-        title = QApplication.translate('GUI', "Select movies you want to rename...")
+        title = "Select movies you want to rename..."
         # select video files from file system
-        filepaths = QFileDialog.getOpenFileNames(title, preferences.get_last_visited_directory(), video_filter)
+        filepaths = QFileDialog.getOpenFileNames(self, title, preferences.get_last_visited_directory(), video_filter)
         # if at least one file has been selected
         if len(filepaths) > 0:
             self.load_movies(filepaths)
@@ -133,7 +132,7 @@ class MainWindow(QMainWindow):
         """
 
         # dialog title
-        title = QApplication.translate('GUI', "Select a folder containing movies...")
+        title = "Select a folder containing movies..."
         # select folder from file system
         dirpath = QFileDialog.getExistingDirectory(title, preferences.get_last_visited_directory())
         # if a directory has been selected
@@ -161,7 +160,7 @@ class MainWindow(QMainWindow):
         """
 
         # dialog title
-        title = QApplication.translate('GUI', "Select a folder containing movies...")
+        title = "Select a folder containing movies..."
         # select folder from file system
         dirpath = QFileDialog.getExistingDirectory(title, preferences.get_last_visited_directory())
         # if a directory has been selected
@@ -202,8 +201,7 @@ class MainWindow(QMainWindow):
         # loop on file paths
         for filepath in filepaths:
             # set loading label text, show current file name
-            self._ui.label_loading.setText(QApplication.translate('GUI', "Getting information from ") \
-                                           + os.path.split(filepath)[1])
+            self._ui.label_loading.setText("Getting information from {0}".format(os.path.split(filepath)[1]))
             # create a new movie object
             movie = Movie(filepath)
             # generate new movie name based on renaming rule
@@ -350,7 +348,7 @@ class MainWindow(QMainWindow):
         """
 
         # message shown on about dialog
-        msg = QApplication.translate('GUI', """
+        msg = """
     <p>
         <b>{0}</b>
     </p>
@@ -397,12 +395,12 @@ class MainWindow(QMainWindow):
             </li>
         </ul>
     </p>
-            """).format(application.NAME, application.VERSION, platform.python_version(), PYQT_VERSION_STR,
-                        # TODO
-                        # imdb.VERSION
-                        )
+            """.format(application.NAME, application.VERSION, platform.python_version(), PYQT_VERSION_STR,
+                       # TODO
+                       # imdb.VERSION
+                       )
         # show the about dialog
-        QMessageBox.about(self, QApplication.translate('GUI', "About {0}").format(application.NAME), msg)
+        QMessageBox.about(self, "About {0}".format(application.NAME), msg)
 
         # TABLE movies
 
@@ -432,9 +430,9 @@ class MainWindow(QMainWindow):
                     <html><head/><body><p><span style="font-size:11pt; font-weight:400; color:#ff0000;">
                     """
                                              + movie.get_renaming_error() +
-                                            """
-                                            </span></p></body></html>
-                                            """)
+                                             """
+                                             </span></p></body></html>
+                                             """)
             elif movie.get_renaming_state() == Movie.STATE_BEFORE_RENAMING:
                 self.populate_movie_panel()
                 self._ui.stack_search_title.setCurrentIndex(0)
@@ -540,7 +538,7 @@ class MainWindow(QMainWindow):
             return
         # set gui elements disabled
         self.set_gui_enabled_search_title(False)
-        self._ui.label_searching.setText(QApplication.translate('GUI', "Searching ") + title + "...")
+        self._ui.label_searching.setText("Searching {0}...".format(title))
         # show searching panel
         self._ui.stack_search_title.setCurrentIndex(1)
         # start searching thread

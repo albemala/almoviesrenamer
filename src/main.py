@@ -14,12 +14,6 @@ try:
     utils.load_languages()
 
     app = QApplication(sys.argv)
-
-    # load translation
-    translator = QTranslator()
-    translator.load(QLocale(), "app", "_", "translations")
-    app.installTranslator(translator)
-
     gui = MainWindow()
     app.exec_()
 

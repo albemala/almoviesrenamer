@@ -121,12 +121,12 @@ def check_connection(self):
 #     except URLError:
 #         # if an error occurs, notify the user with a message
 #         msg_box = QMessageBox()
-#         msg_box.setWindowTitle(QApplication.translate('GUI', "Internet connection down?"))
-#         msg_box.setText(QApplication.translate('GUI', """
+#         msg_box.setWindowTitle( "Internet connection down?")
+#         msg_box.setText( """
 # <p>It seems your internet connection is down (but maybe I'm wrong).</p>
 # <p>That program needs access to the internet, to get information about movies, so please check your connection.</p>
 # <p>If I'm wrong, sorry for the interruption...</p>
-#             """))
+#             """)
 #         icon = QPixmap()
 #         icon.load('icons/exclamation.png')
 #         msg_box.setIconPixmap(icon)
@@ -148,10 +148,10 @@ def check_new_version(self):
     #     version = f.read().rstrip('\n')
     #     # if there is a new version
     #     if version != utils.PROGRAM_VERSION:
-    #         title = QApplication.translate('GUI', "New version available")
-    #         msg = QApplication.translate('GUI', """
+    #         title =  "New version available"
+    #         msg =  """
     # <p>A new version of {0} is available: <b>{1}</b></p>
     # <p><a href="http://code.google.com/p/almoviesrenamer/downloads/list">Download it.</a></p>
-    #             """).format(utils.PROGRAM_NAME, version)
+    #             """.format(utils.PROGRAM_NAME, version)
     #         # show a notification dialog, with link to download page
     #         QMessageBox.information(None, title, msg)

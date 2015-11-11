@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
-
 from preferences import preferences
 
 __author__ = "Alberto Malagoli"
@@ -11,17 +10,17 @@ class PreferencesDialog(QDialog):
     STATS_DISAGREE = 0
 
     DURATION_REPRESENTATIONS = (
-        QApplication.translate('PreferencesDialog', "Minutes only"),
-        QApplication.translate('PreferencesDialog', "Hours and minutes"),
+        "Minutes only",
+        "Hours and minutes",
     )
     LANGUAGE_REPRESENTATIONS = (
-        QApplication.translate('PreferencesDialog', "English name"),
-        QApplication.translate('PreferencesDialog', "3-letters"),
+        "English name",
+        "3-letters",
     )
     WORDS_SEPARATORS_REPRESENTATIONS = (
-        QApplication.translate('PreferencesDialog', ", (comma-space)"),
-        QApplication.translate('PreferencesDialog', "- (space-dash-space)"),
-        QApplication.translate('PreferencesDialog', " (space)"),
+        ", (comma-space)",
+        "- (space-dash-space)",
+        " (space)",
     )
 
     WORDS_SEPARATORS = (', ', ' - ', ' ',)
