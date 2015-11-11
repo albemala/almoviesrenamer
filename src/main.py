@@ -15,11 +15,11 @@ try:
 
     app = QApplication(sys.argv)
 
-    # TODO
     # load translation
-    # translator = QTranslator()
-    # translator.load("qm/app_" + QLocale.system().name())
-    # app.installTranslator(translator)
+    translator = QTranslator()
+    # TODO change name of folder "translations" into "translations"
+    translator.load(QLocale(), "app", "_", "translations")
+    app.installTranslator(translator)
 
     gui = MainWindow()
     app.exec_()

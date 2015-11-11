@@ -24,8 +24,8 @@ elif os == 'Linux':
 subprocess.call([pylupdate4, 'src/translations.pro'], shell = True)
 subprocess.call([lrelease, 'src/translations.pro'], shell = True)
 
-for qm_file in glob('src/qm/*'):
+for qm_file in glob('src/translations/*'):
     os.remove(qm_file)
 
 for qm_file in glob('src/*.qm'):
-    shutil.move(qm_file, 'src/qm')
+    shutil.move(qm_file, 'src/translations')
