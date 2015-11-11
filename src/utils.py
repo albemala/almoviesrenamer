@@ -1,7 +1,5 @@
 __author__ = "Alberto Malagoli"
 
-# program name and version, used in excepthook
-
 # TODO instead of reading from txt file, create a python file with the dictionary already filled?
 # TODO in any case, create a different class to handle the language conversions
 def load_languages():

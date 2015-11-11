@@ -17,7 +17,6 @@ try:
 
     # load translation
     translator = QTranslator()
-    # TODO change name of folder "translations" into "translations"
     translator.load(QLocale(), "app", "_", "translations")
     app.installTranslator(translator)
 
