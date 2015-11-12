@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
         # MENU Movies
         self._ui.action_add_movies.triggered.connect(self.add_movies)
         self._ui.action_add_all_movies_in_folder.triggered.connect(self.add_movies_in_folder)
-        self._ui.action_add_all_movies_in_folder_subfolders.triggered.connect(self.add_movies_in_folder_subfolders)
+        self._ui.action_add_all_movies_in_folder_subfolders.triggered.connect(self.add_movies_in_folder_and_subfolders)
         self._ui.action_remove_selected_movies.triggered.connect(self.remove_selected_movies)
         self._ui.action_remove_all_movies.triggered.connect(self.remove_all_movies)
         self._ui.action_change_renaming_rule.triggered.connect(self.change_renaming_rule)
@@ -116,10 +116,10 @@ class MainWindow(QMainWindow):
         # dialog title
         title = "Select movies you want to rename..."
         # select video files from file system
-        filepaths = QFileDialog.getOpenFileNames(self, title, preferences.get_last_visited_directory(), video_filter)
+        files_paths = QFileDialog.getOpenFileNames(self, title, preferences.get_last_visited_directory(), video_filter)
         # if at least one file has been selected
-        if len(filepaths) > 0:
-            self.load_movies(filepaths)
+        if len(files_paths) > 0:
+            self.load_movies(files_paths)
 
     def add_movies_in_folder(self):
         """
@@ -134,22 +134,17 @@ class MainWindow(QMainWindow):
         # dialog title
         title = "Select a folder containing movies..."
         # select folder from file system
-        dirpath = QFileDialog.getExistingDirectory(title, preferences.get_last_visited_directory())
+        folder_path = QFileDialog.getExistingDirectory(self, title, preferences.get_last_visited_directory())
         # if a directory has been selected
-        if dirpath != '':
-            filepaths = []
+        if folder_path != "":
+            files_paths = []
             # for each entry (files + folders) in selected folder
-            for entry in os.listdir(dirpath):
-                entry = os.path.join(dirpath, entry)
-                # select only video files
-                extension = os.path.splitext(entry)[1].lower()
-                if os.path.isfile(entry) and extension in self.VIDEO_EXTENSIONS:
-                    # save entry with path
-                    filepaths.append(entry)
+            for entry in os.listdir(folder_path):
+                self.add_file_to_list_if_is_video(folder_path, entry, files_paths)
 
-            self.load_movies(filepaths)
+            self.load_movies(files_paths)
 
-    def add_movies_in_folder_subfolders(self):
+    def add_movies_in_folder_and_subfolders(self):
         """
         select all video files from a selected folder and subfolders using a FileDialog,
         then creates corresponding movie objects
@@ -162,31 +157,34 @@ class MainWindow(QMainWindow):
         # dialog title
         title = "Select a folder containing movies..."
         # select folder from file system
-        dirpath = QFileDialog.getExistingDirectory(title, preferences.get_last_visited_directory())
+        folder_path = QFileDialog.getExistingDirectory(self, title, preferences.get_last_visited_directory())
         # if a directory has been selected
-        if dirpath != '':
-            filepaths = []
+        if folder_path != "":
+            files_paths = []
             # walk on chosen directory, and loop on files and directories
-            for root, dirs, files in os.walk(dirpath):
+            for root, dirs, files in os.walk(folder_path):
                 # for each file
                 for name in files:
-                    entry = os.path.join(root, name)
-                    # select only video files
-                    extension = os.path.splitext(name)[1].lower()
-                    if extension in self.VIDEO_EXTENSIONS:
-                        # save entry with path
-                        filepaths.append(entry)
+                    self.add_file_to_list_if_is_video(root, name, files_paths)
 
-            self.load_movies(filepaths)
+            self.load_movies(files_paths)
 
-    def load_movies(self, filepaths):
+    def add_file_to_list_if_is_video(self, path, name, files):
+        entry = os.path.join(path, name)
+        # select only video files
+        extension = os.path.splitext(name)[1].lower()
+        if os.path.isfile(entry) and extension in self.VIDEO_EXTENSIONS:
+            # save entry with path
+            files.append(entry)
+
+    def load_movies(self, files_paths):
         """
         given a list of file paths, creates a movie object for each
         file, get info from it, and populate movies table
         """
 
         # takes first selected file and get the file path, use it as the last visited directory
-        last_visited_directory = os.path.normpath(os.path.split(filepaths[0])[0])
+        last_visited_directory = os.path.normpath(os.path.split(files_paths[0])[0])
         # save it in settings
         preferences.set_last_visited_directory(last_visited_directory)
         # disable gui elements which cannot be used during loading
@@ -194,16 +192,16 @@ class MainWindow(QMainWindow):
         # show loading panel
         self._ui.panel_loading.setVisible(True)
         # start loading thread
-        threading.Thread(target=self.load_movies_run, args=(filepaths,)).start()
+        threading.Thread(target=self.load_movies_run, args=(files_paths,)).start()
 
-    def load_movies_run(self, filepaths):
+    def load_movies_run(self, file_paths):
         renaming_rule = preferences.get_renaming_rule()
         # loop on file paths
-        for filepath in filepaths:
+        for file_path in file_paths:
             # set loading label text, show current file name
-            self._ui.label_loading.setText("Getting information from {0}".format(os.path.split(filepath)[1]))
+            self._ui.label_loading.setText("Getting information from {0}".format(os.path.split(file_path)[1]))
             # create a new movie object
-            movie = Movie(filepath)
+            movie = Movie(file_path)
             # generate new movie name based on renaming rule
             movie.generate_new_name(renaming_rule)
             # add movie to list
