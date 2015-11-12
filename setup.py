@@ -74,7 +74,7 @@ include_files = [
                  ("src/stats_agreement_dialog.ui", "stats_agreement_dialog.ui"),
                  ("src/preferences.ini", "preferences.ini"),
                  ("src/languages.txt", "languages.txt"),
-                 "CHANGELOG.txt",
+                 "Changelog.md",
                  "gpl-3.0.txt",
                  "README.txt",
                  ]
