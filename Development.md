@@ -8,6 +8,7 @@ Reference guide to set up development environment.
 - [PyQt5 5.5](https://www.riverbankcomputing.com/software/pyqt/download5) (from source)
 - [TMDBsimple 1.x](https://github.com/celiao/tmdbsimple/)
 - [guessit 1.x](https://github.com/wackou/guessit)
+- [enzyme](https://github.com/Diaoul/enzyme)
 
 # Mac OS X
 
@@ -28,6 +29,10 @@ Reference guide to set up development environment.
 - install guessit
 
 `pip3 install guessit`
+
+- install enzyme
+
+`pip3 install enzyme`
 
 ## Setup PyCharm
 
