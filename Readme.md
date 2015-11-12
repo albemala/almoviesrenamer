@@ -20,3 +20,16 @@ Once selected the movies you want to rename, the program will automatically sear
 
 ALMoviesRenamer is programmed in Python, using [PyQt](http://www.riverbankcomputing.co.uk/software/pyqt/intro) 
 as GUI support, and [IMDbPY](http://imdbpy.sourceforge.net/) to get movies information.
+
+## Libraries
+
+-  Python 2.7
+-  PyQt 4.9 - http://www.riverbankcomputing.co.uk/software/pyqt/download
+-  lxml 2.3 - http://pypi.python.org/pypi/lxml/2.3.3
+-  IMDbPY 4.8 - http://imdbpy.sourceforge.net/
+-  enzyme 0.2 - https://github.com/Diaoul/enzyme
+-  cx_Freeze 4.2 - http://cx-freeze.sourceforge.net/
+
+## License
+
+GNU General Public License version 3 (GPLv3)
