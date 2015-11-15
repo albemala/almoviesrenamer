@@ -116,7 +116,8 @@ class MainWindow(QMainWindow):
         # dialog title
         title = "Select movies you want to rename..."
         # select video files from file system
-        files_paths = QFileDialog.getOpenFileNames(self, title, preferences.get_last_visited_directory(), video_filter)
+        open_files_result = QFileDialog.getOpenFileNames(self, title, preferences.get_last_visited_directory(), video_filter)
+        files_paths = open_files_result[0]
         # if at least one file has been selected
         if len(files_paths) > 0:
             self.load_movies(files_paths)
@@ -184,7 +185,9 @@ class MainWindow(QMainWindow):
         """
 
         # takes first selected file and get the file path, use it as the last visited directory
-        last_visited_directory = os.path.normpath(os.path.split(files_paths[0])[0])
+        first_file_path = files_paths[0]
+        file_path = os.path.split(first_file_path)[0]
+        last_visited_directory = os.path.normpath(file_path)
         # save it in settings
         preferences.set_last_visited_directory(last_visited_directory)
         # disable gui elements which cannot be used during loading
@@ -195,28 +198,41 @@ class MainWindow(QMainWindow):
         threading.Thread(target=self.load_movies_run, args=(files_paths,)).start()
 
     def load_movies_run(self, file_paths):
-        renaming_rule = preferences.get_renaming_rule()
         # loop on file paths
         for file_path in file_paths:
             # set loading label text, show current file name
-            self._ui.label_loading.setText("Getting information from {0}".format(os.path.split(file_path)[1]))
-            # create a new movie object
-            movie = Movie(file_path)
-            # generate new movie name based on renaming rule
-            movie.generate_new_name(renaming_rule)
+            file_name = os.path.split(file_path)[1]
+            self._ui.label_loading.setText("Getting information from {0}".format(file_name))
+            movie = self.create_movie(file_path)
             # add movie to list
             self._movies.append(movie)
-            # insert a new row in movie table
-            self._ui.table_movies.insertRow(self._ui.table_movies.rowCount())
-            # create a table item with original movie file name
-            item_original_name = QTableWidgetItem(movie.get_original_file_name())
-            item_original_name.setForeground(QBrush(Qt.black))
-            self._ui.table_movies.setItem(self._ui.table_movies.rowCount() - 1, 0, item_original_name)
-            # create a table item with new movie file name
-            item_new_name = QTableWidgetItem(movie.get_renamed_file_name())
-            item_new_name.setForeground(QBrush(Qt.black))
-            self._ui.table_movies.setItem(self._ui.table_movies.rowCount() - 1, 1, item_new_name)
+            self.insert_movie_in_table_view(movie)
         self.load_movies_finished.emit()
+
+    def create_movie(self, file_path):
+        # create a new movie object
+        # movie = Movie(file_path)
+        movie = Movie(None)
+        movie.get_info_()
+        # generate new movie name based on renaming rule
+        movie.generate_new_name(preferences.get_renaming_rule())
+        return movie
+
+    def insert_movie_in_table_view(self, movie):
+        # insert a new row in movie table
+        self._ui.table_movies.insertRow(self._ui.table_movies.rowCount())
+        row = self._ui.table_movies.rowCount() - 1
+        # create a table item with original movie file name
+        item_original_name = self.create_table_view_movie_item(movie.get_original_file_name())
+        self._ui.table_movies.setItem(row, 0, item_original_name)
+        # create a table item with new movie file name
+        item_new_name = self.create_table_view_movie_item(movie.get_renamed_file_name())
+        self._ui.table_movies.setItem(row, 1, item_new_name)
+
+    def create_table_view_movie_item(self, text):
+        item_original_name = QTableWidgetItem(text)
+        item_original_name.setForeground(QBrush(Qt.black))
+        return item_original_name
 
     def load_movies_end(self):
         # re-enable gui elements
@@ -238,7 +254,7 @@ class MainWindow(QMainWindow):
         self._ui.action_change_renaming_rule.setEnabled(enabled)
         self._ui.action_rename_movies.setEnabled(enabled)
         self._ui.action_preferences.setEnabled(enabled)
-        if enabled == False:
+        if not enabled:
             # clear table selection (and hide movie panel, if visible)
             self._ui.table_movies.selectionModel().clear()
         # set enabled property on table
@@ -394,6 +410,7 @@ class MainWindow(QMainWindow):
         </ul>
     </p>
             """.format(application.NAME, application.VERSION, platform.python_version(), PYQT_VERSION_STR,
+                       0
                        # TODO
                        # imdb.VERSION
                        )
