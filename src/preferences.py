@@ -24,7 +24,7 @@ class Preferences:
     #
 
     def get_last_visited_directory(self):
-        return self._preferences.value(_LAST_VISITED_DIRECTORY).toString()
+        return self._preferences.value(_LAST_VISITED_DIRECTORY, "")
 
     def set_last_visited_directory(self, value):
         """
@@ -52,7 +52,7 @@ class Preferences:
     #
 
     def get_renaming_rule(self):
-        return self._preferences.value(_RENAMING_RULE).toString()
+        return self._preferences.value(_RENAMING_RULE, "")
 
     def set_renaming_rule(self, value):
         """
@@ -66,7 +66,7 @@ class Preferences:
     #
 
     def get_stats_agreement(self):
-        return self._preferences.value(_STATS_AGREEMENT).toBool()
+        return self._preferences.value(_STATS_AGREEMENT, False).toBool()
 
     def set_stats_agreement(self, value):
         """
@@ -80,7 +80,7 @@ class Preferences:
     #
 
     def get_duration_representation(self):
-        return self._preferences.value(_DURATION_REPRESENTATION).toInt()
+        return self._preferences.value(_DURATION_REPRESENTATION, 0).toInt()
 
     def set_duration_representation(self, value):
         """
@@ -94,7 +94,7 @@ class Preferences:
     #
 
     def get_language_representation(self):
-        return self._preferences.value(_LANGUAGE_REPRESENTATION).toInt()
+        return self._preferences.value(_LANGUAGE_REPRESENTATION, 0).toInt()
 
     def set_language_representation(self, value):
         """
@@ -108,7 +108,7 @@ class Preferences:
     #
 
     def get_words_separator(self):
-        return self._preferences.value(_WORDS_SEPARATOR).toInt()
+        return self._preferences.value(_WORDS_SEPARATOR, 0).toInt()
 
     def set_words_separator(self, value):
         """

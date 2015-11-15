@@ -2,7 +2,7 @@ import datetime
 import os
 import platform
 import re
-import enzyme
+# import enzyme
 import utils
 from preferences import preferences
 
@@ -710,7 +710,7 @@ class Movie:
         """
         check new file name for errors and prepares it for renaming
 
-        Thanks to <a href="http://file-folder-ren.sourceforge.net/">Métamorphose</a>
+        Thanks to <a href="http://file-folder-ren.sourceforge.net/">Metamorphose</a>
         for this code.
         """
 
