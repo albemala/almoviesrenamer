@@ -4,6 +4,7 @@ import platform
 import re
 # import enzyme
 import utils
+import guessit
 from preferences import preferences
 
 __author__ = "Alberto Malagoli"
@@ -233,9 +234,29 @@ class Movie:
             self._directory_path = os.path.normpath(path)
             self._original_file_name = name
             self._file_extension = extension
-            self._guessed_info = None
-            self._others_info = None
-            self._info = None
+
+            # print(guessit.guess_file_info(name))
+            print(guessit.guess_movie_info(absolute_file_path))
+            print(guessit.guess_video_metadata(absolute_file_path))
+
+            self._guessed_info = {
+                self.SUBTITLES: ["Italian", "ITA"],
+                self.PART: "1"}
+            info = {
+                self.TITLE: "Un film molto figo",
+                self.ORIGINAL_TITLE: "A really cool movie",
+                self.YEAR: "2012",
+                self.DIRECTOR: "A. Director",
+                self.DURATION: ["100m", '1h40m'],
+                self.LANGUAGE: ["Italian", 'ITA'],
+                self.SCORE: 1}
+            self._others_info = [info]
+            self._info = info
+            self._video_duration = 0
+
+            # self._guessed_info = None
+            # self._others_info = None
+            # self._info = None
             # TODO
             # try:
             #     video_info = enzyme.parse(self.abs_original_file_name())
@@ -250,7 +271,7 @@ class Movie:
             #     elif video_info.video[0].length != None:
             #         self.video_duration_ = int(video_info.video[0].length / 60)
             # guess info from file name
-            self._guessed_info = guess_info(name)
+            # self._guessed_info = guess_info(name)
             # get other movie info
             # TODO call this from outside
             # self.get_info_()
