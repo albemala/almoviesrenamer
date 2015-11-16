@@ -211,8 +211,7 @@ class MainWindow(QMainWindow):
 
     def create_movie(self, file_path):
         # create a new movie object
-        # movie = Movie(file_path)
-        movie = Movie(None)
+        movie = Movie(file_path)
         movie.get_info_()
         # generate new movie name based on renaming rule
         movie.generate_new_name(preferences.get_renaming_rule())
@@ -245,6 +244,7 @@ class MainWindow(QMainWindow):
         QApplication.beep()
 
     def set_gui_enabled_load_movies(self, enabled):
+        # TODO check
         # set enabled property on actions
         self._ui.action_add_movies.setEnabled(enabled)
         self._ui.action_add_all_movies_in_folder.setEnabled(enabled)
