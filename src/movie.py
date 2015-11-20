@@ -1,6 +1,9 @@
 import os
 import platform
 import re
+
+import tmdbsimple as tmdb
+
 from movie_file_info import MovieFileInfo
 from movie_guessed_info import MovieGuessedInfo
 from movie_info import MovieInfo
@@ -226,10 +229,14 @@ class Movie:
 
         self._info = self._others_info[index]
 
-    def fetch_tvbd_info(self):
+    def fetch_tmdb_info(self):
         # TODO
-        # TODO also change function name to match actual fetching service
-        pass
+        tmdb.API_KEY = "25be8b4eb94ac1d6a4991b76947327ca"
+        search = tmdb.Search()
+        response = search.movie(query=self._info.get_title())
+        print(response)
+        for s in search.results:
+            print(s['title'], s['release_date'])
 
     # TODO
     def get_info_(self):
