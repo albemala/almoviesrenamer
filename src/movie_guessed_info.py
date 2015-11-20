@@ -15,6 +15,7 @@ class MovieGuessedInfo:
     EDITION = "edition"
 
     def __init__(self, absolute_file_path):
+        # TODO expose other properties: country, bonus title, cd nuber title, edition
         self._title = ""
         self._year = ""
         # Country(ies) of content. [<babelfish.Country>] (This class equals name and iso code)
