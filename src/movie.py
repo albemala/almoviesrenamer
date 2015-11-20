@@ -1,7 +1,7 @@
 import os
 import platform
 import re
-
+from movie_file_info import MovieFileInfo
 from movie_guessed_info import MovieGuessedInfo
 from preferences import preferences
 
@@ -37,14 +37,7 @@ class Movie:
         a movie example
         """
 
-        # file path (only directory)
-        self._directory_path = ""
-        # original movie title, before renaming
-        self._original_file_name = ""
-        # file extension
-        self._file_extension = ""
-        # movie new title (after renaming)
-        self._renamed_file_name = ""
+        self._file_info = None
         # current state
         # states are used to show a proper panel in GUI
         self._renaming_state = self.STATE_BEFORE_RENAMING
@@ -62,13 +55,12 @@ class Movie:
 
         # create a movie example
         if absolute_file_path is None:
-            self._directory_path = "C:\\"
-            self._original_file_name = "[DivX ITA] A really cool movie (2012)"
-            self._file_extension = ".avi"
-            # TODO maybe I want the guessed info to be filled by guessit?
-            self._guessed_info = {
-                self.SUBTITLES: ["Italian", "ITA"],
-                self.PART: "1"}
+            absolute_file_path = "C:\\[DivX ITA] A really cool movie (2012).avi"
+            self._file_info = MovieFileInfo(absolute_file_path)
+            self._guessed_info = MovieGuessedInfo(absolute_file_path)
+            # self._guessed_info = {
+            #     self.SUBTITLES: ["Italian", "ITA"],
+            #     self.PART: "1"}
             info = {
                 self.TITLE: "Un film molto figo",
                 self.ORIGINAL_TITLE: "A really cool movie",
@@ -82,12 +74,7 @@ class Movie:
             self._video_duration = 0
 
         else:
-            path, name = os.path.split(absolute_file_path)
-            name, extension = os.path.splitext(name)
-            self._directory_path = os.path.normpath(path)
-            self._original_file_name = name
-            self._file_extension = extension
-
+            self._file_info = MovieFileInfo(absolute_file_path)
             self._guessed_info = MovieGuessedInfo(absolute_file_path)
 
             info = {
@@ -133,51 +120,13 @@ class Movie:
             # TODO call this from outside
             # self.get_info_()
 
-    def get_original_file_name(self):
-        return self._original_file_name
+    def get_file_info(self):
+        return self._file_info
 
-    def get_renamed_file_name(self):
-        return self._renamed_file_name
+    def get_info(self):
+        return self._info
 
-    def get_absolute_original_file_path(self):
-        return os.path.join(self._directory_path, self._original_file_name + self._file_extension)
-
-    def get_absolute_renamed_file_path(self):
-        return os.path.join(self._directory_path, self._renamed_file_name + self._file_extension)
-
-    def get_directory_path(self):
-        return self._directory_path
-
-    def get_title(self):
-        if self._info is not None:
-            return self._info[self.TITLE]
-        return self._guessed_info.get_title()
-
-    def get_original_title(self):
-        """
-        return the original movie title, in the original language
-
-        e.g.: the original movie title for Deep Red from Dario Argento, in italian
-        language, is Profondo Rosso
-        """
-
-        if self._info is not None:
-            return self._info[self.ORIGINAL_TITLE]
-        return ""
-
-    def get_year(self):
-        if self._info is not None:
-            return self._info[self.YEAR]
-        if self._guessed_info is not None \
-                and self.YEAR in self._guessed_info:
-            return self._guessed_info.get_year()
-        return ""
-
-    def get_directors(self):
-        if self._info is not None:
-            return self._info[self.DIRECTOR]
-        return ""
-
+    # TODO match with MovieInfo property
     def get_duration(self, index=0):
         """
         return the movie duration
@@ -191,6 +140,7 @@ class Movie:
             return self._info[self.DURATION][index]
         return ""
 
+    # TODO match with MovieInfo property
     def get_language(self, index=0):
         """
         return the movie language
@@ -207,6 +157,7 @@ class Movie:
             return self._guessed_info[self.LANGUAGE][index]
         return ""
 
+    # TODO match with MovieInfo property
     def get_subtitles(self, index=0):
         """
         return subtitles language
@@ -219,13 +170,6 @@ class Movie:
         if self._guessed_info is not None \
                 and self.SUBTITLES in self._guessed_info:
             return self._guessed_info[self.SUBTITLES][index]
-        return ""
-
-    def get_part(self):
-
-        if self._guessed_info is not None \
-                and self.PART in self._guessed_info:
-            return self._guessed_info[self.PART]
         return ""
 
     def others_info(self):
@@ -276,6 +220,11 @@ class Movie:
         """
 
         self._info = self._others_info[index]
+
+    def fetch_tvbd_info(self):
+        # TODO
+        # TODO also change function name to match actual fetching service
+        pass
 
     # TODO
     def get_info_(self):
