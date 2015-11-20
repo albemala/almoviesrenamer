@@ -1,4 +1,16 @@
 ﻿
+# guessit
+
+> If you have the 'guess-language' python package installed, GuessIt can also analyze a subtitle file's contents and detect which language it is written in.
+
+- investigate use of guess-language
+
+> If you have the 'enzyme' python package installed, GuessIt can also detect the properties from the actual video file metadata.
+
+- investigate use of enzyme
+
+# General
+
 in manual search, add ability to specify the language
 
 use video duration to get the best runtime
