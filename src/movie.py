@@ -2,9 +2,7 @@ import os
 import platform
 import re
 
-import guessit
-
-from guess import guess_info
+from movie_guessed_info import MovieGuessedInfo
 from preferences import preferences
 
 __author__ = "Alberto Malagoli"
@@ -31,20 +29,6 @@ class Movie:
     PART = "part"
     SCORE = "score"
 
-    GUESSED_TITLE = "title"
-    GUESSED_YEAR = "year"
-    # Country(ies) of content. [<babelfish.Country>] (This class equals name and iso code)
-    GUESSED_COUNTRY = "Country"
-    # Language(s) of the audio soundtrack. [<babelfish.Language>] (This class equals name and iso code)
-    GUESSED_LANGUAGE = "Language"
-    # Language(s) of the subtitles. [<babelfish.Language>] (This class equals name and iso code)
-    GUESSED_SUBTITLE_LANGUAGE = "subtitleLanguage"
-    GUESSED_BONUS_TITLE = "bonusTitle"
-    GUESSED_CD_NUMBER = "cdNumber"
-    GUESSED_CD_NUMBER_TOTAL = "cdNumberTotal"
-    # Special Edition, Collector Edition, Director's cut, Criterion Edition, Deluxe Edition
-    GUESSED_EDITION = "edition"
-
     def __init__(self, absolute_file_path=None):
         """
         constructor.
@@ -65,7 +49,7 @@ class Movie:
         # states are used to show a proper panel in GUI
         self._renaming_state = self.STATE_BEFORE_RENAMING
         # used to store guessed information from file name
-        self._guessed_info = {}
+        self._guessed_info = None
         # imdb search for a given movie, return some results, which are
         # transformed in a better formed and stored into this attribute
         self._others_info = [{}]
@@ -104,13 +88,8 @@ class Movie:
             self._original_file_name = name
             self._file_extension = extension
 
-            # print(guessit.guess_file_info(name))
-            print(guessit.guess_movie_info(absolute_file_path))
-            # print(guessit.guess_video_metadata(absolute_file_path))
+            self._guessed_info = MovieGuessedInfo(absolute_file_path)
 
-            self._guessed_info = {
-                self.SUBTITLES: ["Italian", "ITA"],
-                self.PART: "1"}
             info = {
                 self.TITLE: "Un film molto figo",
                 self.ORIGINAL_TITLE: "A really cool movie",
@@ -172,7 +151,7 @@ class Movie:
     def get_title(self):
         if self._info is not None:
             return self._info[self.TITLE]
-        return self._guessed_info[self.TITLE]
+        return self._guessed_info.get_title()
 
     def get_original_title(self):
         """
@@ -191,7 +170,7 @@ class Movie:
             return self._info[self.YEAR]
         if self._guessed_info is not None \
                 and self.YEAR in self._guessed_info:
-            return self._guessed_info[self.YEAR]
+            return self._guessed_info.get_year()
         return ""
 
     def get_directors(self):
@@ -477,7 +456,9 @@ class Movie:
     #     # sort others information from best one to worst one, using calculated score
     #     self.others_info_ = sorted(self.others_info_, cmp = lambda x, y: cmp(x[self.SCORE], y[self.SCORE]), reverse = True)
 
+    # TODO
     def search_new_title(self, title):
+        pass
         """
         search for a new title, and replace current information
         """
