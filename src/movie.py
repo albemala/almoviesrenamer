@@ -3,6 +3,7 @@ import platform
 import re
 from movie_file_info import MovieFileInfo
 from movie_guessed_info import MovieGuessedInfo
+from movie_info import MovieInfo
 from preferences import preferences
 
 __author__ = "Alberto Malagoli"
@@ -19,6 +20,7 @@ class Movie:
     STATE_RENAMED = 1
     STATE_RENAMING_ERROR = 2
 
+    # TODO remove
     TITLE = "title"
     ORIGINAL_TITLE = "original_title"
     YEAR = "year"
@@ -42,6 +44,7 @@ class Movie:
         # states are used to show a proper panel in GUI
         self._renaming_state = self.STATE_BEFORE_RENAMING
         # used to store guessed information from file name
+        # TODO convert into local variable if not used in other places
         self._guessed_info = None
         # imdb search for a given movie, return some results, which are
         # transformed in a better formed and stored into this attribute
@@ -55,7 +58,7 @@ class Movie:
 
         # create a movie example
         if absolute_file_path is None:
-            absolute_file_path = "C:\\[DivX ITA] A really cool movie (2012).avi"
+            absolute_file_path = "C:/[DivX ITA] A really cool movie (2012).avi"
             self._file_info = MovieFileInfo(absolute_file_path)
             self._guessed_info = MovieGuessedInfo(absolute_file_path)
             # self._guessed_info = {
@@ -76,6 +79,8 @@ class Movie:
         else:
             self._file_info = MovieFileInfo(absolute_file_path)
             self._guessed_info = MovieGuessedInfo(absolute_file_path)
+            self._info = MovieInfo()
+            self._info.fill_with_guessed_info(self._guessed_info)
 
             info = {
                 self.TITLE: "Un film molto figo",
@@ -86,7 +91,7 @@ class Movie:
                 self.LANGUAGE: ["Italian", 'ITA'],
                 self.SCORE: 1}
             self._others_info = [info]
-            self._info = info
+            # self._info = info
             self._video_duration = 0
 
             # self._guessed_info = None
