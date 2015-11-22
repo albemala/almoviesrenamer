@@ -19,11 +19,11 @@ class MovieGuessedInfo:
         self._title = ""
         self._year = ""
         # Country(ies) of content. [<babelfish.Country>] (This class equals name and iso code)
-        self._country = []
+        self._countries = [""]
         # Language(s) of the audio soundtrack. [<babelfish.Language>] (This class equals name and iso code)
-        self._language = []
+        self._languages = [""]
         # Language(s) of the subtitles. [<babelfish.Language>] (This class equals name and iso code)
-        self._subtitle_language = []
+        self._subtitle_languages = [""]
         self._bonus_title = ""
         self._cd_number = ""
         self._cd_number_total = ""
@@ -38,11 +38,11 @@ class MovieGuessedInfo:
         if MovieGuessedInfo.YEAR in info:
             self._year = str(info[MovieGuessedInfo.YEAR])
         if MovieGuessedInfo.COUNTRY in info:
-            self._country = info[MovieGuessedInfo.COUNTRY]
+            self._countries = info[MovieGuessedInfo.COUNTRY]
         if MovieGuessedInfo.LANGUAGE in info:
-            self._language = info[MovieGuessedInfo.LANGUAGE]
+            self._languages = info[MovieGuessedInfo.LANGUAGE]
         if MovieGuessedInfo.SUBTITLE_LANGUAGE in info:
-            self._subtitle_language = info[MovieGuessedInfo.SUBTITLE_LANGUAGE]
+            self._subtitle_languages = info[MovieGuessedInfo.SUBTITLE_LANGUAGE]
         if MovieGuessedInfo.BONUS_TITLE in info:
             self._bonus_title = info[MovieGuessedInfo.BONUS_TITLE]
         if MovieGuessedInfo.CD_NUMBER in info:
@@ -58,14 +58,14 @@ class MovieGuessedInfo:
     def get_year(self):
         return self._year
 
-    def get_country(self):
-        return self._country
+    def get_countries(self):
+        return self._countries
 
-    def get_language(self):
-        return self._language
+    def get_languages(self):
+        return self._languages
 
-    def get_subtitle_language(self):
-        return self._subtitle_language
+    def get_subtitle_languages(self):
+        return self._subtitle_languages
 
     def get_bonus_title(self):
         return self._bonus_title

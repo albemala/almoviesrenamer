@@ -8,10 +8,10 @@ class MovieInfo:
         self._title = ""
         self._original_title = ""
         self._year = ""
-        self._directors = ""
+        self._director = ""
         self._duration = ""
-        self._language = []
-        self._subtitles = []
+        self._languages = [""]
+        self._subtitle_languages = [""]
         self._part = ""
         self._score = ""
 
@@ -31,20 +31,16 @@ class MovieInfo:
         return self._year
 
     def get_directors(self):
-        return self._directors
+        return self._director
 
     def get_duration(self):
         return self._duration
 
-    def get_language(self):
-        if len(self._language) == 0:
-            return ""
-        return self._language[0]
+    def get_language(self, index: int = 0):
+        return self._languages[index]
 
-    def get_subtitles(self):
-        if len(self._subtitles) == 0:
-            return ""
-        return self._subtitles[0]
+    def get_subtitle_language(self, index: int = 0):
+        return self._subtitle_languages[index]
 
     def get_part(self):
         return self._part
@@ -56,6 +52,6 @@ class MovieInfo:
         self._title = guessed_info.get_title()
         self._original_title = self._title
         self._year = guessed_info.get_year()
-        self._language = guessed_info.get_language()
-        self._subtitles = guessed_info.get_subtitle_language()
+        self._languages = guessed_info.get_languages()
+        self._subtitle_languages = guessed_info.get_subtitle_languages()
         self._part = guessed_info.get_cd_number()

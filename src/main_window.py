@@ -490,9 +490,9 @@ class MainWindow(QMainWindow):
         self._ui.label_year.setText(movie_info.get_year())
         self._ui.label_director.setText(movie_info.get_directors())
         self._ui.label_duration.setText(movie_info.get_duration())
-        language = movie_info.get_language()
-        if movie_info.get_subtitles() != '':
-            language += " (subtitled " + movie_info.get_subtitles() + ")"
+        language = movie_info.get_languages()
+        if movie_info.get_subtitle_language() != '':
+            language += " (subtitled " + movie_info.get_subtitle_language() + ")"
         self._ui.label_language.setText(language)
 
         # clear table contents
