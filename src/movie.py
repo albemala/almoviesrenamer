@@ -1,12 +1,11 @@
 import os
 import platform
 import re
-
 import tmdbsimple as tmdb
-
 from movie_file_info import MovieFileInfo
 from movie_guessed_info import MovieGuessedInfo
 from movie_info import MovieInfo
+from movie_tmdb_info import MovieTMDBInfo
 from preferences import preferences
 
 __author__ = "Alberto Malagoli"
@@ -61,6 +60,7 @@ class Movie:
 
         # create a movie example
         if absolute_file_path is None:
+            # TODO if possible, get rid of movie example
             absolute_file_path = "C:/[DivX ITA] A really cool movie (2012).avi"
             self._file_info = MovieFileInfo(absolute_file_path)
             self._guessed_info = MovieGuessedInfo(absolute_file_path)
@@ -81,7 +81,7 @@ class Movie:
 
         else:
             self._file_info = MovieFileInfo(absolute_file_path)
-            self._guessed_info = MovieGuessedInfo(absolute_file_path)
+            self.fetch_guessed_info()
             self._info = MovieInfo()
             self._info.fill_with_guessed_info(self._guessed_info)
 
@@ -96,6 +96,9 @@ class Movie:
             self._others_info = [info]
             # self._info = info
             self._video_duration = 0
+
+            self.fetch_tmdb_info(self._info.get_title(), self._info.get_year(), self._info.get_language())
+            # self.fetch_tmdb_info("l'esorcista", "1973", "it")
 
             # self._guessed_info = None
             # self._others_info = None
@@ -127,6 +130,10 @@ class Movie:
             # get other movie info
             # TODO call this from outside
             # self.get_info_()
+
+    def fetch_guessed_info(self):
+        absolute_original_file_path = self._file_info.get_absolute_original_file_path()
+        self._guessed_info = MovieGuessedInfo(absolute_original_file_path)
 
     def get_file_info(self):
         return self._file_info
@@ -229,14 +236,15 @@ class Movie:
 
         self._info = self._others_info[index]
 
-    def fetch_tmdb_info(self):
+    def fetch_tmdb_info(self, query: str, year: str = "", language: str = ""):
         # TODO
         tmdb.API_KEY = "25be8b4eb94ac1d6a4991b76947327ca"
         search = tmdb.Search()
-        response = search.movie(query=self._info.get_title())
-        print(response)
-        for s in search.results:
-            print(s['title'], s['release_date'])
+        search_results = search.movie(query=query, year=year, language=language)
+        print(search_results)
+        for result in search_results["results"]:
+            tmdb_info = MovieTMDBInfo()
+            tmdb_info.fill_with_search_result(result)
 
     # TODO
     def get_info_(self):
