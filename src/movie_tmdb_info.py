@@ -67,7 +67,7 @@ class MovieTMDBInfo:
         self.__poster_path = result["poster_path"]
         movie = tmdb.Movies(self.__id)
         movie_info = movie.info()
-        self.__duration = movie_info["runtime"]
+        self.__duration = str(movie_info["runtime"])
         movie_credits = movie.credits()
         for person in movie_credits["crew"]:
             if person["job"] == "Director":

@@ -6,7 +6,7 @@ from movie_file_info import MovieFileInfo
 from movie_guessed_info import MovieGuessedInfo
 from movie_info import MovieInfo
 from movie_tmdb_info import MovieTMDBInfo
-from preferences import preferences
+from preferences import preferences, Preferences
 
 __author__ = "Alberto Malagoli"
 
@@ -47,7 +47,6 @@ class Movie:
         # states are used to show a proper panel in GUI
         self.__renaming_state = self.STATE_BEFORE_RENAMING
         # used to store guessed information from file name
-        # TODO convert into local variable if not used in other places
         self.__guessed_info = MovieGuessedInfo()
         # imdb search for a given movie, return some results, which are
         # transformed in a better formed and stored into this attribute
@@ -63,7 +62,7 @@ class Movie:
         self.__renaming_error = ""
         # movie information fetched from The Movie DB
         self.__tmdb_info = [MovieTMDBInfo()]
-        self.__current_tmdb_info = 0
+        self.__current_info_index = 0
 
     def fill_with_file(self, absolute_file_path):
         self.__file_info.fill_with_absolute_file_path(absolute_file_path)
@@ -92,8 +91,8 @@ class Movie:
     def get_file_info(self) -> MovieFileInfo:
         return self.__file_info
 
-    def get_tmdb_info(self, index=0) -> MovieTMDBInfo:
-        return self.__tmdb_info[index]
+    def get_tmdb_info(self) -> MovieTMDBInfo:
+        return self.__tmdb_info[self.__current_info_index]
 
     def get_info(self) -> MovieInfo:
         return self.__info
@@ -101,51 +100,100 @@ class Movie:
     def get_guessed_info(self) -> MovieGuessedInfo:
         return self.__guessed_info
 
-    # TODO match with MovieInfo property
-    def get_duration(self, index=0):
-        """
-        return the movie duration
+    def set_current_info_index(self, current_info_index: int):
+        self.__current_info_index = current_info_index
 
+    def get_title(self) -> str:
+        return self.get_tmdb_info().get_title()
+
+    def get_original_title(self) -> str:
+        """
+        return the original movie title, in the original language
+
+        e.g.: the original movie title for Deep Red from Dario Argento, in italian
+        language, is Profondo Rosso
+        """
+        return self.get_tmdb_info().get_original_title()
+
+    def get_year(self) -> str:
+        return self.get_tmdb_info().get_year()
+
+    def get_director(self) -> str:
+        return self.get_tmdb_info().get_director()
+
+    def get_duration(self) -> str:
+        """
         duration have 2 representations:
          - minutes only (e.g.: 100m)
          - hours and minutes (e.g.: 1h40m)
         """
 
-        if self.__info is not None:
-            return self.__info[self.DURATION][index]
-        return ""
+        duration_representation = preferences.get_duration_representation()
+        duration = self.get_tmdb_info().get_duration()
+        if duration_representation == Preferences.DURATION_REPRESENTATION_MINUTES:
+            duration += "m"
+        elif duration_representation == Preferences.DURATION_REPRESENTATION_HOURS_MINUTES:
+            duration_total = int(duration)
+            duration_hours = int(duration_total / 60)
+            duration_minutes = duration_total % 60
+            duration = "{}h{}m".format(duration_hours, duration_minutes)
+        return duration
 
-    # TODO match with MovieInfo property
-    def get_language(self, index=0):
-        """
-        return the movie language
+    def get_language(self) -> str:
+        # TODO if this is emty, return original language from tmdb info?
+        return self.get_guessed_info().get_language()
 
-        language have 2 representations:
-         - English name (e.g.: Italian)
-         - 3-letters (e.g.: ITA)
-        """
+    def get_subtitle_language(self) -> str:
+        return self.get_guessed_info().get_subtitle_language()
 
-        if self.__info is not None:
-            return self.__info[self.LANGUAGE][index]
-        if self.__guessed_info is not None \
-                and self.LANGUAGE in self.__guessed_info:
-            return self.__guessed_info[self.LANGUAGE][index]
-        return ""
+    def get_part(self) -> str:
+        return self.get_guessed_info().get_cd_number()
 
-    # TODO match with MovieInfo property
-    def get_subtitles(self, index=0):
-        """
-        return subtitles language
-
-        subtitles have 2 representations:
-         - English name (e.g.: Italian)
-         - 3-letters (e.g.: ITA)
-        """
-
-        if self.__guessed_info is not None \
-                and self.SUBTITLES in self.__guessed_info:
-            return self.__guessed_info[self.SUBTITLES][index]
-        return ""
+    # # TODO match with MovieInfo property
+    # def get_duration(self, index=0):
+    #     """
+    #     return the movie duration
+    #
+    #     duration have 2 representations:
+    #      - minutes only (e.g.: 100m)
+    #      - hours and minutes (e.g.: 1h40m)
+    #     """
+    #
+    #     if self.__info is not None:
+    #         return self.__info[self.DURATION][index]
+    #     return ""
+    #
+    # # TODO match with MovieInfo property
+    # def get_language(self, index=0):
+    #     """
+    #     return the movie language
+    #
+    #     language have 2 representations:
+    #      - English name (e.g.: Italian)
+    #      - 3-letters (e.g.: ITA)
+    #     """
+    #
+    #     if self.__info is not None:
+    #         return self.__info[self.LANGUAGE][index]
+    #     if self.__guessed_info is not None \
+    #             and self.LANGUAGE in self.__guessed_info:
+    #         return self.__guessed_info[self.LANGUAGE][index]
+    #     return ""
+    #
+    # # TODO match with MovieInfo property
+    # def get_subtitles(self, index=0):
+    #     """
+    #     return subtitles language
+    #
+    #     subtitles have 2 representations:
+    #      - English name (e.g.: Italian)
+    #      - 3-letters (e.g.: ITA)
+    #     """
+    #
+    #     if self.__guessed_info is not None \
+    #             and self.SUBTITLES in self.__guessed_info:
+    #         return self.__guessed_info[self.SUBTITLES][index]
+    #     return ""
 
     def others_info(self):
         """

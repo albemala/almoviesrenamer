@@ -213,7 +213,8 @@ class MainWindow(QMainWindow):
         movie = Movie()
         movie.fill_with_file(file_path)
         movie_guessed_info = movie.get_guessed_info()
-        movie.fetch_tmdb_info(movie_guessed_info.get_title(), movie_guessed_info.get_year(), movie_guessed_info.get_language())
+        movie.fetch_tmdb_info(movie_guessed_info.get_title(), movie_guessed_info.get_year(),
+                              movie_guessed_info.get_language())
         # generate new movie name based on renaming rule
         movie.generate_new_name(preferences.get_renaming_rule())
         return movie
@@ -425,7 +426,7 @@ class MainWindow(QMainWindow):
         called when selection in table_movies changes, i.e. user selects
         different movies from previously selected ones.
         """
-        selected_movie = self._get_selected_movie()
+        selected_movie = self.__get_selected_movie()
         # no movies selected
         if selected_movie is None:
             # hide movie panel
@@ -462,7 +463,7 @@ class MainWindow(QMainWindow):
         self.open_path(path)
 
     def open_containing_folder(self):
-        movie = self._get_selected_movie()
+        movie = self.__get_selected_movie()
         if movie is not None:
             path = movie.get_directory_path()
             self.open_path(path)
@@ -479,22 +480,22 @@ class MainWindow(QMainWindow):
         into clipboard
         """
 
-        movie = self._get_selected_movie()
+        movie = self.__get_selected_movie()
         if movie != None:
             clipboard = QApplication.clipboard()
             clipboard.setText(movie.get_original_file_name())
 
     def populate_movie_panel(self):
-        movie_info = self._get_selected_movie().get_info()
+        movie = self.__get_selected_movie()
 
-        self._ui.label_title.setText(movie_info.get_title())
-        self._ui.label_original_title.setText(movie_info.get_original_title())
-        self._ui.label_year.setText(movie_info.get_year())
-        self._ui.label_director.setText(movie_info.get_directors())
-        self._ui.label_duration.setText(movie_info.get_duration())
-        language = movie_info.get_language()
-        if movie_info.get_subtitle_language() != '':
-            language += " (subtitled " + movie_info.get_subtitle_language() + ")"
+        self._ui.label_title.setText(movie.get_title())
+        self._ui.label_original_title.setText(movie.get_original_title())
+        self._ui.label_year.setText(movie.get_year())
+        self._ui.label_director.setText(movie.get_director())
+        self._ui.label_duration.setText(movie.get_duration())
+        language = movie.get_language()
+        if movie.get_subtitle_language() != '':
+            language += " (subtitled " + movie.get_subtitle_language() + ")"
         self._ui.label_language.setText(language)
 
         # clear table contents
@@ -521,7 +522,7 @@ class MainWindow(QMainWindow):
         selected_info = self._ui.table_others_info.selectedItems()
         if len(selected_info) > 0:
             info_index = selected_info[0].row()
-            movie = self._get_selected_movie()
+            movie = self.__get_selected_movie()
             movie.set_movie(info_index)
             renaming_rule = preferences.get_renaming_rule()
             # generate new movie name based on renaming rule
@@ -559,7 +560,7 @@ class MainWindow(QMainWindow):
         thread used for movie title searching
         """
 
-        self._get_selected_movie().search_new_title(title)
+        self.__get_selected_movie().search_new_title(title)
         # emit signal
         self.search_title_finished.emit()
 
@@ -572,7 +573,7 @@ class MainWindow(QMainWindow):
         self.set_gui_enabled_search_title(True)
         renaming_rule = preferences.get_renaming_rule()
         # generate new movie name based on renaming rule
-        movie = self._get_selected_movie()
+        movie = self.__get_selected_movie()
         movie.generate_new_name(renaming_rule)
         # create a table item with new movie file name
         item_new_name = QTableWidgetItem(movie.get_renamed_file_name())
@@ -598,7 +599,7 @@ class MainWindow(QMainWindow):
 
         self._ui.table_others_info.setEnabled(enabled)
 
-    def _get_selected_movie(self):
+    def __get_selected_movie(self) -> Movie:
         selected_items = self._ui.table_movies.selectedItems()
         if len(selected_items) == 0:
             return None
