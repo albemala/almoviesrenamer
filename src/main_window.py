@@ -9,7 +9,6 @@ import application
 from movie import Movie
 from preferences import preferences
 from preferences_dialog import PreferencesDialog
-from renaming_rule_dialog import RenamingRuleDialog
 from stats_agreement_dialog import StatsAgreementDialog
 import utils
 
@@ -46,7 +45,7 @@ class MainWindow(QMainWindow):
         # create SettingsDialog
         self._ui.preferences_dialog = PreferencesDialog(self)
         # create RenamingRuleDialog
-        self._ui.renaming_rule_dialog = RenamingRuleDialog(self, self._ui.preferences_dialog)
+        # self._ui.renaming_rule_dialog = RenamingRuleDialog(self, self._ui.preferences_dialog)
         # set some GUI parameters
         self.setWindowTitle(application.NAME)
         self._ui.panel_loading.setVisible(False)

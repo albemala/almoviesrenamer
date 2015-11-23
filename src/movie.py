@@ -22,17 +22,6 @@ class Movie:
     STATE_RENAMED = 1
     STATE_RENAMING_ERROR = 2
 
-    # TODO remove
-    TITLE = "title"
-    ORIGINAL_TITLE = "original_title"
-    YEAR = "year"
-    DIRECTOR = "director"
-    DURATION = "duration"
-    LANGUAGE = "language"
-    SUBTITLES = "subtitles"
-    PART = "part"
-    SCORE = "score"
-
     def __init__(self, absolute_file_path=None):
         """
         constructor.
@@ -41,23 +30,12 @@ class Movie:
         a movie example
         """
 
-        # TODO remove?
         self.__file_info = MovieFileInfo()
         # current state
         # states are used to show a proper panel in GUI
         self.__renaming_state = self.STATE_BEFORE_RENAMING
         # used to store guessed information from file name
         self.__guessed_info = MovieGuessedInfo()
-        # imdb search for a given movie, return some results, which are
-        # transformed in a better formed and stored into this attribute
-        # TODO remove
-        self.__others_info = [{}]
-        # currently associated movie, returned from imdb search, is stored here
-        # TODO remove
-        self.__info = {}
-        # get video duration
-        # TODO remove
-        self.__video_duration = 0
         # error occurred during renaming operation
         self.__renaming_error = ""
         # movie information fetched from The Movie DB
@@ -84,18 +62,12 @@ class Movie:
             self.DURATION: ["100m", '1h40m'],
             self.LANGUAGE: ["Italian", 'ITA'],
             self.SCORE: 1}
-        self.__others_info = [info]
-        self.__info = info
-        self.__video_duration = 0
 
     def get_file_info(self) -> MovieFileInfo:
         return self.__file_info
 
     def get_tmdb_info(self) -> MovieTMDBInfo:
         return self.__tmdb_info[self.__current_info_index]
-
-    def get_info(self) -> MovieInfo:
-        return self.__info
 
     def get_guessed_info(self) -> MovieGuessedInfo:
         return self.__guessed_info
@@ -156,67 +128,6 @@ class Movie:
     def get_part(self) -> str:
         return self.get_guessed_info().get_cd_number()
 
-    # # TODO match with MovieInfo property
-    # def get_duration(self, index=0):
-    #     """
-    #     return the movie duration
-    #
-    #     duration have 2 representations:
-    #      - minutes only (e.g.: 100m)
-    #      - hours and minutes (e.g.: 1h40m)
-    #     """
-    #
-    #     if self.__info is not None:
-    #         return self.__info[self.DURATION][index]
-    #     return ""
-    #
-    # # TODO match with MovieInfo property
-    # def get_language(self, index=0):
-    #     """
-    #     return the movie language
-    #
-    #     language have 2 representations:
-    #      - English name (e.g.: Italian)
-    #      - 3-letters (e.g.: ITA)
-    #     """
-    #
-    #     if self.__info is not None:
-    #         return self.__info[self.LANGUAGE][index]
-    #     if self.__guessed_info is not None \
-    #             and self.LANGUAGE in self.__guessed_info:
-    #         return self.__guessed_info[self.LANGUAGE][index]
-    #     return ""
-    #
-    # # TODO match with MovieInfo property
-    # def get_subtitles(self, index=0):
-    #     """
-    #     return subtitles language
-    #
-    #     subtitles have 2 representations:
-    #      - English name (e.g.: Italian)
-    #      - 3-letters (e.g.: ITA)
-    #     """
-    #
-    #     if self.__guessed_info is not None \
-    #             and self.SUBTITLES in self.__guessed_info:
-    #         return self.__guessed_info[self.SUBTITLES][index]
-    #     return ""
-
-    def others_info(self):
-        """
-        return the others information returned from imdb, as a
-        list of three elements:
-        title, year and language.
-
-        used in gui to show other information associated with the selected one
-        """
-
-        others_info = []
-        for other_info in self.__others_info:
-            info = [other_info[self.TITLE], other_info[self.LANGUAGE][0]]
-            others_info.append(info)
-        return others_info
-
     def get_renaming_state(self):
         """
         return current renaming state
@@ -244,12 +155,12 @@ class Movie:
     def get_renaming_error(self):
         return self.__renaming_error
 
-    def set_movie(self, index):
-        """
-        set currently associated info, from list of others information
-        """
-
-        self.__info = self.__others_info[index]
+    # def set_movie(self, index):
+    #     """
+    #     set currently associated info, from list of others information
+    #     """
+    #
+    #     self.__info = self.__others_info[index]
 
     def fetch_tmdb_info(self, query: str, year: str = "", language: str = ""):
         # TODO
@@ -464,116 +375,118 @@ class Movie:
         generates new file name based on given renaming rule
         """
 
-        from preferences_dialog import PreferencesDialog as Preferences
-        from renaming_rule_dialog import RenamingRuleDialog as RenamingRule
+        pass
 
-        if len(renaming_rule) == 0:
-            self._renamed_file_name = ''
-        else:
-            duration_index = preferences.get_duration_representation()
-            language_index = preferences.get_language_representation()
-            words_separator_index = preferences.get_words_separator()
-            separator = Preferences.WORDS_SEPARATORS[words_separator_index]
-            opened_brackets = [
-                RenamingRule.OPENED_ROUND_BRACKET,
-                RenamingRule.OPENED_SQUARE_BRACKET,
-                RenamingRule.OPENED_CURLY_BRACKET]
-            closed_brackets = [
-                RenamingRule.CLOSED_ROUND_BRACKET,
-                RenamingRule.CLOSED_SQUARE_BRACKET,
-                RenamingRule.CLOSED_CURLY_BRACKET]
-            # split renaming rule
-            rules = renaming_rule.split('.')
-
-            ## 1st round: replace attributes with corresponding values and remove empty ones
-            new_name_items = []
-            # loop on renaming rule
-            for rule in rules:
-                # title
-                if rule == self.TITLE \
-                        and self.get_title() != '':
-                    new_name_items.append(self.get_title())
-                # original title
-                elif rule == self.ORIGINAL_TITLE \
-                        and self.get_original_title() != '':
-                    new_name_items.append(self.get_original_title())
-                # year
-                elif rule == self.YEAR \
-                        and self.get_year() != '':
-                    new_name_items.append(self.get_year())
-                # director
-                elif rule == self.DIRECTOR \
-                        and self.get_directors() != '':
-                    new_name_items.append(self.get_directors())
-                # duration
-                elif rule == self.DURATION \
-                        and self.get_duration() != '':
-                    new_name_items.append(self.get_duration(duration_index))
-                # language
-                elif rule == self.LANGUAGE \
-                        and self.get_language() != '':
-                    language = self.get_language(language_index)
-                    if self.get_subtitles() != '':
-                        language += ' sub ' + self.get_subtitles(language_index)
-                    new_name_items.append(language)
-                # opened and closed brackets
-                elif rule in opened_brackets \
-                        or rule in closed_brackets:
-                    new_name_items.append(rule)
-
-            ## 2nd round: remove empty brackets
-            cleaned_new_name = []
-            # loop on new name
-            for i in range(len(new_name_items)):
-                item = new_name_items[i]
-                if (  # current item is an opened bracket and next one is a closed bracket
-                                    item in opened_brackets
-                            and i + 1 < len(new_name_items)
-                        and new_name_items[i + 1]
-                        not in closed_brackets) \
-                        or (  # current item is a closed bracket and previous one is not an opened bracket
-                                            item in closed_brackets
-                                    and i - 1 > 0
-                                and new_name_items[i - 1] not in opened_brackets) \
-                        or (  # current item is neither an opened bracket nor a closed bracket
-                                        item not in opened_brackets and item not in closed_brackets):
-                    # if previous clauses are true, keep the item
-                    cleaned_new_name.append(item)
-
-            ## 3rd round: generate new name, adding separators between items
-            new_name = ""
-            # loop on cleaned new name
-            for i in range(len(cleaned_new_name)):
-                item = cleaned_new_name[i]
-                # append current item to new name
-                new_name += item
-                # if current item is not the last one
-                if i + 1 < len(cleaned_new_name):
-                    # separate closed brackets and next items with a space
-                    if item in closed_brackets:
-                        new_name += ' '
-                    elif item not in opened_brackets:  # is an attribute
-                        # separate attributes and opened brackets with a space
-                        if cleaned_new_name[i + 1] in opened_brackets:
-                            new_name += ' '
-                        elif cleaned_new_name[i + 1] not in closed_brackets:  # is an attribute
-                            new_name += separator
-
-            # if current movie is divided into parts 
-            if self.get_part() != '':
-                # last item is a closed bracket
-                if cleaned_new_name[-1:] in closed_brackets:
-                    # append a space
-                    new_name += ' '
-                # last item is an attribute
-                else:
-                    new_name += separator
-                # add part to new name
-                new_name += "Part " + self.get_part()
-            # set file new name
-            self._renamed_file_name = new_name
-
-        return self._renamed_file_name
+        # from preferences_dialog import PreferencesDialog as Preferences
+        # from renaming_rule_dialog import RenamingRuleDialog as RenamingRule
+        #
+        # if len(renaming_rule) == 0:
+        #     self._renamed_file_name = ''
+        # else:
+        #     duration_index = preferences.get_duration_representation()
+        #     language_index = preferences.get_language_representation()
+        #     words_separator_index = preferences.get_words_separator()
+        #     separator = Preferences.WORDS_SEPARATORS[words_separator_index]
+        #     opened_brackets = [
+        #         RenamingRule.OPENED_ROUND_BRACKET,
+        #         RenamingRule.OPENED_SQUARE_BRACKET,
+        #         RenamingRule.OPENED_CURLY_BRACKET]
+        #     closed_brackets = [
+        #         RenamingRule.CLOSED_ROUND_BRACKET,
+        #         RenamingRule.CLOSED_SQUARE_BRACKET,
+        #         RenamingRule.CLOSED_CURLY_BRACKET]
+        #     # split renaming rule
+        #     rules = renaming_rule.split('.')
+        #
+        #     ## 1st round: replace attributes with corresponding values and remove empty ones
+        #     new_name_items = []
+        #     # loop on renaming rule
+        #     for rule in rules:
+        #         # title
+        #         if rule == self.TITLE \
+        #                 and self.get_title() != '':
+        #             new_name_items.append(self.get_title())
+        #         # original title
+        #         elif rule == self.ORIGINAL_TITLE \
+        #                 and self.get_original_title() != '':
+        #             new_name_items.append(self.get_original_title())
+        #         # year
+        #         elif rule == self.YEAR \
+        #                 and self.get_year() != '':
+        #             new_name_items.append(self.get_year())
+        #         # director
+        #         elif rule == self.DIRECTOR \
+        #                 and self.get_directors() != '':
+        #             new_name_items.append(self.get_directors())
+        #         # duration
+        #         elif rule == self.DURATION \
+        #                 and self.get_duration() != '':
+        #             new_name_items.append(self.get_duration(duration_index))
+        #         # language
+        #         elif rule == self.LANGUAGE \
+        #                 and self.get_language() != '':
+        #             language = self.get_language(language_index)
+        #             if self.get_subtitles() != '':
+        #                 language += ' sub ' + self.get_subtitles(language_index)
+        #             new_name_items.append(language)
+        #         # opened and closed brackets
+        #         elif rule in opened_brackets \
+        #                 or rule in closed_brackets:
+        #             new_name_items.append(rule)
+        #
+        #     ## 2nd round: remove empty brackets
+        #     cleaned_new_name = []
+        #     # loop on new name
+        #     for i in range(len(new_name_items)):
+        #         item = new_name_items[i]
+        #         if (  # current item is an opened bracket and next one is a closed bracket
+        #                             item in opened_brackets
+        #                     and i + 1 < len(new_name_items)
+        #                 and new_name_items[i + 1]
+        #                 not in closed_brackets) \
+        #                 or (  # current item is a closed bracket and previous one is not an opened bracket
+        #                                     item in closed_brackets
+        #                             and i - 1 > 0
+        #                         and new_name_items[i - 1] not in opened_brackets) \
+        #                 or (  # current item is neither an opened bracket nor a closed bracket
+        #                                 item not in opened_brackets and item not in closed_brackets):
+        #             # if previous clauses are true, keep the item
+        #             cleaned_new_name.append(item)
+        #
+        #     ## 3rd round: generate new name, adding separators between items
+        #     new_name = ""
+        #     # loop on cleaned new name
+        #     for i in range(len(cleaned_new_name)):
+        #         item = cleaned_new_name[i]
+        #         # append current item to new name
+        #         new_name += item
+        #         # if current item is not the last one
+        #         if i + 1 < len(cleaned_new_name):
+        #             # separate closed brackets and next items with a space
+        #             if item in closed_brackets:
+        #                 new_name += ' '
+        #             elif item not in opened_brackets:  # is an attribute
+        #                 # separate attributes and opened brackets with a space
+        #                 if cleaned_new_name[i + 1] in opened_brackets:
+        #                     new_name += ' '
+        #                 elif cleaned_new_name[i + 1] not in closed_brackets:  # is an attribute
+        #                     new_name += separator
+        #
+        #     # if current movie is divided into parts
+        #     if self.get_part() != '':
+        #         # last item is a closed bracket
+        #         if cleaned_new_name[-1:] in closed_brackets:
+        #             # append a space
+        #             new_name += ' '
+        #         # last item is an attribute
+        #         else:
+        #             new_name += separator
+        #         # add part to new name
+        #         new_name += "Part " + self.get_part()
+        #     # set file new name
+        #     self._renamed_file_name = new_name
+        #
+        # return self._renamed_file_name
 
     def check_and_clean_new_name(self):
         """
