@@ -210,8 +210,10 @@ class MainWindow(QMainWindow):
 
     def create_movie(self, file_path):
         # create a new movie object
-        movie = Movie(file_path)
-        movie.get_info_()
+        movie = Movie()
+        movie.fill_with_file(file_path)
+        movie_guessed_info = movie.get_guessed_info()
+        movie.fetch_tmdb_info(movie_guessed_info.get_title(), movie_guessed_info.get_year(), movie_guessed_info.get_language())
         # generate new movie name based on renaming rule
         movie.generate_new_name(preferences.get_renaming_rule())
         return movie
@@ -490,7 +492,7 @@ class MainWindow(QMainWindow):
         self._ui.label_year.setText(movie_info.get_year())
         self._ui.label_director.setText(movie_info.get_directors())
         self._ui.label_duration.setText(movie_info.get_duration())
-        language = movie_info.get_languages()
+        language = movie_info.get_language()
         if movie_info.get_subtitle_language() != '':
             language += " (subtitled " + movie_info.get_subtitle_language() + ")"
         self._ui.label_language.setText(language)

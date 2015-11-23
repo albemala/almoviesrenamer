@@ -41,107 +41,65 @@ class Movie:
         a movie example
         """
 
-        self._file_info = MovieFileInfo()
+        # TODO remove?
+        self.__file_info = MovieFileInfo()
         # current state
         # states are used to show a proper panel in GUI
-        self._renaming_state = self.STATE_BEFORE_RENAMING
+        self.__renaming_state = self.STATE_BEFORE_RENAMING
         # used to store guessed information from file name
         # TODO convert into local variable if not used in other places
-        self._guessed_info = MovieGuessedInfo()
+        self.__guessed_info = MovieGuessedInfo()
         # imdb search for a given movie, return some results, which are
         # transformed in a better formed and stored into this attribute
         # TODO remove
-        self._others_info = [{}]
+        self.__others_info = [{}]
         # currently associated movie, returned from imdb search, is stored here
         # TODO remove
-        self._info = {}
+        self.__info = {}
         # get video duration
         # TODO remove
-        self._video_duration = 0
+        self.__video_duration = 0
         # error occurred during renaming operation
-        self._renaming_error = ""
+        self.__renaming_error = ""
         # movie information fetched from The Movie DB
-        self._tmdb_info = [MovieTMDBInfo()]
-        self._current_tmdb_info = 0
+        self.__tmdb_info = [MovieTMDBInfo()]
+        self.__current_tmdb_info = 0
 
-        # create a movie example
-        if absolute_file_path is None:
-            # TODO if possible, get rid of movie example
-            absolute_file_path = "C:/[DivX ITA] A really cool movie (2012).avi"
-            self._file_info.fill_with_absolute_file_path(absolute_file_path)
-            self._guessed_info.fill_with_absolute_file_path(absolute_file_path)
-            # self._guessed_info = {
-            #     self.SUBTITLES: ["Italian", "ITA"],
-            #     self.PART: "1"}
-            info = {
-                self.TITLE: "Un film molto figo",
-                self.ORIGINAL_TITLE: "A really cool movie",
-                self.YEAR: "2012",
-                self.DIRECTOR: "A. Director",
-                self.DURATION: ["100m", '1h40m'],
-                self.LANGUAGE: ["Italian", 'ITA'],
-                self.SCORE: 1}
-            self._others_info = [info]
-            self._info = info
-            self._video_duration = 0
+    def fill_with_file(self, absolute_file_path):
+        self.__file_info.fill_with_absolute_file_path(absolute_file_path)
+        self.__guessed_info.fill_with_absolute_file_path(absolute_file_path)
 
-        else:
-            self._file_info.fill_with_absolute_file_path(absolute_file_path)
-            self._guessed_info.fill_with_absolute_file_path(absolute_file_path)
-            self._info = MovieInfo()
-            self._info.fill_with_guessed_info(self._guessed_info)
+    def fill_with_example_data(self):
+        # TODO if possible, get rid of movie example
+        absolute_file_path = "C:/[DivX ITA] A really cool movie (2012).avi"
+        self.__file_info.fill_with_absolute_file_path(absolute_file_path)
+        self.__guessed_info.fill_with_absolute_file_path(absolute_file_path)
+        # self._guessed_info = {
+        #     self.SUBTITLES: ["Italian", "ITA"],
+        #     self.PART: "1"}
+        info = {
+            self.TITLE: "Un film molto figo",
+            self.ORIGINAL_TITLE: "A really cool movie",
+            self.YEAR: "2012",
+            self.DIRECTOR: "A. Director",
+            self.DURATION: ["100m", '1h40m'],
+            self.LANGUAGE: ["Italian", 'ITA'],
+            self.SCORE: 1}
+        self.__others_info = [info]
+        self.__info = info
+        self.__video_duration = 0
 
-            info = {
-                self.TITLE: "Un film molto figo",
-                self.ORIGINAL_TITLE: "A really cool movie",
-                self.YEAR: "2012",
-                self.DIRECTOR: "A. Director",
-                self.DURATION: ["100m", '1h40m'],
-                self.LANGUAGE: ["Italian", 'ITA'],
-                self.SCORE: 1}
-            self._others_info = [info]
-            # self._info = info
-            self._video_duration = 0
+    def get_file_info(self) -> MovieFileInfo:
+        return self.__file_info
 
-            self.fetch_tmdb_info(self._info.get_title(), self._info.get_year(), self._info.get_language())
-            # self.fetch_tmdb_info("l'esorcista", "1973", "it")
+    def get_tmdb_info(self, index=0) -> MovieTMDBInfo:
+        return self.__tmdb_info[index]
 
-            # self._guessed_info = None
-            # self._others_info = None
-            # self._info = None
-            # TODO
-            # try:
-            #     # import sys, inspect
-            #     # cmd_subfolder = os.path.realpath(
-            #     #     os.path.abspath(os.path.join(os.path.split(inspect.getfile(inspect.currentframe()))[0], "enzyme")))
-            #     # print(cmd_subfolder)
-            #     # sys.path.append(cmd_subfolder)
-            #     import enzyme
-            #     video_info = enzyme.parse(absolute_file_path)
-            #     print(video_info)
-            # except:
-            #     import traceback
-            #     traceback.print_exc()
-            #     pass
-            # else:
-            #     video_length = 0
-            #     if video_info.length is not None:
-            #         video_length = video_info.length
-            #     elif video_info.video[0].length is not None:
-            #         video_length = video_info.video[0].length
-            #     self._video_duration = int(video_length / 60)
-            # print(self._video_duration)
-            # guess info from file name
-            # self._guessed_info = guess_info(name)
-            # get other movie info
-            # TODO call this from outside
-            # self.get_info_()
+    def get_info(self) -> MovieInfo:
+        return self.__info
 
-    def get_file_info(self):
-        return self._file_info
-
-    def get_info(self):
-        return self._info
+    def get_guessed_info(self) -> MovieGuessedInfo:
+        return self.__guessed_info
 
     # TODO match with MovieInfo property
     def get_duration(self, index=0):
@@ -153,8 +111,8 @@ class Movie:
          - hours and minutes (e.g.: 1h40m)
         """
 
-        if self._info is not None:
-            return self._info[self.DURATION][index]
+        if self.__info is not None:
+            return self.__info[self.DURATION][index]
         return ""
 
     # TODO match with MovieInfo property
@@ -167,11 +125,11 @@ class Movie:
          - 3-letters (e.g.: ITA)
         """
 
-        if self._info is not None:
-            return self._info[self.LANGUAGE][index]
-        if self._guessed_info is not None \
-                and self.LANGUAGE in self._guessed_info:
-            return self._guessed_info[self.LANGUAGE][index]
+        if self.__info is not None:
+            return self.__info[self.LANGUAGE][index]
+        if self.__guessed_info is not None \
+                and self.LANGUAGE in self.__guessed_info:
+            return self.__guessed_info[self.LANGUAGE][index]
         return ""
 
     # TODO match with MovieInfo property
@@ -184,9 +142,9 @@ class Movie:
          - 3-letters (e.g.: ITA)
         """
 
-        if self._guessed_info is not None \
-                and self.SUBTITLES in self._guessed_info:
-            return self._guessed_info[self.SUBTITLES][index]
+        if self.__guessed_info is not None \
+                and self.SUBTITLES in self.__guessed_info:
+            return self.__guessed_info[self.SUBTITLES][index]
         return ""
 
     def others_info(self):
@@ -199,7 +157,7 @@ class Movie:
         """
 
         others_info = []
-        for other_info in self._others_info:
+        for other_info in self.__others_info:
             info = [other_info[self.TITLE], other_info[self.LANGUAGE][0]]
             others_info.append(info)
         return others_info
@@ -211,7 +169,7 @@ class Movie:
         state is one of STATE_BEFORE_RENAMING, STATE_RENAMED, STATE_RENAMING_ERROR
         """
 
-        return self._renaming_state
+        return self.__renaming_state
 
     def set_renaming_state(self, state, error=""):
         """
@@ -222,21 +180,21 @@ class Movie:
         error could be an error message, used with STATE_RENAMING_ERROR
         """
 
-        self._renaming_state = state
-        self._renaming_error = error
+        self.__renaming_state = state
+        self.__renaming_error = error
         # when a file has been renamed, put new name as the original one 
         if state == Movie.STATE_RENAMED:
             self._original_file_name = self._renamed_file_name
 
     def get_renaming_error(self):
-        return self._renaming_error
+        return self.__renaming_error
 
     def set_movie(self, index):
         """
         set currently associated info, from list of others information
         """
 
-        self._info = self._others_info[index]
+        self.__info = self.__others_info[index]
 
     def fetch_tmdb_info(self, query: str, year: str = "", language: str = ""):
         # TODO
@@ -244,13 +202,13 @@ class Movie:
         search = tmdb.Search()
         search_results = search.movie(query=query, year=year, language=language)
         print(search_results)
-        self._tmdb_info.clear()
+        self.__tmdb_info.clear()
         for result in search_results["results"]:
             tmdb_info = MovieTMDBInfo()
             tmdb_info.fill_with_search_result(result)
-            self._tmdb_info.append(tmdb_info)
-        if len(self._tmdb_info) == 0:
-            self._tmdb_info.append(MovieTMDBInfo())
+            self.__tmdb_info.append(tmdb_info)
+        if len(self.__tmdb_info) == 0:
+            self.__tmdb_info.append(MovieTMDBInfo())
 
     # TODO
     def get_info_(self):
@@ -440,9 +398,9 @@ class Movie:
 
         # guess info from given title
         guessed_info = guess_info(title)
-        self._guessed_info[self.TITLE] = guessed_info[self.TITLE]
+        self.__guessed_info[self.TITLE] = guessed_info[self.TITLE]
         if self.YEAR in guessed_info:
-            self._guessed_info[self.YEAR] = guessed_info[self.YEAR]
+            self.__guessed_info[self.YEAR] = guessed_info[self.YEAR]
         self.get_info_()
 
     def generate_new_name(self, renaming_rule):

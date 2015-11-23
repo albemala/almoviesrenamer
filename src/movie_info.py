@@ -52,6 +52,6 @@ class MovieInfo:
         self._title = guessed_info.get_title()
         self._original_title = self._title
         self._year = guessed_info.get_year()
-        self._languages = guessed_info.get_languages()
-        self._subtitle_languages = guessed_info.get_subtitle_languages()
+        self._languages = guessed_info.get_language()
+        self._subtitle_languages = guessed_info.get_subtitle_language()
         self._part = guessed_info.get_cd_number()

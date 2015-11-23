@@ -27,51 +27,51 @@ class MovieTMDBInfo:
     #  'total_results': 1}
 
     def __init__(self):
-        self._id = 0
-        self._title = ""
-        self._original_title = ""
-        self._year = ""
-        self._original_language = ""
-        self._poster_path = ""
-        self._director = ""
-        self._duration = ""
+        self.__id = 0
+        self.__title = ""
+        self.__original_title = ""
+        self.__year = ""
+        self.__original_language = ""
+        self.__poster_path = ""
+        self.__director = ""
+        self.__duration = ""
 
-    def get_title(self):
-        return self._title
+    def get_title(self) -> str:
+        return self.__title
 
-    def get_original_title(self):
-        return self._original_title
+    def get_original_title(self) -> str:
+        return self.__original_title
 
-    def get_year(self):
-        return self._year
+    def get_year(self) -> str:
+        return self.__year
 
-    def get_original_language(self):
-        return self._original_language
+    def get_original_language(self) -> str:
+        return self.__original_language
 
-    def get_poster_path(self):
-        return self._poster_path
+    def get_poster_path(self) -> str:
+        return self.__poster_path
 
-    def get_director(self):
-        return self._director
+    def get_director(self) -> str:
+        return self.__director
 
-    def get_duration(self):
-        return self._duration
+    def get_duration(self) -> str:
+        return self.__duration
 
     def fill_with_search_result(self, result):
-        self._id = result["id"]
-        self._title = result["title"]
-        self._original_title = result["original_title"]
+        self.__id = result["id"]
+        self.__title = result["title"]
+        self.__original_title = result["original_title"]
         # release date is like 2001-12-12
-        self._year = result["release_date"].split("-")[0]
-        self._original_language = result["original_language"]
-        self._poster_path = result["poster_path"]
-        movie = tmdb.Movies(self._id)
+        self.__year = result["release_date"].split("-")[0]
+        self.__original_language = result["original_language"]
+        self.__poster_path = result["poster_path"]
+        movie = tmdb.Movies(self.__id)
         movie_info = movie.info()
-        self._duration = movie_info["runtime"]
+        self.__duration = movie_info["runtime"]
         movie_credits = movie.credits()
         for person in movie_credits["crew"]:
             if person["job"] == "Director":
-                if self._director != "":
-                    self._director += ", "
-                self._director += person["name"]
-        print(self._director)
+                if self.__director != "":
+                    self.__director += ", "
+                self.__director += person["name"]
+        print(self.__director)
