@@ -41,29 +41,35 @@ class Movie:
         a movie example
         """
 
-        self._file_info = None
+        self._file_info = MovieFileInfo()
         # current state
         # states are used to show a proper panel in GUI
         self._renaming_state = self.STATE_BEFORE_RENAMING
         # used to store guessed information from file name
         # TODO convert into local variable if not used in other places
-        self._guessed_info = None
+        self._guessed_info = MovieGuessedInfo()
         # imdb search for a given movie, return some results, which are
         # transformed in a better formed and stored into this attribute
+        # TODO remove
         self._others_info = [{}]
         # currently associated movie, returned from imdb search, is stored here
+        # TODO remove
         self._info = {}
         # get video duration
+        # TODO remove
         self._video_duration = 0
         # error occurred during renaming operation
         self._renaming_error = ""
+        # movie information fetched from The Movie DB
+        self._tmdb_info = [MovieTMDBInfo()]
+        self._current_tmdb_info = 0
 
         # create a movie example
         if absolute_file_path is None:
             # TODO if possible, get rid of movie example
             absolute_file_path = "C:/[DivX ITA] A really cool movie (2012).avi"
-            self._file_info = MovieFileInfo(absolute_file_path)
-            self._guessed_info = MovieGuessedInfo(absolute_file_path)
+            self._file_info.fill_with_absolute_file_path(absolute_file_path)
+            self._guessed_info.fill_with_absolute_file_path(absolute_file_path)
             # self._guessed_info = {
             #     self.SUBTITLES: ["Italian", "ITA"],
             #     self.PART: "1"}
@@ -80,8 +86,8 @@ class Movie:
             self._video_duration = 0
 
         else:
-            self._file_info = MovieFileInfo(absolute_file_path)
-            self.fetch_guessed_info()
+            self._file_info.fill_with_absolute_file_path(absolute_file_path)
+            self._guessed_info.fill_with_absolute_file_path(absolute_file_path)
             self._info = MovieInfo()
             self._info.fill_with_guessed_info(self._guessed_info)
 
@@ -130,10 +136,6 @@ class Movie:
             # get other movie info
             # TODO call this from outside
             # self.get_info_()
-
-    def fetch_guessed_info(self):
-        absolute_original_file_path = self._file_info.get_absolute_original_file_path()
-        self._guessed_info = MovieGuessedInfo(absolute_original_file_path)
 
     def get_file_info(self):
         return self._file_info

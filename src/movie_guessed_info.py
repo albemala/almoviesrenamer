@@ -14,7 +14,7 @@ class MovieGuessedInfo:
     CD_NUMBER_TOTAL = "cdNumberTotal"
     EDITION = "edition"
 
-    def __init__(self, absolute_file_path):
+    def __init__(self):
         # TODO expose other properties: country, bonus title, cd nuber title, edition
         self._title = ""
         self._year = ""
@@ -29,28 +29,6 @@ class MovieGuessedInfo:
         self._cd_number_total = ""
         # Special Edition, Collector Edition, Director's cut, Criterion Edition, Deluxe Edition
         self._edition = ""
-
-        info = guessit.guess_movie_info(absolute_file_path)
-        print(info)
-
-        if MovieGuessedInfo.TITLE in info:
-            self._title = info[MovieGuessedInfo.TITLE]
-        if MovieGuessedInfo.YEAR in info:
-            self._year = str(info[MovieGuessedInfo.YEAR])
-        if MovieGuessedInfo.COUNTRY in info:
-            self._countries = info[MovieGuessedInfo.COUNTRY]
-        if MovieGuessedInfo.LANGUAGE in info:
-            self._languages = info[MovieGuessedInfo.LANGUAGE]
-        if MovieGuessedInfo.SUBTITLE_LANGUAGE in info:
-            self._subtitle_languages = info[MovieGuessedInfo.SUBTITLE_LANGUAGE]
-        if MovieGuessedInfo.BONUS_TITLE in info:
-            self._bonus_title = info[MovieGuessedInfo.BONUS_TITLE]
-        if MovieGuessedInfo.CD_NUMBER in info:
-            self._cd_number = str(info[MovieGuessedInfo.CD_NUMBER])
-        if MovieGuessedInfo.CD_NUMBER_TOTAL in info:
-            self._cd_number_total = str(info[MovieGuessedInfo.CD_NUMBER_TOTAL])
-        if MovieGuessedInfo.EDITION in info:
-            self._edition = info[MovieGuessedInfo.EDITION]
 
     def get_title(self):
         return self._title
@@ -78,3 +56,26 @@ class MovieGuessedInfo:
 
     def get_edition(self):
         return self._edition
+
+    def fill_with_absolute_file_path(self, absolute_file_path):
+        info = guessit.guess_movie_info(absolute_file_path)
+        print(info)
+
+        if MovieGuessedInfo.TITLE in info:
+            self._title = info[MovieGuessedInfo.TITLE]
+        if MovieGuessedInfo.YEAR in info:
+            self._year = str(info[MovieGuessedInfo.YEAR])
+        if MovieGuessedInfo.COUNTRY in info:
+            self._countries = info[MovieGuessedInfo.COUNTRY]
+        if MovieGuessedInfo.LANGUAGE in info:
+            self._languages = info[MovieGuessedInfo.LANGUAGE]
+        if MovieGuessedInfo.SUBTITLE_LANGUAGE in info:
+            self._subtitle_languages = info[MovieGuessedInfo.SUBTITLE_LANGUAGE]
+        if MovieGuessedInfo.BONUS_TITLE in info:
+            self._bonus_title = info[MovieGuessedInfo.BONUS_TITLE]
+        if MovieGuessedInfo.CD_NUMBER in info:
+            self._cd_number = str(info[MovieGuessedInfo.CD_NUMBER])
+        if MovieGuessedInfo.CD_NUMBER_TOTAL in info:
+            self._cd_number_total = str(info[MovieGuessedInfo.CD_NUMBER_TOTAL])
+        if MovieGuessedInfo.EDITION in info:
+            self._edition = info[MovieGuessedInfo.EDITION]
