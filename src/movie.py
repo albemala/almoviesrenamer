@@ -242,9 +242,13 @@ class Movie:
         search = tmdb.Search()
         search_results = search.movie(query=query, year=year, language=language)
         print(search_results)
+        self._tmdb_info.clear()
         for result in search_results["results"]:
             tmdb_info = MovieTMDBInfo()
             tmdb_info.fill_with_search_result(result)
+            self._tmdb_info.append(tmdb_info)
+        if len(self._tmdb_info) == 0:
+            self._tmdb_info.append(MovieTMDBInfo())
 
     # TODO
     def get_info_(self):
