@@ -11,6 +11,11 @@
 
 # General
 
+- update guessit to version 2.x (when is released)
+- remove unused modules/files
+
+# To review
+
 in manual search, add ability to specify the language
 
 use video duration to get the best runtime
