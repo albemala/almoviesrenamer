@@ -104,7 +104,10 @@ class Movie:
         self.__current_info_index = current_info_index
 
     def get_title(self) -> str:
-        return self.get_tmdb_info().get_title()
+        title = self.get_tmdb_info().get_title()
+        if title != "":
+            return title
+        return self.get_guessed_info().get_title()
 
     def get_original_title(self) -> str:
         """
@@ -116,7 +119,10 @@ class Movie:
         return self.get_tmdb_info().get_original_title()
 
     def get_year(self) -> str:
-        return self.get_tmdb_info().get_year()
+        year = self.get_tmdb_info().get_year()
+        if year != "":
+            return year
+        return self.get_guessed_info().get_year()
 
     def get_director(self) -> str:
         return self.get_tmdb_info().get_director()
@@ -130,13 +136,14 @@ class Movie:
 
         duration_representation = preferences.get_duration_representation()
         duration = self.get_tmdb_info().get_duration()
-        if duration_representation == Preferences.DURATION_REPRESENTATION_MINUTES:
-            duration += "m"
-        elif duration_representation == Preferences.DURATION_REPRESENTATION_HOURS_MINUTES:
-            duration_total = int(duration)
-            duration_hours = int(duration_total / 60)
-            duration_minutes = duration_total % 60
-            duration = "{}h{}m".format(duration_hours, duration_minutes)
+        if duration != "":
+            if duration_representation == Preferences.DURATION_REPRESENTATION_MINUTES:
+                duration += "m"
+            elif duration_representation == Preferences.DURATION_REPRESENTATION_HOURS_MINUTES:
+                duration_total = int(duration)
+                duration_hours = int(duration_total / 60)
+                duration_minutes = duration_total % 60
+                duration = "{}h{}m".format(duration_hours, duration_minutes)
         return duration
 
     def get_language(self) -> str:
@@ -248,6 +255,7 @@ class Movie:
         # TODO
         tmdb.API_KEY = "25be8b4eb94ac1d6a4991b76947327ca"
         search = tmdb.Search()
+        print(query, year, language)
         search_results = search.movie(query=query, year=year, language=language)
         print(search_results)
         self.__tmdb_info.clear()

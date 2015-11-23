@@ -68,7 +68,7 @@ class MovieGuessedInfo:
         if MovieGuessedInfo.COUNTRY in info:
             self.__country = info[MovieGuessedInfo.COUNTRY][0]
         if MovieGuessedInfo.LANGUAGE in info:
-            self.__language = info[MovieGuessedInfo.LANGUAGE][0]
+            self.__language = info[MovieGuessedInfo.LANGUAGE][0].alpha2
         if MovieGuessedInfo.SUBTITLE_LANGUAGE in info:
             self.__subtitle_language = info[MovieGuessedInfo.SUBTITLE_LANGUAGE][0]
         if MovieGuessedInfo.BONUS_TITLE in info:

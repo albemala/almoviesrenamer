@@ -494,7 +494,7 @@ class MainWindow(QMainWindow):
         self._ui.label_director.setText(movie.get_director())
         self._ui.label_duration.setText(movie.get_duration())
         language = movie.get_language()
-        if movie.get_subtitle_language() != '':
+        if movie.get_subtitle_language() != "":
             language += " (subtitled " + movie.get_subtitle_language() + ")"
         self._ui.label_language.setText(language)
 
