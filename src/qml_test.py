@@ -11,7 +11,7 @@ class DataObject(QObject):
         self.__original_name = original_name
         self.__new_name = new_name
 
-    @pyqtProperty('QString')
+    @pyqtProperty('QString', constant=True)
     def original_name(self):
         return self.__original_name
 
@@ -19,7 +19,7 @@ class DataObject(QObject):
     def original_name(self, original_name):
         self.__original_name = original_name
 
-    @pyqtProperty('QString')
+    @pyqtProperty('QString', constant=True)
     def new_name(self):
         return self.__new_name
 
@@ -32,18 +32,17 @@ app = QGuiApplication(sys.argv)
 
 engine = QQmlApplicationEngine()
 
-# dataList = [
-#     DataObject("Item 1", "red"),
-#     DataObject("Item 2", "green"),
-#     DataObject("Item 3", "blue"),
-#     DataObject("Item 4", "yellow")
-# ]
-# engine.rootContext().setContextProperty("mymodel", dataList)
+dataList = [
+    DataObject("Item 1", "red"),
+    DataObject("Item 2", "green"),
+    DataObject("Item 3", "blue"),
+    DataObject("Item 4", "yellow")
+]
+engine.rootContext().setContextProperty("myModel", dataList)
 
 engine.load("ui.qml")
 
 window = engine.rootObjects()[0]
 window.setProperty("fileName", "prova")
-# window.property("moviesModel")
 
 sys.exit(app.exec_())

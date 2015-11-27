@@ -11,7 +11,7 @@ ApplicationWindow {
     title: "ALMoviesRenamer"
 
     property string fileName: ""
-    property alias moviesModel: moviesModel
+    // property alias moviesModel: moviesModel
 
     menuBar: MenuBar {
         Menu {
@@ -62,21 +62,14 @@ ApplicationWindow {
             id: moviesTableView
             Layout.fillWidth: true
             Layout.fillHeight: true
-            model: ListModel {
-                id: moviesModel
-
-                ListElement {
-                    originalName: "qwe"
-                    newName: "rty"
-                }
-            }
+            model: myModel
 
             TableViewColumn{
-                role: "originalName"
+                role: "original_name"
                 title: "Original name"
             }
             TableViewColumn{
-                role: "newName"
+                role: "new_name"
                 title: "New name"
             }
         }
