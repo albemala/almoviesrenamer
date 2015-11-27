@@ -10,6 +10,9 @@ ApplicationWindow {
     height: 600
     title: "ALMoviesRenamer"
 
+    property string fileName: ""
+    property alias moviesModel: moviesModel
+
     menuBar: MenuBar {
         Menu {
             title: "Movies"
@@ -44,7 +47,7 @@ ApplicationWindow {
             id: loadingLayout
             Label {
                 id: name
-                text: "file name"
+                text: fileName
             }
             ProgressBar {
                 Layout.fillWidth: true
@@ -59,11 +62,21 @@ ApplicationWindow {
             id: moviesTableView
             Layout.fillWidth: true
             Layout.fillHeight: true
+            model: ListModel {
+                id: moviesModel
+
+                ListElement {
+                    originalName: "qwe"
+                    newName: "rty"
+                }
+            }
 
             TableViewColumn{
+                role: "originalName"
                 title: "Original name"
             }
             TableViewColumn{
+                role: "newName"
                 title: "New name"
             }
         }
