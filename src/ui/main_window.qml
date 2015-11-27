@@ -10,7 +10,7 @@ ApplicationWindow {
     height: 600
     title: "ALMoviesRenamer"
 
-    property string fileName: ""
+    // property string fileName: ""
     // property alias moviesModel: moviesModel
 
     menuBar: MenuBar {
@@ -44,10 +44,11 @@ ApplicationWindow {
         anchors.fill: parent
 
         ColumnLayout {
-            id: loadingLayout
+            id: loadingPanel
+            visible: loadingPanelVisible
+
             Label {
-                id: name
-                text: fileName
+                text: loadingFileName
             }
             ProgressBar {
                 Layout.fillWidth: true
@@ -62,7 +63,7 @@ ApplicationWindow {
             id: moviesTableView
             Layout.fillWidth: true
             Layout.fillHeight: true
-            model: myModel
+            model: moviesTableViewModel
 
             TableViewColumn{
                 role: "original_name"
@@ -75,6 +76,8 @@ ApplicationWindow {
         }
 
         ColumnLayout {
+            visible: movieInfoPanelVisible
+
             Label {
                 text: "Movie:"
             }
@@ -119,11 +122,14 @@ ApplicationWindow {
         }
 
         Label {
+            visible: movieRenamedPanelVisible
             text: "This movie has been correctly renamed."
             color: "green"
         }
 
         ColumnLayout {
+            visible: movieErrorPanelVisible
+
             Label {
                 text: "There has been the following error during renaming:"
             }
