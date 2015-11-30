@@ -47,6 +47,15 @@ class MainWindowView:
     def get_movies_table_current_row(self) -> int:
         return self.__get_root_window().property("moviesTableCurrentRow").toInt()
 
+    def get_search_alternative_title_text(self) -> str:
+        return self.__get_root_window().property("searchAlternativeTitleText")
+
+    def get_search_alternative_year_text(self) -> str:
+        return self.__get_root_window().property("searchAlternativeYearText")
+
+    def get_search_alternative_language_text(self) -> str:
+        return self.__get_root_window().property("searchAlternativeLanguageText")
+
     def set_loading_info(self, loading_info: str) -> None:
         self.__loading_info = loading_info
         self.__set_context_property("loadingInfo", self.__loading_info)

@@ -16,6 +16,9 @@ ApplicationWindow {
     signal searchMovieButtonClicked()
 
     property alias moviesTableCurrentRow: moviesTableView.currentRow
+    property alias searchAlternativeTitleText: searchAlternativeTitleTextField.text
+    property alias searchAlternativeYearText: searchAlternativeYearTextField.text
+    property alias searchAlternativeLanguageText: searchAlternativeLanguageTextField.text
 
     menuBar: MenuBar {
         Menu {
@@ -145,11 +148,18 @@ ApplicationWindow {
                 Label { text: "Year:" }
                 Label { text: "Language:" }
                 TextField {
+                    id: searchAlternativeTitleTextField
                     Layout.fillWidth: true
                     placeholderText: "Title"
                 }
-                TextField { placeholderText: "Year" }
-                TextField { placeholderText: "Language" }
+                TextField {
+                    id: searchAlternativeYearTextField
+                    placeholderText: "Year"
+                }
+                TextField {
+                    id: searchAlternativeLanguageTextField
+                    placeholderText: "Language"
+                }
             }
             RowLayout {
                 spacing: 6
