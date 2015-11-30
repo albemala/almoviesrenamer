@@ -108,8 +108,9 @@ ApplicationWindow {
             ComboBox {
                 Layout.fillWidth: true
                 model: movieAlternativeTitlesModel
+                currentIndex: movieAlternativeTitleIndex
 
-                onActivated: movieAlternativeTitleChanged(index)
+                onCurrentIndexChanged: movieAlternativeTitleChanged(currentIndex)
             }
             GridLayout {
                 rowSpacing: 6

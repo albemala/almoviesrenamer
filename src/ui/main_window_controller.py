@@ -38,6 +38,7 @@ class MainWindowController(QObject):
         # variables
         # stores movies objects
         self.__movies = []
+        self.__movies_table_selected_row = -1
 
         # TODO
         # # show stats agreement dialog
@@ -50,6 +51,8 @@ class MainWindowController(QObject):
         self.__main_window.get_add_movie_button_clicked_signal().connect(self.add_movies)
         # self.__main_window.get_movie_info_changed_signal().connect()
         self.__main_window.get_movie_item_selected_signal().connect(self.__movie_item_selected)
+        self.__main_window.get_movie_alternative_title_changed_signal().connect(
+            self.__on_movie_alternative_title_changed)
         # self.__main_window.get_search_movie_button_clicked_signal().connect()
 
         # self._ui.action_add_movies.triggered.connect(self.add_movies)
@@ -418,6 +421,8 @@ class MainWindowController(QObject):
         QMessageBox.about(self, "About {0}".format(application.NAME), msg)
 
     def __movie_item_selected(self, row):
+        self.__movies_table_selected_row = row
+
         if row == -1:
             self.__main_window.set_movie_info_panel_visible(False)
         else:
@@ -429,9 +434,20 @@ class MainWindowController(QObject):
             if movie.get_renaming_state() == Movie.STATE_BEFORE_RENAMING:
                 self.__main_window.set_movie_info_panel_visible(True)
                 self.__main_window.set_movie_alternative_titles_model(movie.get_alternative_titles())
-                self.__main_window.set_movie_title(movie.get_title())
-                self.__main_window.set_movie_original_title(movie.get_original_title())
-                self.__main_window.set_movie_year(movie.get_year())
+                self.__populate_movie_info_panel(movie)
+
+    def __on_movie_alternative_title_changed(self, index: int):
+        movie = self.__get_selected_movie()
+        if movie is None:
+            return
+
+        movie.set_current_info_index(index)
+        self.__populate_movie_info_panel(movie)
+
+    def __populate_movie_info_panel(self, movie: Movie):
+        self.__main_window.set_movie_title(movie.get_title())
+        self.__main_window.set_movie_original_title(movie.get_original_title())
+        self.__main_window.set_movie_year(movie.get_year())
 
     def movies_selection_changed(self):
         """
@@ -610,9 +626,8 @@ class MainWindowController(QObject):
         self._ui.table_others_info.setEnabled(enabled)
 
     def __get_selected_movie(self) -> Movie:
-        selected_items = self._ui.table_movies.selectedItems()
-        if len(selected_items) == 0:
+        if self.__movies_table_selected_row == -1:
             return None
-        index = selected_items[0].row()
+        index = self.__movies_table_selected_row
         selected_movie = self.__movies[index]
         return selected_movie
