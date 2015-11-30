@@ -7,11 +7,11 @@ from movie_table_item import MovieTableItem
 class MainWindowView:
     def __init__(self):
         self.__loading_info = ""
-        self.__loading_panel_visible = True
+        self.__loading_panel_visible = False
         self.__movies_table_view_model = []
-        self.__movie_info_panel_visible = True
-        self.__movie_renamed_panel_visible = True
-        self.__movie_error_panel_visible = True
+        self.__movie_info_panel_visible = False
+        self.__movie_renamed_panel_visible = False
+        self.__movie_error_panel_visible = False
         self.__movie_title = ""
         self.__movie_original_title = ""
         self.__movie_year = ""
