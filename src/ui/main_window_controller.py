@@ -234,9 +234,9 @@ class MainWindowController(QObject):
         self.__main_window.set_loading_info(file_name)
 
     def insert_movie_in_table_view(self, movie):
-        original_file_name = movie.get_file_info().get_original_file_name()
-        renamed_file_name = movie.get_file_info().get_renamed_file_name()
-        self.__main_window.add_movie_table_item(original_file_name, renamed_file_name)
+        original_name = movie.get_original_name()
+        new_name = movie.get_new_name()
+        self.__main_window.add_movie_table_item(original_name, new_name)
 
     def __on_load_movies_finished(self):
         # re-enable gui elements

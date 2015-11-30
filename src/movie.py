@@ -63,8 +63,11 @@ class Movie:
             self.LANGUAGE: ["Italian", 'ITA'],
             self.SCORE: 1}
 
-    def get_file_info(self) -> MovieFileInfo:
-        return self.__file_info
+    def get_original_name(self) -> str:
+        return self.__file_info.get_original_file_name()
+
+    def get_new_name(self) -> str:
+        return self.__file_info.get_renamed_file_name()
 
     def __get_tmdb_info(self) -> MovieTMDBInfo:
         return self.__tmdb_info[self.__current_info_index]
