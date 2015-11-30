@@ -18,6 +18,7 @@ class MainWindowView:
         self.__movie_alternative_titles_model = []
         self.__movie_alternative_title_index = 0
         self.__movie_error = ""
+        self.__search_alternative_movie_progress_bar_visible = False
 
         self.__engine = QQmlApplicationEngine()
 
@@ -26,6 +27,7 @@ class MainWindowView:
         self.set_movie_info_panel_visible(self.__movie_info_panel_visible)
         self.set_movie_renamed_panel_visible(self.__movie_renamed_panel_visible)
         self.set_movie_error_panel_visible(self.__movie_error_panel_visible)
+        self.set_search_alternative_movie_progress_bar_visible(self.__search_alternative_movie_progress_bar_visible)
         self.set_movie_title(self.__movie_title)
         self.set_movie_original_title(self.__movie_original_title)
         self.set_movie_year(self.__movie_year)
@@ -65,6 +67,11 @@ class MainWindowView:
         self.__movie_error_panel_visible = visible
         self.__set_context_property("movieErrorPanelVisible", self.__movie_error_panel_visible)
 
+    def set_search_alternative_movie_progress_bar_visible(self, visible: bool) -> None:
+        self.__search_alternative_movie_progress_bar_visible = visible
+        self.__set_context_property("searchAlternativeMovieProgressBarVisible",
+                                    self.__search_alternative_movie_progress_bar_visible)
+
     def add_movie_table_item(self, original_name: str, new_name: str) -> None:
         movie_table_item = MovieTableItem(original_name, new_name)
         self.__movies_table_view_model.append(movie_table_item)
@@ -96,7 +103,6 @@ class MainWindowView:
     def set_movie_error(self, movie_error: str) -> None:
         self.__movie_error = movie_error
         self.__set_context_property("movieError", self.__movie_error)
-
 
     def get_add_movie_button_clicked_signal(self):
         """

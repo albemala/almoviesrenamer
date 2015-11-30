@@ -144,7 +144,10 @@ ApplicationWindow {
                 Label { text: "Title:" }
                 Label { text: "Year:" }
                 Label { text: "Language:" }
-                TextField { placeholderText: "Title" }
+                TextField {
+                    Layout.fillWidth: true
+                    placeholderText: "Title"
+                }
                 TextField { placeholderText: "Year" }
                 TextField { placeholderText: "Language" }
             }
@@ -158,6 +161,7 @@ ApplicationWindow {
                 ProgressBar {
                     Layout.fillWidth: true
                     indeterminate: true
+                    visible: searchAlternativeMovieProgressBarVisible
                 }
             }
         }
