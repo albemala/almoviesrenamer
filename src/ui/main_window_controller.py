@@ -425,13 +425,16 @@ class MainWindowController(QObject):
 
         if row == -1:
             self.__main_window.set_movie_info_panel_visible(False)
+            self.__main_window.set_movie_error_panel_visible(False)
+            self.__main_window.set_movie_renamed_panel_visible(False)
         else:
             movie = self.__movies[row]
             if movie.get_renaming_state() == Movie.STATE_RENAMING_ERROR:
+                self.__main_window.set_movie_error(movie.get_renaming_error())
                 self.__main_window.set_movie_error_panel_visible(True)
-            if movie.get_renaming_state() == Movie.STATE_RENAMED:
+            elif movie.get_renaming_state() == Movie.STATE_RENAMED:
                 self.__main_window.set_movie_renamed_panel_visible(True)
-            if movie.get_renaming_state() == Movie.STATE_BEFORE_RENAMING:
+            elif movie.get_renaming_state() == Movie.STATE_BEFORE_RENAMING:
                 self.__main_window.set_movie_info_panel_visible(True)
                 self.__main_window.set_movie_alternative_titles_model(movie.get_alternative_titles())
                 self.__populate_movie_info_panel(movie)

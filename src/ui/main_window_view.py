@@ -17,6 +17,7 @@ class MainWindowView:
         self.__movie_year = ""
         self.__movie_alternative_titles_model = []
         self.__movie_alternative_title_index = 0
+        self.__movie_error = ""
 
         self.__engine = QQmlApplicationEngine()
 
@@ -28,6 +29,7 @@ class MainWindowView:
         self.set_movie_title(self.__movie_title)
         self.set_movie_original_title(self.__movie_original_title)
         self.set_movie_year(self.__movie_year)
+        self.set_movie_error(self.__movie_error)
         self.set_movie_alternative_titles_model(self.__movie_alternative_titles_model)
         self.set_movie_alternative_title_index(self.__movie_alternative_title_index)
         self.__set_context_property("moviesTableViewModel", self.__movies_table_view_model)
@@ -87,6 +89,11 @@ class MainWindowView:
     def set_movie_alternative_title_index(self, index: int) -> None:
         self.__movie_alternative_title_index = index
         self.__set_context_property("movieAlternativeTitleIndex", self.__movie_alternative_title_index)
+
+    def set_movie_error(self, movie_error: str) -> None:
+        self.__movie_error = movie_error
+        self.__set_context_property("movieError", self.__movie_error)
+
 
     def get_add_movie_button_clicked_signal(self):
         """

@@ -182,7 +182,7 @@ ApplicationWindow {
                 text: "There has been the following error during renaming:"
             }
             Label {
-                text: "Error!"
+                text: movieError
                 color: "red"
             }
         }
