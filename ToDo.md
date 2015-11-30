@@ -3,16 +3,20 @@
 
 > If you have the 'guess-language' python package installed, GuessIt can also analyze a subtitle file's contents and detect which language it is written in.
 
-- investigate use of guess-language
+-[ ] investigate use of guess-language
 
 > If you have the 'enzyme' python package installed, GuessIt can also detect the properties from the actual video file metadata.
 
-- investigate use of enzyme
+-[ ] investigate use of enzyme
 
 # General
 
-- update guessit to version 2.x (when is released)
-- remove unused modules/files
+-[ ] update guessit to version 2.x (when is released)
+-[ ] remove unused modules/files
+-[ ] add support for [Rotten Tomatoes API](https://pypi.python.org/pypi/rtsimple)
+-[ ] automatically download subtitles using [Subliminal](https://github.com/Diaoul/subliminal)
+-[ ] automatically rename subtitles if found in the same folder as a movie
+-[ ] replace QtWidgets with QML
 
 # To review
 
@@ -51,17 +55,6 @@ aggiungere la lingua di sistema come lingua selezionabile per il film
 
 usare la lingua di sistema come metodo di selezione del best aka,
 quando non presenti indicazioni della lingua nel titolo?
-
-siccome non sempre imdbapi funziona, reintrodurre l'uso di imdbpy,
-come opzione di ricerca,
-specificando che è più lento,
-insieme a rotten tomatoes
-
-aggiornare PyQt http://www.riverbankcomputing.co.uk/software/pyqt/download
-
-http://api.themoviedb.org/2.1/wrappers
-
-aggiungere supporto a rotten tomatoes
 
 aggiungere possibilità di avere più film con lo stesso nome, appendendo al nome del file un numero
 
