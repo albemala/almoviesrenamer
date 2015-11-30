@@ -42,6 +42,9 @@ class MainWindowView:
     def __get_root_window(self) -> QWindow:
         return self.__engine.rootObjects()[0]
 
+    def get_movies_table_current_row(self) -> int:
+        return self.__get_root_window().property("moviesTableCurrentRow").toInt()
+
     def set_loading_info(self, loading_info: str) -> None:
         self.__loading_info = loading_info
         self.__set_context_property("loadingInfo", self.__loading_info)
