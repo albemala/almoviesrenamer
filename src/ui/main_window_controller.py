@@ -38,7 +38,6 @@ class MainWindowController(QObject):
         # variables
         # stores movies objects
         self.__movies = []
-        self.__movies_table_selected_row = -1
 
         # TODO
         # # show stats agreement dialog
@@ -416,8 +415,6 @@ class MainWindowController(QObject):
         QMessageBox.about(self, "About {0}".format(application.NAME), msg)
 
     def __movie_item_selected(self, row):
-        self.__movies_table_selected_row = row
-
         if row == -1:
             self.__main_window.set_movie_info_panel_visible(False)
             self.__main_window.set_movie_error_panel_visible(False)
@@ -624,8 +621,8 @@ class MainWindowController(QObject):
         self._ui.table_others_info.setEnabled(enabled)
 
     def __get_selected_movie(self) -> Movie:
-        if self.__movies_table_selected_row == -1:
+        current_row = self.__main_window.get_movies_table_current_row()
+        if current_row == -1:
             return None
-        index = self.__movies_table_selected_row
-        selected_movie = self.__movies[index]
+        selected_movie = self.__movies[current_row]
         return selected_movie

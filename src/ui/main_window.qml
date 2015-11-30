@@ -15,6 +15,8 @@ ApplicationWindow {
     signal movieAlternativeTitleChanged(var index)
     signal searchMovieButtonClicked()
 
+    property alias moviesTableCurrentRow: moviesTableView.currentRow
+
     menuBar: MenuBar {
         Menu {
             title: "Movies"
