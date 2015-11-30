@@ -49,20 +49,20 @@ class MainWindowView:
         self.__loading_info = loading_info
         self.__set_context_property("loadingInfo", self.__loading_info)
 
-    def set_loading_panel_visible(self, loading_panel_visible: bool) -> None:
-        self.__loading_panel_visible = loading_panel_visible
+    def set_loading_panel_visible(self, visible: bool) -> None:
+        self.__loading_panel_visible = visible
         self.__set_context_property("loadingPanelVisible", self.__loading_panel_visible)
 
-    def set_movie_info_panel_visible(self, movie_info_panel_visible: bool) -> None:
-        self.__movie_info_panel_visible = movie_info_panel_visible
+    def set_movie_info_panel_visible(self, visible: bool) -> None:
+        self.__movie_info_panel_visible = visible
         self.__set_context_property("movieInfoPanelVisible", self.__movie_info_panel_visible)
 
-    def set_movie_renamed_panel_visible(self, movie_renamed_panel_visible: bool) -> None:
-        self.__movie_renamed_panel_visible = movie_renamed_panel_visible
+    def set_movie_renamed_panel_visible(self, visible: bool) -> None:
+        self.__movie_renamed_panel_visible = visible
         self.__set_context_property("movieRenamedPanelVisible", self.__movie_renamed_panel_visible)
 
-    def set_movie_error_panel_visible(self, movie_error_panel_visible: bool) -> None:
-        self.__movie_error_panel_visible = movie_error_panel_visible
+    def set_movie_error_panel_visible(self, visible: bool) -> None:
+        self.__movie_error_panel_visible = visible
         self.__set_context_property("movieErrorPanelVisible", self.__movie_error_panel_visible)
 
     def add_movie_table_item(self, original_name: str, new_name: str) -> None:
