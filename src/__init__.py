@@ -5,16 +5,15 @@ __author__ = "Alberto Malagoli"
 
 try:
     import sys
-    from PyQt5.QtCore import QTranslator, QLocale
     from PyQt5.QtWidgets import QApplication
     import utils
-    from main_window import MainWindow
+    from ui.main_window_controller import MainWindowController
 
     # load languages and preferences
     utils.load_languages()
 
     app = QApplication(sys.argv)
-    gui = MainWindow()
+    main_window_controller = MainWindowController()
     app.exec_()
 
 except:

@@ -66,7 +66,7 @@ class Movie:
     def get_file_info(self) -> MovieFileInfo:
         return self.__file_info
 
-    def get_tmdb_info(self) -> MovieTMDBInfo:
+    def __get_tmdb_info(self) -> MovieTMDBInfo:
         return self.__tmdb_info[self.__current_info_index]
 
     def get_guessed_info(self) -> MovieGuessedInfo:
@@ -75,8 +75,14 @@ class Movie:
     def set_current_info_index(self, current_info_index: int):
         self.__current_info_index = current_info_index
 
+    def get_alternative_titles(self) -> []:
+        alternative_titles = []
+        for tmdb_info in self.__tmdb_info:
+            alternative_titles.append(tmdb_info.get_title())
+        return alternative_titles
+
     def get_title(self) -> str:
-        title = self.get_tmdb_info().get_title()
+        title = self.__get_tmdb_info().get_title()
         if title != "":
             return title
         return self.get_guessed_info().get_title()
@@ -88,16 +94,16 @@ class Movie:
         e.g.: the original movie title for Deep Red from Dario Argento, in italian
         language, is Profondo Rosso
         """
-        return self.get_tmdb_info().get_original_title()
+        return self.__get_tmdb_info().get_original_title()
 
     def get_year(self) -> str:
-        year = self.get_tmdb_info().get_year()
+        year = self.__get_tmdb_info().get_year()
         if year != "":
             return year
         return self.get_guessed_info().get_year()
 
     def get_director(self) -> str:
-        return self.get_tmdb_info().get_director()
+        return self.__get_tmdb_info().get_director()
 
     def get_duration(self) -> str:
         """
@@ -107,7 +113,7 @@ class Movie:
         """
 
         duration_representation = preferences.get_duration_representation()
-        duration = self.get_tmdb_info().get_duration()
+        duration = self.__get_tmdb_info().get_duration()
         if duration != "":
             if duration_representation == Preferences.DURATION_REPRESENTATION_MINUTES:
                 duration += "m"
