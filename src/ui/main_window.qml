@@ -82,7 +82,7 @@ ApplicationWindow {
             Layout.fillHeight: true
             model: moviesTableViewModel
 
-            onCurrentRowChanged: movieItemSelected(moviesTableView.currentRow)
+            onClicked: movieItemSelected(row)
 
             TableViewColumn{
                 role: "original_name"
