@@ -24,7 +24,7 @@ class MainWindowController(QObject):
     __load_movies_finished = pyqtSignal()
     __movie_added = pyqtSignal(Movie)
     __loading_movie_changed = pyqtSignal(str)
-    __search_movie_finished = pyqtSignal()
+    __search_alternative_movie_finished = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -52,7 +52,7 @@ class MainWindowController(QObject):
         self.__main_window.get_movie_item_selected_signal().connect(self.__movie_item_selected)
         self.__main_window.get_movie_alternative_title_changed_signal().connect(
             self.__on_movie_alternative_title_changed)
-        # self.__main_window.get_search_movie_button_clicked_signal().connect()
+        self.__main_window.get_search_movie_button_clicked_signal().connect(self.__on_search_alternative_movie_button_clicked)
 
         # self._ui.action_add_movies.triggered.connect(self.add_movies)
         # self._ui.action_add_all_movies_in_folder.triggered.connect(self.add_movies_in_folder)
@@ -66,7 +66,7 @@ class MainWindowController(QObject):
         self.__loading_movie_changed.connect(self.__on_loading_movie_changed)
         # self._ui.text_search_title.returnPressed.connect(self.search_new_title)
         # self._ui.button_search_title.clicked.connect(self.search_new_title)
-        self.__search_movie_finished.connect(self.__on_search_movie_finished)
+        self.__search_alternative_movie_finished.connect(self.__on_search_alternative_movie_finished)
         # self._ui.action_preferences.triggered.connect(self.show_preferences)
         # self._ui.action_about.triggered.connect(self.show_about)
         # self._ui.table_movies.itemSelectionChanged.connect(self.movies_selection_changed)
@@ -444,6 +444,20 @@ class MainWindowController(QObject):
         self.__main_window.set_movie_original_title(movie.get_original_title())
         self.__main_window.set_movie_year(movie.get_year())
 
+    def __on_search_alternative_movie_button_clicked(self):
+        title = self.__main_window.get_search_alternative_title_text()
+        year = self.__main_window.get_search_alternative_year_text()
+        language = self.__main_window.get_search_alternative_language_text()
+        if title.strip() is "":
+            return
+
+        # set gui elements disabled
+        # TODO
+        # self.set_gui_enabled_search_title(False)
+        self.__main_window.set_search_alternative_movie_progress_bar_visible(True)
+        # start searching thread
+        threading.Thread(target=self.search_title_run, args=(title,year,language)).start()
+
     def movies_selection_changed(self):
         """
         called when selection in table_movies changes, i.e. user selects
@@ -576,22 +590,30 @@ class MainWindowController(QObject):
         # start searching thread
         threading.Thread(target=self.search_title_run, args=(title,)).start()
 
-    def search_title_run(self, title):
+    def search_title_run(self, title:str, year:str, language:str):
         """
         thread used for movie title searching
         """
 
-        self.__get_selected_movie().search_new_title(title)
-        # emit signal
-        self.__search_movie_finished.emit()
 
-    def __on_search_movie_finished(self):
+        # self.__get_selected_movie().search_new_title(title)
+
+        # emit signal
+        self.__search_alternative_movie_finished.emit()
+
+    def __on_search_alternative_movie_finished(self):
         """
         used when movie title searching finishes (thread returns)
         """
 
         # re-enable gui elements
-        self.set_gui_enabled_search_title(True)
+        # TODO
+        # self.set_gui_enabled_search_title(True)
+        self.__main_window.set_search_alternative_movie_progress_bar_visible(False)
+
+
+        return
+
         renaming_rule = preferences.get_renaming_rule()
         # generate new movie name based on renaming rule
         movie = self.__get_selected_movie()
