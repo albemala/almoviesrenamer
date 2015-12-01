@@ -457,7 +457,7 @@ class MainWindowController(QObject):
         # self.set_gui_enabled_search_title(False)
         self.__main_window.set_search_alternative_movie_progress_bar_visible(True)
         # start searching thread
-        threading.Thread(target=self.search_title_run, args=(title, year, language)).start()
+        threading.Thread(target=self.__search_alternative_movie_run, args=(title, year, language)).start()
 
     def movies_selection_changed(self):
         """
@@ -577,29 +577,13 @@ class MainWindowController(QObject):
             self._ui.label_duration.setText(movie.get_duration())
             self._ui.label_language.setText(movie.get_language())
 
-    def search_new_title(self):
-        # get title to look for
-        title = str(self._ui.text_search_title.text())
-        # do not start searching if textTitleSearch is empty
-        if title.strip() == '':
-            return
-        # set gui elements disabled
-        self.set_gui_enabled_search_title(False)
-        self._ui.label_searching.setText("Searching {0}...".format(title))
-        # show searching panel
-        self._ui.stack_search_title.setCurrentIndex(1)
-        # start searching thread
-        threading.Thread(target=self.search_title_run, args=(title,)).start()
-
-    def search_title_run(self, title: str, year: str, language: str):
+    def __search_alternative_movie_run(self, title: str, year: str, language: str):
         """
         thread used for movie title searching
         """
 
         self.__get_selected_movie().fetch_tmdb_info(title, year, language)
-        # self.__get_selected_movie().search_new_title(title)
 
-        # emit signal
         self.__search_alternative_movie_finished.emit()
 
     def __on_search_alternative_movie_finished(self):
@@ -618,7 +602,7 @@ class MainWindowController(QObject):
         self.__main_window.set_search_alternative_movie_progress_bar_visible(False)
 
         return
-
+        # TODO
         renaming_rule = preferences.get_renaming_rule()
         # generate new movie name based on renaming rule
         movie = self.__get_selected_movie()
