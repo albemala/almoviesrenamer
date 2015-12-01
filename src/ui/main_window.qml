@@ -6,7 +6,7 @@ import QtQuick.Window 2.0
 ApplicationWindow {
     id: window
     visible: true
-    width: 600
+    width: 700
     height: 600
     title: "ALMoviesRenamer"
 
@@ -38,20 +38,50 @@ ApplicationWindow {
         }
     }
 
-    toolBar: ToolBar {
-        id: toolBar
-        RowLayout {
-            ToolButton {
-                text: "Add"
-
-                onClicked: addMovieButtonClicked()
-            }
-        }
-    }
-
     ColumnLayout {
         id: columnLayout1
         anchors.fill: parent
+
+        RowLayout {
+            spacing: 6
+            Layout.leftMargin: 11
+            Layout.rightMargin: 11
+            Layout.topMargin: 11
+            Layout.bottomMargin: 11
+
+            Button {
+                text: "Add movies"
+                iconSource: "../icons/movie_add.png"
+                onClicked: addMovieButtonClicked()
+            }
+            Button {
+                text: "Remove movies"
+                iconSource: "../icons/movie_remove.png"
+//                onClicked: addMovieButtonClicked()
+            }
+            Item {
+                width: 11
+            }
+            Button {
+                text: "Renaming rule"
+                iconSource: "../icons/tag.png"
+//                onClicked: addMovieButtonClicked()
+            }
+            Item {
+                width: 11
+            }
+            Button {
+                text: "Rename movies"
+                iconSource: "../icons/pencil.png"
+//                onClicked: addMovieButtonClicked()
+            }
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+            height: 1
+            color: "lightGray"
+        }
 
         ColumnLayout {
             id: loadingPanel
