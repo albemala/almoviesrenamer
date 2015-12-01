@@ -45,7 +45,7 @@ class MainWindowView:
         return self.__engine.rootObjects()[0]
 
     def get_movies_table_current_row(self) -> int:
-        return self.__get_root_window().property("moviesTableCurrentRow").toInt()
+        return self.__get_root_window().property("moviesTableCurrentRow")
 
     def get_search_alternative_title_text(self) -> str:
         return self.__get_root_window().property("searchAlternativeTitleText")
