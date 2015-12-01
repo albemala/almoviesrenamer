@@ -15,6 +15,9 @@ class MainWindowView:
         self.__movie_title = ""
         self.__movie_original_title = ""
         self.__movie_year = ""
+        self.__movie_directors = ""
+        self.__movie_duration = ""
+        self.__movie_language = ""
         self.__movie_alternative_titles_model = []
         self.__movie_alternative_title_index = 0
         self.__movie_error = ""
@@ -31,6 +34,9 @@ class MainWindowView:
         self.set_movie_title(self.__movie_title)
         self.set_movie_original_title(self.__movie_original_title)
         self.set_movie_year(self.__movie_year)
+        self.set_movie_directors(self.__movie_directors)
+        self.set_movie_duration(self.__movie_duration)
+        self.set_movie_language(self.__movie_language)
         self.set_movie_error(self.__movie_error)
         self.set_movie_alternative_titles_model(self.__movie_alternative_titles_model)
         self.set_movie_alternative_title_index(self.__movie_alternative_title_index)
@@ -104,6 +110,18 @@ class MainWindowView:
     def set_movie_year(self, movie_year: str) -> None:
         self.__movie_year = movie_year
         self.__set_context_property("movieYear", self.__movie_year)
+
+    def set_movie_directors(self, movie_directors) -> None:
+        self.__movie_directors = movie_directors
+        self.__set_context_property("movieDirectors", self.__movie_directors)
+
+    def set_movie_duration(self, movie_duration) -> None:
+        self.__movie_duration = movie_duration
+        self.__set_context_property("movieDuration", self.__movie_duration)
+
+    def set_movie_language(self, movie_language) -> None:
+        self.__movie_language = movie_language
+        self.__set_context_property("movieLanguage", self.__movie_language)
 
     def set_movie_alternative_title_index(self, index: int) -> None:
         self.__movie_alternative_title_index = index

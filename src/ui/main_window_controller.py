@@ -444,6 +444,9 @@ class MainWindowController(QObject):
         self.__main_window.set_movie_title(movie.get_title())
         self.__main_window.set_movie_original_title(movie.get_original_title())
         self.__main_window.set_movie_year(movie.get_year())
+        self.__main_window.set_movie_directors(movie.get_director())
+        self.__main_window.set_movie_duration(movie.get_duration())
+        self.__main_window.set_movie_language(movie.get_language())
 
     def __on_search_alternative_movie_button_clicked(self):
         title = self.__main_window.get_search_alternative_title_text()

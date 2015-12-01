@@ -130,6 +130,15 @@ ApplicationWindow {
 
                 Label { text: "Year:" }
                 Label { text: movieYear }
+
+                Label { text: "Director(s):" }
+                Label { text: movieDirectors }
+
+                Label { text: "Duration:" }
+                Label { text: movieDuration }
+
+                Label { text: "Language:" }
+                Label { text: movieLanguage }
             }
             Rectangle {
                 Layout.fillWidth: true
