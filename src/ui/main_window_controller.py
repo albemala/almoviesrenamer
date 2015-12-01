@@ -52,7 +52,8 @@ class MainWindowController(QObject):
         self.__main_window.get_movie_item_selected_signal().connect(self.__movie_item_selected)
         self.__main_window.get_movie_alternative_title_changed_signal().connect(
             self.__on_movie_alternative_title_changed)
-        self.__main_window.get_search_movie_button_clicked_signal().connect(self.__on_search_alternative_movie_button_clicked)
+        self.__main_window.get_search_movie_button_clicked_signal().connect(
+            self.__on_search_alternative_movie_button_clicked)
 
         # self._ui.action_add_movies.triggered.connect(self.add_movies)
         # self._ui.action_add_all_movies_in_folder.triggered.connect(self.add_movies_in_folder)
@@ -456,7 +457,7 @@ class MainWindowController(QObject):
         # self.set_gui_enabled_search_title(False)
         self.__main_window.set_search_alternative_movie_progress_bar_visible(True)
         # start searching thread
-        threading.Thread(target=self.search_title_run, args=(title,year,language)).start()
+        threading.Thread(target=self.search_title_run, args=(title, year, language)).start()
 
     def movies_selection_changed(self):
         """
@@ -590,12 +591,12 @@ class MainWindowController(QObject):
         # start searching thread
         threading.Thread(target=self.search_title_run, args=(title,)).start()
 
-    def search_title_run(self, title:str, year:str, language:str):
+    def search_title_run(self, title: str, year: str, language: str):
         """
         thread used for movie title searching
         """
 
-
+        self.__get_selected_movie().fetch_tmdb_info(title, year, language)
         # self.__get_selected_movie().search_new_title(title)
 
         # emit signal
@@ -609,8 +610,12 @@ class MainWindowController(QObject):
         # re-enable gui elements
         # TODO
         # self.set_gui_enabled_search_title(True)
-        self.__main_window.set_search_alternative_movie_progress_bar_visible(False)
 
+        movie = self.__get_selected_movie()
+        self.__main_window.set_movie_alternative_titles_model(movie.get_alternative_titles())
+        self.__populate_movie_info_panel(movie)
+
+        self.__main_window.set_search_alternative_movie_progress_bar_visible(False)
 
         return
 
