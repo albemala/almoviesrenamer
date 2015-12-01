@@ -1,10 +1,11 @@
 import os
 import platform
 import re
+
 import tmdbsimple as tmdb
+
 from movie_file_info import MovieFileInfo
 from movie_guessed_info import MovieGuessedInfo
-from movie_info import MovieInfo
 from movie_tmdb_info import MovieTMDBInfo
 from preferences import preferences, Preferences
 
@@ -171,12 +172,11 @@ class Movie:
     #
     #     self.__info = self.__others_info[index]
 
-    def fetch_tmdb_info(self, query: str, year: str = "", language: str = ""):
-        # TODO
+    def fetch_tmdb_info(self, title: str, year: str = "", language: str = ""):
         tmdb.API_KEY = "25be8b4eb94ac1d6a4991b76947327ca"
         search = tmdb.Search()
-        print(query, year, language)
-        search_results = search.movie(query=query, year=year, language=language)
+        print(title, year, language)
+        search_results = search.movie(query=title, year=year, language=language)
         print(search_results)
         self.__tmdb_info.clear()
         for result in search_results["results"]:
