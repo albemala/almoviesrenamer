@@ -68,9 +68,8 @@ ApplicationWindow {
             Label {
                 text: loadingInfo
             }
-            ProgressBar {
-                Layout.fillWidth: true
-                indeterminate: true
+            BusyIndicator {
+                running: loadingPanelVisible
             }
             Label {
                 text: "This may take a while... I will play a sound when it finishes."
@@ -177,10 +176,8 @@ ApplicationWindow {
 
                     onClicked: searchMovieButtonClicked()
                 }
-                ProgressBar {
-                    Layout.fillWidth: true
-                    indeterminate: true
-                    visible: searchAlternativeMovieProgressBarVisible
+                BusyIndicator {
+                    running: searchAlternativeMovieProgressBarVisible
                 }
             }
         }
