@@ -1,6 +1,5 @@
 from PyQt5.QtGui import QWindow
 from PyQt5.QtQml import QQmlApplicationEngine
-
 from movie_table_item import MovieTableItem
 
 LOADING_PANEL_VISIBLE_PROPERTY = "loadingPanelVisible"
@@ -113,14 +112,32 @@ class MainWindowView:
     def set_movie_error(self, movie_error: str) -> None:
         self.__set_property(MOVIE_ERROR_PROPERTY, movie_error)
 
-    def get_add_movie_button_clicked_signal(self):
-        return self.__get_root_window().addMovieButtonClicked
+    def get_add_movies_clicked_signal(self):
+        return self.__get_root_window().addMoviesClicked
+
+    def get_add_movies_in_folder_clicked_signal(self):
+        return self.__get_root_window().addMoviesInFolderClicked
+
+    def get_add_movies_in_folder_and_subfolders_clicked_signal(self):
+        return self.__get_root_window().addMoviesInFolderAndSubfoldersClicked
+
+    def get_remove_selected_movies_clicked_signal(self):
+        return self.__get_root_window().removeSelectedMoviesClicked
+
+    def get_remove_all_movies_clicked_signal(self):
+        return self.__get_root_window().removeAllMoviesClicked
+
+    def get_show_renaming_rule_dialog_clicked_signal(self):
+        return self.__get_root_window().showRenamingRuleDialogClicked
+
+    def get_rename_movies_clicked_signal(self):
+        return self.__get_root_window().renameMoviesClicked
 
     def get_movie_item_selected_signal(self):
-        return self.__get_root_window().movieItemSelected
+        return self.__get_root_window().movieSelected
 
     def get_movie_alternative_title_changed_signal(self):
         return self.__get_root_window().movieAlternativeTitleChanged
 
-    def get_search_movie_button_clicked_signal(self):
-        return self.__get_root_window().searchMovieButtonClicked
+    def get_search_movie_clicked_signal(self):
+        return self.__get_root_window().searchMovieClicked

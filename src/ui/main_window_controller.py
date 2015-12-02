@@ -47,12 +47,12 @@ class MainWindowController(QObject):
         self.__main_window = MainWindowView()
 
         # signals connection
-        self.__main_window.get_add_movie_button_clicked_signal().connect(self.add_movies)
+        self.__main_window.get_add_movies_clicked_signal().connect(self.add_movies)
         # self.__main_window.get_movie_info_changed_signal().connect()
         self.__main_window.get_movie_item_selected_signal().connect(self.__movie_item_selected)
         self.__main_window.get_movie_alternative_title_changed_signal().connect(
             self.__on_movie_alternative_title_changed)
-        self.__main_window.get_search_movie_button_clicked_signal().connect(
+        self.__main_window.get_search_movie_clicked_signal().connect(
             self.__on_search_alternative_movie_button_clicked)
 
         # self._ui.action_add_movies.triggered.connect(self.add_movies)

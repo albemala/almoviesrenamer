@@ -10,10 +10,17 @@ ApplicationWindow {
     height: 600
     title: "ALMoviesRenamer"
 
-    signal addMovieButtonClicked()
-    signal movieItemSelected(var row)
+    signal addMoviesClicked()
+    signal addMoviesInFolderClicked()
+    signal addMoviesInFolderAndSubfoldersClicked()
+    signal removeSelectedMoviesClicked()
+    signal removeAllMoviesClicked()
+    signal showRenamingRuleDialogClicked()
+    signal renameMoviesClicked()
+
+    signal movieSelected(var row)
     signal movieAlternativeTitleChanged(var index)
-    signal searchMovieButtonClicked()
+    signal searchMovieClicked()
 
     property alias loadingPanelVisible: loadingPanel.visible
     property alias loadingPanelMovieTitle: loadingPanelMovieTitle.text
@@ -49,33 +56,40 @@ ApplicationWindow {
             MenuItem {
                 text: "Add movies..."
                 iconSource: "../icons/movie_add.png"
+                onTriggered: addMoviesClicked()
             }
             MenuItem {
                 text: "Add all movies in folder..."
                 iconSource: "../icons/movies_from_folder.png"
+                onTriggered: addMoviesInFolderClicked()
             }
             MenuItem {
                 text: "Add all movies in folder (including subfolders)..."
                 iconSource: "../icons/movies_from_folder.png"
+                onTriggered: addMoviesInFolderAndSubfoldersClicked()
             }
             MenuSeparator {}
             MenuItem {
                 text: "Remove selected movies from list"
                 iconSource: "../icons/movie_remove.png"
+                onTriggered: removeSelectedMoviesClicked()
             }
             MenuItem {
                 text: "Remove all movies from list"
                 iconSource: "../icons/movie_erase.png"
+                onTriggered: removeAllMoviesClicked()
             }
             MenuSeparator {}
             MenuItem {
                 text: "Change renaming rule..."
                 iconSource: "../icons/tag.png"
+                onTriggered: showRenamingRuleDialogClicked()
             }
             MenuSeparator {}
             MenuItem {
                 text: "Rename movies"
                 iconSource: "../icons/pencil.png"
+                onTriggered: renameMoviesClicked()
             }
         }
         Menu {
@@ -103,12 +117,12 @@ ApplicationWindow {
             Button {
                 text: "Add movies"
                 iconSource: "../icons/movie_add.png"
-                onClicked: addMovieButtonClicked()
+                onClicked: addMoviesClicked()
             }
             Button {
                 text: "Remove movies"
                 iconSource: "../icons/movie_remove.png"
-//                onClicked: addMovieButtonClicked()
+                onClicked: removeSelectedMoviesClicked()
             }
             Item {
                 width: 11
@@ -116,7 +130,7 @@ ApplicationWindow {
             Button {
                 text: "Renaming rule"
                 iconSource: "../icons/tag.png"
-//                onClicked: addMovieButtonClicked()
+                onClicked: showRenamingRuleDialogClicked()
             }
             Item {
                 width: 11
@@ -124,7 +138,7 @@ ApplicationWindow {
             Button {
                 text: "Rename movies"
                 iconSource: "../icons/pencil.png"
-//                onClicked: addMovieButtonClicked()
+                onClicked: renameMoviesClicked()
             }
         }
 
@@ -166,7 +180,7 @@ ApplicationWindow {
             Layout.fillHeight: true
             model: []
 
-            onClicked: movieItemSelected(row)
+            onClicked: movieSelected(row)
 
             TableViewColumn{
                 role: "original_name"
@@ -254,7 +268,7 @@ ApplicationWindow {
                 Button {
                     text: "Search"
 
-                    onClicked: searchMovieButtonClicked()
+                    onClicked: searchMovieClicked()
                 }
                 BusyIndicator {
                     id: searchAlternativeMovieProgressBar
