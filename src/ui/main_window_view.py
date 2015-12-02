@@ -51,16 +51,16 @@ class MainWindowView:
     def get_movies_table_current_row(self) -> int:
         return self.__get_property(MOVIES_TABLE_CURRENT_ROW_PROPERTY)
 
-    def get_search_alternative_title_text(self) -> str:
+    def get_movie_search_alternative_title(self) -> str:
         return self.__get_property(MOVIE_SEARCH_ALTERNATIVE_TITLE_PROPERTY)
 
-    def get_search_alternative_year_text(self) -> str:
+    def get_movie_search_alternative_year(self) -> str:
         return self.__get_property(MOVIE_SEARCH_ALTERNATIVE_YEAR_PROPERTY)
 
-    def get_search_alternative_language_text(self) -> str:
+    def get_movie_search_alternative_language(self) -> str:
         return self.__get_property(MOVIE_SEARCH_ALTERNATIVE_LANGUAGE_PROPERTY)
 
-    def set_loading_info(self, loading_info: str) -> None:
+    def set_loading_panel_movie_title(self, loading_info: str) -> None:
         self.__set_property(LOADING_PANEL_MOVIE_TITLE_PROPERTY, loading_info)
 
     def set_loading_panel_visible(self, visible: bool) -> None:
@@ -75,7 +75,7 @@ class MainWindowView:
     def set_movie_error_panel_visible(self, visible: bool) -> None:
         self.__set_property(MOVIE_ERROR_PANEL_VISIBLE_PROPERTY, visible)
 
-    def set_search_alternative_movie_progress_bar_visible(self, visible: bool) -> None:
+    def set_movie_search_progress_bar_visible(self, visible: bool) -> None:
         self.__set_property(MOVIE_SEARCH_PROGRESS_BAR_VISIBLE_PROPERTY, visible)
 
     def add_movie_table_item(self, original_name: str, new_name: str) -> None:

@@ -231,7 +231,7 @@ class MainWindowController(QObject):
         self.insert_movie_in_table_view(movie)
 
     def __on_loading_movie_changed(self, file_name: str):
-        self.__main_window.set_loading_info(file_name)
+        self.__main_window.set_loading_panel_movie_title(file_name)
 
     def insert_movie_in_table_view(self, movie):
         original_name = movie.get_original_name()
@@ -454,16 +454,16 @@ class MainWindowController(QObject):
         self.__main_window.set_movie_language(movie.get_language())
 
     def __on_search_alternative_movie_button_clicked(self):
-        title = self.__main_window.get_search_alternative_title_text()
-        year = self.__main_window.get_search_alternative_year_text()
-        language = self.__main_window.get_search_alternative_language_text()
+        title = self.__main_window.get_movie_search_alternative_title()
+        year = self.__main_window.get_movie_search_alternative_year()
+        language = self.__main_window.get_movie_search_alternative_language()
         if title.strip() is "":
             return
 
         # set gui elements disabled
         # TODO
         # self.set_gui_enabled_search_title(False)
-        self.__main_window.set_search_alternative_movie_progress_bar_visible(True)
+        self.__main_window.set_movie_search_progress_bar_visible(True)
         # start searching thread
         threading.Thread(target=self.__search_alternative_movie_run, args=(title, year, language)).start()
 
@@ -607,7 +607,7 @@ class MainWindowController(QObject):
         self.__main_window.set_movie_alternative_titles_model(movie.get_alternative_titles())
         self.__populate_movie_info_panel(movie)
 
-        self.__main_window.set_search_alternative_movie_progress_bar_visible(False)
+        self.__main_window.set_movie_search_progress_bar_visible(False)
 
         return
         # TODO
