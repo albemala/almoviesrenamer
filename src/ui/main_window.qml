@@ -25,6 +25,34 @@ ApplicationWindow {
             title: "Movies"
             MenuItem {
                 text: "Add movies..."
+                iconSource: "../icons/movie_add.png"
+            }
+            MenuItem {
+                text: "Add all movies in folder..."
+                iconSource: "../icons/movies_from_folder.png"
+            }
+            MenuItem {
+                text: "Add all movies in folder (including subfolders)..."
+                iconSource: "../icons/movies_from_folder.png"
+            }
+            MenuSeparator {}
+            MenuItem {
+                text: "Remove selected movies from list"
+                iconSource: "../icons/movie_remove.png"
+            }
+            MenuItem {
+                text: "Remove all movies from list"
+                iconSource: "../icons/movie_erase.png"
+            }
+            MenuSeparator {}
+            MenuItem {
+                text: "Change renaming rule..."
+                iconSource: "../icons/tag.png"
+            }
+            MenuSeparator {}
+            MenuItem {
+                text: "Rename movies"
+                iconSource: "../icons/pencil.png"
             }
         }
         Menu {
