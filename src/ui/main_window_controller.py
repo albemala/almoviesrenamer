@@ -78,6 +78,11 @@ class MainWindowController(QObject):
         # self._ui.action_open_containing_folder.triggered.connect(self.open_containing_folder)
         # self._ui.table_others_info.itemSelectionChanged.connect(self.alternative_movies_selection_changed)
 
+        self.__main_window.set_loading_panel_visible(False)
+        self.__main_window.set_movie_info_panel_visible(False)
+        self.__main_window.set_movie_renamed_panel_visible(False)
+        self.__main_window.set_movie_error_panel_visible(False)
+
     def show_stats_agreement(self):
         """
         shows usage statistics agreement dialog

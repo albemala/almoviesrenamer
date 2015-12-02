@@ -15,10 +15,33 @@ ApplicationWindow {
     signal movieAlternativeTitleChanged(var index)
     signal searchMovieButtonClicked()
 
-    property alias moviesTableCurrentRow: moviesTableView.currentRow
-    property alias searchAlternativeTitleText: searchAlternativeTitleTextField.text
-    property alias searchAlternativeYearText: searchAlternativeYearTextField.text
-    property alias searchAlternativeLanguageText: searchAlternativeLanguageTextField.text
+    property alias loadingPanelVisible: loadingPanel.visible
+    property alias loadingPanelMovieTitle: loadingPanelMovieTitle.text
+
+    property alias moviesTableModel: moviesTable.model
+    property alias moviesTableCurrentRow: moviesTable.currentRow
+
+    property alias movieInfoPanelVisible: movieInfoPanel.visible
+
+    property alias movieAlternativeTitlesModel: movieAlternativeTitles.model
+    property alias movieAlternativeTitleIndex: movieAlternativeTitles.currentIndex
+
+    property alias movieTitle: movieTitle.text
+    property alias movieOriginalTitle: movieOriginalTitle.text
+    property alias movieYear: movieYear.text
+    property alias movieDirectors: movieDirectors.text
+    property alias movieDuration: movieDuration.text
+    property alias movieLanguage: movieLanguage.text
+
+    property alias searchAlternativeMovieProgressBarVisible: searchAlternativeMovieProgressBar.running
+    property alias searchAlternativeTitle: searchAlternativeTitleTextField.text
+    property alias searchAlternativeYear: searchAlternativeYearTextField.text
+    property alias searchAlternativeLanguage: searchAlternativeLanguageTextField.text
+
+    property alias movieRenamedPanelVisible: movieRenamedPanel.visible
+
+    property alias movieErrorPanelVisible: movieErrorPanel.visible
+    property alias movieError: movieError.text
 
     menuBar: MenuBar {
         Menu {
@@ -118,16 +141,15 @@ ApplicationWindow {
             Layout.rightMargin: 11
             Layout.topMargin: 11
             Layout.bottomMargin: 11
-            visible: loadingPanelVisible
 
             Label {
                 text: "Getting information from:"
             }
             Label {
-                text: loadingInfo
+                id: loadingPanelMovieTitle
             }
             BusyIndicator {
-                running: loadingPanelVisible
+                running: loadingPanel.visible
             }
             Label {
                 text: "This may take a while... I will play a sound when it finishes."
@@ -135,14 +157,14 @@ ApplicationWindow {
         }
 
         TableView{
-            id: moviesTableView
+            id: moviesTable
             Layout.leftMargin: 11
             Layout.rightMargin: 11
             Layout.topMargin: 11
             Layout.bottomMargin: 11
             Layout.fillWidth: true
             Layout.fillHeight: true
-            model: moviesTableViewModel
+            model: []
 
             onClicked: movieItemSelected(row)
 
@@ -157,8 +179,8 @@ ApplicationWindow {
         }
 
         ColumnLayout {
+            id: movieInfoPanel
             spacing: 6
-            visible: movieInfoPanelVisible
             Layout.leftMargin: 11
             Layout.rightMargin: 11
             Layout.topMargin: 11
@@ -168,9 +190,9 @@ ApplicationWindow {
                 text: "Movie:"
             }
             ComboBox {
+                id: movieAlternativeTitles
                 Layout.fillWidth: true
-                model: movieAlternativeTitlesModel
-                currentIndex: movieAlternativeTitleIndex
+                model: []
 
                 onCurrentIndexChanged: movieAlternativeTitleChanged(currentIndex)
             }
@@ -180,22 +202,22 @@ ApplicationWindow {
                 columns: 2
 
                 Label { text: "Title:" }
-                Label { text: movieTitle }
+                Label { id: movieTitle }
 
                 Label { text: "Original title:" }
-                Label { text: movieOriginalTitle }
+                Label { id: movieOriginalTitle }
 
                 Label { text: "Year:" }
-                Label { text: movieYear }
+                Label { id: movieYear }
 
                 Label { text: "Director(s):" }
-                Label { text: movieDirectors }
+                Label { id: movieDirectors }
 
                 Label { text: "Duration:" }
-                Label { text: movieDuration }
+                Label { id: movieDuration }
 
                 Label { text: "Language:" }
-                Label { text: movieLanguage }
+                Label { id: movieLanguage }
             }
             Rectangle {
                 Layout.fillWidth: true
@@ -235,13 +257,14 @@ ApplicationWindow {
                     onClicked: searchMovieButtonClicked()
                 }
                 BusyIndicator {
-                    running: searchAlternativeMovieProgressBarVisible
+                    id: searchAlternativeMovieProgressBar
+                    running: false
                 }
             }
         }
 
         Label {
-            visible: movieRenamedPanelVisible
+            id: movieRenamedPanel
             Layout.leftMargin: 11
             Layout.rightMargin: 11
             Layout.topMargin: 11
@@ -251,8 +274,8 @@ ApplicationWindow {
         }
 
         ColumnLayout {
+            id: movieErrorPanel
             spacing: 6
-            visible: movieErrorPanelVisible
             Layout.leftMargin: 11
             Layout.rightMargin: 11
             Layout.topMargin: 11
@@ -262,7 +285,7 @@ ApplicationWindow {
                 text: "There has been the following error during renaming:"
             }
             Label {
-                text: movieError
+                id: movieError
                 color: "red"
             }
         }
