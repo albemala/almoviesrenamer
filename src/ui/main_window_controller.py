@@ -50,14 +50,14 @@ class MainWindowController(QObject):
         self.__main_window.get_add_movies_clicked_signal().connect(
             self.__add_movies)
         self.__main_window.get_add_movies_in_folder_clicked_signal().connect(
-            self.__add_movies_in_folder())
+            self.__add_movies_in_folder)
         self.__main_window.get_add_movies_in_folder_and_subfolders_clicked_signal().connect(
-            self.__add_movies_in_folder_and_subfolders())
+            self.__add_movies_in_folder_and_subfolders)
 
         self.__main_window.get_remove_selected_movies_clicked_signal().connect(
-            self.remove_selected_movies())
+            self.remove_selected_movies)
         self.__main_window.get_remove_all_movies_clicked_signal().connect(
-            self.remove_all_movies())
+            self.remove_all_movies)
 
         self.__main_window.get_show_renaming_rule_dialog_clicked_signal().connect(
             self.change_renaming_rule)
@@ -75,7 +75,7 @@ class MainWindowController(QObject):
         self.__load_movies_finished.connect(self.__on_load_movies_finished)
         self.__movie_added.connect(self.__on_movie_added)
         self.__loading_movie_changed.connect(self.__on_loading_movie_changed)
-        
+
         # self._ui.text_search_title.returnPressed.connect(self.search_new_title)
         # self._ui.button_search_title.clicked.connect(self.search_new_title)
         self.__search_alternative_movie_finished.connect(self.__on_search_alternative_movie_finished)
