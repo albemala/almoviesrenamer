@@ -11,8 +11,30 @@ Window {
     ColumnLayout {
         anchors.fill: parent
 
+        spacing: 6
+        Layout.leftMargin: 11
+        Layout.rightMargin: 11
+        Layout.topMargin: 11
+        Layout.bottomMargin: 11
+
         Label {
             text: "Define renaming rule using movie attributes:"
+        }
+
+        RowLayout {
+            ListView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                delegate: Label {
+
+                }
+            }
+            Button {
+                text: "Remove"
+            }
+            Button {
+                text: "Clear"
+            }
         }
 
         GridLayout {
