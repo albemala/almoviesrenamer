@@ -18,7 +18,7 @@ ApplicationWindow {
     signal showRenamingRuleDialogClicked()
     signal renameMoviesClicked()
 
-    signal movieSelected(var row)
+    signal moviesSelectionChanged()
     signal movieAlternativeTitleChanged(var index)
     signal searchMovieClicked()
 
@@ -27,6 +27,7 @@ ApplicationWindow {
 
     property alias moviesTableModel: moviesTable.model
     property alias moviesTableCurrentRow: moviesTable.currentRow
+    property var moviesTableSelection: moviesTable.getSelectedIndices()
 
     property alias movieInfoPanelVisible: movieInfoPanel.visible
 
@@ -172,15 +173,29 @@ ApplicationWindow {
 
         TableView{
             id: moviesTable
+
             Layout.leftMargin: 11
             Layout.rightMargin: 11
             Layout.topMargin: 11
             Layout.bottomMargin: 11
             Layout.fillWidth: true
             Layout.fillHeight: true
+
             model: []
 
-            onClicked: movieSelected(row)
+            selectionMode: SelectionMode.ContiguousSelection
+            selection.onSelectionChanged: moviesSelectionChanged()
+
+            function getSelectedIndices()
+            {
+                var indices = []
+                selection.forEach(function(index){
+                    indices.push(index)
+                })
+                return indices
+            }
+
+            onRowCountChanged: resizeColumnsToContents()
 
             TableViewColumn{
                 role: "original_name"

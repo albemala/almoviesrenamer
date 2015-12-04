@@ -1,5 +1,6 @@
 from PyQt5.QtGui import QWindow
 from PyQt5.QtQml import QQmlApplicationEngine
+
 from movie_table_item import MovieTableItem
 
 LOADING_PANEL_VISIBLE_PROPERTY = "loadingPanelVisible"
@@ -7,6 +8,7 @@ LOADING_PANEL_MOVIE_TITLE_PROPERTY = "loadingPanelMovieTitle"
 
 MOVIES_TABLE_MODEL_PROPERTY = "moviesTableModel"
 MOVIES_TABLE_CURRENT_ROW_PROPERTY = "moviesTableCurrentRow"
+MOVIES_TABLE_SELECTION_PROPERTY = "moviesTableSelection"
 
 MOVIE_INFO_PANEL_VISIBLE_PROPERTY = "movieInfoPanelVisible"
 
@@ -49,6 +51,17 @@ class MainWindowView:
 
     def get_movies_table_current_row(self) -> int:
         return self.__get_property(MOVIES_TABLE_CURRENT_ROW_PROPERTY)
+
+    def get_movies_table_selection(self) -> [int]:
+        selection = self.__get_property(MOVIES_TABLE_SELECTION_PROPERTY)
+        # QJSValue to QVariant
+        variant = selection.toVariant()
+        # with a multiple selection, variant is a list of float
+        indices = []
+        for i in variant:
+            # float to int
+            indices.append(int(i))
+        return indices
 
     def get_movie_search_alternative_title(self) -> str:
         return self.__get_property(MOVIE_SEARCH_ALTERNATIVE_TITLE_PROPERTY)
@@ -141,3 +154,6 @@ class MainWindowView:
 
     def get_search_movie_clicked_signal(self):
         return self.__get_root_window().searchMovieClicked
+
+    def get_movies_selection_changed_signal(self):
+        return self.__get_root_window().moviesSelectionChanged

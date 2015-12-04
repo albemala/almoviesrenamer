@@ -65,8 +65,9 @@ class MainWindowController(QObject):
         self.__main_window.get_rename_movies_clicked_signal().connect(
             self.rename_movies)
 
-        self.__main_window.get_movie_item_selected_signal().connect(
-            self.__movie_item_selected)
+        self.__main_window.get_movies_selection_changed_signal().connect(
+            self.__on_movies_selection_changed)
+
         self.__main_window.get_movie_alternative_title_changed_signal().connect(
             self.__on_movie_alternative_title_changed)
         self.__main_window.get_search_movie_clicked_signal().connect(
@@ -435,12 +436,14 @@ class MainWindowController(QObject):
         # show the about dialog
         QMessageBox.about(self, "About {0}".format(application.NAME), msg)
 
-    def __movie_item_selected(self, row):
-        if row == -1:
+    def __on_movies_selection_changed(self):
+        selection = self.__main_window.get_movies_table_selection()
+        if len(selection) == 0:
             self.__main_window.set_movie_info_panel_visible(False)
             self.__main_window.set_movie_error_panel_visible(False)
             self.__main_window.set_movie_renamed_panel_visible(False)
         else:
+            row = selection[0]
             movie = self.__movies[row]
             if movie.get_renaming_state() == Movie.STATE_RENAMING_ERROR:
                 self.__main_window.set_movie_error(movie.get_renaming_error())
