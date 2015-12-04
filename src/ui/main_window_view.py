@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QWindow
-from PyQt5.QtQml import QQmlApplicationEngine
 
+from PyQt5.QtQml import QQmlApplicationEngine
 from movie_table_item import MovieTableItem
 
 LOADING_PANEL_VISIBLE_PROPERTY = "loadingPanelVisible"
@@ -96,6 +96,14 @@ class MainWindowView:
         # From Qt Documentation:
         # Note: There is no way for the view to know that the contents of a QList has changed.
         # If the QList changes, it is necessary to reset the model by calling QQmlContext::setContextProperty() again.
+        self.__set_property(MOVIES_TABLE_MODEL_PROPERTY, self.__movies_table_view_model)
+
+    def remove_movie_table_item(self, index: int) -> None:
+        del self.__movies_table_view_model[index]
+        self.__set_property(MOVIES_TABLE_MODEL_PROPERTY, self.__movies_table_view_model)
+
+    def remove_all_movie_table_items(self) -> None:
+        del self.__movies_table_view_model[:]
         self.__set_property(MOVIES_TABLE_MODEL_PROPERTY, self.__movies_table_view_model)
 
     def set_movie_alternative_titles_model(self, model: []) -> None:

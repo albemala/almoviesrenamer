@@ -54,9 +54,9 @@ class MainWindowController(QObject):
             self.__add_movies_in_folder_and_subfolders)
 
         self.__main_window.get_remove_selected_movies_clicked_signal().connect(
-            self.remove_selected_movies)
+            self.__remove_selected_movies)
         self.__main_window.get_remove_all_movies_clicked_signal().connect(
-            self.remove_all_movies)
+            self.__remove_all_movies)
 
         self.__main_window.get_show_renaming_rule_dialog_clicked_signal().connect(
             self.change_renaming_rule)
@@ -274,37 +274,24 @@ class MainWindowController(QObject):
         # set enabled property on table
         self._ui.table_movies.setEnabled(enabled)
 
-    def remove_selected_movies(self):
-        # TODO check
+    def __remove_selected_movies(self):
         """
         removes selected movies from movies table
         """
 
-        # get selected items
-        selected_items = self._ui.table_movies.selectionModel().selectedRows()
-        # loop on items
-        for item in reversed(selected_items):
-            # get item row
-            row = item.row()
-            # first remove items from table
-            self._ui.table_movies.takeItem(row, 0)
-            self._ui.table_movies.takeItem(row, 1)
-            # them remove corresponding row
-            self._ui.table_movies.removeRow(row)
+        selected_items = self.__main_window.get_movies_table_selection()
+        for row in reversed(selected_items):
+            self.__main_window.remove_movie_table_item(row)
             # delete movie item
             del self.__movies[row]
 
-    def remove_all_movies(self):
-        # TODO check
+    def __remove_all_movies(self):
         """
         removes all movies from movies table
         """
 
         del self.__movies[:]
-        # clear table contents
-        self._ui.table_movies.clearContents()
-        # remove all rows
-        self._ui.table_movies.setRowCount(0)
+        self.__main_window.remove_all_movie_table_items()
 
     def change_renaming_rule(self):
         # TODO check
