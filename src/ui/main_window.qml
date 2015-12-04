@@ -105,7 +105,6 @@ ApplicationWindow {
     }
 
     ColumnLayout {
-        id: columnLayout1
         anchors.fill: parent
 
         RowLayout {
