@@ -1,16 +1,15 @@
 import os
 import platform
 import threading
+
 from PyQt5.QtCore import Qt, pyqtSignal, PYQT_VERSION_STR, QUrl, QObject
 from PyQt5.QtGui import QBrush, QDesktopServices
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QTableWidgetItem, QMessageBox
-from PyQt5.uic import loadUi
+from PyQt5.QtWidgets import QApplication, QFileDialog, QTableWidgetItem, QMessageBox
+
 import application
 from movie import Movie
 from preferences import preferences
-from preferences_dialog import PreferencesDialog
 from stats_agreement_dialog import StatsAgreementDialog
-import utils
 from ui.main_window_view import MainWindowView
 
 __author__ = "Alberto Malagoli"
