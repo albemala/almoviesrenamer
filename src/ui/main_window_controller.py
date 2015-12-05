@@ -1,16 +1,15 @@
 import os
 import platform
 import threading
+
 from PyQt5.QtCore import Qt, pyqtSignal, PYQT_VERSION_STR, QUrl, QObject
 from PyQt5.QtGui import QBrush, QDesktopServices
-from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, QTableWidgetItem, QMessageBox
-from PyQt5.uic import loadUi
+from PyQt5.QtWidgets import QApplication, QFileDialog, QTableWidgetItem, QMessageBox
+
 import application
 from movie import Movie
 from preferences import preferences
-from preferences_dialog import PreferencesDialog
 from stats_agreement_dialog import StatsAgreementDialog
-import utils
 from ui.main_window_view import MainWindowView
 
 __author__ = "Alberto Malagoli"
@@ -47,24 +46,36 @@ class MainWindowController(QObject):
         self.__main_window = MainWindowView()
 
         # signals connection
-        self.__main_window.get_add_movie_button_clicked_signal().connect(self.add_movies)
-        # self.__main_window.get_movie_info_changed_signal().connect()
-        self.__main_window.get_movie_item_selected_signal().connect(self.__movie_item_selected)
+        self.__main_window.get_add_movies_clicked_signal().connect(
+            self.__add_movies)
+        self.__main_window.get_add_movies_in_folder_clicked_signal().connect(
+            self.__add_movies_in_folder)
+        self.__main_window.get_add_movies_in_folder_and_subfolders_clicked_signal().connect(
+            self.__add_movies_in_folder_and_subfolders)
+
+        self.__main_window.get_remove_selected_movies_clicked_signal().connect(
+            self.__remove_selected_movies)
+        self.__main_window.get_remove_all_movies_clicked_signal().connect(
+            self.__remove_all_movies)
+
+        self.__main_window.get_show_renaming_rule_dialog_clicked_signal().connect(
+            self.change_renaming_rule)
+
+        self.__main_window.get_rename_movies_clicked_signal().connect(
+            self.rename_movies)
+
+        self.__main_window.get_movies_selection_changed_signal().connect(
+            self.__on_movies_selection_changed)
+
         self.__main_window.get_movie_alternative_title_changed_signal().connect(
             self.__on_movie_alternative_title_changed)
-        self.__main_window.get_search_movie_button_clicked_signal().connect(
+        self.__main_window.get_search_movie_clicked_signal().connect(
             self.__on_search_alternative_movie_button_clicked)
 
-        # self._ui.action_add_movies.triggered.connect(self.add_movies)
-        # self._ui.action_add_all_movies_in_folder.triggered.connect(self.add_movies_in_folder)
-        # self._ui.action_add_all_movies_in_folder_subfolders.triggered.connect(self.add_movies_in_folder_and_subfolders)
-        # self._ui.action_remove_selected_movies.triggered.connect(self.remove_selected_movies)
-        # self._ui.action_remove_all_movies.triggered.connect(self.remove_all_movies)
-        # self._ui.action_change_renaming_rule.triggered.connect(self.change_renaming_rule)
-        # self._ui.action_rename_movies.triggered.connect(self.rename_movies)
         self.__load_movies_finished.connect(self.__on_load_movies_finished)
         self.__movie_added.connect(self.__on_movie_added)
         self.__loading_movie_changed.connect(self.__on_loading_movie_changed)
+
         # self._ui.text_search_title.returnPressed.connect(self.search_new_title)
         # self._ui.button_search_title.clicked.connect(self.search_new_title)
         self.__search_alternative_movie_finished.connect(self.__on_search_alternative_movie_finished)
@@ -77,6 +88,11 @@ class MainWindowController(QObject):
         # self._ui.action_copy_title.triggered.connect(self.copy_title)
         # self._ui.action_open_containing_folder.triggered.connect(self.open_containing_folder)
         # self._ui.table_others_info.itemSelectionChanged.connect(self.alternative_movies_selection_changed)
+
+        self.__main_window.set_loading_panel_visible(False)
+        self.__main_window.set_movie_info_panel_visible(False)
+        self.__main_window.set_movie_renamed_panel_visible(False)
+        self.__main_window.set_movie_error_panel_visible(False)
 
     def show_stats_agreement(self):
         """
@@ -93,7 +109,7 @@ class MainWindowController(QObject):
             # nex time user will open the program, don't show that dialog
             preferences.set_first_time_opening(False)
 
-    def add_movies(self):
+    def __add_movies(self):
         """
         select video files from file system using a FileDialog,
         then creates corresponding movie objects
@@ -115,9 +131,9 @@ class MainWindowController(QObject):
         files_paths = open_files_result[0]
         # if at least one file has been selected
         if len(files_paths) > 0:
-            self.load_movies(files_paths)
+            self.__load_movies(files_paths)
 
-    def add_movies_in_folder(self):
+    def __add_movies_in_folder(self):
         """
         select all video files from a selected folder using a FileDialog,
         then creates corresponding movie objects
@@ -140,9 +156,9 @@ class MainWindowController(QObject):
             for entry in os.listdir(folder_path):
                 self.add_file_to_list_if_video(folder_path, entry, files_paths)
 
-            self.load_movies(files_paths)
+            self.__load_movies(files_paths)
 
-    def add_movies_in_folder_and_subfolders(self):
+    def __add_movies_in_folder_and_subfolders(self):
         """
         select all video files from a selected folder and subfolders using a FileDialog,
         then creates corresponding movie objects
@@ -167,7 +183,7 @@ class MainWindowController(QObject):
                 for name in files:
                     self.add_file_to_list_if_video(root, name, files_paths)
 
-            self.load_movies(files_paths)
+            self.__load_movies(files_paths)
 
     def add_file_to_list_if_video(self, path, name, files):
         entry = os.path.join(path, name)
@@ -177,7 +193,7 @@ class MainWindowController(QObject):
             # save entry with path
             files.append(entry)
 
-    def load_movies(self, files_paths):
+    def __load_movies(self, files_paths):
         """
         given a list of file paths, creates a movie object for each
         file, get info from it, and populate movies table
@@ -190,7 +206,7 @@ class MainWindowController(QObject):
         # show loading panel
         self.__main_window.set_loading_panel_visible(True)
         # start loading thread
-        threading.Thread(target=self.load_movies_run, args=(files_paths,)).start()
+        threading.Thread(target=self.__load_movies_run, args=(files_paths,)).start()
 
     def __set_last_visited_directory(self, files_paths):
         # takes first selected file and get the file path, use it as the last visited directory
@@ -200,7 +216,7 @@ class MainWindowController(QObject):
         # save it in settings
         preferences.set_last_visited_directory(last_visited_directory)
 
-    def load_movies_run(self, file_paths):
+    def __load_movies_run(self, file_paths):
         # loop on file paths
         for file_path in file_paths:
             # set loading label text, show current file name
@@ -223,12 +239,12 @@ class MainWindowController(QObject):
         return movie
 
     def __on_movie_added(self, movie: Movie):
-        self.insert_movie_in_table_view(movie)
+        self.__insert_movie_in_table_view(movie)
 
     def __on_loading_movie_changed(self, file_name: str):
-        self.__main_window.set_loading_info(file_name)
+        self.__main_window.set_loading_panel_movie_title(file_name)
 
-    def insert_movie_in_table_view(self, movie):
+    def __insert_movie_in_table_view(self, movie):
         original_name = movie.get_original_name()
         new_name = movie.get_new_name()
         self.__main_window.add_movie_table_item(original_name, new_name)
@@ -258,37 +274,27 @@ class MainWindowController(QObject):
         # set enabled property on table
         self._ui.table_movies.setEnabled(enabled)
 
-    def remove_selected_movies(self):
+    def __remove_selected_movies(self):
         """
         removes selected movies from movies table
         """
 
-        # get selected items
-        selected_items = self._ui.table_movies.selectionModel().selectedRows()
-        # loop on items
-        for item in reversed(selected_items):
-            # get item row
-            row = item.row()
-            # first remove items from table
-            self._ui.table_movies.takeItem(row, 0)
-            self._ui.table_movies.takeItem(row, 1)
-            # them remove corresponding row
-            self._ui.table_movies.removeRow(row)
+        selected_items = self.__main_window.get_movies_table_selection()
+        for row in reversed(selected_items):
+            self.__main_window.remove_movie_table_item(row)
             # delete movie item
             del self.__movies[row]
 
-    def remove_all_movies(self):
+    def __remove_all_movies(self):
         """
         removes all movies from movies table
         """
 
         del self.__movies[:]
-        # clear table contents
-        self._ui.table_movies.clearContents()
-        # remove all rows
-        self._ui.table_movies.setRowCount(0)
+        self.__main_window.remove_all_movie_table_items()
 
     def change_renaming_rule(self):
+        # TODO check
         """
         show renaming rule dialog
         """
@@ -309,6 +315,7 @@ class MainWindowController(QObject):
             self._ui.table_movies.item(i, 1).setText(movie.get_renamed_file_name())
 
     def rename_movies(self):
+        # TODO check
         """
         rename files with new name
         """
@@ -415,12 +422,14 @@ class MainWindowController(QObject):
         # show the about dialog
         QMessageBox.about(self, "About {0}".format(application.NAME), msg)
 
-    def __movie_item_selected(self, row):
-        if row == -1:
+    def __on_movies_selection_changed(self):
+        selection = self.__main_window.get_movies_table_selection()
+        if len(selection) == 0:
             self.__main_window.set_movie_info_panel_visible(False)
             self.__main_window.set_movie_error_panel_visible(False)
             self.__main_window.set_movie_renamed_panel_visible(False)
         else:
+            row = selection[0]
             movie = self.__movies[row]
             if movie.get_renaming_state() == Movie.STATE_RENAMING_ERROR:
                 self.__main_window.set_movie_error(movie.get_renaming_error())
@@ -449,16 +458,16 @@ class MainWindowController(QObject):
         self.__main_window.set_movie_language(movie.get_language())
 
     def __on_search_alternative_movie_button_clicked(self):
-        title = self.__main_window.get_search_alternative_title_text()
-        year = self.__main_window.get_search_alternative_year_text()
-        language = self.__main_window.get_search_alternative_language_text()
+        title = self.__main_window.get_movie_search_alternative_title()
+        year = self.__main_window.get_movie_search_alternative_year()
+        language = self.__main_window.get_movie_search_alternative_language()
         if title.strip() is "":
             return
 
         # set gui elements disabled
         # TODO
         # self.set_gui_enabled_search_title(False)
-        self.__main_window.set_search_alternative_movie_progress_bar_visible(True)
+        self.__main_window.set_movie_search_progress_bar_visible(True)
         # start searching thread
         threading.Thread(target=self.__search_alternative_movie_run, args=(title, year, language)).start()
 
@@ -602,7 +611,7 @@ class MainWindowController(QObject):
         self.__main_window.set_movie_alternative_titles_model(movie.get_alternative_titles())
         self.__populate_movie_info_panel(movie)
 
-        self.__main_window.set_search_alternative_movie_progress_bar_visible(False)
+        self.__main_window.set_movie_search_progress_bar_visible(False)
 
         return
         # TODO

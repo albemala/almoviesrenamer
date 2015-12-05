@@ -10,21 +10,87 @@ ApplicationWindow {
     height: 600
     title: "ALMoviesRenamer"
 
-    signal addMovieButtonClicked()
-    signal movieItemSelected(var row)
-    signal movieAlternativeTitleChanged(var index)
-    signal searchMovieButtonClicked()
+    signal addMoviesClicked()
+    signal addMoviesInFolderClicked()
+    signal addMoviesInFolderAndSubfoldersClicked()
+    signal removeSelectedMoviesClicked()
+    signal removeAllMoviesClicked()
+    signal showRenamingRuleDialogClicked()
+    signal renameMoviesClicked()
 
-    property alias moviesTableCurrentRow: moviesTableView.currentRow
-    property alias searchAlternativeTitleText: searchAlternativeTitleTextField.text
-    property alias searchAlternativeYearText: searchAlternativeYearTextField.text
-    property alias searchAlternativeLanguageText: searchAlternativeLanguageTextField.text
+    signal moviesSelectionChanged()
+    signal movieAlternativeTitleChanged(var index)
+    signal searchMovieClicked()
+
+    property alias loadingPanelVisible: loadingPanel.visible
+    property alias loadingPanelMovieTitle: loadingPanelMovieTitle.text
+
+    property alias moviesTableModel: moviesTable.model
+    property alias moviesTableCurrentRow: moviesTable.currentRow
+    property var moviesTableSelection: moviesTable.getSelectedIndices()
+
+    property alias movieInfoPanelVisible: movieInfoPanel.visible
+
+    property alias movieAlternativeTitlesModel: movieAlternativeTitles.model
+    property alias movieAlternativeTitleIndex: movieAlternativeTitles.currentIndex
+
+    property alias movieTitle: movieTitle.text
+    property alias movieOriginalTitle: movieOriginalTitle.text
+    property alias movieYear: movieYear.text
+    property alias movieDirectors: movieDirectors.text
+    property alias movieDuration: movieDuration.text
+    property alias movieLanguage: movieLanguage.text
+
+    property alias searchAlternativeMovieProgressBarVisible: searchAlternativeMovieProgressBar.running
+    property alias searchAlternativeTitle: searchAlternativeTitleTextField.text
+    property alias searchAlternativeYear: searchAlternativeYearTextField.text
+    property alias searchAlternativeLanguage: searchAlternativeLanguageTextField.text
+
+    property alias movieRenamedPanelVisible: movieRenamedPanel.visible
+
+    property alias movieErrorPanelVisible: movieErrorPanel.visible
+    property alias movieError: movieError.text
 
     menuBar: MenuBar {
         Menu {
             title: "Movies"
             MenuItem {
                 text: "Add movies..."
+                iconSource: "../icons/movie_add.png"
+                onTriggered: addMoviesClicked()
+            }
+            MenuItem {
+                text: "Add all movies in folder..."
+                iconSource: "../icons/movies_from_folder.png"
+                onTriggered: addMoviesInFolderClicked()
+            }
+            MenuItem {
+                text: "Add all movies in folder (including subfolders)..."
+                iconSource: "../icons/movies_from_folder.png"
+                onTriggered: addMoviesInFolderAndSubfoldersClicked()
+            }
+            MenuSeparator {}
+            MenuItem {
+                text: "Remove selected movies from list"
+                iconSource: "../icons/movie_remove.png"
+                onTriggered: removeSelectedMoviesClicked()
+            }
+            MenuItem {
+                text: "Remove all movies from list"
+                iconSource: "../icons/movie_erase.png"
+                onTriggered: removeAllMoviesClicked()
+            }
+            MenuSeparator {}
+            MenuItem {
+                text: "Change renaming rule..."
+                iconSource: "../icons/tag.png"
+                onTriggered: showRenamingRuleDialogClicked()
+            }
+            MenuSeparator {}
+            MenuItem {
+                text: "Rename movies"
+                iconSource: "../icons/pencil.png"
+                onTriggered: renameMoviesClicked()
             }
         }
         Menu {
@@ -39,7 +105,6 @@ ApplicationWindow {
     }
 
     ColumnLayout {
-        id: columnLayout1
         anchors.fill: parent
 
         RowLayout {
@@ -52,12 +117,12 @@ ApplicationWindow {
             Button {
                 text: "Add movies"
                 iconSource: "../icons/movie_add.png"
-                onClicked: addMovieButtonClicked()
+                onClicked: addMoviesClicked()
             }
             Button {
                 text: "Remove movies"
                 iconSource: "../icons/movie_remove.png"
-//                onClicked: addMovieButtonClicked()
+                onClicked: removeSelectedMoviesClicked()
             }
             Item {
                 width: 11
@@ -65,7 +130,7 @@ ApplicationWindow {
             Button {
                 text: "Renaming rule"
                 iconSource: "../icons/tag.png"
-//                onClicked: addMovieButtonClicked()
+                onClicked: showRenamingRuleDialogClicked()
             }
             Item {
                 width: 11
@@ -73,7 +138,7 @@ ApplicationWindow {
             Button {
                 text: "Rename movies"
                 iconSource: "../icons/pencil.png"
-//                onClicked: addMovieButtonClicked()
+                onClicked: renameMoviesClicked()
             }
         }
 
@@ -90,16 +155,15 @@ ApplicationWindow {
             Layout.rightMargin: 11
             Layout.topMargin: 11
             Layout.bottomMargin: 11
-            visible: loadingPanelVisible
 
             Label {
                 text: "Getting information from:"
             }
             Label {
-                text: loadingInfo
+                id: loadingPanelMovieTitle
             }
             BusyIndicator {
-                running: loadingPanelVisible
+                running: loadingPanel.visible
             }
             Label {
                 text: "This may take a while... I will play a sound when it finishes."
@@ -107,16 +171,30 @@ ApplicationWindow {
         }
 
         TableView{
-            id: moviesTableView
+            id: moviesTable
+
             Layout.leftMargin: 11
             Layout.rightMargin: 11
             Layout.topMargin: 11
             Layout.bottomMargin: 11
             Layout.fillWidth: true
             Layout.fillHeight: true
-            model: moviesTableViewModel
 
-            onClicked: movieItemSelected(row)
+            model: []
+
+            selectionMode: SelectionMode.ContiguousSelection
+            selection.onSelectionChanged: moviesSelectionChanged()
+
+            function getSelectedIndices()
+            {
+                var indices = []
+                selection.forEach(function(index){
+                    indices.push(index)
+                })
+                return indices
+            }
+
+            onRowCountChanged: resizeColumnsToContents()
 
             TableViewColumn{
                 role: "original_name"
@@ -129,8 +207,8 @@ ApplicationWindow {
         }
 
         ColumnLayout {
+            id: movieInfoPanel
             spacing: 6
-            visible: movieInfoPanelVisible
             Layout.leftMargin: 11
             Layout.rightMargin: 11
             Layout.topMargin: 11
@@ -140,9 +218,9 @@ ApplicationWindow {
                 text: "Movie:"
             }
             ComboBox {
+                id: movieAlternativeTitles
                 Layout.fillWidth: true
-                model: movieAlternativeTitlesModel
-                currentIndex: movieAlternativeTitleIndex
+                model: []
 
                 onCurrentIndexChanged: movieAlternativeTitleChanged(currentIndex)
             }
@@ -152,22 +230,22 @@ ApplicationWindow {
                 columns: 2
 
                 Label { text: "Title:" }
-                Label { text: movieTitle }
+                Label { id: movieTitle }
 
                 Label { text: "Original title:" }
-                Label { text: movieOriginalTitle }
+                Label { id: movieOriginalTitle }
 
                 Label { text: "Year:" }
-                Label { text: movieYear }
+                Label { id: movieYear }
 
                 Label { text: "Director(s):" }
-                Label { text: movieDirectors }
+                Label { id: movieDirectors }
 
                 Label { text: "Duration:" }
-                Label { text: movieDuration }
+                Label { id: movieDuration }
 
                 Label { text: "Language:" }
-                Label { text: movieLanguage }
+                Label { id: movieLanguage }
             }
             Rectangle {
                 Layout.fillWidth: true
@@ -204,16 +282,17 @@ ApplicationWindow {
                 Button {
                     text: "Search"
 
-                    onClicked: searchMovieButtonClicked()
+                    onClicked: searchMovieClicked()
                 }
                 BusyIndicator {
-                    running: searchAlternativeMovieProgressBarVisible
+                    id: searchAlternativeMovieProgressBar
+                    running: false
                 }
             }
         }
 
         Label {
-            visible: movieRenamedPanelVisible
+            id: movieRenamedPanel
             Layout.leftMargin: 11
             Layout.rightMargin: 11
             Layout.topMargin: 11
@@ -223,8 +302,8 @@ ApplicationWindow {
         }
 
         ColumnLayout {
+            id: movieErrorPanel
             spacing: 6
-            visible: movieErrorPanelVisible
             Layout.leftMargin: 11
             Layout.rightMargin: 11
             Layout.topMargin: 11
@@ -234,7 +313,7 @@ ApplicationWindow {
                 text: "There has been the following error during renaming:"
             }
             Label {
-                text: movieError
+                id: movieError
                 color: "red"
             }
         }
