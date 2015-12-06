@@ -29,6 +29,15 @@ ApplicationWindow {
     property alias moviesTableCurrentRow: moviesTable.currentRow
     property var moviesTableSelection: moviesTable.getSelectedIndices()
 
+    function getMoviesTableSelection()
+    {
+        var indices = []
+        moviesTable.selection.forEach(function(index){
+            indices.push(index)
+        })
+        return indices
+    }
+
     property alias movieInfoPanelVisible: movieInfoPanel.visible
 
     property alias movieAlternativeTitlesModel: movieAlternativeTitles.model

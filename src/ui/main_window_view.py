@@ -1,7 +1,7 @@
 from PyQt5.QtGui import QWindow
-
 from PyQt5.QtQml import QQmlApplicationEngine
-from movie_table_item import MovieTableItem
+
+from ui.movie_table_item import MovieTableItem
 
 LOADING_PANEL_VISIBLE_PROPERTY = "loadingPanelVisible"
 LOADING_PANEL_MOVIE_TITLE_PROPERTY = "loadingPanelMovieTitle"
@@ -53,7 +53,8 @@ class MainWindowView:
         return self.__get_property(MOVIES_TABLE_CURRENT_ROW_PROPERTY)
 
     def get_movies_table_selection(self) -> [int]:
-        selection = self.__get_property(MOVIES_TABLE_SELECTION_PROPERTY)
+        # selection = self.__get_property(MOVIES_TABLE_SELECTION_PROPERTY)
+        selection = self.__get_root_window().getMoviesTableSelection()
         # QJSValue to QVariant
         variant = selection.toVariant()
         # with a multiple selection, variant is a list of float
