@@ -8,12 +8,15 @@ try:
     from PyQt5.QtWidgets import QApplication
     import utils
     from ui.main_window_controller import MainWindowController
+    from ui.renaming_rule_window_view import RenamingRuleWindowView
+    from ui.renaming_rule_window_controller import RenamingRuleWindowController
 
     # load languages and preferences
     utils.load_languages()
 
     app = QApplication(sys.argv)
-    main_window_controller = MainWindowController()
+    # main_window_controller = MainWindowController()
+    view = RenamingRuleWindowController()
     app.exec_()
 
 except:
