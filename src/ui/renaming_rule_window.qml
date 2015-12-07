@@ -41,29 +41,11 @@ ApplicationWindow {
     Rectangle {
         id: root
 
-        width: 300; height: 400
+        width: 500
+        height: 100
 
         ListModel {
             id: listModel
-
-            ListElement {
-                name: "Polly"
-            }
-            ListElement {
-                name: "Penny"
-            }
-            ListElement {
-                name: "Warren"
-            }
-            ListElement {
-                name: "Spot"
-            }
-            ListElement {
-                name: "Joey"
-            }
-            ListElement {
-                name: "Kimba"
-            }
         }
 
         Component {
@@ -72,35 +54,41 @@ ApplicationWindow {
             MouseArea {
                 id: dragArea
 
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                }
+                width: content.width
+
                 property bool held: false
 
-                anchors { left: parent.left; right: parent.right }
-                height: content.height
-
                 drag.target: held ? content : undefined
-                drag.axis: Drag.YAxis
+                drag.axis: Drag.XAxis
 
                 onPressed: held = true
                 onReleased: held = false
 
                 Rectangle {
                     id: content
+
                     anchors {
                         horizontalCenter: parent.horizontalCenter
                         verticalCenter: parent.verticalCenter
                     }
-                    width: dragArea.width; height: column.implicitHeight
+                    width: label.implicitWidth + 18
+                    height: label.implicitHeight + 12
 
                     border.width: 1
-                    border.color: "lightsteelblue"
-
-                    color: dragArea.held ? "lightsteelblue" : "white"
+                    border.color: "lightGray"
+                    radius: 5
+                    color: dragArea.held ? "lightGray" : "white"
                     Behavior on color { ColorAnimation { duration: 100 } }
 
                     Drag.active: dragArea.held
                     Drag.source: dragArea
                     Drag.hotSpot.x: width / 2
                     Drag.hotSpot.y: height / 2
+
                     states: State {
                         when: dragArea.held
 
@@ -112,13 +100,16 @@ ApplicationWindow {
                     }
 
                     Label {
-                        id: column
-                        anchors.fill: parent
-                        text: 'Name: ' + name
+                        id: label
+
+                        anchors.centerIn: parent
+
+                        text: name
+                        font.pointSize: 18
                     }
                 }
                 DropArea {
-                    anchors { fill: parent; margins: 10 }
+                    anchors.fill: parent
 
                     onEntered: {
                         visualModel.items.move(
@@ -141,7 +132,18 @@ ApplicationWindow {
 
             anchors { fill: parent }
 
+            orientation: ListView.Horizontal
             model: visualModel
+            spacing: 6
+
+            moveDisplaced: Transition {
+                NumberAnimation {
+                    properties: "x,y"
+                    easing.type: Easing.Bezier
+                    easing.bezierCurve: [0.4,0.0, 0.2,1.0, 1.0,1.0]
+                    duration: 150
+                }
+            }
         }
     }
 
