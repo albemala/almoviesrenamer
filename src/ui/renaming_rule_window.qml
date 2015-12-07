@@ -24,266 +24,283 @@ ApplicationWindow {
     signal addCurlyBracketsClicked()
     signal closeClicked()
 
-//    function addRule(rule) {
-//        rulesList.model.append({ rule: rule })
-//    }
+    function addRule(rule) {
+        rulesListModel.append({ rule: rule })
+    }
 
-//    function removeSelectedRule() {
-//        var currentIndex = rulesList.currentIndex
-//        console.log(currentIndex)
-//    }
+    function removeSelectedRule() {
+        var currentIndex = rulesList.currentIndex
+        console.log(currentIndex)
+    }
 
-//    function removeAllRules() {
+    function removeAllRules() {
 
-//    }
+    }
 
+    ColumnLayout {
+        anchors.fill: parent
+        anchors.leftMargin: 11
+        anchors.rightMargin: 11
+        anchors.topMargin: 11
+        anchors.bottomMargin: 11
 
-    Rectangle {
-        id: root
+        spacing: 6
 
-        width: 500
-        height: 100
-
-        ListModel {
-            id: listModel
+        Label {
+            text: "Define renaming rule using movie attributes:"
         }
 
-        Component {
-            id: dragDelegate
+        RowLayout {
+            Rectangle {
+                anchors.fill: rulesList
+                color: "white"
+            }
 
-            MouseArea {
-                id: dragArea
+            ListView {
+                id: rulesList
 
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                width: content.width
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-                property bool held: false
+                orientation: ListView.Horizontal
+                model: rulesListDelegateModel
+                spacing: 6
 
-                drag.target: held ? content : undefined
-                drag.axis: Drag.XAxis
-
-                onPressed: held = true
-                onReleased: held = false
-
-                Rectangle {
-                    id: content
-
-                    anchors {
-                        horizontalCenter: parent.horizontalCenter
-                        verticalCenter: parent.verticalCenter
+                moveDisplaced: Transition {
+                    NumberAnimation {
+                        properties: "x,y"
+                        easing.type: Easing.Bezier
+                        easing.bezierCurve: [0.4,0.0, 0.2,1.0, 1.0,1.0]
+                        duration: 150
                     }
-                    width: label.implicitWidth + 18
-                    height: label.implicitHeight + 12
+                }
 
-                    border.width: 1
-                    border.color: "lightGray"
-                    radius: 5
-                    color: dragArea.held ? "lightGray" : "white"
-                    Behavior on color { ColorAnimation { duration: 100 } }
+                ListModel {
+                    id: rulesListModel
+                }
 
-                    Drag.active: dragArea.held
-                    Drag.source: dragArea
-                    Drag.hotSpot.x: width / 2
-                    Drag.hotSpot.y: height / 2
+                Component {
+                    id: rulesListDelegate
 
-                    states: State {
-                        when: dragArea.held
+                    MouseArea {
+                        id: dragArea
 
-                        ParentChange { target: content; parent: root }
-                        AnchorChanges {
-                            target: content
-                            anchors { horizontalCenter: undefined; verticalCenter: undefined }
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                        }
+                        width: ruleContentBackground.width
+
+                        property bool held: false
+
+                        drag.target: held ? ruleContentBackground : undefined
+                        drag.axis: Drag.XAxis
+
+                        onPressed: held = true
+                        onReleased: held = false
+
+                        Rectangle {
+                            id: ruleContentBackground
+
+                            anchors {
+                                horizontalCenter: parent.horizontalCenter
+                                verticalCenter: parent.verticalCenter
+                            }
+                            width: ruleContent.width + 18
+                            height: ruleContent.height + 12
+
+                            border.width: 1
+                            border.color: "lightGray"
+                            radius: 5
+                            color: dragArea.held ? "lightGray" : "white"
+                            Behavior on color { ColorAnimation { duration: 100 } }
+
+                            Drag.active: dragArea.held
+                            Drag.source: dragArea
+                            Drag.hotSpot.x: width / 2
+                            Drag.hotSpot.y: height / 2
+
+                            states: State {
+                                when: dragArea.held
+
+                                ParentChange { target: ruleContentBackground; parent: rulesList }
+                                AnchorChanges {
+                                    target: ruleContentBackground
+                                    anchors { horizontalCenter: undefined; verticalCenter: undefined }
+                                }
+                            }
+
+                            RowLayout {
+                                id: ruleContent
+
+                                anchors.centerIn: parent
+                                width: ruleLabel.implicitWidth + ruleRemoveButton.implicitWidth + spacing
+                                height: ruleRemoveButton.implicitHeight
+
+                                spacing: 12
+
+
+                                Label {
+                                    id: ruleLabel
+
+                                    text: rule
+                                    font.pointSize: 18
+                                }
+                                Label {
+                                    id: ruleRemoveButton
+
+                                    text: "\u00D7"
+                                    font.pointSize: 24
+                                    color: darkRed
+
+                                    property string darkRed: "#D84315"
+                                    property string lightRed: "#FFAB91"
+
+                                    MouseArea {
+                                        anchors.fill: parent
+
+                                        onPressed: {
+                                            ruleRemoveButton.color = ruleRemoveButton.lightRed
+                                        }
+                                        onReleased: {
+                                            ruleRemoveButton.color = ruleRemoveButton.darkRed
+                                        }
+                                        onCanceled: {
+                                            ruleRemoveButton.color = ruleRemoveButton.darkRed
+                                        }
+
+                                        onClicked: {}
+                                    }
+                                }
+                            }
+                        }
+                        DropArea {
+                            anchors.fill: parent
+
+                            onEntered: {
+                                rulesListDelegateModel.items.move(
+                                            drag.source.DelegateModel.itemsIndex,
+                                            dragArea.DelegateModel.itemsIndex)
+                            }
                         }
                     }
-
-                    Label {
-                        id: label
-
-                        anchors.centerIn: parent
-
-                        text: name
-                        font.pointSize: 18
-                    }
                 }
-                DropArea {
-                    anchors.fill: parent
 
-                    onEntered: {
-                        visualModel.items.move(
-                                    drag.source.DelegateModel.itemsIndex,
-                                    dragArea.DelegateModel.itemsIndex)
-                    }
+                DelegateModel {
+                    id: rulesListDelegateModel
+
+                    model: rulesListModel
+                    delegate: rulesListDelegate
                 }
+            }
+
+            Button {
+                text: "Remove"
+                onClicked: removeRuleClicked()
+            }
+            Button {
+                text: "Clear"
+                onClicked: removeAllRulesClicked()
             }
         }
 
-        DelegateModel {
-            id: visualModel
+        GridLayout {
+            columns: 2
 
-            model: listModel
-            delegate: dragDelegate
+            Button {
+                text: "Title"
+                Layout.row: 1
+                onClicked: addTitleClicked()
+            }
+
+            Button {
+                text: "Original title"
+                Layout.row: 2
+                onClicked: addOriginalTitleClicked()
+            }
+
+            Button {
+                text: "Year"
+                Layout.row: 3
+                onClicked: addYearClicked()
+            }
+
+            Button {
+                text: "Director(s)"
+                Layout.row: 4
+                onClicked: addDirectorsClicked()
+            }
+
+            Button {
+                text: "Duration"
+                Layout.row: 5
+                onClicked: addDurationClicked()
+            }
+
+            ComboBox {
+                Layout.row: 5
+                Layout.column: 2
+            }
+
+            Button {
+                text: "Language"
+                Layout.row: 6
+                onClicked: addLanguageClicked()
+            }
+
+            Button {
+                text: "(...)"
+                Layout.row: 7
+                onClicked: addRoundBracketsClicked()
+            }
+
+            Button {
+                text: "[...]"
+                Layout.row: 8
+                onClicked: addSquareBracketsClicked()
+            }
+
+            Button {
+                text: "{...}"
+                Layout.row: 9
+                onClicked: addCurlyBracketsClicked()
+            }
+
+            Label {
+                text: "Words are separated with:"
+                Layout.row: 10
+            }
+
+            ComboBox {
+                Layout.row: 10
+                Layout.column: 2
+            }
         }
 
-        ListView {
-            id: view
+        Label {
+            text: "Example:"
+        }
 
-            anchors { fill: parent }
+        Label {
+            text: ""
+        }
 
-            orientation: ListView.Horizontal
-            model: visualModel
-            spacing: 6
+        Label {
+            text: "will be renamed into:"
+        }
 
-            moveDisplaced: Transition {
-                NumberAnimation {
-                    properties: "x,y"
-                    easing.type: Easing.Bezier
-                    easing.bezierCurve: [0.4,0.0, 0.2,1.0, 1.0,1.0]
-                    duration: 150
-                }
+        Label {
+            text: ""
+        }
+
+        RowLayout {
+            Item {
+                Layout.fillWidth: true
+            }
+            Button {
+                text: "Close"
+                onClicked: closeClicked()
             }
         }
     }
-
-
-
-//    ColumnLayout {
-//        anchors.fill: parent
-//        anchors.leftMargin: 11
-//        anchors.rightMargin: 11
-//        anchors.topMargin: 11
-//        anchors.bottomMargin: 11
-
-//        spacing: 6
-
-//        Label {
-//            text: "Define renaming rule using movie attributes:"
-//        }
-
-//        RowLayout {
-//            ListView {
-//                id: rulesList
-//                Layout.fillWidth: true
-//                Layout.fillHeight: true
-
-//                orientation: ListView.Horizontal
-//                focus: true
-
-//                delegate: Label {
-//                    text: rule
-//                }
-
-//                model: ListModel{}
-//            }
-//            Button {
-//                text: "Remove"
-//                onClicked: removeRuleClicked()
-//            }
-//            Button {
-//                text: "Clear"
-//                onClicked: removeAllRulesClicked()
-//            }
-//        }
-
-//        GridLayout {
-//            columns: 2
-
-//            Button {
-//                text: "Title"
-//                Layout.row: 1
-//                onClicked: addTitleClicked()
-//            }
-
-//            Button {
-//                text: "Original title"
-//                Layout.row: 2
-//                onClicked: addOriginalTitleClicked()
-//            }
-
-//            Button {
-//                text: "Year"
-//                Layout.row: 3
-//                onClicked: addYearClicked()
-//            }
-
-//            Button {
-//                text: "Director(s)"
-//                Layout.row: 4
-//                onClicked: addDirectorsClicked()
-//            }
-
-//            Button {
-//                text: "Duration"
-//                Layout.row: 5
-//                onClicked: addDurationClicked()
-//            }
-
-//            ComboBox {
-//                Layout.row: 5
-//                Layout.column: 2
-//            }
-
-//            Button {
-//                text: "Language"
-//                Layout.row: 6
-//                onClicked: addLanguageClicked()
-//            }
-
-//            Button {
-//                text: "(...)"
-//                Layout.row: 7
-//                onClicked: addRoundBracketsClicked()
-//            }
-
-//            Button {
-//                text: "[...]"
-//                Layout.row: 8
-//                onClicked: addSquareBracketsClicked()
-//            }
-
-//            Button {
-//                text: "{...}"
-//                Layout.row: 9
-//                onClicked: addCurlyBracketsClicked()
-//            }
-
-//            Label {
-//                text: "Words are separated with:"
-//                Layout.row: 10
-//            }
-
-//            ComboBox {
-//                Layout.row: 10
-//                Layout.column: 2
-//            }
-//        }
-
-//        Label {
-//            text: "Example:"
-//        }
-
-//        Label {
-//            text: ""
-//        }
-
-//        Label {
-//            text: "will be renamed into:"
-//        }
-
-//        Label {
-//            text: ""
-//        }
-
-//        RowLayout {
-//            Item {
-//                Layout.fillWidth: true
-//            }
-//            Button {
-//                text: "Close"
-//                onClicked: closeClicked()
-//            }
-//        }
-//    }
 }
