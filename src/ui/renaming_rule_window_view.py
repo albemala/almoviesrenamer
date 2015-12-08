@@ -1,12 +1,8 @@
 from PyQt5.QtQml import QQmlApplicationEngine
 
-# RULES_LIST_MODEL_PROPERTY = "rulesListModel"
-
 
 class RenamingRuleWindowView:
     def __init__(self):
-        # self.__rules_list_model = []
-
         self.__engine = QQmlApplicationEngine()
         self.__engine.load("ui/renaming_rule_window.qml")
 
@@ -21,13 +17,6 @@ class RenamingRuleWindowView:
 
     def add_rule(self, rule: str):
         self.__get_root_window().addRule(rule)
-    #     list_item = RulesListItem(rule)
-    #     self.__rules_list_model.append(list_item)
-    #     # self.__set_property(RULES_LIST_MODEL_PROPERTY, self.__rules_list_model)
-    #     # self.__set_property(RULES_LIST_MODEL_PROPERTY, [{rule:"eee"}])
-    #     print(self.__get_property(RULES_LIST_MODEL_PROPERTY))
-    #     # self.__get_property(RULES_LIST_MODEL_PROPERTY).append({rule:"eee"})
-    #     self.__get_root_window()
 
 
     def get_remove_rule_clicked_signal(self):
