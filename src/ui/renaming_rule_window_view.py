@@ -1,5 +1,13 @@
 from PyQt5.QtQml import QQmlApplicationEngine
 
+#
+# TODO:
+# - update example movie while changing rule
+# - close button
+# - integrate with main UI
+# - load rule from preferences when loading UI
+# - save rule in preferences when it changes
+#
 
 class RenamingRuleWindowView:
     def __init__(self):
