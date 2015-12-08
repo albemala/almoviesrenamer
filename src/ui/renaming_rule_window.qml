@@ -11,6 +11,7 @@ ApplicationWindow {
 
     title: "Renaming rule"
 
+    signal ruleChanged()
     signal removeRuleClicked()
     signal removeAllRulesClicked()
     signal addTitleClicked()
@@ -26,15 +27,18 @@ ApplicationWindow {
 
     function addRule(rule) {
         rulesListModel.append({ rule: rule })
+        ruleChanged()
     }
 
     function removeSelectedRule() {
         var currentIndex = rulesList.currentIndex
         console.log(currentIndex)
+        ruleChanged()
     }
 
     function removeAllRules() {
-
+        rulesListModel.clear()
+        ruleChanged()
     }
 
     ColumnLayout {
@@ -181,6 +185,7 @@ ApplicationWindow {
                                 rulesListDelegateModel.items.move(
                                             drag.source.DelegateModel.itemsIndex,
                                             dragArea.DelegateModel.itemsIndex)
+                                ruleChanged()
                             }
                         }
                     }
@@ -194,10 +199,6 @@ ApplicationWindow {
                 }
             }
 
-            Button {
-                text: "Remove"
-                onClicked: removeRuleClicked()
-            }
             Button {
                 text: "Clear"
                 onClicked: removeAllRulesClicked()
