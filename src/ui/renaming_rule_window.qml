@@ -12,7 +12,7 @@ ApplicationWindow {
     title: "Renaming rule"
 
     signal ruleChanged()
-    signal removeRuleClicked()
+    signal removeRuleClicked(var index)
     signal removeAllRulesClicked()
     signal addTitleClicked()
     signal addOriginalTitleClicked()
@@ -30,9 +30,8 @@ ApplicationWindow {
         ruleChanged()
     }
 
-    function removeSelectedRule() {
-        var currentIndex = rulesList.currentIndex
-        console.log(currentIndex)
+    function removeRule(index) {
+        rulesListModel.remove(index)
         ruleChanged()
     }
 
@@ -173,7 +172,7 @@ ApplicationWindow {
                                             ruleRemoveButton.color = ruleRemoveButton.darkRed
                                         }
 
-                                        onClicked: {}
+                                        onClicked: removeRuleClicked(index)
                                     }
                                 }
                             }

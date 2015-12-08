@@ -18,6 +18,9 @@ class RenamingRuleWindowView:
     def add_rule(self, rule: str):
         self.__get_root_window().addRule(rule)
 
+    def remove_rule(self, index: int):
+        self.__get_root_window().removeRule(index)
+
     def remove_all_rules(self):
         self.__get_root_window().removeAllRules()
 

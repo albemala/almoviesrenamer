@@ -17,47 +17,45 @@ class RenamingRuleWindowController:
         self.__main_window.get_add_square_brackets_clicked_signal().connect(self.__add_square_brackets)
         self.__main_window.get_add_curly_brackets_clicked_signal().connect(self.__add_curly_brackets)
         self.__main_window.get_close_clicked_signal().connect(self.__close)
-        # self.__main_window.add_rule("ddd")
-        # self.__main_window.add_rule("yutit")
-        # self.__main_window.add_rule("ghfh")
-        # self.__main_window.add_rule("yiktuiktuik")
-        # self.__main_window.add_rule("sdvxczvxc")
 
     def __rule_changed(self):
         pass
 
-    def __remove_rule(self):
-        pass
+    def __remove_rule(self, index: int):
+        self.__main_window.remove_rule(index)
 
     def __remove_all_rules(self):
-        pass
+        self.__main_window.remove_all_rules()
 
     def __add_title(self):
-        pass
+        self.__main_window.add_rule("Title")
 
     def __add_original_title(self):
-        pass
+        self.__main_window.add_rule("Original title")
 
     def __add_year(self):
-        pass
+        self.__main_window.add_rule("Year")
 
     def __add_directors(self):
-        pass
+        self.__main_window.add_rule("Director")
 
     def __add_duration(self):
-        pass
+        self.__main_window.add_rule("Duration")
 
     def __add_language(self):
-        pass
+        self.__main_window.add_rule("Language")
 
     def __add_round_brackets(self):
-        pass
+        self.__main_window.add_rule("(")
+        self.__main_window.add_rule(")")
 
     def __add_square_brackets(self):
-        pass
+        self.__main_window.add_rule("[")
+        self.__main_window.add_rule("]")
 
     def __add_curly_brackets(self):
-        pass
+        self.__main_window.add_rule("{")
+        self.__main_window.add_rule("}")
 
     def __close(self):
         pass
