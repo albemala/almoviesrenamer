@@ -40,6 +40,15 @@ ApplicationWindow {
         ruleChanged()
     }
 
+    function getRules() {
+        var rules = []
+        for (var i = 0; i < rulesListModel.count; i++) {
+            var rule = rulesListModel.get(i).rule
+            rules.push(rule)
+        }
+        return rules
+    }
+
     ColumnLayout {
         anchors.fill: parent
         anchors.leftMargin: 11
@@ -184,6 +193,10 @@ ApplicationWindow {
                                 rulesListDelegateModel.items.move(
                                             drag.source.DelegateModel.itemsIndex,
                                             dragArea.DelegateModel.itemsIndex)
+                                rulesListModel.move(
+                                            drag.source.DelegateModel.itemsIndex,
+                                            dragArea.DelegateModel.itemsIndex,
+                                            1)
                                 ruleChanged()
                             }
                         }

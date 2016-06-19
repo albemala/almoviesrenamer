@@ -1,3 +1,4 @@
+from preferences import preferences
 from ui.renaming_rule_window_view import RenamingRuleWindowView
 
 
@@ -19,7 +20,10 @@ class RenamingRuleWindowController:
         self.__main_window.get_close_clicked_signal().connect(self.__close)
 
     def __rule_changed(self):
-        pass
+        rules = self.__main_window.get_rules()
+        print(rules)
+        # renaming_rule = ".".join(rules)
+        # preferences.set_renaming_rule(renaming_rule)
 
     def __remove_rule(self, index: int):
         self.__main_window.remove_rule(index)
@@ -31,7 +35,7 @@ class RenamingRuleWindowController:
         self.__main_window.add_rule("Title")
 
     def __add_original_title(self):
-        self.__main_window.add_rule("Original title")
+        self.__main_window.add_rule("OriginalTitle")
 
     def __add_year(self):
         self.__main_window.add_rule("Year")

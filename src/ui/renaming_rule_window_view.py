@@ -1,5 +1,6 @@
 from PyQt5.QtQml import QQmlApplicationEngine
 
+
 #
 # TODO:
 # - update example movie while changing rule
@@ -31,6 +32,9 @@ class RenamingRuleWindowView:
 
     def remove_all_rules(self):
         self.__get_root_window().removeAllRules()
+
+    def get_rules(self) -> list:
+        return self.__get_root_window().getRules().toVariant()
 
     def get_rule_changed_signal(self):
         return self.__get_root_window().ruleChanged
